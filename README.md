@@ -4,7 +4,7 @@
 
 ## Description
 
-Wrench it is a final year project aimed at [describe the goal/purpose of the project briefly]. This project integrates various technologies, including the MERN stack, Mapbox, JWT authentication, and React Native with Material UI or Bootstrap.
+This system is designed to offer immediate assistance to vehicle owners in the event of a breakdown. It seamlessly integrates navigation and reservation features, ensuring a seamless and stress-free experience for users. The mobile application conveniently directs you to the nearest repair centers with just a single click. Unlike alternative apps, our system prioritizes data security and ensures constant updates, providing you with the most reliable and up-to-date information for a safer and more efficient choice.
 
 ## Technologies Used
 
