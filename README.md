@@ -9,10 +9,10 @@ This system is designed to offer immediate assistance to vehicle owners in the e
 ## Technologies Used
 
 - **MERN Stack**: MongoDB, Express.js, React, Node.js
-- **Mapbox**: Used for [describe how Mapbox is used in your project]
-- **JWT Authentication**: Secure authentication mechanism used for [describe authentication process]
 - **React Native**: For developing the mobile application
-- **Material UI or Bootstrap**: Used for styling and user interface components
+- **Mapbox**: Used for providing navigation facilities
+- **JWT Authentication**: For secure authentication mechanisms
+- **Material UI**: Used for styling and user interface components
 
 ## Getting Started
 
@@ -28,14 +28,14 @@ This system is designed to offer immediate assistance to vehicle owners in the e
 git clone https://github.com/yourusername/wrench-it.git
 ```
 
-#### Move to the server directory, install server dependencies, and start the server
+#### Move to the server directory, install server dependencies
 
 ```bash
 cd wrench-it/server
 npm install
 ```
 
-#### Move to the web directory, install web app dependencies, and start the web app
+#### Move to the web directory, install web app dependencies
 
 ```bash
 cd ../web
@@ -47,10 +47,4 @@ npm install
 ```bash
 cd ../mobile
 npm install
-```
-
-#### Start the React Native Metro Bundler
-
-```bash
-npx react-native start
 ```
