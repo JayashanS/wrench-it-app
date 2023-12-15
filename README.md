@@ -14,16 +14,11 @@ This system is designed to offer immediate assistance to vehicle owners in the e
 - **React Native**: For developing the mobile application
 - **Material UI or Bootstrap**: Used for styling and user interface components
 
-## Features
-
-- [List key features or functionalities of your project]
-
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js and npm installed
-- MongoDB installed and running
+- Node.js installed
 
 ### Installation
 
@@ -31,43 +26,29 @@ This system is designed to offer immediate assistance to vehicle owners in the e
 git clone https://github.com/yourusername/wrench-it.git
 ```
 
-# Move to the server directory, install server dependencies, and start the server
+### Move to the server directory, install server dependencies, and start the server
 
 ```bash
 cd wrench-it/server
 npm install
-npm start &
 ```
 
-# Move to the web directory, install web app dependencies, and start the web app
+### Move to the web directory, install web app dependencies, and start the web app
 
 ```bash
 cd ../web
 npm install
-npm start &
 ```
 
-# Move to the mobile directory, install mobile app dependencies
+### Move to the mobile directory, install mobile app dependencies
 
 ```bash
 cd ../mobile
 npm install
 ```
 
-# Start the React Native Metro Bundler
+### Start the React Native Metro Bundler
 
 ```bash
-npx react-native start &
+npx react-native start
 ```
-
-# Run the mobile app
-
-````bash
-# For Android
-```bash
-npx react-native run-android
-
-# For iOS
-
-# npx react-native run-ios
-````
