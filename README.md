@@ -27,8 +27,6 @@ This system is designed to offer immediate assistance to vehicle owners in the e
 
 ### Installation
 
-# Clone the repository
-
 git clone https://github.com/yourusername/wrench-it.git
 
 # Move to the server directory, install server dependencies, and start the server
@@ -50,7 +48,7 @@ npm install
 
 # Start the React Native Metro Bundler
 
-npx react-native start
+npx react-native start &
 
 # Run the mobile app
 
