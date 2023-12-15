@@ -22,6 +22,8 @@ This system is designed to offer immediate assistance to vehicle owners in the e
 
 ### Installation
 
+#### Clone project repo locally
+
 ```bash
 git clone https://github.com/yourusername/wrench-it.git
 ```
@@ -33,21 +35,21 @@ cd wrench-it/server
 npm install
 ```
 
-### Move to the web directory, install web app dependencies, and start the web app
+#### Move to the web directory, install web app dependencies, and start the web app
 
 ```bash
 cd ../web
 npm install
 ```
 
-### Move to the mobile directory, install mobile app dependencies
+#### Move to the mobile directory, install mobile app dependencies
 
 ```bash
 cd ../mobile
 npm install
 ```
 
-### Start the React Native Metro Bundler
+#### Start the React Native Metro Bundler
 
 ```bash
 npx react-native start
