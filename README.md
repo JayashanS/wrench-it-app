@@ -27,6 +27,7 @@ This system is designed to offer immediate assistance to vehicle owners in the e
 
 ### Installation
 
+```bash
 git clone https://github.com/yourusername/wrench-it.git
 
 # Move to the server directory, install server dependencies, and start the server
@@ -59,3 +60,4 @@ npx react-native run-android
 # For iOS
 
 # npx react-native run-ios
+```
