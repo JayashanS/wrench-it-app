@@ -4,7 +4,7 @@
 
 ## Description
 
-This system is designed to offer immediate assistance to vehicle owners in the event of a breakdown. It seamlessly integrates navigation and reservation features, ensuring a seamless and stress-free experience for users. The mobile application conveniently directs you to the nearest repair centers with just a single click. Unlike alternative apps, our system prioritizes data security and ensures constant updates, providing you with the most reliable and up-to-date information for a safer and more efficient choice.
+This system is designed to offer immediate assistance to vehicle owners in the event of a breakdown. It seamlessly integrates navigation and reservation features, ensuring a seamless and stress-free experience for users. The mobile application conveniently directs you to the nearest repair centers with just a single click.
 
 ## Technologies Used
 
@@ -27,8 +27,37 @@ This system is designed to offer immediate assistance to vehicle owners in the e
 
 ### Installation
 
-1. **Clone the repository**
+# Clone the repository
 
-   ```bash
-   git clone https://github.com/yourusername/wrench-it.git
-   ```
+git clone https://github.com/yourusername/wrench-it.git
+
+# Move to the server directory, install server dependencies, and start the server
+
+cd wrench-it/server
+npm install
+npm start &
+
+# Move to the web directory, install web app dependencies, and start the web app
+
+cd ../web
+npm install
+npm start &
+
+# Move to the mobile directory, install mobile app dependencies
+
+cd ../mobile
+npm install
+
+# Start the React Native Metro Bundler
+
+npx react-native start
+
+# Run the mobile app
+
+# For Android
+
+npx react-native run-android
+
+# For iOS
+
+# npx react-native run-ios
