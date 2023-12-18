@@ -42,7 +42,7 @@ cd ../web
 npm install
 ```
 
-#### Move to the mobile directory, install mobile app dependencies
+#### Move to the mobile directory, then install mobile app dependencies
 
 ```bash
 cd ../mobile
