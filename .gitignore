@@ -1,0 +1,22 @@
+# Ignore Node.js/Express Backend
+server/node_modules
+server/.env # If using environment variables
+
+# Ignore React Web Frontend
+web/node_modules
+web/build
+web/.env # If using environment variables
+
+# Ignore React Native Mobile App
+mobile/node_modules
+mobile/android
+mobile/ios
+mobile/*.jks # Keystore files, if used for Android builds
+mobile/*.log*
+
+# General
+.DS_Store
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
