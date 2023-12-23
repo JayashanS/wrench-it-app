@@ -20,7 +20,7 @@ This system is designed to offer immediate assistance to vehicle owners in the e
 
 - Node.js installed
 
-### Installation & Contribution
+## Installation & Contribution
 #### 1. Fork the Repository
 Click on the “Fork” button at the top right of the repository page. This will create a copy of the project under your own GitHub account.
 #### 2. Clone the Forked Repository
