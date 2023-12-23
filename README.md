@@ -20,29 +20,32 @@ This system is designed to offer immediate assistance to vehicle owners in the e
 
 - Node.js installed
 
-### Installation
-
-#### Clone project repo locally
+## Installation & Contribution
+#### 1. Fork the Repository
+Click on the “Fork” button at the top right of the repository page. This will create a copy of the project under your own GitHub account.
+#### 2. Clone the Forked Repository
 
 ```bash
 git clone https://github.com/yourusername/wrench-it.git
 ```
+**Replace yourusername with your GitHub username.
 
-#### Move to the server directory, install server dependencies
+
+#### 3. Install server dependencies
 
 ```bash
 cd wrench-it/server
 npm install
 ```
 
-#### Move to the web directory, install web app dependencies
+#### 4. Install web app dependencies
 
 ```bash
 cd ../web
 npm install
 ```
 
-#### Move to the mobile directory, then install mobile app dependencies
+#### 5. Install mobile app dependencies
 
 ```bash
 cd ../mobile
