@@ -22,7 +22,7 @@ This system is designed to offer immediate assistance to vehicle owners in the e
 
 ### Installation & Contribution
 #### Fork the Repository
-##### Click on the “Fork” button at the top right of the repository page. This will create a copy of the project under your own GitHub account.
+Click on the “Fork” button at the top right of the repository page. This will create a copy of the project under your own GitHub account.
 #### Clone the Forked Repository
 
 ```bash
