@@ -1,6 +1,6 @@
 # Ignore Node.js/Express Backend
 server/node_modules
-server/.env # If using environment variables
+server/.env
 
 # Ignore React Web Frontend
 web/node_modules
