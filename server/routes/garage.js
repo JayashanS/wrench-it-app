@@ -1,8 +1,12 @@
-const express = require('express')
-const {createGarage} = require ('../controllers/garageController')
-const router = express.Router()
+const express = require("express");
+const {
+  createGarage,
+  getAllGarages,
+  deleteGarage,
+} = require("../controllers/garageController");
+const router = express.Router();
 
-
-router.post('/', createGarage)
-
-module.exports = router
+router.post("/", createGarage);
+router.get("/", getAllGarages);
+router.delete("/:id", deleteGarage);
+module.exports = router;
