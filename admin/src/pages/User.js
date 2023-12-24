@@ -29,7 +29,7 @@ const User = () => {
   const handleDelete = async (garageId) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/garage/${garageId}`,
+        `http://localhost:4000/api/garage//${garageId}`,
         {
           method: "DELETE",
         }
