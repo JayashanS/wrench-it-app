@@ -1,3 +1,5 @@
+.env
+
 # Ignore Node.js/Express Backend
 server/node_modules
 server/.env
