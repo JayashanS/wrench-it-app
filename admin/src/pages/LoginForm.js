@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Box, TextField, Button, Typography, Paper, Grid } from "@mui/material";
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // Logic for handling login
-    console.log(`Username: ${username}, Password: ${password}`);
+  const handleLoginClick = () => {
+    // Simulate login by updating state
+    onLogin(); // Trigger the login action passed from the parent component
   };
 
   return (
@@ -16,14 +16,15 @@ const LoginForm = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh",
+        minHeight: "100vh", // Full height of the viewport
+        backgroundColor: "#f0f0f0", // Background color for illustration
       }}
     >
-      <Paper elevation={3} sx={{ padding: 4, borderRadius: 4 }}>
+      <Paper elevation={3} sx={{ padding: 4, borderRadius: 4, width: "50%" }}>
         <Typography variant="h5" gutterBottom align="center">
           Login
         </Typography>
-        <form onSubmit={handleLogin}>
+        <form>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -48,11 +49,12 @@ const LoginForm = () => {
             </Grid>
             <Grid item xs={12}>
               <Button
-                type="submit"
+                type="button"
                 variant="contained"
                 color="primary"
                 fullWidth
                 sx={{ borderRadius: 2 }}
+                onClick={handleLoginClick} // Update state on button click
               >
                 Login
               </Button>
