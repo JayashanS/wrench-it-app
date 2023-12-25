@@ -15,6 +15,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom"; // Import Link component
 
 export default function TemporaryDrawer() {
+  const [selectedPath, setSelectedPath] = React.useState("/"); // Track selected path
+
   return (
     <Box sx={{ display: "flex" }}>
       <Drawer
@@ -33,14 +35,22 @@ export default function TemporaryDrawer() {
         </Box>
         <List>
           {[
-            { text: "Dashboard", icon: <DashboardIcon />, path: "/" }, // Define path for Dashboard
-            { text: "Garages", icon: <BusinessIcon />, path: "/garages" }, // Define path for Garages
-            { text: "Drivers", icon: <PeopleAltIcon />, path: "/drivers" }, // Define path for Drivers
+            { text: "Dashboard", icon: <DashboardIcon />, path: "/" },
+            { text: "Garages", icon: <BusinessIcon />, path: "/garages" },
+            { text: "Drivers", icon: <PeopleAltIcon />, path: "/drivers" },
           ].map((item, index) => (
-            <ListItem key={index} disablePadding>
-              <ListItemButton component={Link} to={item.path}>
+            <ListItem
+              key={index}
+              disablePadding
+              selected={item.path === selectedPath} // Apply selected styling
+              sx={{ "&:hover": { backgroundColor: "inherit" } }} // Remove hover effect
+            >
+              <ListItemButton
+                component={Link}
+                to={item.path}
+                onClick={() => setSelectedPath(item.path)} // Update selected path
+              >
                 {" "}
-                {/* Use Link component */}
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.text} />
               </ListItemButton>
@@ -54,7 +64,6 @@ export default function TemporaryDrawer() {
               <ListItem key={index} disablePadding>
                 <ListItemButton component={Link} to={item.path}>
                   {" "}
-                  {/* Use Link component */}
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
                 </ListItemButton>

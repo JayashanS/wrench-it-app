@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const Garages = () => {
+const GaragesTable = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -41,23 +41,23 @@ const Garages = () => {
     }
   };
 
-  const darkTheme = createTheme({
+  const lightTheme = createTheme({
     palette: {
-      mode: "dark",
+      mode: "light",
       primary: {
-        main: "#4e03fc",
-        contrastText: "#fff",
+        main: "#007bff", // Light blue primary color
+        contrastText: "#6e7278",
       },
       secondary: {
-        main: "#57a8b5",
+        main: "#6699ff", // Lighter blue for accents
         contrastText: "#fff",
       },
       background: {
-        paper: "#060321",
+        paper: "#fffffff", // Light gray background
       },
       text: {
-        primary: "#05e0e8",
-        secondary: "#a9b4c0",
+        primary: "#333", // Darker text for contrast
+        secondary: "#666", // Slightly lighter text
       },
     },
   });
@@ -72,32 +72,52 @@ const Garages = () => {
     });
   };
 
+  const centeredCellStyle = {
+    borderBottom: `1px solid ${lightTheme.palette.secondary.main}`,
+    color: lightTheme.palette.primary.main,
+    textAlign: "center",
+  };
+
+  const centeredCellStyleBody = {
+    borderBottom: `1px solid ${lightTheme.palette.secondary.main}`,
+    color: lightTheme.palette.primary.contrastText,
+    textAlign: "center",
+  };
+
   return (
-    <ThemeProvider theme={darkTheme}>
-      <Paper>
+    <ThemeProvider theme={lightTheme}>
+      <Paper elevation={0}>
         <Table stickyHeader sx={{ minWidth: 650 }} size="small">
           <TableHead>
-            <TableRow sx={{ justifyContent: "center" }}>
-              <TableCell></TableCell>
-              <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Address</TableCell>
-              <TableCell>Owner</TableCell>
-              <TableCell>No. of Workers</TableCell>
-              <TableCell />
-              <TableCell />
+            <TableRow>
+              <TableCell sx={centeredCellStyle}></TableCell>
+              <TableCell sx={centeredCellStyle}>ID</TableCell>
+              <TableCell sx={centeredCellStyle}>Name</TableCell>
+              <TableCell sx={centeredCellStyle}>Address</TableCell>
+              <TableCell sx={centeredCellStyle}>Owner</TableCell>
+              <TableCell sx={centeredCellStyle}>No. of Workers</TableCell>
+              <TableCell sx={centeredCellStyle} />
+              <TableCell sx={centeredCellStyle} />
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map((item) => (
-              <TableRow key={item._id} sx={{ justifyContent: "center" }}>
-                <TableCell></TableCell>
-                <TableCell>{item.garageId}</TableCell>
-                <TableCell>{item.repairCenterName}</TableCell>
-                <TableCell>{item.address}</TableCell>
-                <TableCell>{item.ownerName}</TableCell>
-                <TableCell>{item.numOfWorkers}</TableCell>
-                <TableCell>
+              <TableRow key={item._id}>
+                <TableCell sx={centeredCellStyle}></TableCell>
+                <TableCell sx={centeredCellStyleBody}>
+                  {item.garageId}
+                </TableCell>
+                <TableCell sx={centeredCellStyleBody}>
+                  {item.repairCenterName}
+                </TableCell>
+                <TableCell sx={centeredCellStyleBody}>{item.address}</TableCell>
+                <TableCell sx={centeredCellStyleBody}>
+                  {item.ownerName}
+                </TableCell>
+                <TableCell sx={centeredCellStyleBody}>
+                  {item.numOfWorkers}
+                </TableCell>
+                <TableCell sx={{ ...centeredCellStyle }}>
                   <Button
                     variant="outlined"
                     color="primary"
@@ -107,7 +127,7 @@ const Garages = () => {
                     View
                   </Button>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ ...centeredCellStyle }}>
                   <Button
                     variant="outlined"
                     color="error"
@@ -125,4 +145,4 @@ const Garages = () => {
   );
 };
 
-export default Garages;
+export default GaragesTable;

@@ -2,7 +2,7 @@ import * as React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DDrawer from "./components/Drawer";
 import Dashboard from "./components/Dashboard";
-import Garages from "./components/Garages";
+import GaragesTable from "./components/GaragesTable";
 import Drivers from "./components/Drivers";
 import Logout from "./components/Logout";
 import Box from "@mui/material/Box";
@@ -14,7 +14,7 @@ const App = () => {
         <DDrawer />
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/garages" element={<Garages />} />
+          <Route path="/garages" element={<GaragesTable />} />
           <Route path="drivers" element={<Drivers />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>
