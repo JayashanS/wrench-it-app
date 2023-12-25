@@ -1,15 +1,26 @@
-import "./App.css";
-import Dashboard from "./components/Dashboard.js";
-import User from "./components/User.js";
-import Appbar from "./components/Appbar.js";
-import Drawer from "./components/Drawer.js";
+import * as React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DDrawer from "./components/Drawer";
+import Dashboard from "./components/Dashboard";
+import Garages from "./components/Garages";
+import Drivers from "./components/Drivers";
+import Logout from "./components/Logout";
+import Box from "@mui/material/Box";
 
-function App() {
+const App = () => {
   return (
-    <>
-      <Dashboard />
-    </>
+    <Router>
+      <Box sx={{ display: "flex" }}>
+        <DDrawer />
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/garages" element={<Garages />} />
+          <Route path="drivers" element={<Drivers />} />
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
+      </Box>
+    </Router>
   );
-}
+};
 
 export default App;
