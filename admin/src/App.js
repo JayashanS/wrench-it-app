@@ -1,12 +1,13 @@
 import "./App.css";
 import Dashboard from "./components/Dashboard.js";
-import User from "./pages/User.js";
+import User from "./components/User.js";
 import Appbar from "./components/Appbar.js";
+import Drawer from "./components/Drawer.js";
+
 function App() {
   return (
     <>
-      <Appbar></Appbar>
-      <User></User>
+      <Dashboard />
     </>
   );
 }

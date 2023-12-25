@@ -74,7 +74,7 @@ const User = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Paper>
-        <Table stickyHeader sx={{ minWidth: 650 }}>
+        <Table stickyHeader sx={{ minWidth: 650 }} size="small">
           <TableHead>
             <TableRow sx={{ justifyContent: "center" }}>
               <TableCell></TableCell>
