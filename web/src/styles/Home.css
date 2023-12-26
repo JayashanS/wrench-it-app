@@ -1,0 +1,61 @@
+/* Basic Reset */
+body, h1, h2, p, button {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  /* Hero Area */
+  .hero {
+    background-color: #f2f2f2;
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  .hero p {
+    font-size: 1.1em;
+  }
+  
+  /* Features Section */
+  .features {
+    display: flex;
+    justify-content: space-around;
+    padding: 60px 20px;
+    background-color: #fff;
+  }
+  
+  .feature-tile {
+    width: 45%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  .feature-tile h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+  
+  /* About Us Section */
+  .about-us {
+    background-color: #f2f2f2;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .about-us h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  .about-us p {
+    font-size: 1.1em;
+  }
+  
