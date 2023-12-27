@@ -1,0 +1,73 @@
+/* Cards.css */
+
+.cards-wrapper {
+    display: flex;
+    justify-content: space-between;
+    
+    height: 150vh;
+  }
+  
+  .card-1 {
+    width: 40%; /* Each card takes up 50% with 10px spacing in between */
+    height: 110vh; /* 70% of screen height */
+    border: 0px solid #ccc; /* Grey outline */
+    border-radius: 2%;
+    box-shadow: 2px 2px 10px #5b4cdda7; /* Small shadow */
+    display: flex;
+    flex-direction: column;
+    margin:40px;
+    margin-top:100px;
+    margin-left:150px;
+  }
+  
+  .card-2 {
+    width: 40%; /* Each card takes up 50% with 10px spacing in between */
+    height: 110vh; /* 70% of screen height */
+    border: 0px solid #ccc; /* Grey outline */
+    border-radius: 2%;
+    box-shadow: 2px 2px 10px #5b4cdda7; /* Small shadow */
+    display: flex;
+    flex-direction: column;
+    margin:40px;
+    margin-top:100px;
+    margin-right:150px;
+  }
+
+  .card-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .card-description {
+    padding: 10px;
+  }
+  
+  .card-button {
+    align-self: center;
+    padding: 8px 16px;
+    margin-top: 10px;
+    background-color: #164863;
+    color: #00ddff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:20px;
+  }
+  
+  .card-button:hover {
+    background-color: #00ddff;
+    color:#164863;
+  }
+   .title{
+    margin: 10px;
+    text-align: center;
+    color:#164863;
+
+   }
+   .body{
+    margin: 20px;
+    text-align: left;
+    color:#427D9D;
+   }
+
+   

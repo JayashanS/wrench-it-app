@@ -15,7 +15,7 @@ function Navbar() {
         <a href="/" className="navbar-logo">
           <img src={Image} alt="Logo" className="navbar-logo" />
         </a>
-        <span className="navbar-company-name">Company Name</span>
+        <span className="navbar-company-name">Wrench it</span>
         <div className="navbar-links-container">
           <div
             className={`navbar-link-box ${
