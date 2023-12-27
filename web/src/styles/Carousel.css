@@ -1,0 +1,37 @@
+.c-item{
+  height: 700px;
+
+}
+
+.c-img{
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+}
+
+.c-text-head-1{
+  
+
+}
+
+.c-text-head-2{
+  text-align: left;
+  font-weight: 100;
+
+}
+
+.c-text-head-3{
+
+
+
+}
+
+.c-text-body{
+  color: #00ddff;
+
+}
+.c-text-body-3{
+  text-align: justify;
+  font-weight: 100;
+
+}
