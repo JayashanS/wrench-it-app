@@ -1,37 +1,75 @@
-.drawer-container {
-    position: relative;
-  }
+.vertical-rectangle {
+  width: 12%; /* Set the width of the rectangle */
+  height: 100vh; /* Set the height of the rectangle */
+  flex-direction: column;
+  background-color: #f0f0f0;
+}
+
+.section {
+  flex: 1;
+  transition: background-color 0.1s; /* Smooth color transition on hover */
+  height: 40px;
+  margin-top: 10px;
+}
+
+.profile{
+  background-color: #f0f0f0;
+  height: 100px;
+
+}
+
+.cover-photo{
+  padding-top: 20px;
+  padding-left: 60px;
+  align-items: center;
+  height: 50px;
+}
+
+.photo{
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background-color: black;
+  border: 2px solid #ccc;
+}
+.section-1 {
+  background-color: #f0f0f0;
   
-  .drawer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background-color: #f0f0f0;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(-100%);
-  }
+}
+
+.section-2 {
+  background-color: #f0f0f0;
+}
+
+.section-3 {
+  background-color: #f0f0f0;
+}
+
+
+.section:hover {
+  background-color: #DEF2FD;
   
-  .drawer.open {
-    transform: translateX(0);
-  }
   
-  .drawer-toggle {
-    /* Style the toggle button as needed */
-  }
-  
-  .drawer-nav {
-    list-style: none;
-    padding: 20px;
-  }
-  
-  .drawer-nav li {
-    margin-bottom: 10px;
-  }
-  
-  .drawer-nav a {
-    text-decoration: none;
-    color: #333;
-  }
-  
+}
+
+.list-item-container {
+  display: flex;
+  align-items: center;
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+.icon {
+  margin-right: 10px; 
+  margin-left: 15px;
+}
+
+.list-item{
+  font-family: 'Roboto', sans-serif;
+  color: #a1a7a2;
+ 
+  font-weight: 50;
+
+
+
+}

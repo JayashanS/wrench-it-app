@@ -1,4 +1,5 @@
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Carousel from "./components/Carousel";
@@ -8,15 +9,12 @@ import Drawer from "./components/Drawer";
 
 function App() {
   return (
-    <div>
-      <div className="navbar-wrapper">
-        <Navbar />
-      </div>
-      <Carousel />
-      <Cards />
-
-      <Signup />
-    </div>
+    <Router>
+      <Drawer />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
 
