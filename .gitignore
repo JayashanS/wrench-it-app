@@ -7,7 +7,7 @@ server/.env
 # Ignore React Web Frontend
 web/node_modules
 web/build
-web/.env # If using environment variables
+web/.env.development
 
 # Ignore React Native Mobile App
 mobile/node_modules
