@@ -28,7 +28,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "cross-env REACT_APP_MAPBOX_TOKEN=pk.eyJ1IjoiaGltYW50aGExMTY4MSIsImEiOiJjbHFzOTNpOW8xcm9pMnFzYjlkZDM2NjNuIn0.dfqTn4zFadOj8Vzw-JwpYg react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
