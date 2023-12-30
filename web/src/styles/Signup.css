@@ -4,7 +4,7 @@
     border: 0px solid #ccc; 
     border-radius: 1%;
     box-shadow: 2px 2px 10px #5b4cdda7; 
-    display: flex;
+    display: flex; 
     flex-direction: column;
     margin: 0 auto;
     margin-top: 100px;
