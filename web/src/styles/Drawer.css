@@ -4,6 +4,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  background-color: #0c091f;
 }
 .drawer-wrapper {
   
@@ -16,7 +17,7 @@
   width: 12%;
   height: 100vh;
   flex-direction: column;
-  background-color: #f0f0f0;
+  background-color: #1a1c38;
   position: fixed;
 }
 
@@ -33,7 +34,7 @@
 }
 
 .profile{
-  background-color: #f0f0f0;
+  background-color: #1a1c38;
   height: 100px;
 
 }
@@ -53,7 +54,7 @@
   border: 2px solid #ccc;
 }
 .section-1 {
-  background-color: #f0f0f0;
+  background-color: #822525;
   
 }
 
@@ -86,7 +87,7 @@
 
 .list-item{
   font-family: 'Roboto', sans-serif;
-  color: #a1a7a2;
+  color: #ffffff;
  
   font-weight: 50;
 

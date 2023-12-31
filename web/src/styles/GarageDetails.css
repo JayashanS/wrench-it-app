@@ -1,7 +1,7 @@
   .container{
     width: 100%; 
     height: 100%; 
-    border: 1px solid #7007e7; 
+    border: 0px solid #7007e7; 
     border-radius: 10px;
     display: flex;
     flex-direction: row;
@@ -9,36 +9,40 @@
     margin-top: 0px;
     font-size: 10;
     box-shadow: none;
+    color: #64CCC5;
+    
 
   }
   .container-left{
     width: 30%; 
     height: 100%; 
-    border-right: 1px solid #7007e7; 
+    border-right: 0px solid #7007e7; 
     border-radius: 0px;
     display: flex;
     flex-direction: column;
     font-size: 10;
+    margin-left: 20px;
+    
   }
   .container-middle{
     width: 30%; 
     height: 100%; 
-    border-right: 1px solid #7007e7; 
+    border-right: 0px solid #7007e7; 
     border-radius: 0px;
     display: flex;
     flex-direction: column;
-    margin-left: 50px;
+    margin-left: 20px;
     font-size: 10;
   }
 
   .container-right{
     width: 30%; 
     height: 100%; 
-    border-right: 1px solid #7007e7; 
+    border-right: 0px solid #7007e7; 
     border-radius: 0px;
     display: flex;
     flex-direction: column;
-    margin-left: 50px;
+    margin-left: 20px;
     font-size: 10;
   }
   .box-1 {
@@ -48,7 +52,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    
+    background-color: #1a1c38;
     font-family: Roboto;
     font-size: 10;
   }
@@ -57,7 +61,7 @@
     margin-left: 40px;
     margin-top: 10px;
     padding: 0;
-    color: #100bae;
+    color: #64CCC5;
     
   }
   
@@ -73,10 +77,10 @@
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
-    color: #0d00ff;
+    color: #ffffff;
     margin-bottom: 30px;
     border: none;
-    border-bottom: 1px solid #0007ca;
+    border-bottom: 1px solid #64CCC5;
     outline: none;
     background: transparent;
   }
@@ -86,7 +90,7 @@
     left: 0;
     padding: 10px 0;
     font-size: 16px;
-    color: #888181;
+    color: #ffffff91;
     pointer-events: none;
     transition: .5s;
   }
@@ -98,7 +102,7 @@
 .password-label.focused {
   top: -20px;
   left: 0;
-  color: #025c98;
+  color: #64CCC5;
   font-size: 12px;
 }
 
@@ -138,6 +142,7 @@
     height: 100vh; 
     border: 0px solid #8902ff; 
     border-radius: 10px;
+    background-color: #1a1c38;
     display: flex;
     flex-direction: column;
     font-family: Roboto;
@@ -145,17 +150,17 @@
   }
 
   .box-2 h5 {
-    margin-left: 25px;
+    margin-left: 40px;
     margin-top: 10px;
     padding: 0;
-    color: #100bae;
+    color: #64CCC5;
     
   }
   
   .box-2 .user-box {
     position: relative;
     margin-top: 0px;
-    margin-left: 25px;
+    margin-left: 40px;
     width: 60%;
   }
   
@@ -163,10 +168,10 @@
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
-    color: #0d00ff;
+    color: #ffffff;
     margin-bottom: 30px;
     border: none;
-    border-bottom: 1px solid #0007ca;
+    border-bottom: 1px solid #64CCC5;
     outline: none;
     background: transparent;
   }
@@ -289,7 +294,7 @@
 
   .check-label{
     padding: 10px;
-    color:#888181;
+    color:#ffffff;
   }
 
   .check-group{

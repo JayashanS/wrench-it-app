@@ -451,7 +451,6 @@ const GarageDetails = () => {
           </div>
         </form>
       </div>
-      <button>Submit</button>
     </div>
   );
 };

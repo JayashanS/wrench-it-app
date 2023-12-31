@@ -31,7 +31,7 @@ function Drawer() {
           className="section section-1"
           style={{
             backgroundColor:
-              selectedLink === "/dashboard/form" ? "#DEF2FD" : "#f0f0f0",
+              selectedLink === "/dashboard/form" ? "#0c091f" : "#1a1c38",
             paddingLeft: "10px",
           }}
         >
@@ -47,60 +47,62 @@ function Drawer() {
             }}
             onClick={() => handleLinkClick("/dashboard/form")}
           >
-            <DashboardIcon style={{ color: "#b8bfba", marginRight: "10px" }} />
+            <DashboardIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
             <span className="list-item">Dashboard</span>
           </Link>
         </div>
         <div
           className="section section-1"
           style={{
-            backgroundColor: selectedLink === "/stat" ? "#DEF2FD" : "#f0f0f0",
+            backgroundColor:
+              selectedLink === "/dashboard/stat" ? "#0c091f" : "#1a1c38",
             paddingLeft: "10px",
           }}
         >
           <Link
-            to="/stat"
+            to="/dashboard/stat"
             style={{
-              color: selectedLink === "/stat" ? "#fff" : "#868e96",
+              color: selectedLink === "/dashboard/stat" ? "#fff" : "#868e96",
               textDecoration: "none",
               display: "flex",
 
               alignItems: "center",
               height: "100%",
             }}
-            onClick={() => handleLinkClick("/stat")}
+            onClick={() => handleLinkClick("/dashboard/stat")}
           >
-            <QueryStatsIcon style={{ color: "#b8bfba", marginRight: "10px" }} />
+            <QueryStatsIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
             <span className="list-item">Statistics</span>
           </Link>
         </div>
         <div
           className="section section-1"
           style={{
-            backgroundColor: selectedLink === "/" ? "#DEF2FD" : "#f0f0f0",
+            backgroundColor:
+              selectedLink === "/dashboard/res" ? "#0c091f" : "#1a1c38",
             paddingLeft: "10px",
           }}
         >
           <Link
-            to="/"
+            to="/dashboard/res"
             style={{
-              color: selectedLink === "/" ? "#fff" : "#868e96",
+              color: selectedLink === "/dashboard/res" ? "#fff" : "#868e96",
               textDecoration: "none",
               display: "flex",
 
               alignItems: "center",
               height: "100%",
             }}
-            onClick={() => handleLinkClick("/")}
+            onClick={() => handleLinkClick("/dashboard/res")}
           >
-            <EventIcon style={{ color: "#b8bfba", marginRight: "10px" }} />
+            <EventIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
             <span className="list-item">Reservations</span>
           </Link>
         </div>
         <div
           className="section section-1"
           style={{
-            backgroundColor: selectedLink === "/" ? "#DEF2FD" : "#f0f0f0",
+            backgroundColor: selectedLink === "/" ? "#0c091f" : "#1a1c38",
             paddingLeft: "10px",
           }}
         >
@@ -116,7 +118,7 @@ function Drawer() {
             }}
             onClick={() => handleLinkClick("/")}
           >
-            <AddBoxIcon style={{ color: "#b8bfba", marginRight: "10px" }} />
+            <AddBoxIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
             <span className="list-item">Advertise</span>
           </Link>
         </div>
@@ -124,7 +126,7 @@ function Drawer() {
         <div
           className="section section-1"
           style={{
-            backgroundColor: selectedLink === "/" ? "#DEF2FD" : "#f0f0f0",
+            backgroundColor: selectedLink === "/" ? "#0c091f" : "#1a1c38",
             paddingLeft: "10px",
           }}
         >
@@ -141,7 +143,7 @@ function Drawer() {
             onClick={() => handleLinkClick("/")}
           >
             <HelpOutlineIcon
-              style={{ color: "#b8bfba", marginRight: "10px" }}
+              style={{ color: "#64CCC5", marginRight: "10px" }}
             />
             <span className="list-item">Help</span>
           </Link>
@@ -149,7 +151,7 @@ function Drawer() {
         <div
           className="section section-1"
           style={{
-            backgroundColor: selectedLink === "/" ? "#DEF2FD" : "#f0f0f0",
+            backgroundColor: selectedLink === "/" ? "#0c091f" : "#1a1c38",
             paddingLeft: "10px",
           }}
         >
@@ -166,7 +168,7 @@ function Drawer() {
             onClick={() => handleLinkClick("/")}
           >
             <ContactMailIcon
-              style={{ color: "#b8bfba", marginRight: "10px" }}
+              style={{ color: "#64CCC5", marginRight: "10px" }}
             />
             <span className="list-item">Feedback</span>
           </Link>
@@ -174,23 +176,25 @@ function Drawer() {
         <div
           className="section section-1"
           style={{
-            backgroundColor: selectedLink === "/" ? "#DEF2FD" : "#f0f0f0",
+            backgroundColor:
+              selectedLink === "/dashboard/settings" ? "#0c091f" : "#1a1c38",
             paddingLeft: "10px",
           }}
         >
           <Link
-            to="/"
+            to="/dashboard/settings"
             style={{
-              color: selectedLink === "/" ? "#fff" : "#868e96",
+              color:
+                selectedLink === "/dashboard/settings" ? "#fff" : "#868e96",
               textDecoration: "none",
               display: "flex",
 
               alignItems: "center",
               height: "100%",
             }}
-            onClick={() => handleLinkClick("/")}
+            onClick={() => handleLinkClick("/dashboard/settings")}
           >
-            <SettingsIcon style={{ color: "#b8bfba", marginRight: "10px" }} />
+            <SettingsIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
             <span className="list-item">Settings</span>
           </Link>
         </div>
@@ -198,7 +202,7 @@ function Drawer() {
         <div
           className="section section-1"
           style={{
-            backgroundColor: selectedLink === "/" ? "#DEF2FD" : "#f0f0f0",
+            backgroundColor: selectedLink === "/" ? "#0c091f" : "#1a1c38",
             paddingLeft: "10px",
           }}
         >
@@ -214,7 +218,7 @@ function Drawer() {
             }}
             onClick={() => handleLinkClick("/")}
           >
-            <LogoutIcon style={{ color: "#b8bfba", marginRight: "10px" }} />
+            <LogoutIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
             <span className="list-item">Logout</span>
           </Link>
         </div>
