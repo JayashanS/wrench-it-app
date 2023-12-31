@@ -1,12 +1,12 @@
   .container{
     width: 100%; 
     height: 100%; 
-    border: 0px solid #e70707; 
+    border: 1px solid #7007e7; 
     border-radius: 10px;
     display: flex;
     flex-direction: row;
-    margin-left: 50px;
-    margin-top: 50px;
+    margin-left: 150px;
+    margin-top: 0px;
     font-size: 10;
     box-shadow: none;
 
@@ -14,17 +14,17 @@
   .container-left{
     width: 30%; 
     height: 100%; 
-    border: 0px solid #d2c1e0; 
-    border-radius: 10px;
+    border-right: 1px solid #7007e7; 
+    border-radius: 0px;
     display: flex;
     flex-direction: column;
     font-size: 10;
   }
   .container-middle{
-    width: 60%; 
-    height: 150vh; 
-    border: 1px solid #8902ff; 
-    border-radius: 10px;
+    width: 30%; 
+    height: 100%; 
+    border-right: 1px solid #7007e7; 
+    border-radius: 0px;
     display: flex;
     flex-direction: column;
     margin-left: 50px;
@@ -34,8 +34,8 @@
   .container-right{
     width: 30%; 
     height: 100%; 
-    border: 1px solid #d2c1e0; 
-    border-radius: 10px;
+    border-right: 1px solid #7007e7; 
+    border-radius: 0px;
     display: flex;
     flex-direction: column;
     margin-left: 50px;
@@ -43,8 +43,8 @@
   }
   .box-1 {
     width: 100%; 
-    height: 50vh; 
-    border: 1px solid #8902ff; 
+    height: 100vh; 
+    border: 0px solid #8902ff; 
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -135,10 +135,9 @@
 
   .box-2 {
     width: 100%; 
-    height: 40vh; 
-    border: 1px solid #8902ff; 
+    height: 100vh; 
+    border: 0px solid #8902ff; 
     border-radius: 10px;
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
     font-family: Roboto;
@@ -281,3 +280,20 @@
     transition: .5s;
   }
   
+  .check-box{
+    margin-top: 0px;
+    margin-left: 40px;
+    width: 80%;
+    
+  }
+
+  .check-label{
+    padding: 10px;
+    color:#888181;
+  }
+
+  .check-group{
+    width: 5vw;
+    margin: 40px;
+    
+  }

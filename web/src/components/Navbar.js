@@ -1,46 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
+import { NavLink } from "react-router-dom";
 import "../styles/Navbar.css"; // Import the CSS file
 import Image from "../assets/logo.png";
 
 function Navbar() {
-  const [activePage, setActivePage] = useState(null);
-
-  const handleClickPage = (page) => {
-    setActivePage(page);
-  };
-
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <a href="/" className="navbar-logo">
+        <NavLink exact to="/" className="navbar-logo">
           <img src={Image} alt="Logo" className="navbar-logo" />
-        </a>
+        </NavLink>
         <span className="navbar-company-name">Wrench it</span>
         <div className="navbar-links-container">
-          <div
-            className={`navbar-link-box ${
-              activePage === "home" ? "active" : ""
-            }`}
-            onClick={() => handleClickPage("home")}
+          <NavLink
+            exact
+            to="/"
+            className="navbar-link-box"
+            activeClassName="active"
+            style={{ textDecoration: "none" }}
           >
             Home
-          </div>
-          <div
-            className={`navbar-link-box ${
-              activePage === "products" ? "active" : ""
-            }`}
-            onClick={() => handleClickPage("products")}
+          </NavLink>
+          <NavLink
+            to="/products"
+            className="navbar-link-box"
+            activeClassName="active"
+            style={{ textDecoration: "none" }}
           >
             Products
-          </div>
-          <div
-            className={`navbar-link-box ${
-              activePage === "aboutus" ? "active" : ""
-            }`}
-            onClick={() => handleClickPage("aboutus")}
+          </NavLink>
+          <NavLink
+            to="/dashboard"
+            className="navbar-link-box"
+            activeClassName="active"
+            style={{ textDecoration: "none" }}
           >
-            About Us
-          </div>
+            Dashboard
+          </NavLink>
         </div>
       </div>
       <div className="navbar-right">

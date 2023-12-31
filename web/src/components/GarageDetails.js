@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
-import mapboxgl from "mapbox-gl";
-import axios from "axios";
 import "../styles/GarageDetails.css";
-import "mapbox-gl/dist/mapbox-gl.css";
 
 const GarageDetails = () => {
   // label state handeling code
@@ -16,6 +12,18 @@ const GarageDetails = () => {
 
   const [ownerNIC, setOwnerNIC] = useState("");
   const [ownerNICFocus, setOwnerNICFocus] = useState(false);
+
+  const [address_1, setAddress_1] = useState("");
+  const [address_1Focus, setAddress_1Focus] = useState(false);
+
+  const [address_2, setAddress_2] = useState("");
+  const [address_2Focus, setAddress_2Focus] = useState(false);
+
+  const [address_3, setAddress_3] = useState("");
+  const [address_3Focus, setAddress_3Focus] = useState(false);
+
+  const [address_4, setAddress_4] = useState("");
+  const [address_4Focus, setAddress_4Focus] = useState(false);
 
   const [numOfWorkers, setNumOfWorkers] = useState("");
   const [numOfWorkersFocus, setNumOfWorkersFocus] = useState(false);
@@ -32,32 +40,24 @@ const GarageDetails = () => {
     setOwnerNIC(e.target.value);
   };
 
-  const handleNumOfWorkersChange = (e) => {
-    setNumOfWorkers(e.target.value);
+  const handleAddress_1Change = (e) => {
+    setAddress_1(e.target.value);
   };
 
-  // map rendering code
+  const handleAddress_2Change = (e) => {
+    setAddress_2(e.target.value);
+  };
 
-  const [address, setAddress] = useState("");
-  const [coordinates, setCoordinates] = useState({ longitude: 0, latitude: 0 });
+  const handleAddress_3Change = (e) => {
+    setAddress_3(e.target.value);
+  };
 
-  const handleAddressSubmit = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-          address
-        )}.json?access_token=pk.eyJ1IjoiaGltYW50aGExMTY4MSIsImEiOiJjbHFxaXZwbng0ZG50Mmp0azA3Z20zNDZvIn0.mAbxfN00rmOxhwVCBrsUUQ`
-      );
+  const handleAddress_4Change = (e) => {
+    setAddress_4(e.target.value);
+  };
 
-      // Extract latitude and longitude from the API response
-      const { features } = response.data;
-      if (features && features.length > 0) {
-        const [longitude, latitude] = features[0].center;
-        setCoordinates({ longitude, latitude });
-      }
-    } catch (error) {
-      console.error("Error fetching coordinates: ", error);
-    }
+  const handleNumOfWorkersChange = (e) => {
+    setNumOfWorkers(e.target.value);
   };
 
   return (
@@ -65,6 +65,7 @@ const GarageDetails = () => {
       <div className="container-left">
         <div className="box-1">
           <h5>Service Center Details</h5>
+          <br />
           <form>
             <div className="user-box">
               <input
@@ -78,9 +79,7 @@ const GarageDetails = () => {
                 onMouseLeave={() => setRepairCenterNameFocus(false)}
               />
               <label
-                className={`username-label ${
-                  repairCenterNameFocus ? "focused" : ""
-                }`}
+                className={`username-label ${address_1Focus ? "focused" : ""}`}
               >
                 Repair Center Name
               </label>
@@ -122,7 +121,7 @@ const GarageDetails = () => {
             </div>
             <div className="user-box">
               <input
-                type="text"
+                type="number"
                 name="numOfWorkers"
                 placeholder=""
                 defaultValue={numOfWorkers}
@@ -139,66 +138,320 @@ const GarageDetails = () => {
                 Number Of Workers
               </label>
             </div>
-          </form>
-        </div>
-        <div className="box-2">
-          <h5>Opening Hours</h5>
-          <form>
+            <br />
+            <h5>Address</h5>
+            <br />
             <div className="user-box">
-              From:
-              <input type="time" name="from" />
+              <input
+                type="text"
+                name="address_1"
+                placeholder=""
+                defaultValue={address_1}
+                required
+                onChange={handleAddress_1Change}
+                onMouseEnter={() => setAddress_1Focus(true)}
+                onMouseLeave={() => setAddress_1Focus(false)}
+              />
+              <label
+                className={`username-label ${address_1Focus ? "focused" : ""}`}
+              >
+                Street Address
+              </label>
             </div>
             <div className="user-box">
-              To:
-              <input type="time" name="to" />
+              <input
+                type="text"
+                name="address_2"
+                placeholder=""
+                defaultValue={address_2}
+                required
+                onChange={handleAddress_2Change}
+                onMouseEnter={() => setAddress_2Focus(true)}
+                onMouseLeave={() => setAddress_2Focus(false)}
+              />
+              <label
+                className={`username-label ${address_2Focus ? "focused" : ""}`}
+              >
+                City or Locality
+              </label>
+            </div>
+            <div className="user-box">
+              <input
+                type="text"
+                name="address_3"
+                placeholder=""
+                defaultValue={address_3}
+                required
+                onChange={handleAddress_3Change}
+                onMouseEnter={() => setAddress_3Focus(true)}
+                onMouseLeave={() => setAddress_3Focus(false)}
+              />
+              <label
+                className={`username-label ${address_3Focus ? "focused" : ""}`}
+              >
+                State
+              </label>
+            </div>
+            <div className="user-box">
+              <input
+                type="number"
+                name="address_4"
+                placeholder=""
+                defaultValue={address_4}
+                required
+                onChange={handleAddress_4Change}
+                onMouseEnter={() => setAddress_4Focus(true)}
+                onMouseLeave={() => setAddress_4Focus(false)}
+              />
+              <label
+                className={`username-label ${address_4Focus ? "focused" : ""}`}
+              >
+                Postal Code
+              </label>
             </div>
           </form>
         </div>
       </div>
       <div className="container-middle">
-        <div>
-          <h5>Address & Location</h5>
+        <div className="box-1">
+          <h5>Services Offered</h5>
           <form>
-            <div>
+            <div class="check-box">
               <input
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Enter an address"
+                type="checkbox"
+                id="towing"
+                name="service"
+                value="Towing"
               />
-              <button onClick={handleAddressSubmit}>Get Coordinates</button>
+              <label class="check-label" for="towing">
+                Towing Services
+              </label>
             </div>
-            <div>
-              <label>Longitude:</label>
-              <input type="text" value={coordinates.longitude} readOnly />
+
+            <div class="check-box">
+              <input
+                type="checkbox"
+                id="battery"
+                name="service"
+                value="Battery"
+              />
+              <label class="check-label" for="battery">
+                Battery Services
+              </label>
             </div>
-            <div>
-              <label>Latitude:</label>
-              <input type="text" value={coordinates.latitude} readOnly />
+
+            <div class="check-box">
+              <input
+                type="checkbox"
+                id="flat_tire"
+                name="service"
+                value="Flat Tire"
+              />
+              <label class="check-label" for="flat_tire">
+                Flat Tire Repair/Replacement
+              </label>
             </div>
-            <div
-              id="map"
-              style={{ width: "90%", height: "500px", margin: "auto" }}
-            />
-            ;
+
+            <div class="check-box">
+              <input type="checkbox" id="brake" name="service" value="Brake" />
+              <label class="check-label" for="brake">
+                Brake Services
+              </label>
+            </div>
+
+            <div class="check-box">
+              <input
+                type="checkbox"
+                id="engine_transmission"
+                name="service"
+                value="Engine/Transmission"
+              />
+              <label class="check-label" for="engine_transmission">
+                Engine or Transmission Issues
+              </label>
+            </div>
+
+            <div class="check-box">
+              <input
+                type="checkbox"
+                id="fluid_leaks"
+                name="service"
+                value="Fluid Leaks"
+              />
+              <label class="check-label" for="fluid_leaks">
+                Fluid Leaks or Overheating
+              </label>
+            </div>
+
+            <div class="check-box">
+              <input
+                type="checkbox"
+                id="electrical"
+                name="service"
+                value="Electrical"
+              />
+              <label class="check-label" for="electrical">
+                Electrical System Issues
+              </label>
+            </div>
+
+            <div class="check-box">
+              <input
+                type="checkbox"
+                id="steering_suspension"
+                name="service"
+                value="Steering/Suspension"
+              />
+              <label class="check-label" for="steering_suspension">
+                Steering or Suspension Problems
+              </label>
+            </div>
+            <br />
+            <br />
+            <h5>Vehicle Categories</h5>
+
+            <div class="check-box">
+              <input
+                type="checkbox"
+                id="passengerCars"
+                name="category"
+                value="Passenger Cars"
+              />
+              <label class="check-label" for="passengerCars">
+                Passenger Cars
+              </label>
+            </div>
+
+            <div class="check-box">
+              <input type="checkbox" id="suvs" name="category" value="SUVs" />
+              <label class="check-label" for="suvs">
+                SUVs (Sport Utility Vehicles)
+              </label>
+            </div>
+
+            <div class="check-box">
+              <input
+                type="checkbox"
+                id="trucks"
+                name="category"
+                value="Trucks"
+              />
+              <label class="check-label" for="trucks">
+                Trucks
+              </label>
+            </div>
+
+            <div class="check-box">
+              <input type="checkbox" id="vans" name="category" value="Vans" />
+              <label class="check-label" for="vans">
+                Vans
+              </label>
+            </div>
+
+            <div class="check-box">
+              <input
+                type="checkbox"
+                id="motorcycles"
+                name="category"
+                value="Motorcycles"
+              />
+              <label class="check-label" for="motorcycles">
+                Motorcycles
+              </label>
+            </div>
           </form>
         </div>
       </div>
       <div className="container-right">
-        <div className="box-3">
-          <h5>Pricing</h5>
-          <form>
-            <div className="user-box">
-              From:
-              <input type="time" name="from" />
-            </div>
-            <div className="user-box">
-              To:
-              <input type="time" name="to" />
-            </div>
-          </form>
-        </div>
+        <form>
+          <div className="box-2">
+            <h5>Opening Hours</h5>
+            <form>
+              <div className="user-box">
+                From:
+                <input type="time" name="from" />
+              </div>
+              <div className="user-box">
+                To:
+                <input type="time" name="to" />
+              </div>
+              <h5>Opening Days</h5>
+              <div
+                class="btn-group-vertical check-group"
+                role="group"
+                aria-label="Basic checkbox toggle button group"
+              >
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btncheck1"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btncheck1">
+                  SUN
+                </label>
+
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btncheck2"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btncheck2">
+                  MON
+                </label>
+
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btncheck3"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btncheck3">
+                  TUE
+                </label>
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btncheck4"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btncheck4">
+                  WED
+                </label>
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btncheck5"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btncheck5">
+                  THU
+                </label>
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btncheck6"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btncheck6">
+                  FRI
+                </label>
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  id="btncheck7"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btncheck7">
+                  SAT
+                </label>
+              </div>
+            </form>
+          </div>
+        </form>
       </div>
+      <button>Submit</button>
     </div>
   );
 };

@@ -1,8 +1,28 @@
+.container-drawer {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.drawer-wrapper {
+  
+  top: 0;
+  left: 0;
+  
+  
+}
 .vertical-rectangle {
-  width: 12%; /* Set the width of the rectangle */
-  height: 100vh; /* Set the height of the rectangle */
+  width: 12%;
+  height: 100vh;
   flex-direction: column;
   background-color: #f0f0f0;
+  position: fixed;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
 }
 
 .section {
@@ -47,7 +67,7 @@
 
 
 .section:hover {
-  background-color: #DEF2FD;
+  background-color: #557a8e;
   
   
 }
