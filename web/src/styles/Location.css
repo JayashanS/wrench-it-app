@@ -1,0 +1,102 @@
+.outer{
+    height:100vh;
+    width:100vh;
+    top: 0;
+    margin-left: 150px;
+    display:flex;
+    flex-direction: column;
+}
+
+.map-inner-left{
+    width: 50%; 
+    height: 700px; 
+    background-color: #1a1c38;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    font-size: 10;
+    margin-left: 30px;
+}
+.map-container {
+    position: absolute;
+    left: 600px;
+    width: 900px;
+    height: 700px;
+  }
+
+  .map-inner-left p{
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    padding: 20px;
+    text-align: justify;
+  }
+  
+  .sidebarStyle {
+    display: inline-block;
+    position: absolute;
+    left: 600px;
+    top: 50;
+    background-color: #1a1c38;
+    color: #64CCC5;
+    z-index: 1 !important;
+    padding: 6px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .overlay-layer {
+    position: absolute;
+    left: 600px;
+    width: 900px;
+    top: 50;
+    height: 700px;
+    background-color: rgba(160, 73, 73, 0); 
+    pointer-events: none; 
+    
+  }
+  
+  .title {
+    margin-left: 40px;
+    margin-top: 10px;
+    text-align: left;
+    color: #64CCC5;
+    font-family: 'Roboto', sans-serif;
+    
+  }
+
+  .circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid red; 
+    background-color: transparent; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: glow 0.5s ease-in-out infinite alternate;
+  }
+  
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 10px 3px red;
+    }
+    to {
+      box-shadow: 0 0 20px 6px red; 
+    }
+  }
+
+  .save{
+    width:80%;
+    height:50px;
+    margin-left: 40px;
+    background-color: #1a1c38;
+    color: #64CCC5;
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid #64CCC5; 
+    border-radius: 10px;
+  }
+   
+.save:hover{
+    background-color: #0c091f;
+}

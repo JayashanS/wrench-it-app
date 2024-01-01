@@ -5,7 +5,7 @@ import "../styles/Signup.css";
 const Signup = () => {
   return (
     <form validate>
-      <div className="container">
+      <div className="container-signup">
         <div className="field-container">
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">

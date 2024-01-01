@@ -1,14 +1,19 @@
-.c-item{
-  height: 700px;
-
+.carousel {
+  width: 100vw; 
+  margin: 0; /* Reset margin */
+  padding: 0;
 }
 
-.c-img{
+.c-item {
+  height: 800px;
+}
+
+.c-img {
   height: 100%;
+  width: 100%; /* Ensure images take up the full width of their container */
   object-fit: cover;
   filter: brightness(0.5);
 }
-
 .c-text-head-1{
   
 

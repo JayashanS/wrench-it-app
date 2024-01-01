@@ -1,56 +1,72 @@
-import React, { useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
-import axios from "axios"; // Import axios
+import "../styles/Location.css";
 
-import "mapbox-gl/dist/mapbox-gl.css";
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiaGltYW50aGExMTY4MSIsImEiOiJjbHFzOTNpOW8xcm9pMnFzYjlkZDM2NjNuIn0.dfqTn4zFadOj8Vzw-JwpYg";
 
-const Pricing = () => {
-  const [address, setAddress] = useState("");
-  const [coordinates, setCoordinates] = useState({ longitude: 0, latitude: 0 });
+const Map = () => {
+  const mapContainerRef = useRef(null);
 
-  const handleAddressSubmit = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-          address
-        )}.json?access_token=pk.eyJ1IjoiaGltYW50aGExMTY4MSIsImEiOiJjbHFzOTNpOW8xcm9pMnFzYjlkZDM2NjNuIn0.dfqTn4zFadOj8Vzw-JwpYg`
-      );
+  const [lng, setLng] = useState(80.540379);
+  const [lat, setLat] = useState(5.949636);
+  const [zoom, setZoom] = useState(10);
 
-      // Extract latitude and longitude from the API response
-      const { features } = response.data;
-      if (features && features.length > 0) {
-        const [longitude, latitude] = features[0].center;
-        setCoordinates({ longitude, latitude });
-      }
-    } catch (error) {
-      console.error("Error fetching coordinates: ", error);
-    }
-  };
+  // Initialize map when component mounts
+  useEffect(() => {
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: [lng, lat],
+      zoom: zoom,
+    });
 
-  // ... your map rendering code
+    // Add navigation control (the +/- zoom buttons)
+    map.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+    map.on("move", () => {
+      setLng(map.getCenter().lng.toFixed(4));
+      setLat(map.getCenter().lat.toFixed(4));
+      setZoom(map.getZoom().toFixed(2));
+    });
+
+    // Clean up on unmount
+    return () => map.remove();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div>
-      {/* Your map div and other map-related code */}
-      <div>
-        <input
-          type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder="Enter an address"
-        />
-        <button onClick={handleAddressSubmit}>Get Coordinates</button>
+    <div className="outer">
+      <div className="map-inner-left">
+        <h5 className="title">Sharing Your Location</h5>
+        <p>
+          Your location is key to ensuring a smooth experience at our repair
+          center. By sharing your location, you're helping us guide you quickly
+          to our premises, making it easier for you and others to find us on
+          maps. This ensures minimal delays and optimal service planning,
+          ensuring a hassle-free experience. Your convenience matters—sharing
+          your location helps us serve you better. Thank you for choosing
+          us—we're committed to providing top-notch service!
+        </p>
+        <br />
+        <p style={{ color: "#64CCC5" }}>
+          Position your location under the red circle at the center and adjust
+          the zoom level between 17 to 19 (Recomended) using the scroll button.
+          Once set, click the 'Save' button below for confirmation.{" "}
+        </p>
+        <br />
+        <button className="save"></button>
       </div>
-      <div>
-        <label>Longitude:</label>
-        <input type="text" value={coordinates.longitude} readOnly />
+      <div className="sidebarStyle">
+        <div>
+          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        </div>
       </div>
-      <div>
-        <label>Latitude:</label>
-        <input type="text" value={coordinates.latitude} readOnly />
+      <div className="map-container" ref={mapContainerRef} />
+      <div class="overlay-layer">
+        <div class="circle"></div>
       </div>
     </div>
   );
 };
 
-export default Pricing;
+export default Map;

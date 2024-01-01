@@ -10,9 +10,10 @@ import ContactMailIcon from "@mui/icons-material/ContactMail";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddReactionIcon from "@mui/icons-material/AddReaction";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 function Drawer() {
-  const [selectedLink, setSelectedLink] = useState(null);
+  const [selectedLink, setSelectedLink] = useState("/dashboard/form");
 
   const handleLinkClick = (link) => {
     setSelectedLink(link);
@@ -97,6 +98,29 @@ function Drawer() {
           >
             <EventIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
             <span className="list-item">Reservations</span>
+          </Link>
+        </div>
+        <div
+          className="section section-1"
+          style={{
+            backgroundColor: selectedLink === "/dashboard/loc" ? "#0c091f" : "#1a1c38",
+            paddingLeft: "10px",
+          }}
+        >
+          <Link
+            to="/dashboard/loc"
+            style={{
+              color: selectedLink === "/dashboard/loc" ? "#fff" : "#868e96",
+              textDecoration: "none",
+              display: "flex",
+
+              alignItems: "center",
+              height: "100%",
+            }}
+            onClick={() => handleLinkClick("/dashboard/loc")}
+          >
+            <LocationOnIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
+            <span className="list-item">Location</span>
           </Link>
         </div>
         <div

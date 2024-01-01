@@ -7,7 +7,7 @@ server/.env
 # Ignore React Web Frontend
 web/node_modules
 web/build
-web/.env.development
+web/src/components/Location.js
 
 # Ignore React Native Mobile App
 mobile/node_modules
