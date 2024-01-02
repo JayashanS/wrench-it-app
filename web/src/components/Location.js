@@ -2,8 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "../styles/Location.css";
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiaGltYW50aGExMTY4MSIsImEiOiJjbHFzOTNpOW8xcm9pMnFzYjlkZDM2NjNuIn0.dfqTn4zFadOj8Vzw-JwpYg";
+mapboxgl.accessToken = `${process.env.REACT_APP_API_TOKEN}`;
 
 const Map = () => {
   const mapContainerRef = useRef(null);
@@ -54,7 +53,7 @@ const Map = () => {
           Once set, click the 'Save' button below for confirmation.{" "}
         </p>
         <br />
-        <button className="save"></button>
+        <button className="save">Save</button>
       </div>
       <div className="sidebarStyle">
         <div>
