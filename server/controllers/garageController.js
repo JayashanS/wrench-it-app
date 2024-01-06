@@ -46,7 +46,6 @@ const getAllGarages = async (req, res) => {
 };
 
 const deleteGarage = async (req, res) => {
-  console.log("Request parameters:", req.params.id);
   try {
     const garageId = req.params.id; // Correctly retrieve the ID from req.params
     console.log("Received garageId:", garageId); // Log received ID for debugging

@@ -1,20 +1,14 @@
-const Garage = require("../models/requestModel");
+const Request = require("../models/requestModel");
 
 const createRequest = async (req, res) => {
-  const {
-    requestId,
-    requestType,
-    requestStatus,
-    requestDate,
-
-  } = req.body;
+  const { requestId, requestType, requestStatus, requestDate } = req.body;
 
   try {
     const request = await Request.create({
-       requestId,
-       requestType,
-       requestStatus,
-       requestDate,
+      requestId,
+      requestType,
+      requestStatus,
+      requestDate,
     });
     res.status(201).json(request);
   } catch (error) {
@@ -22,15 +16,9 @@ const createRequest = async (req, res) => {
   }
 };
 
-
-
-
 const deleteRequest = async (req, res) => {
-  console.log("Request parameters:", req.params.id);
   try {
-    const requestId = req.params.id; // Correctly retrieve the ID from req.params
-    console.log("Received requestId:", requestId); // Log received ID for debugging
-
+    const requestId = req.params.id;
     const deletedRequest = await Request.findByIdAndDelete(requestId);
 
     if (!deletedRequest) {
