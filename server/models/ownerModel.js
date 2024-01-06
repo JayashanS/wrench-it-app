@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const ownerSchema = new Schema({
   nic: {
@@ -30,4 +30,4 @@ const ownerSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('Owner', ownerSchema);
+module.exports = mongoose.model("Owner", ownerSchema);

@@ -2,14 +2,14 @@ const Owner = require("../models/ownerModel");
 
 // Creating Owner
 const createOwner = async (req, res) => {
-  const { nic, email, ownerName, phoneNumber, licencePlateNumbers, address } =
+  const { nic, email, name, phoneNumber, licencePlateNumbers, address } =
     req.body;
 
   try {
     const owner = await Owner.create({
       nic,
       email,
-      ownerName,
+      name,
       phoneNumber,
       licencePlateNumbers,
       address,
