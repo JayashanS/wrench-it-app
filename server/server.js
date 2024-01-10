@@ -5,25 +5,36 @@ const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 
-//const ownerRoutes = require('./routes/owner')
+const ownerRoutes = require("./routes/owner");
 //const vehicleRoutes = require('./routes/vehicle')
+
 //const requestRoutes = require('./routes/request')
 const repairRoutes = require('./routes/repair');
+
+const requestRoutes = require("./routes/request");
+//const repairRoutes = require('./routes/repair');
+
 const garageRoutes = require("./routes/garage");
 //const partRoutes = require('./routes/part')
 
-//middleware
+// middleware
 app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:3000",
-    credentials: true, // if you're using cookies or authentication
+    credentials: true,
   })
 );
 
-//routes
+// routes
+app.use("/api/owner", ownerRoutes);
+//app.use("/api/vehicle", vehicleRoutes);
+app.use("/api/request", requestRoutes);
+//app.use("/api/repair", repairRoutes);
 app.use("/api/garage", garageRoutes);
+//app.use("/api/part", partRoutes);
 
+// connecting to the database and start listning...
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
