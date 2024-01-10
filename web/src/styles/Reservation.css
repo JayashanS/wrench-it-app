@@ -1,0 +1,49 @@
+.container-reservasion {
+
+    display: flex;
+    flex-direction:  row;
+    background-color: #EEF2F5;
+}
+
+.column-1{
+    display:flex;
+    flex-direction: column;
+    background-color: #fff;
+    width:50%;
+    height: 100vh;
+    margin-left:10%;
+
+}
+.column-2{
+    display:flex;
+    flex-direction: column;
+    background-color: #fff;
+    width:50%;
+    height: 100vh;
+    margin-left:5px;
+
+}
+ .column-3{
+    display:flex;
+    flex-direction: row;
+    background-color: #EEF2F5;
+    margin:10px;
+    width:95%;
+    height: 30%;
+    
+
+ }
+
+ .column-4{
+    display:flex;
+    flex-direction: row;
+    background-color: #EEF2F5;
+    margin:10px;
+    width:95%;
+    height: 18%;
+    
+
+ }
+
+
+
