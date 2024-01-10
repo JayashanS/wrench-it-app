@@ -1,28 +1,36 @@
-.container-reservasion {
+.container-reservation {
 
     display: flex;
     flex-direction:  row;
     background-color: #EEF2F5;
+    padding-left: 200px;
+    
+}
+.container-title{
+    color: #09BEB1;
 }
 
 .column-1{
     display:flex;
     flex-direction: column;
     background-color: #fff;
-    width:50%;
+    width:50vw;
     height: 100vh;
-    margin-left:10%;
+    margin-left:200px;
+    padding: 10px;
 
 }
 .column-2{
     display:flex;
     flex-direction: column;
     background-color: #fff;
-    width:50%;
+    width:50vw;
     height: 100vh;
-    margin-left:5px;
+    margin-left:10px;
+    padding: 10px;
 
 }
+
  .column-3{
     display:flex;
     flex-direction: row;
@@ -30,6 +38,7 @@
     margin:10px;
     width:95%;
     height: 30%;
+    border-radius: 5px;
     
 
  }
@@ -41,7 +50,16 @@
     margin:10px;
     width:95%;
     height: 18%;
+    border-radius: 5px;
     
+
+ }
+
+
+ .innerColumn-1{
+    display: flex;
+    flex-direction: column;
+    margin:10px;
 
  }
 
