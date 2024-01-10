@@ -24,10 +24,10 @@ const Repair = () => {
 		<td>R789012</td>
 		<td>XYZ789</td>
 		<td>CarModel2</td>
-		<td>Brake Problem</td>
-		<td>2024-01-15 14:30:00</td>
+		<td>Brake_Problem</td>
+		<td>2024-01-15</td>
 		<td>987654321Y</td>
-		<td>987-654-3210</td>
+		<td>0778787877</td>
 		<td>In Progress</td>
 	</tr>
 	<tr>
@@ -35,9 +35,9 @@ const Repair = () => {
 		<td>DEF456</td>
 		<td>CarModel3</td>
 		<td>Transmission Issue</td>
-		<td>2024-01-20 10:45:00</td>
+		<td>2024-01-20</td>
 		<td>456789012Z</td>
-		<td>456-789-0123</td>
+		<td>077878787</td>
 		<td>Completed</td>
 	</tr>
 	<tr>
@@ -45,9 +45,9 @@ const Repair = () => {
    		<td>ABC123</td>
     		<td>CarModel1</td>
     		<td>Engine Issue</td>
-    		<td>2024-01-10 12:00:00</td>
+    		<td>2024-01-10</td>
     		<td>123456789X</td>
-    		<td>123-456-7890</td>
+    		<td>09989878755</td>
     		<td>Pending</td>
 	</tr>
 	</table>
@@ -86,14 +86,14 @@ const Repair = () => {
 			<th>Total price</th>
 		</tr>
 		<tr>
-			<td>Part 1</td>
+			<td>Part1</td>
 			<td>5</td>
 			<td>$10.00</td>
 			<td>$50.00</td>
 		</tr>
 
 		<tr>
-			<td>Part 2</td>
+			<td>Part2</td>
 			<td>2</td>
 			<td>$15.00</td>
 			<td>$30.00</td>
