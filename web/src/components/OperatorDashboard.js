@@ -1,6 +1,14 @@
 import React, { useState } from "react";
-import "../styles/Dashboard.css";
 import { Link, Outlet } from "react-router-dom";
+import { Accordion, Card } from "react-bootstrap";
+import "../styles/Dashboard.css";
+
+// icons and logos
+import Logo from "../assets/wrenchit.png";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import MenuIcon from "@mui/icons-material/Menu";
+import LinkIcon from "@mui/icons-material/Link";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import EventIcon from "@mui/icons-material/Event";
@@ -9,18 +17,88 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import AddReactionIcon from "@mui/icons-material/AddReaction";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 function Dashboard() {
   const [selectedLink, setSelectedLink] = useState("/dashboard/form");
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
   const handleLinkClick = (link) => {
     setSelectedLink(link);
   };
 
+  const toggleAccordion = () => {
+    setIsAccordionOpen(!isAccordionOpen);
+  };
+
   return (
     <div className="container-dashboard">
+      <div className="nav">
+        <Link to="/" style={{ display: "flex", alignItems: "center" }}>
+          <ArrowBackIosIcon
+            style={{
+              color: "#868e96",
+              marginRight: "10px",
+              fontSize: 20,
+            }}
+          />
+        </Link>
+        <Link style={{ display: "flex", alignItems: "center" }}>
+          <img src={Logo} alt="Logo" className="d-navbar-logo" />
+        </Link>
+        <span className="d-navbar-company-name">Wrench it</span>
+        <Link style={{ display: "flex", alignItems: "center" }}>
+          <ArrowForwardIosIcon
+            style={{
+              color: "#868e96",
+              marginRight: "10px",
+              marginLeft: "30px",
+              fontSize: 12,
+            }}
+          />
+        </Link>
+        <span style={{ color: "#22A1CB", fontSize: "13px" }}>Dashboard</span>
+        <span
+          style={{
+            color: "#22A1CB",
+            fontSize: "13px",
+            backgroundColor: "rgba(103, 190, 219, 0.35)",
+            borderRadius: "2px",
+            paddingLeft: "10px",
+            paddingRight: "10px",
+            paddingTop: "5px",
+            paddingBottom: "5px",
+            marginLeft: "900px",
+          }}
+        >
+          #Company Name
+        </span>
+        <Link style={{ display: "flex", alignItems: "center" }}>
+          <LinkIcon
+            style={{
+              color: "#868e96",
+              marginRight: "2px",
+              marginLeft: "2px",
+              fontSize: 20,
+            }}
+          />
+        </Link>
+        <span style={{ color: "#22A1CB", fontSize: "13px" }}>John Doe</span>
+        <Link onClick={toggleAccordion} className="menu-button">
+          <MenuIcon
+            style={{ color: "#868e96", marginLeft: "120px", fontSize: 20 }}
+          />
+        </Link>
+      </div>
+      {isAccordionOpen && (
+        <div className="accordion-content">
+          <Card className="accordion-card">
+            <Card.Body>
+              <Accordion defaultActiveKey="0">{/* ... */}</Accordion>
+            </Card.Body>
+          </Card>
+        </div>
+      )}
       <div className="drawer">
         <div
           className="drawer-section"
@@ -42,7 +120,11 @@ function Dashboard() {
             onClick={() => handleLinkClick("/dashboard/req")}
           >
             <DashboardIcon
-              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+              style={{
+                color: selectedLink === "/dashboard/req" ? "#fff" : "#868e96",
+                marginRight: "10px",
+                fontSize: 20,
+              }}
               className="icon"
             />
             <span className="list-item">Request</span>
@@ -69,7 +151,11 @@ function Dashboard() {
             onClick={() => handleLinkClick("/dashboard/stat")}
           >
             <QueryStatsIcon
-              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+              style={{
+                color: selectedLink === "/dashboard/stat" ? "#fff" : "#868e96",
+                marginRight: "10px",
+                fontSize: 20,
+              }}
             />
             <span className="list-item">Repair</span>
           </Link>
@@ -95,7 +181,11 @@ function Dashboard() {
             onClick={() => handleLinkClick("/dashboard/res")}
           >
             <EventIcon
-              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+              style={{
+                color: selectedLink === "/dashboard/res" ? "#fff" : "#868e96",
+                marginRight: "10px",
+                fontSize: 20,
+              }}
             />
             <span className="list-item">Reservations</span>
           </Link>
@@ -121,7 +211,11 @@ function Dashboard() {
             onClick={() => handleLinkClick("/dashboard/loc")}
           >
             <LocationOnIcon
-              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+              style={{
+                color: selectedLink === "/dashboard/loc" ? "#fff" : "#868e96",
+                marginRight: "10px",
+                fontSize: 20,
+              }}
             />
             <span className="list-item">Location</span>
           </Link>
@@ -146,7 +240,11 @@ function Dashboard() {
             onClick={() => handleLinkClick("/")}
           >
             <AddBoxIcon
-              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+              style={{
+                color: selectedLink === "/" ? "#fff" : "#868e96",
+                marginRight: "10px",
+                fontSize: 20,
+              }}
             />
             <span className="list-item">Advertise</span>
           </Link>
@@ -172,7 +270,11 @@ function Dashboard() {
             onClick={() => handleLinkClick("/")}
           >
             <HelpOutlineIcon
-              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+              style={{
+                color: selectedLink === "/" ? "#fff" : "#868e96",
+                marginRight: "10px",
+                fontSize: 20,
+              }}
             />
             <span className="list-item">Help</span>
           </Link>
@@ -197,7 +299,11 @@ function Dashboard() {
             onClick={() => handleLinkClick("/")}
           >
             <ContactMailIcon
-              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+              style={{
+                color: selectedLink === "/" ? "#fff" : "#868e96",
+                marginRight: "10px",
+                fontSize: 20,
+              }}
             />
             <span className="list-item">Feedback</span>
           </Link>
@@ -224,7 +330,12 @@ function Dashboard() {
             onClick={() => handleLinkClick("/dashboard/settings")}
           >
             <SettingsIcon
-              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+              style={{
+                color:
+                  selectedLink === "/dashboard/settings" ? "#fff" : "#868e96",
+                marginRight: "10px",
+                fontSize: 20,
+              }}
             />
             <span className="list-item">Settings</span>
           </Link>
@@ -250,7 +361,11 @@ function Dashboard() {
             onClick={() => handleLinkClick("/")}
           >
             <LogoutIcon
-              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+              style={{
+                color: selectedLink === "/" ? "#fff" : "#868e96",
+                marginRight: "10px",
+                fontSize: 20,
+              }}
             />
             <span className="list-item">Logout</span>
           </Link>
