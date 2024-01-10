@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import "../styles/Request.css";
 
-const Request = () => {
-  return <div>#Request</div>;
-};
+function Request() {
+  return (
+    <div className="container-request">
+      <div className="process-request">
+        <div className="incoming-request"></div>
+        <div className="accepted-request"></div>
+      </div>
+      <div className="request-details"></div>
+    </div>
+  );
+}
 
 export default Request;

@@ -1,0 +1,51 @@
+.container-request{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top :0 ;
+    left :200px;
+    background-color: #EEF2F5;
+}
+ .process-request{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 100vh; /*vh = view point height */
+    top: 5%;
+    left: 4%;
+    background-color: #c31919;
+ }
+
+ .request-details{
+    display: flex;
+    width: 60%;
+    height: 100vh;
+    top: 5%;
+    left: 5%;
+    background-color: blue;
+ }
+
+ .incoming-request{
+    display: flex;
+    width: 92%;
+    margin-top: 4%;
+    margin-left: 4%;
+    height: 50vh;
+    background-color: aqua;
+ }
+
+ .accepted-request{
+    display: flex;
+    width: 92%;
+    margin-top: 4%;
+    margin-left: 4%;
+    margin-bottom: 4%;
+    height: 40vh;
+    background-color: azure;
+ }
+
+.map{
+    display: flex;
+    margin-top: 4%;
+    margin-left: 4%;
+}

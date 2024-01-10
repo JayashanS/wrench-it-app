@@ -1,0 +1,116 @@
+.RepairPage {
+    margin-left:200px;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    font-size: 12px;
+}
+.RepairContainer1{
+    flex: 3;
+    /* Takes up 50% of the available space */
+    background-color: lightblue;
+    padding: 0;
+    
+}
+.RepairContainer2{
+    flex: 1; /* Takes up 50% more space than the first division */
+    background-color: #EEF2F5;
+    padding: 0;
+}
+h2{
+    color: #09BEB1;
+    font-size:15px;
+}
+.btn{
+    margin-top:15px;
+    border: 1px solid white;
+    border-radius:5px;
+    background-color:#09BEB1;
+    font-size:15px;
+    color:#EEF2F5;
+  
+    
+}
+.btnParts{
+    
+        border: 1px solid white;
+        border-radius:5px;
+        background-color:#09BEB1;
+        font-size:15px;
+        color:#EEF2F5;
+}
+.btn:hover{
+    cursor: pointer;
+    
+}
+.btnParts:hover{
+    cursor: pointer;
+    
+}
+.Repair{
+	border-collapse:collapse;
+	width:100%;
+}
+
+.Repair td, .Repair th{
+	border:1px solid #ddd;
+	padding:15px;
+    
+}
+
+.Repair tr:nth-child(even){
+	background-color: #EEF2F5;
+}
+
+.Repair tr:hover {
+	background-color: #ddd;
+}
+
+.Repair th {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  text-align: left;
+  background-color: #22A1CB;
+  color: white;
+}
+.RepairDetails{
+    border: none;
+    padding: 0px;
+}
+.RepairContainer2 h2{
+    color: #09BEB1;
+    font-size:15px;
+}
+.RepairDetails td{
+    padding: 5px;
+}
+
+
+.parts{
+	border-collapse:collapse;
+	width:100%;
+    
+}
+
+.parts td, .parts th{
+	border:1px solid #ddd;
+	padding:10px;
+}
+
+.parts tr:nth-child(even){
+	background-color: #EEF2F5;
+}
+
+.parts tr:hover {
+	background-color: #ddd;
+}
+
+.parts th {
+  padding-top: 0px;
+  padding-bottom:0px;
+  text-align: left;
+  background-color: #22A1CB;
+  color: white;
+}
+
