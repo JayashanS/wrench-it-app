@@ -8,9 +8,9 @@ import Cards from "./components/Cards";
 import Signup from "./components/Signup";
 
 // dashboard imports
-import Dashboard from "./components/Dashboard";
-import Statistics from "./components/Statistics";
-import GarageDetails from "./components/GarageDetails";
+import Dashboard from "./components/OperatorDashboard";
+import Repair from "./components/Repair";
+import Request from "./components/Request";
 import Reservations from "./components/Reservations";
 import Location from "./components/Location";
 
@@ -40,12 +40,12 @@ function App() {
         </Route>
 
         <Route path="dashboard/*" element={<DashboardLayout />}>
-          <Route index element={<GarageDetails />} />
-          <Route path="form" element={<GarageDetails />} />
-          <Route path="stat" element={<Statistics />} />
+          <Route index element={<Request />} />
+          <Route path="req" element={<Request />} />
+          <Route path="stat" element={<Repair />} />
           <Route path="res" element={<Reservations />} />
           <Route path="loc" element={<Location />} />
-          <Route path="settings" element={<GarageDetails />} />
+          <Route path="settings" element={<Request />} />
         </Route>
       </Routes>
     </Router>

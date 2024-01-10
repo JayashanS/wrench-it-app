@@ -27,8 +27,10 @@
     color: #bcbcbc;
   }
   .outlet {
-    flex: 1;
-    padding: 20px;
+    width: 100%;
+    height: 100vh;
+    
+    
   }
   .drawer-section:hover {
     background-color: #e2eaee;
