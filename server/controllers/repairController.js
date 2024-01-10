@@ -42,12 +42,12 @@ const deleteRepair = async (req, res) => {
     const repairId = req.params.id; // Correctly retrieve the ID from req.params
     console.log("Received repairId:", repairId); // Log received ID for debugging
 
-    const deleteRepair = await Repair.findByIdAndDelete(repairId);
+    const deletedRepair = await Repair.findByIdAndDelete(repairId);
 
-    if (!deletedrepaire) {
+    if (!deletedRepair) {
       return res
         .status(404)
-        .json({ message: "Repair not found", deletedRepaireID: repairId });
+        .json({ message: "Repair not found", deletedRepair: repairId });
     }
 
     return res.status(200).json({ message: "Repair deleted successfully" });
