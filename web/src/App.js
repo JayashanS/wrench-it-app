@@ -11,7 +11,7 @@ import Signup from "./components/Signup";
 import Drawer from "./components/Drawer";
 import Statistics from "./components/Statistics";
 import GarageDetails from "./components/GarageDetails";
-import Reservations from "./components/Reservations";
+import Reservations from "./components/Request";
 import Location from "./components/Location";
 
 function NavbarLayout() {
