@@ -8,8 +8,8 @@ import Cards from "./components/Cards";
 import Signup from "./components/Signup";
 
 // dashboard imports
-import Dashboard from "./components/OperatorDashboard";
 import Repair from "./components/Repair";
+import Dashboard from "./components/OperatorDashboard";
 import Request from "./components/Request";
 import Reservations from "./components/Reservations";
 import Location from "./components/Location";
