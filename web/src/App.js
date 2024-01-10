@@ -8,10 +8,10 @@ import Cards from "./components/Cards";
 import Signup from "./components/Signup";
 
 // dashboard imports
-import Drawer from "./components/Drawer";
-import Statistics from "./components/Statistics";
-import GarageDetails from "./components/GarageDetails";
-import Reservations from "./components/Request";
+import Repair from "./components/Repair";
+import Dashboard from "./components/OperatorDashboard";
+import Request from "./components/Request";
+import Reservations from "./components/Reservations";
 import Location from "./components/Location";
 
 function NavbarLayout() {
@@ -24,7 +24,7 @@ function NavbarLayout() {
 function DashboardLayout() {
   return (
     <div>
-      <Drawer />
+      <Dashboard />
     </div>
   );
 }
@@ -40,12 +40,12 @@ function App() {
         </Route>
 
         <Route path="dashboard/*" element={<DashboardLayout />}>
-          <Route index element={<GarageDetails />} />
-          <Route path="form" element={<GarageDetails />} />
-          <Route path="stat" element={<Statistics />} />
+          <Route index element={<Request />} />
+          <Route path="req" element={<Request />} />
+          <Route path="stat" element={<Repair />} />
           <Route path="res" element={<Reservations />} />
           <Route path="loc" element={<Location />} />
-          <Route path="settings" element={<GarageDetails />} />
+          <Route path="settings" element={<Request />} />
         </Route>
       </Routes>
     </Router>

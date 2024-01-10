@@ -7,8 +7,13 @@ const mongoose = require("mongoose");
 
 const ownerRoutes = require("./routes/owner");
 //const vehicleRoutes = require('./routes/vehicle')
+
+//const requestRoutes = require('./routes/request')
+const repairRoutes = require("./routes/repair");
+
 const requestRoutes = require("./routes/request");
 //const repairRoutes = require('./routes/repair');
+
 const garageRoutes = require("./routes/garage");
 //const partRoutes = require('./routes/part')
 
@@ -25,7 +30,7 @@ app.use(
 app.use("/api/owner", ownerRoutes);
 //app.use("/api/vehicle", vehicleRoutes);
 app.use("/api/request", requestRoutes);
-//app.use("/api/repair", repairRoutes);
+app.use("/api/repair", repairRoutes);
 app.use("/api/garage", garageRoutes);
 //app.use("/api/part", partRoutes);
 

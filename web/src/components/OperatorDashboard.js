@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Drawer.css";
+import "../styles/Dashboard.css";
 import { Link, Outlet } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
@@ -12,7 +12,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import AddReactionIcon from "@mui/icons-material/AddReaction";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
-function Drawer() {
+function Dashboard() {
   const [selectedLink, setSelectedLink] = useState("/dashboard/form");
 
   const handleLinkClick = (link) => {
@@ -20,43 +20,39 @@ function Drawer() {
   };
 
   return (
-    <div className="container-drawer">
-      <div className="vertical-rectangle">
-        <div className="profile">
-          <div className="cover-photo">
-            <div className="photo"></div>
-          </div>
-        </div>
-        <hr />
+    <div className="container-dashboard">
+      <div className="drawer">
         <div
-          className="section section-1"
+          className="drawer-section"
           style={{
             backgroundColor:
-              selectedLink === "/dashboard/form" ? "#0c091f" : "#1a1c38",
+              selectedLink === "/dashboard/req" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
           }}
         >
           <Link
-            to="/dashboard/form"
+            to="/dashboard/req"
             style={{
-              color: selectedLink === "/dashboard/form" ? "#fff" : "#868e96",
+              color: selectedLink === "/dashboard/req" ? "#fff" : "#868e96",
               textDecoration: "none",
               display: "flex",
-
               alignItems: "center",
               height: "100%",
             }}
-            onClick={() => handleLinkClick("/dashboard/form")}
+            onClick={() => handleLinkClick("/dashboard/req")}
           >
-            <DashboardIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
-            <span className="list-item">Dashboard</span>
+            <DashboardIcon
+              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+              className="icon"
+            />
+            <span className="list-item">Request</span>
           </Link>
         </div>
         <div
-          className="section section-1"
+          className="drawer-section"
           style={{
             backgroundColor:
-              selectedLink === "/dashboard/stat" ? "#0c091f" : "#1a1c38",
+              selectedLink === "/dashboard/stat" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
           }}
         >
@@ -72,15 +68,17 @@ function Drawer() {
             }}
             onClick={() => handleLinkClick("/dashboard/stat")}
           >
-            <QueryStatsIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
-            <span className="list-item">Statistics</span>
+            <QueryStatsIcon
+              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+            />
+            <span className="list-item">Repair</span>
           </Link>
         </div>
         <div
-          className="section section-1"
+          className="drawer-section"
           style={{
             backgroundColor:
-              selectedLink === "/dashboard/res" ? "#0c091f" : "#1a1c38",
+              selectedLink === "/dashboard/res" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
           }}
         >
@@ -96,14 +94,17 @@ function Drawer() {
             }}
             onClick={() => handleLinkClick("/dashboard/res")}
           >
-            <EventIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
+            <EventIcon
+              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+            />
             <span className="list-item">Reservations</span>
           </Link>
         </div>
         <div
-          className="section section-1"
+          className="drawer-section"
           style={{
-            backgroundColor: selectedLink === "/dashboard/loc" ? "#0c091f" : "#1a1c38",
+            backgroundColor:
+              selectedLink === "/dashboard/loc" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
           }}
         >
@@ -119,14 +120,16 @@ function Drawer() {
             }}
             onClick={() => handleLinkClick("/dashboard/loc")}
           >
-            <LocationOnIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
+            <LocationOnIcon
+              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+            />
             <span className="list-item">Location</span>
           </Link>
         </div>
         <div
-          className="section section-1"
+          className="drawer-section"
           style={{
-            backgroundColor: selectedLink === "/" ? "#0c091f" : "#1a1c38",
+            backgroundColor: selectedLink === "/" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
           }}
         >
@@ -142,15 +145,17 @@ function Drawer() {
             }}
             onClick={() => handleLinkClick("/")}
           >
-            <AddBoxIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
+            <AddBoxIcon
+              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+            />
             <span className="list-item">Advertise</span>
           </Link>
         </div>
         <hr />
         <div
-          className="section section-1"
+          className="drawer-section"
           style={{
-            backgroundColor: selectedLink === "/" ? "#0c091f" : "#1a1c38",
+            backgroundColor: selectedLink === "/" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
           }}
         >
@@ -167,15 +172,15 @@ function Drawer() {
             onClick={() => handleLinkClick("/")}
           >
             <HelpOutlineIcon
-              style={{ color: "#64CCC5", marginRight: "10px" }}
+              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
             />
             <span className="list-item">Help</span>
           </Link>
         </div>
         <div
-          className="section section-1"
+          className="drawer-section"
           style={{
-            backgroundColor: selectedLink === "/" ? "#0c091f" : "#1a1c38",
+            backgroundColor: selectedLink === "/" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
           }}
         >
@@ -192,16 +197,16 @@ function Drawer() {
             onClick={() => handleLinkClick("/")}
           >
             <ContactMailIcon
-              style={{ color: "#64CCC5", marginRight: "10px" }}
+              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
             />
             <span className="list-item">Feedback</span>
           </Link>
         </div>
         <div
-          className="section section-1"
+          className="drawer-section"
           style={{
             backgroundColor:
-              selectedLink === "/dashboard/settings" ? "#0c091f" : "#1a1c38",
+              selectedLink === "/dashboard/settings" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
           }}
         >
@@ -218,15 +223,17 @@ function Drawer() {
             }}
             onClick={() => handleLinkClick("/dashboard/settings")}
           >
-            <SettingsIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
+            <SettingsIcon
+              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+            />
             <span className="list-item">Settings</span>
           </Link>
         </div>
         <hr />
         <div
-          className="section section-1"
+          className="drawer-section"
           style={{
-            backgroundColor: selectedLink === "/" ? "#0c091f" : "#1a1c38",
+            backgroundColor: selectedLink === "/" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
           }}
         >
@@ -242,16 +249,18 @@ function Drawer() {
             }}
             onClick={() => handleLinkClick("/")}
           >
-            <LogoutIcon style={{ color: "#64CCC5", marginRight: "10px" }} />
+            <LogoutIcon
+              style={{ color: "#bcbcbc", marginRight: "10px", fontSize: 20 }}
+            />
             <span className="list-item">Logout</span>
           </Link>
         </div>
       </div>
-      <div className="content">
+      <div className="outlet">
         <Outlet />
       </div>
     </div>
   );
 }
 
-export default Drawer;
+export default Dashboard;

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useState} from "react";
 import "../styles/Request.css";
 
@@ -13,5 +14,12 @@ function Request(){
         </div>
     );
 }
+=======
+import React from "react";
+
+const Request = () => {
+  return <div>#Request</div>;
+};
+>>>>>>> 89f97aadf6d081e697374369f95576466720db3d
 
 export default Request;
