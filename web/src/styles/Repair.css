@@ -55,6 +55,7 @@ h2{
 .Repair td, .Repair th{
 	border:1px solid #ddd;
 	padding:15px;
+    
 }
 
 .Repair tr:nth-child(even){
@@ -84,28 +85,30 @@ h2{
     padding: 5px;
 }
 
-.parts{
-	border-collapse:collapse;
-	width:100%;
-}
-
-.parts td, .parts th{
-	border:1px solid #ddd;
-	padding:5px;
-}
-
-.parts tr:nth-child(even){
-	background-color: #EEF2F5;
-}
-
-.parts tr:hover {
-	background-color: #ddd;
-}
-
-.parts th {
-  padding-top: 0px;
-  padding-bottom:0px;
-  text-align: left;
-  background-color: #22A1CB;
-  color: white;
-}
+.parts {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .parts td,
+  .parts th {
+    border: 1px solid #ddd;
+    padding: 3px; /* Adjust the padding */
+    height: 5px; /* Reduce the height */
+  }
+  
+  .parts tr:nth-child(even) {
+    background-color: #eef2f5;
+  }
+  
+  .parts tr:hover {
+    background-color: #ddd;
+  }
+  
+  .parts th {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: left;
+    background-color: #22a1cb;
+    color: white;
+  }
