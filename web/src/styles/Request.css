@@ -7,7 +7,7 @@
     margin-left :200px;
     background-color: #EEF2F5;
 }
- .process-request{
+ .view-request{
     display: flex;
     flex-direction: column;
     width: 40%;
@@ -23,7 +23,7 @@
     height: 100vh;
     top: 5%;
     left: 5%;
-    background-color: blue;
+    background-color: #FFFFFF;
  }
 
  .incoming-request{
@@ -32,7 +32,7 @@
     margin-top: 4%;
     margin-left: 4%;
     height: 50vh;
-    background-color: aqua;
+    background-color: #EEF2F5;
  }
 
  .accepted-request{
@@ -47,6 +47,14 @@
 
 .map{
     display: flex;
-    margin-top: 4%;
-    margin-left: 4%;
+}
+
+.map-details{
+   display: flex;
+   background-color: #EEF2F5;
+}
+
+.process-request{
+   display: flex;
+   background-color: #FFFFFF;
 }
