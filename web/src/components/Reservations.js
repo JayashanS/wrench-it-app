@@ -9,17 +9,53 @@ const Reservations = () => {
   <div class="column-1">
       <p ><span class="container-title">Request</span></p>
       <div class="column-3">
+        <div class="innerColumn-1">
+          <div class="circle-kawishka">
 
-          ddddd
+          </div>
+        </div>
+        <div class="innerColumn-1">
+          ddddddddddddddd
+        </div>
+        <div class="innerColumn-1">
+          ddddddddddddddd
+        </div>
+        <div class="innerColumn-1">
+          ddddddddddddddd
+        </div>
+
+          
       </div>
 
       <div class="column-3">
-
-          ddddd
+        <div class="innerColumn-1">
+          ddddddddddddddd
+        </div>
+        <div class="innerColumn-1">
+          ddddddddddddddd
+        </div>
+        <div class="innerColumn-1">
+          ddddddddddddddd
+        </div>
+        <div class="innerColumn-1">
+          ddddddddddddddd
+        </div>
+          
       </div>
       <div class="column-3">
-
-          ddddd
+        <div class="innerColumn-1">
+          ddddddddddddddd
+        </div>
+        <div class="innerColumn-1">
+          ddddddddddddddd
+        </div>
+        <div class="innerColumn-1">
+          ddddddddddddddd
+        </div>
+        <div class="innerColumn-1">
+          ddddddddddddddd
+        </div>
+         
       </div>
 
   </div>
