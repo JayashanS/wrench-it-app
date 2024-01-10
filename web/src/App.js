@@ -8,7 +8,7 @@ import Cards from "./components/Cards";
 import Signup from "./components/Signup";
 
 // dashboard imports
-import Drawer from "./components/Drawer";
+import Dashboard from "./components/Dashboard";
 import Statistics from "./components/Statistics";
 import GarageDetails from "./components/GarageDetails";
 import Reservations from "./components/Reservations";
@@ -24,7 +24,7 @@ function NavbarLayout() {
 function DashboardLayout() {
   return (
     <div>
-      <Drawer />
+      <Dashboard />
     </div>
   );
 }
