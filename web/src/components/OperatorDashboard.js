@@ -253,25 +253,26 @@ function Dashboard() {
         <div
           className="drawer-section"
           style={{
-            backgroundColor: selectedLink === "/" ? "#09BEB1" : "#fff",
+            backgroundColor:
+              selectedLink === "/dashboard/help" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
           }}
         >
           <Link
-            to="/"
+            to="/dashboard/help"
             style={{
-              color: selectedLink === "/" ? "#fff" : "#868e96",
+              color: selectedLink === "/dashboard/help" ? "#fff" : "#868e96",
               textDecoration: "none",
               display: "flex",
 
               alignItems: "center",
               height: "100%",
             }}
-            onClick={() => handleLinkClick("/")}
+            onClick={() => handleLinkClick("/dashboard/help")}
           >
             <HelpOutlineIcon
               style={{
-                color: selectedLink === "/" ? "#fff" : "#868e96",
+                color: selectedLink === "/dashboard/help" ? "#fff" : "#868e96",
                 marginRight: "10px",
                 fontSize: 20,
               }}

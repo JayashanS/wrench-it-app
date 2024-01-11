@@ -4,7 +4,7 @@ import "../styles/Repair.css";
 const Repair = () => {
   return (
     <div class="RepairPage">
-      <div class="Repaircontainer1">
+      <div class="RepairContainer1">
         <h2>Details</h2>
         <hr />
         <br />
@@ -54,7 +54,7 @@ const Repair = () => {
           </tr>
         </table>
       </div>
-      <div class="Repaircontainer2">
+      <div class="RepairContainer2">
         <h2>Billing</h2>
         <hr />
         <br />
@@ -100,7 +100,6 @@ const Repair = () => {
               <td>$10.00</td>
               <td>$50.00</td>
             </tr>
-
 
             <tr>
               <td>Part 2</td>
