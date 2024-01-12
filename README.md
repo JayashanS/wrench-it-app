@@ -1,6 +1,6 @@
 # Wrench it
 
-![Wrench it Logo/Icon/Image](web/src/assets/logo.png){width=100 height=1000}
+![Wrench it Logo/Icon/Image](web/src/assets/logo.png){width=100 height=100}
 
 ## Description
 
