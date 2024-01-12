@@ -6,7 +6,7 @@ const app = express();
 const mongoose = require("mongoose");
 
 const ownerRoutes = require("./routes/owner");
-//const vehicleRoutes = require('./routes/vehicle')
+const vehicleRoutes = require('./routes/vehicle')
 
 //const requestRoutes = require('./routes/request')
 const repairRoutes = require("./routes/repair");
@@ -28,7 +28,7 @@ app.use(
 
 // routes
 app.use("/api/owner", ownerRoutes);
-//app.use("/api/vehicle", vehicleRoutes);
+app.use("/api/vehicle", vehicleRoutes);
 app.use("/api/request", requestRoutes);
 app.use("/api/repair", repairRoutes);
 app.use("/api/garage", garageRoutes);
