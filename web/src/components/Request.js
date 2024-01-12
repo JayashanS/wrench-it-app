@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import "../styles/Request.css";
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 
 function Request() {
   return (
     <div className="container-request">
       <div className="view-request">
         <div className="incoming-request">
-          <p>incoming request</p>
+          <p>Incoming<t/><VolumeUpIcon style={{marginLeft:"380px",fontSize:"20"}}/></p><hr></hr>
+          <div className="user-details"><p>Alice Smith</p></div>
+          <div className="user-details"><p>Alice Smith</p></div>
         </div>
         <div className="accepted-request">
-          <p>accepted request</p>
+          <p>Accepted </p><hr></hr>
+          <table>
+            <tr></tr>
+          </table>
         </div>
       </div>
       <div className="request-details">
