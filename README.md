@@ -1,6 +1,6 @@
 # Wrench it
 
-![Wrench it Logo/Icon/Image](link_to_your_image)
+![Wrench it Logo/Icon/Image](web/src/assets/logo.png)
 
 ## Description
 
