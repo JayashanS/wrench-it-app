@@ -7,7 +7,7 @@ function Request() {
     <div className="container-request">
       <div className="view-request">
         <div className="incoming-request">
-          <p>Incoming<t/><VolumeUpIcon style={{marginLeft:"380px",fontSize:"20"}}/></p><hr></hr>
+          <p style={{marginLeft:"20px",fontSize:"20"}}>Incoming<VolumeUpIcon style={{marginLeft:"380px",fontSize:"20"}}/></p><hr></hr>
           <div className="user-details"><p>Alice Smith</p></div>
           <div className="user-details"><p>Alice Smith</p></div>
         </div>
