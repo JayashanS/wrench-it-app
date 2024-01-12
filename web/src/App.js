@@ -13,6 +13,7 @@ import Dashboard from "./components/OperatorDashboard";
 import Request from "./components/Request";
 import Reservations from "./components/Reservations";
 import Location from "./components/Location";
+import Help from "./components/Help";
 
 function NavbarLayout() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="req" element={<Request />} />
           <Route path="stat" element={<Repair />} />
           <Route path="res" element={<Reservations />} />
+          <Route path="help" element={<Help />} />
           <Route path="loc" element={<Location />} />
           <Route path="settings" element={<Request />} />
         </Route>

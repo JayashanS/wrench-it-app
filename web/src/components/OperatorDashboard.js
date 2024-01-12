@@ -9,7 +9,8 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MenuIcon from "@mui/icons-material/Menu";
 import LinkIcon from "@mui/icons-material/Link";
-import DashboardIcon from "@mui/icons-material/Dashboard";
+import CarRepairIcon from "@mui/icons-material/CarRepair";
+import MinorCrashIcon from "@mui/icons-material/MinorCrash";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import EventIcon from "@mui/icons-material/Event";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -103,6 +104,33 @@ function Dashboard() {
         <div
           className="drawer-section"
           style={{
+            paddingLeft: "10px",
+          }}
+        >
+          <Link
+            to=""
+            style={{
+              color: selectedLink === "" ? "#fff" : "#868e96",
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              height: "100%",
+            }}
+            onClick={() => handleLinkClick("")}
+          >
+            <span
+              className="list-item"
+              style={{
+                color: "#09BEB1",
+              }}
+            >
+              Workflow
+            </span>
+          </Link>
+        </div>
+        <div
+          className="drawer-section"
+          style={{
             backgroundColor:
               selectedLink === "/dashboard/req" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
@@ -119,7 +147,7 @@ function Dashboard() {
             }}
             onClick={() => handleLinkClick("/dashboard/req")}
           >
-            <DashboardIcon
+            <MinorCrashIcon
               style={{
                 color: selectedLink === "/dashboard/req" ? "#fff" : "#868e96",
                 marginRight: "10px",
@@ -150,11 +178,11 @@ function Dashboard() {
             }}
             onClick={() => handleLinkClick("/dashboard/stat")}
           >
-            <QueryStatsIcon
+            <CarRepairIcon
               style={{
                 color: selectedLink === "/dashboard/stat" ? "#fff" : "#868e96",
                 marginRight: "10px",
-                fontSize: 20,
+                fontSize: 24,
               }}
             />
             <span className="list-item">Repair</span>
@@ -249,29 +277,56 @@ function Dashboard() {
             <span className="list-item">Advertise</span>
           </Link>
         </div>
-        <hr />
         <div
           className="drawer-section"
           style={{
-            backgroundColor: selectedLink === "/" ? "#09BEB1" : "#fff",
             paddingLeft: "10px",
           }}
         >
           <Link
-            to="/"
+            to=""
             style={{
-              color: selectedLink === "/" ? "#fff" : "#868e96",
+              color: selectedLink === "" ? "#fff" : "#868e96",
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              height: "100%",
+            }}
+            onClick={() => handleLinkClick("")}
+          >
+            <span
+              className="list-item"
+              style={{
+                color: "#09BEB1",
+              }}
+            >
+              Workflow
+            </span>
+          </Link>
+        </div>
+        <div
+          className="drawer-section"
+          style={{
+            backgroundColor:
+              selectedLink === "/dashboard/help" ? "#09BEB1" : "#fff",
+            paddingLeft: "10px",
+          }}
+        >
+          <Link
+            to="/dashboard/help"
+            style={{
+              color: selectedLink === "/dashboard/help" ? "#fff" : "#868e96",
               textDecoration: "none",
               display: "flex",
 
               alignItems: "center",
               height: "100%",
             }}
-            onClick={() => handleLinkClick("/")}
+            onClick={() => handleLinkClick("/dashboard/help")}
           >
             <HelpOutlineIcon
               style={{
-                color: selectedLink === "/" ? "#fff" : "#868e96",
+                color: selectedLink === "/dashboard/help" ? "#fff" : "#868e96",
                 marginRight: "10px",
                 fontSize: 20,
               }}
