@@ -1,4 +1,4 @@
-<img src="web/src/assets/logo.png" width="100" height="100" /># Wrench it
+<img src="web/src/assets/logo.png" width="100" height="100" /> # Wrench it
 
 
 
