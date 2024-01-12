@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import { Accordion, Card } from "react-bootstrap";
 import "../styles/Repair.css";
 
-const Repair = () => {
+function Repair() {
+	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+	const toggleAccordion = () => {
+	  setIsAccordionOpen(!isAccordionOpen);
+	};
+//const Repair = () => {
   return (
     <div class="RepairPage">
       <div class="RepairContainer1">
         <h2>Details</h2>
         <hr />
         <br />
-        <button class="btn">Add new Repair Record</button>
+        <button class="btn"  onClick={toggleAccordion}>Add new Repair Record</button>
         <br />
         <br />
+		{isAccordionOpen && (
+        <div className="Add new Form">
+          <Card className="Add New Form-card">
+            <Card.Body>
+              <Accordion defaultActiveKey="0">
+                Hello!
+                <br />
+                <button className="help-button" onClick={toggleAccordion}>
+                  Close
+                </button>
+              </Accordion>
+            </Card.Body>
+          </Card>
+        </div>
+      )}
+		
         <table class="Repair">
           <tr>
             <th>Repair ID</th>
