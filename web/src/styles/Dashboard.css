@@ -93,7 +93,16 @@
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
   }
-  
+  .d-drawer-title {
+    color:#09BEB1;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
   
   .d-navbar-right {
     margin-left: auto;
