@@ -7,6 +7,25 @@ function Repair() {
 	const toggleAccordion = () => {
 	  setIsAccordionOpen(!isAccordionOpen);
 	};
+
+// form validation
+/*const validateForm = () => {
+    const form = document.getElementById("repairForm");
+    const elements = form.elements;
+
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i].type !== "button" && elements[i].type !== "submit") {
+        if (!elements[i].value.trim()) {
+          alert("Please fill in all required fields.");
+          return;
+        }
+      }
+    }
+    alert("Form submitted successfully!");
+  };
+
+*/
+
 //const Repair = () => {
   return (
     <div class="RepairPage">
@@ -18,15 +37,50 @@ function Repair() {
         <br />
         <br />
 		{isAccordionOpen && (
-        <div className="Add new Form">
-          <Card className="Add New Form-card">
+
+//Add new Repair form
+
+        <div className="Add-new-Form">
+          <Card className="Add-New-Form-card">
             <Card.Body>
+			
+		<h2>Repair Information Form</h2>
+			<form id="repairForm">
+				<label for="repairId">Repair ID:</label>
+    			<input type="text" id="repairId" name="repairId" required/>
+
+				<label for="licensePlateNo">License Plate No:</label>
+   	 			<input type="text" id="licensePlateNo" name="licensePlateNo" required></input>
+				
+				<label for="model">Model:</label>
+    			<input type="text" id="model" name="model" required/>
+
+				<label for="fault">Fault:</label>
+    			<textarea id="fault" name="fault" rows="4" required></textarea>
+				
+				<label for="NIC">NIC:</label>
+    			<input type="text" id="NIC" name="NIC" required />
+
+   				 <label for="phoneNo">Phone No:</label>
+    			<input type="tel" id="phoneNo" name="phoneNo" required />
+
+    			<label for="date">Date:</label>
+    			<input type="date" id="date" name="date" required />
+
+    			<label for="status">Status:</label>
+				<select id="status" name="status" required>
+      				<option value="Pending">Pending</option>
+      				<option value="In Progress">In Progress</option>
+      				<option value="Completed">Completed</option>
+    			</select>
+				
+				<button type="button" onclick="validateForm()">Submit</button>
+				
+				</form>
+				
               <Accordion defaultActiveKey="0">
-                Hello!
+                
                 <br />
-                <button className="help-button" onClick={toggleAccordion}>
-                  Close
-                </button>
               </Accordion>
             </Card.Body>
           </Card>
@@ -162,6 +216,7 @@ function Repair() {
       </div>
     </div>
   );
-};
+		};
+	
 
 export default Repair;
