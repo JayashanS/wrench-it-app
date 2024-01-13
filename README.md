@@ -1,6 +1,9 @@
+<img src="web/src/assets/wrenchit.png" width="100" height="100" /> 
+
 # Wrench it
 
-![Wrench it Logo/Icon/Image](link_to_your_image)
+
+
 
 ## Description
 
