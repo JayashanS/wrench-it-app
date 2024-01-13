@@ -6,7 +6,7 @@
     position: fixed;
     font-size: 14px;
     margin-top:50px;
-    padding-top: 5%;
+    padding-top: 1%;
   }
   .drawer-section {
     width: 80%;
@@ -14,7 +14,7 @@
     margin-left: 10%;
     border-radius: 2px;
     flex: 1;
-    transition: background-color 0.2s ease; 
+    transition: background-color 0s ease; 
     margin-top: 10px;
     color: #bcbcbc;
   }
@@ -30,10 +30,8 @@
   .d-drawer-title {
     color:#09BEB1;
     font-size: 14px;
+    font-weight: bold;
     border-radius: 5px;
-    padding: 0.5rem 1rem;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
   }

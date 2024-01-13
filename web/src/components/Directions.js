@@ -10,7 +10,7 @@ const MapWithDirections = () => {
   useEffect(() => {
     mapboxgl.accessToken = `${process.env.REACT_APP_API_TOKEN}`;
 
-    const start = [-122.662323, 45.523751];
+    const start = [80.540379, 5.949636];
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/streets-v12",

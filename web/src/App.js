@@ -14,6 +14,7 @@ import Request from "./components/Request";
 import Reservations from "./components/Reservations";
 import Location from "./components/Directions";
 import Help from "./components/Help";
+import Settings from "./components/Settings";
 
 function NavbarLayout() {
   return (
@@ -47,7 +48,7 @@ function App() {
           <Route path="res" element={<Reservations />} />
           <Route path="help" element={<Help />} />
           <Route path="loc" element={<Location />} />
-          <Route path="settings" element={<Request />} />
+          <Route path="set" element={<Settings />} />
         </Route>
       </Routes>
     </Router>
