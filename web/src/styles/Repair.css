@@ -116,7 +116,7 @@ h2{
 .Add-new-Form {
     position: fixed;
     z-index: 1;
-    margin: 30px;
+    margin: -20px 0px;
 }
   
 .Add-New-Form-card {
@@ -127,6 +127,21 @@ h2{
     box-shadow:0 0 10px rgba(231, 231, 231, 0.1);
     border-radius: 4px;
    
+}
+.Add-new-parts-Form {
+  position: fixed;
+  z-index: 1;
+  margin: -30px -250px;
+}
+
+.Add-New-parts-card {
+  width: 250px;
+  height: 300px;
+  margin: auto;
+  background-color:white;
+  box-shadow:0 0 10px rgba(231, 231, 231, 0.1);
+  border-radius: 4px;
+ 
 }
 label {
     display: block;
