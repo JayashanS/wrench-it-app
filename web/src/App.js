@@ -9,10 +9,10 @@ import Signup from "./components/Signup";
 
 // dashboard imports
 import Repair from "./components/Repair";
-import Dashboard from "./components/OperatorDashboard";
+import Dashboard from "./pages/Dashboard";
 import Request from "./components/Request";
 import Reservations from "./components/Reservations";
-import Location from "./components/Location";
+import Location from "./components/Directions";
 import Help from "./components/Help";
 
 function NavbarLayout() {
