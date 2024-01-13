@@ -1,0 +1,53 @@
+.drawer {
+    width: 12%;
+    height: 100vh;
+    flex-direction: column;
+    background-color: #fff;
+    position: fixed;
+    font-size: 14px;
+    margin-top:50px;
+    padding-top: 5%;
+  }
+  .drawer-section {
+    width: 80%;
+    height: 30px;
+    margin-left: 10%;
+    border-radius: 2px;
+    flex: 1;
+    transition: background-color 0.2s ease; 
+    margin-top: 10px;
+    color: #bcbcbc;
+  }
+
+  
+  .list-item-container {
+    display: flex;
+    align-items: center;
+    padding-top: 5px;
+    padding-left: 10px;
+  }
+  
+  .d-drawer-title {
+    color:#09BEB1;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+.link {
+  width: 100%;
+  border-radius: 2px;
+  text-decoration: none;
+  display: flex;
+  height: 100%;
+  transition: background-color 0.1s ease, color 0.1s ease; 
+}
+
+.link:hover {
+  background-color: #09beb26a;
+  
+}
