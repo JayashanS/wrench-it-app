@@ -1,14 +1,33 @@
 import React, { useState } from "react";
 import "../styles/Request.css";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import CallIcon from '@mui/icons-material/Call';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 function Request() {
   return (
     <div className="container-request">
       <div className="view-request">
         <div className="incoming-request">
-          <p style={{marginLeft:"20px",fontSize:"20"}}>Incoming<VolumeUpIcon style={{marginLeft:"380px",fontSize:"20"}}/></p><hr></hr>
-          <div className="user-details"><p>Alice Smith</p></div>
+          <div className="header-bar">
+            <p style={{marginLeft:"20px"}}>Incoming</p><VolumeUpIcon style={{marginLeft:"350px",marginBottom:"15px"}}/>
+          </div>
+
+          <hr className="horizontal-line"/>
+
+          <div className="user-details">
+            <div className="profile-circle"/>
+            <div className="name-box"><b>Alice Smith</b></div>
+            <div className="details-box">
+              <DirectionsCarIcon style={{color:"#A1D3E5"}}/>Toyota Camry
+              <br/>
+              <CallIcon style={{color:"#A1D3E5"}}/>+941000000
+              <br/>
+              <LocationOnIcon style={{color:"#A1D3E5"}}/>Matara
+            </div>
+          </div>
+
           <div className="user-details"><p>Alice Smith</p></div>
         </div>
         <div className="accepted-request">
