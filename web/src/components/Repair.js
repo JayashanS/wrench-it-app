@@ -4,9 +4,13 @@ import "../styles/Repair.css";
 
 function Repair() {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const [isPartsFormOpen, setIsPartsFormOpen] = useState(false);
 	const toggleAccordion = () => {
 	  setIsAccordionOpen(!isAccordionOpen);
 	};
+  const togglePartsForm = () => {
+    setIsPartsFormOpen(!isPartsFormOpen);
+  };
 
 // form validation
 /*const validateForm = () => {
@@ -85,6 +89,7 @@ function Repair() {
             </Card.Body>
           </Card>
         </div>
+        
       )}
 		
         <table class="Repair">
@@ -129,6 +134,7 @@ function Repair() {
             <td>Pending</td>
           </tr>
         </table>
+        
       </div>
       <div class="RepairContainer2">
         <h2>Billing</h2>
@@ -159,7 +165,42 @@ function Repair() {
           <tr>
             <td>Parts</td>
             <td>
-              <button class="btnParts">Add Parts</button>
+              <button class="btnParts" onClick={togglePartsForm} >Add Parts</button>
+              {isPartsFormOpen && (
+
+     //Add new parts form
+
+        <div className="Add-new-parts-Form">
+          <Card className="Add-New-parts-card">
+
+          <Card.Body>
+            <h2>Add Parts</h2>
+            <form action="/submit" method="post">
+                   <label for="part">Part:</label>
+                   <input type="text" id="part" name="part" required></input>
+            
+                   <label for="quantity">Quantity:</label>
+                   <input type="number" id="quantity" name="quantity" required></input>
+
+                   <label for="price">Price per unit:</label>
+                   <input type="number" id="price" name="price" required></input>
+
+                  <label for="totalPrice">Total Price:</label>
+                  <input type="number" id="totalPrice" name="totalPrice" readonly></input>
+
+                  <button type="submit">Submit</button>
+            
+            </form>
+            <Accordion defaultActiveKey="0">
+                
+                <br />
+              </Accordion>
+            </Card.Body>
+            </Card>
+            </div>
+
+              )}
+              
             </td>
           </tr>
 
@@ -186,7 +227,10 @@ function Repair() {
           </table>
         </table>
         <hr />
+        
+        
         <h2>services</h2>
+        
         <table class="services">
           <tr>
             <td>
