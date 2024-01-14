@@ -1,6 +1,11 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+
+import Info from "./Info";
+import Pricing from "./Pricing";
+import Location from "./Location";
 import "../styles/Settings.css";
+
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
@@ -102,13 +107,13 @@ export default function BasicTabs() {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0} className="settings-tabs">
-          Item One
+          <Info />
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          Item Two
+        <CustomTabPanel value={value} index={1} className="settings-tabs">
+          <Pricing />
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          Item Three
+        <CustomTabPanel value={value} index={2} className="settings-tabs">
+          <Location />
         </CustomTabPanel>
       </Box>
     </ThemeProvider>

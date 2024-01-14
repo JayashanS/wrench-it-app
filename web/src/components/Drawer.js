@@ -12,7 +12,6 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 function Drawer() {
   const [selectedLink, setSelectedLink] = useState("/dashboard/view");
@@ -202,37 +201,6 @@ function Drawer() {
           <span className="list-item">Community</span>
         </Link>
       </div>
-      <div
-        className="drawer-section"
-        style={{
-          backgroundColor:
-            selectedLink === "/dashboard/loc" ? "#09BEB1" : "#fff",
-        }}
-      >
-        <Link
-          className="link"
-          to="/dashboard/loc"
-          style={{
-            color: selectedLink === "/dashboard/loc" ? "#fff" : "#868e96",
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            height: "100%",
-            paddingLeft: "10px",
-          }}
-          onClick={() => handleLinkClick("/dashboard/loc")}
-        >
-          <LocationOnIcon
-            style={{
-              color: selectedLink === "/dashboard/loc" ? "#fff" : "#868e96",
-              marginRight: "10px",
-              fontSize: 20,
-            }}
-          />
-          <span className="list-item">Location</span>
-        </Link>
-      </div>
-
       <div className="drawer-section" style={{}}>
         <Link
           to=""
