@@ -2,14 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const garageSchema = new Schema({
-  garageId: {
+  ownerId: {
     type: String,
     required: true,
     unique: true,
-  },
-  address: {
-    type: String,
-    required: true,
   },
   repairCenterName: {
     type: String,
@@ -19,41 +15,28 @@ const garageSchema = new Schema({
     type: String,
     required: true,
   },
-  openingHours: {
+  ownerNIC: {
     type: String,
-    required: true,
-  },
-  closingHours: {
-    type: String,
-    required: true,
-  },
-  serviceOffered: {
-    type: [String],
-    required: true,
-  },
-  gOwnerNIC: {
-    type: String,
-    required: true,
-  },
-  location: {
-    type: {
-      longitude: Number,
-      latitude: Number,
-    },
     required: true,
   },
   numOfWorkers: {
     type: Number,
     required: true,
   },
-  station: {
-    type: {
-      category: String,
-      numOfSpaces: {
-        type: Map,
-        of: Number,
-      },
-    },
+  street: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  postalCode: {
+    type: String,
     required: true,
   },
 });
