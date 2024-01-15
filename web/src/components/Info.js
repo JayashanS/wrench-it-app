@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { styled } from "@mui/system";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
@@ -50,6 +51,10 @@ const Info = () => {
   const handleCheckboxChange = () => {
     setIsEnabled((prevValue) => !prevValue);
   };
+
+  const MediumLabel = styled("div")({
+    fontSize: "14px",
+  });
 
   const handleSaveButtonClick = async () => {
     console.log("handleSaveButtonClick function is called");
@@ -273,20 +278,34 @@ const Info = () => {
         <FormGroup className="info-check-list">
           <FormControlLabel
             control={<Checkbox />}
-            label="Passenger Cars"
+            label={<MediumLabel>Passenger Cars</MediumLabel>}
             checked={isEnabled}
             onChange={handleCheckboxChange}
           />
           <FormControlLabel
             control={<Checkbox />}
-            label="SUVs (Sport Utility Vehicles)"
+            label={<MediumLabel>SUVs (Sport Utility Vehicles)</MediumLabel>}
+            checked={isEnabled}
+            onChange={handleCheckboxChange}
           />
           <FormControlLabel
             control={<Checkbox />}
-            label="Flat Tire Repair/Replacement"
+            label={<MediumLabel>Flat Tire Repair/Replacement</MediumLabel>}
+            checked={isEnabled}
+            onChange={handleCheckboxChange}
           />
-          <FormControlLabel control={<Checkbox />} label="Vans" />
-          <FormControlLabel control={<Checkbox />} label="Motorcycles" />
+          <FormControlLabel
+            control={<Checkbox />}
+            label={<MediumLabel>Vans</MediumLabel>}
+            checked={isEnabled}
+            onChange={handleCheckboxChange}
+          />
+          <FormControlLabel
+            control={<Checkbox />}
+            label={<MediumLabel>Motorcycles</MediumLabel>}
+            checked={isEnabled}
+            onChange={handleCheckboxChange}
+          />
         </FormGroup>
       </div>
       <div className="info-field">
