@@ -8,21 +8,39 @@ const Reservations = () => {
 
   <div class="column-1">
       <p ><span class="container-title">Request</span></p>
+      <hr/>
       <div class="column-3">
         <div class="innerColumn-1">
-          <div class="circle-kawishka">
-            
-
-          </div>
+          <p class="circle-kawishka"></p>
           <p><center><span class="container-title">john Smith</span></center></p>
         </div>
         <div class="innerColumn-1">
-          <input type="checkbox" id="service1" name="service1" value="service 1"/>
-          <label for="service1"> Service 1</label>
-          <input type="checkbox" id="service1" name="service1" value="service 1"/>
-          <label for="service1"> Service 1</label>
-          <input type="checkbox" id="service1" name="service1" value="service 1"/>
-          <label for="service1"> Service 1</label>
+        <table class="ReservationServices">
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td> service1</td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td> service2</td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td> service3</td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td> service4</td>
+          </tr>
+        </table>
 
 
 
@@ -30,10 +48,14 @@ const Reservations = () => {
         <div class="innerColumn-1">
 
           <p><span class="container-title">Date</span></p>
+          <p>10/11/2023</p>
+          <button class="button button1">Accept</button>
   
         </div>
         <div class="innerColumn-1">
           <p><span class="container-title">Time</span></p>
+          <p>10.00 AM</p>
+          <button class="button button2">Decline</button>
         </div>
 
           
@@ -74,26 +96,46 @@ const Reservations = () => {
 
   <div class="column-2">
       <p ><span class="container-title">Accepted</span></p>
+      <hr/>
+
       <div class="column-4">
 
-          dddd
+        <div class="innerRow-1">
+        
+         <div class="item-1"> Alice Smith</div>
+         <div class="item-1"> Toyota Chammy</div>
+         <div class="item-1">10/11/2023</div>
+         <div class="item-1"> 16.00 pm</div>
+         <div class="item-1"> icon</div>
+         <div class="item-1"> icon</div>
+         
+        </div>
+        <div class="innerRow-2">
+         
+
+          <div class="item-2"> <input type="checkbox" /> service1</div>
+          <div class="item-2"> <input type="checkbox" /> service1</div>
+          <div class="item-2"> <input type="checkbox" /> service1</div>
+          <div class="item-2"> <input type="checkbox" /> service1</div>
+
+        </div>
       </div>
 
       <div class="column-4">
 
-          ddddd
+     
       </div>
       <div class="column-4">
 
-          ddddd
+          
       </div>
       <div class="column-4">
 
-          ddddd
+         
       </div>
       <div class="column-4">
 
-          ddddd
+          
       </div>
 
   </div>
