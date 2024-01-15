@@ -122,10 +122,6 @@
    background-color: #EEF2F5;
 }
 
-.horizontal-line{
-   border: 1px solid black;
-}
-
 .profile-circle{
    display: inline-block;
    margin-top: 2%;
@@ -164,4 +160,12 @@
 .button-box{
    display: flex;
    flex-direction: column;
+   margin-top: 2%;
+}
+
+.custom-button{
+   display: flex;
+   flex-direction: column;
+   margin-top: 2%;
+   text-align: center;
 }

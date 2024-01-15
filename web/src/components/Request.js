@@ -4,7 +4,6 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { green, red } from "@mui/material/colors";
 
 function Request() {
   return (
@@ -12,11 +11,10 @@ function Request() {
       <div className="view-request">
         <div className="incoming-request">
           <div className="header-bar">
-            <p style={{marginLeft:"20px"}}>Incoming</p><VolumeUpIcon style={{marginLeft:"350px",marginBottom:"15px"}}/>
+            <p style={{marginLeft:"20px"}}>Incoming</p>
+            <VolumeUpIcon style={{marginLeft:"350px",marginBottom:"15px"}}/><br/>
           </div>
-
-          <hr className="horizontal-line"/>
-
+          <hr style={{width:"96%"}}/>
           <div className="user-details">
             <div className="profile-circle"/>
             <div className="name-box"><b>Alice Smith</b></div>
@@ -31,8 +29,8 @@ function Request() {
               Matara <br />
             </div>
             <div className="button-box">
-              <button style={{color:green}}>View</button>
-              <button style={{color:red}}>Decline</button>
+                <button className="custom-button">View</button>
+                <button className="custom-button" style={{backgroundColor:"red"}}>Decline</button>
             </div>
           </div>
 
