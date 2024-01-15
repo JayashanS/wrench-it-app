@@ -1,9 +1,10 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
+
 import "../styles/Home.css";
 
-function Home() {
+function Dashboard() {
   return (
     <div className="container-home">
       <Navbar />
@@ -14,4 +15,5 @@ function Home() {
     </div>
   );
 }
-export default Home;
+
+export default Dashboard;
