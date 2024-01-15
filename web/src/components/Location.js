@@ -34,9 +34,9 @@ const Map = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="outer">
+    <div className="location-container">
       <div className="map-inner-left">
-        <h5 className="title">Sharing Your Location</h5>
+        <span className="location-title">Sharing Your Location</span>
         <p>
           Your location is key to ensuring a smooth experience at our repair
           center. By sharing your location, you're helping us guide you quickly
@@ -47,13 +47,13 @@ const Map = () => {
           us—we're committed to providing top-notch service!
         </p>
         <br />
-        <p style={{ color: "#64CCC5" }}>
+        <p style={{ color: "#09BEB1", fontWeight: "bold" }}>
           Position your location under the red circle at the center and adjust
           the zoom level between 17 to 19 (Recomended) using the scroll button.
           Once set, click the 'Save' button below for confirmation.{" "}
         </p>
         <br />
-        <button className="save">Save</button>
+        <input type="submit" className="location-save" value="Save" />
       </div>
       <div className="sidebarStyle">
         <div>

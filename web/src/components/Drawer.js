@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 import "../styles/Drawer.css";
 
 // icons and logos
+import HomeIcon from "@mui/icons-material/Home";
 import CarRepairIcon from "@mui/icons-material/CarRepair";
 import MinorCrashIcon from "@mui/icons-material/MinorCrash";
 import EventIcon from "@mui/icons-material/Event";
-import AddBoxIcon from "@mui/icons-material/AddBox";
+import PeopleIcon from "@mui/icons-material/People";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 function Drawer() {
-  const [selectedLink, setSelectedLink] = useState("/dashboard/form");
+  const [selectedLink, setSelectedLink] = useState("/dashboard/view");
 
   const handleLinkClick = (link) => {
     setSelectedLink(link);
@@ -40,13 +40,44 @@ function Drawer() {
           onClick={() => handleLinkClick("")}
         >
           <span
-            className="list-item"
+            className="list-item d-drawer-title"
             style={{
               color: "#09BEB1",
             }}
           >
             Workflow
           </span>
+        </Link>
+      </div>
+      <div
+        className="drawer-section"
+        style={{
+          backgroundColor:
+            selectedLink === "/dashboard/view" ? "#09BEB1" : "#fff",
+        }}
+      >
+        <Link
+          className="link"
+          to="/dashboard/view"
+          style={{
+            color: selectedLink === "/dashboard/view" ? "#fff" : "#868e96",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+            paddingLeft: "10px",
+          }}
+          onClick={() => handleLinkClick("/dashboard/view")}
+        >
+          <HomeIcon
+            style={{
+              color: selectedLink === "/dashboard/view" ? "#fff" : "#868e96",
+              marginRight: "10px",
+              fontSize: 20,
+            }}
+            className="icon"
+          />
+          <span className="list-item">Overview</span>
         </Link>
       </div>
       <div
@@ -104,7 +135,7 @@ function Drawer() {
             style={{
               color: selectedLink === "/dashboard/stat" ? "#fff" : "#868e96",
               marginRight: "10px",
-              fontSize: 24,
+              fontSize: 20,
             }}
           />
           <span className="list-item">Repair</span>
@@ -144,59 +175,30 @@ function Drawer() {
         className="drawer-section"
         style={{
           backgroundColor:
-            selectedLink === "/dashboard/loc" ? "#09BEB1" : "#fff",
+            selectedLink === "/dashboard/com" ? "#09BEB1" : "#fff",
         }}
       >
         <Link
           className="link"
-          to="/dashboard/loc"
+          to="/dashboard/com"
           style={{
-            color: selectedLink === "/dashboard/loc" ? "#fff" : "#868e96",
+            color: selectedLink === "/dashboard/com" ? "#fff" : "#868e96",
             textDecoration: "none",
             display: "flex",
             alignItems: "center",
             height: "100%",
             paddingLeft: "10px",
           }}
-          onClick={() => handleLinkClick("/dashboard/loc")}
+          onClick={() => handleLinkClick("/dashboard/com")}
         >
-          <LocationOnIcon
+          <PeopleIcon
             style={{
-              color: selectedLink === "/dashboard/loc" ? "#fff" : "#868e96",
+              color: selectedLink === "/dashboard/com" ? "#fff" : "#868e96",
               marginRight: "10px",
               fontSize: 20,
             }}
           />
-          <span className="list-item">Location</span>
-        </Link>
-      </div>
-      <div
-        className="drawer-section"
-        style={{
-          backgroundColor: selectedLink === "/" ? "#09BEB1" : "#fff",
-        }}
-      >
-        <Link
-          className="link"
-          to="/"
-          style={{
-            color: selectedLink === "/" ? "#fff" : "#868e96",
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            height: "100%",
-            paddingLeft: "10px",
-          }}
-          onClick={() => handleLinkClick("/")}
-        >
-          <AddBoxIcon
-            style={{
-              color: selectedLink === "/" ? "#fff" : "#868e96",
-              marginRight: "10px",
-              fontSize: 20,
-            }}
-          />
-          <span className="list-item">Advertise</span>
+          <span className="list-item">Community</span>
         </Link>
       </div>
       <div className="drawer-section" style={{}}>
@@ -213,12 +215,12 @@ function Drawer() {
           onClick={() => handleLinkClick("")}
         >
           <span
-            className="list-item"
+            className="list-item d-drawer-title"
             style={{
               color: "#09BEB1",
             }}
           >
-            Workflow
+            Tools
           </span>
         </Link>
       </div>
@@ -285,26 +287,25 @@ function Drawer() {
         className="drawer-section"
         style={{
           backgroundColor:
-            selectedLink === "/dashboard/settings" ? "#09BEB1" : "#fff",
+            selectedLink === "/dashboard/set" ? "#09BEB1" : "#fff",
         }}
       >
         <Link
           className="link"
-          to="/dashboard/settings"
+          to="/dashboard/set"
           style={{
-            color: selectedLink === "/dashboard/settings" ? "#fff" : "#868e96",
+            color: selectedLink === "/dashboard/set" ? "#fff" : "#868e96",
             textDecoration: "none",
             display: "flex",
             alignItems: "center",
             height: "100%",
             paddingLeft: "10px",
           }}
-          onClick={() => handleLinkClick("/dashboard/settings")}
+          onClick={() => handleLinkClick("/dashboard/set")}
         >
           <SettingsIcon
             style={{
-              color:
-                selectedLink === "/dashboard/settings" ? "#fff" : "#868e96",
+              color: selectedLink === "/dashboard/set" ? "#fff" : "#868e96",
               marginRight: "10px",
               fontSize: 20,
             }}
