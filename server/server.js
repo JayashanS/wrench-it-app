@@ -5,6 +5,7 @@ const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 
+const userRoutes = require("./routes/user");
 const ownerRoutes = require("./routes/owner");
 const vehicleRoutes = require("./routes/vehicle");
 const repairRoutes = require("./routes/repair");
@@ -22,6 +23,7 @@ app.use(
 );
 
 // routes
+app.use("/api/user", userRoutes);
 app.use("/api/owner", ownerRoutes);
 app.use("/api/vehicle", vehicleRoutes);
 app.use("/api/request", requestRoutes);

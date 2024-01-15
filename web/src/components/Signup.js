@@ -7,6 +7,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Button from "@mui/material/Button";
 import "../styles/Signup.css";
 
 const theme = createTheme({
@@ -60,7 +61,7 @@ export default function CustomTextField() {
               label="First Name"
               variant="outlined"
               sx={{
-                width: "300px",
+                width: "80%",
                 marginLeft: "50px",
               }}
               size="small"
@@ -69,7 +70,7 @@ export default function CustomTextField() {
               id="outlined-basic"
               label="Last Name"
               variant="outlined"
-              sx={{ width: "300px", marginLeft: "50px" }}
+              sx={{ width: "80%", marginLeft: "50px" }}
               size="small"
             />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -82,7 +83,7 @@ export default function CustomTextField() {
               label="Email"
               variant="outlined"
               type="email"
-              sx={{ width: "300px", marginLeft: "50px" }}
+              sx={{ width: "80%", marginLeft: "50px" }}
               size="small"
             />
             <TextField
@@ -101,6 +102,14 @@ export default function CustomTextField() {
               sx={{ width: "250px", marginLeft: "50px" }}
               size="small"
             />
+            <br />
+            <br />
+            <Button
+              variant="contained"
+              style={{ color: "white", width: "80%" }}
+            >
+              Register
+            </Button>
           </Box>
         </ThemeProvider>
       </div>
