@@ -105,8 +105,8 @@
 .user-details{
    display: flex;
    width: 85%;
-   height: 15vh;
-   margin-top: 5%;
+   height: 12vh;
+   margin-top: 0.5%;
    margin-left: 6%;
    background-color: #FFFFFF;
 }
@@ -128,10 +128,10 @@
 
 .profile-circle{
    display: inline-block;
-   margin-top: 2.5%;
+   margin-top: 2%;
    margin-left: 1.5%;
-   width: 18%;
-   height: 80%;
+   width: 15%;
+   height: 78%;
    border-radius: 50%;
    background-color: #D9D9D9;
 }
@@ -140,30 +140,28 @@
    display: flex;
    width: 25%;
    height: 5vh;
-   margin-top: 8.8%;
+   margin-top: 5.5%;
    margin-left: 2%;
    flex-shrink: 0;
    color: #09BEB1;
-   background-color: aqua;
 }
 
 .icon-box{
    display: flex;
    flex-direction: column;
-   margin-top: 1%;
    margin-left: 1%;
    color: #A1D3E5;
-   line-height: 500%;
-   background-color: brown;
 }
 
 .details-box{
    display: flex;
    flex-direction: column ;
-   width: 50%;
-   height: 15vh;
-   margin-top: 1%;
-   margin-left: 1%;
+   width: 28%;
+   line-height: 1.6;
    color: #8E8E97;
-   background-color: yellowgreen;
+}
+
+.button-box{
+   display: flex;
+   flex-direction: column;
 }

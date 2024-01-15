@@ -4,6 +4,7 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { green, red } from "@mui/material/colors";
 
 function Request() {
   return (
@@ -24,9 +25,33 @@ function Request() {
               <CallIcon/>
               <LocationOnIcon/>
             </div>
+            <div className="details-box">
+              Toyota Camry <br />
+              +94710000000 <br /> 
+              Matara <br />
+            </div>
+            <div className="button-box">
+              <button style={{color:green}}>View</button>
+              <button style={{color:red}}>Decline</button>
+            </div>
           </div>
 
-          <div className="user-details"><p>Alice Smith</p></div>
+          <div className="user-details">
+            <div className="profile-circle"/>
+            <div className="name-box"><b>Alice Smith</b></div>
+            <div className="icon-box">
+              <DirectionsCarIcon/>
+              <CallIcon/>
+              <LocationOnIcon/>
+            </div>
+            <div className="details-box">
+              Toyota Camry <br />
+              +94710000000 <br /> 
+              Matara <br />
+            </div>
+          </div>
+          
+
         </div>
         <div className="accepted-request">
           <p>Accepted </p><hr></hr>
