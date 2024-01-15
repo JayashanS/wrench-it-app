@@ -19,12 +19,10 @@ function Request() {
           <div className="user-details">
             <div className="profile-circle"/>
             <div className="name-box"><b>Alice Smith</b></div>
-            <div className="details-box">
-              <DirectionsCarIcon style={{color:"#A1D3E5"}}/>Toyota Camry
-              <br/>
-              <CallIcon style={{color:"#A1D3E5"}}/>+941000000
-              <br/>
-              <LocationOnIcon style={{color:"#A1D3E5"}}/>Matara
+            <div className="icon-box">
+              <DirectionsCarIcon/>
+              <CallIcon/>
+              <LocationOnIcon/>
             </div>
           </div>
 
