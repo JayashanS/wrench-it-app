@@ -1,44 +1,37 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const garageSchema = new Schema({
-  ownerId: {
+const vehicleSchema = new Schema({
+  licencePlateNumber: {
     type: String,
     required: true,
     unique: true,
   },
-  repairCenterName: {
+  manufacturer: {
     type: String,
     required: true,
   },
-  ownerName: {
+  model: {
     type: String,
     required: true,
   },
-  ownerNIC: {
+  category: {
     type: String,
     required: true,
   },
-  numOfWorkers: {
-    type: Number,
-    required: true,
-  },
-  street: {
+  year: {
     type: String,
     required: true,
   },
-  city: {
-    type: String,
+  fault: {
+    type: [String],
     required: true,
   },
-  state: {
+  nic: {
     type: String,
     required: true,
-  },
-  postalCode: {
-    type: String,
-    required: true,
-  },
+    unique: true
+  }
 });
 
-module.exports = mongoose.model("Garage", garageSchema);
+module.exports = mongoose.model("Vehicle", vehicleSchema);

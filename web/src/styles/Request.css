@@ -1,28 +1,30 @@
 .container-request{
     display: flex;
     flex-direction: row;
-    position: relative;
+    width: 100%;
+    height: 100vh;
     top :0 ;
-    left :200px;
-    background-color: #EEF2F5;
+    margin-left :200px;
+    background-color: #808386;
 }
- .process-request{
+ .view-request{
     display: flex;
     flex-direction: column;
     width: 40%;
     height: 100vh; /*vh = view point height */
     top: 5%;
     left: 4%;
-    background-color: #c31919;
+    background-color: #FFFFFF;
  }
 
  .request-details{
     display: flex;
+    flex-direction: row;
     width: 60%;
     height: 100vh;
     top: 5%;
     left: 5%;
-    background-color: blue;
+    background-color: #FFFFFF;
  }
 
  .incoming-request{
@@ -31,7 +33,7 @@
     margin-top: 4%;
     margin-left: 4%;
     height: 50vh;
-    background-color: aqua;
+    background-color: #EEF2F5;
  }
 
  .accepted-request{
@@ -41,11 +43,67 @@
     margin-left: 4%;
     margin-bottom: 4%;
     height: 40vh;
-    background-color: azure;
+    background-color: #EEF2F5;
  }
 
 .map{
+   display: flex;
+   flex-direction: column;
+   width: 50%;
+   background-color: #FFFFFF;
+}
+
+.map-view{
     display: flex;
+    height: 60vh;
+    width: 92%;
     margin-top: 4%;
     margin-left: 4%;
+    margin-bottom: 4%;
+    background-color: #EEF2F5
+}
+
+.map-details{
+   display: flex;
+   height: 30vh;
+   width: 92%;
+   margin-top: 4%;
+   margin-left: 4%;
+   margin-bottom: 4%;
+   background-color: #EEF2F5;
+}
+
+.chatbox{
+   display: flex;
+   flex-direction: column;
+   width: 50%;
+   background-color: #FFFFFF;
+}
+
+.process-request{
+   display: flex;
+   width: 92%;
+   height: 50vh;
+   margin-top: 4%;
+   margin-left: 4%;
+   margin-bottom: 4%;
+   background-color: #EEF2F5
+}
+
+.messagebox{
+   display: flex;
+   height: 60vh;
+   width: 92%;
+   margin-top: 4%;
+   margin-left: 4%;
+   margin-bottom: 4%;
+   background-color: #EEF2F5
+}
+
+.user-details{
+   display: flex;
+   width: 92%;
+   margin-top: 4%;
+   margin-left: 4%;
+   background-color: #FFFFFF;
 }
