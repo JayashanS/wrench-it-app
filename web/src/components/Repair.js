@@ -1,16 +1,97 @@
-import React from "react";
+import React, { useState } from "react";
+import { Accordion, Card } from "react-bootstrap";
 import "../styles/Repair.css";
 
-const Repair = () => {
+function Repair() {
+	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const [isPartsFormOpen, setIsPartsFormOpen] = useState(false);
+	const toggleAccordion = () => {
+	  setIsAccordionOpen(!isAccordionOpen);
+	};
+  const togglePartsForm = () => {
+    setIsPartsFormOpen(!isPartsFormOpen);
+  };
+
+// form validation
+/*const validateForm = () => {
+    const form = document.getElementById("repairForm");
+    const elements = form.elements;
+
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i].type !== "button" && elements[i].type !== "submit") {
+        if (!elements[i].value.trim()) {
+          alert("Please fill in all required fields.");
+          return;
+        }
+      }
+    }
+    alert("Form submitted successfully!");
+  };
+
+*/
+
+//const Repair = () => {
   return (
     <div class="RepairPage">
-      <div class="Repaircontainer1">
+      <div class="RepairContainer1">
         <h2>Details</h2>
         <hr />
         <br />
-        <button class="btn">Add new Repair Record</button>
+        <button class="btn"  onClick={toggleAccordion}>Add new Repair Record</button>
         <br />
         <br />
+		{isAccordionOpen && (
+
+//Add new Repair form
+
+        <div className="Add-new-Form">
+          <Card className="Add-New-Form-card">
+            <Card.Body>
+			
+		<h2>Repair Information Form</h2>
+			<form id="repairForm">
+				<label for="repairId">Repair ID:</label>
+    			<input type="text" id="repairId" name="repairId" required/>
+
+				<label for="licensePlateNo">License Plate No:</label>
+   	 			<input type="text" id="licensePlateNo" name="licensePlateNo" required></input>
+				
+				<label for="model">Model:</label>
+    			<input type="text" id="model" name="model" required/>
+
+				<label for="fault">Fault:</label>
+    			<textarea id="fault" name="fault" rows="4" required></textarea>
+				
+				<label for="NIC">NIC:</label>
+    			<input type="text" id="NIC" name="NIC" required />
+
+   				 <label for="phoneNo">Phone No:</label>
+    			<input type="tel" id="phoneNo" name="phoneNo" required />
+
+    			<label for="date">Date:</label>
+    			<input type="date" id="date" name="date" required />
+
+    			<label for="status">Status:</label>
+				<select id="status" name="status" required>
+      				<option value="Pending">Pending</option>
+      				<option value="In Progress">In Progress</option>
+      				<option value="Completed">Completed</option>
+    			</select>
+				
+				<button type="button" onclick="validateForm()">Submit</button>
+				
+				</form>
+				
+              <Accordion defaultActiveKey="0">
+                
+                <br />
+              </Accordion>
+            </Card.Body>
+          </Card>
+        </div>
+        
+      )}
+		
         <table class="Repair">
           <tr>
             <th>Repair ID</th>
@@ -53,8 +134,9 @@ const Repair = () => {
             <td>Pending</td>
           </tr>
         </table>
+        
       </div>
-      <div class="Repaircontainer2">
+      <div class="RepairContainer2">
         <h2>Billing</h2>
         <hr />
         <br />
@@ -83,7 +165,42 @@ const Repair = () => {
           <tr>
             <td>Parts</td>
             <td>
-              <button class="btnParts">Add Parts</button>
+              <button class="btnParts" onClick={togglePartsForm} >Add Parts</button>
+              {isPartsFormOpen && (
+
+     //Add new parts form
+
+        <div className="Add-new-parts-Form">
+          <Card className="Add-New-parts-card">
+
+          <Card.Body>
+            <h2>Add Parts</h2>
+            <form action="/submit" method="post">
+                   <label for="part">Part:</label>
+                   <input type="text" id="part" name="part" required></input>
+            
+                   <label for="quantity">Quantity:</label>
+                   <input type="number" id="quantity" name="quantity" required></input>
+
+                   <label for="price">Price per unit:</label>
+                   <input type="number" id="price" name="price" required></input>
+
+                  <label for="totalPrice">Total Price:</label>
+                  <input type="number" id="totalPrice" name="totalPrice" readonly></input>
+
+                  <button type="submit">Submit</button>
+            
+            </form>
+            <Accordion defaultActiveKey="0">
+                
+                <br />
+              </Accordion>
+            </Card.Body>
+            </Card>
+            </div>
+
+              )}
+              
             </td>
           </tr>
 
@@ -101,7 +218,6 @@ const Repair = () => {
               <td>$50.00</td>
             </tr>
 
-
             <tr>
               <td>Part 2</td>
               <td>2</td>
@@ -111,7 +227,10 @@ const Repair = () => {
           </table>
         </table>
         <hr />
+        
+        
         <h2>services</h2>
+        
         <table class="services">
           <tr>
             <td>
@@ -141,6 +260,7 @@ const Repair = () => {
       </div>
     </div>
   );
-};
+		};
+	
 
 export default Repair;

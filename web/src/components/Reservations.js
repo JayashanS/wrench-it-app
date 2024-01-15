@@ -123,19 +123,19 @@ const Reservations = () => {
 
       <div class="column-4">
 
-     
+          ddddd
       </div>
       <div class="column-4">
 
-          
+          ddddd
       </div>
       <div class="column-4">
 
-         
+          ddddd
       </div>
       <div class="column-4">
 
-          
+          ddddd
       </div>
 
   </div>
