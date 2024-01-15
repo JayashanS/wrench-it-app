@@ -2,24 +2,24 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 //web imports
-import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 import Carousel from "./components/Carousel";
 import Cards from "./components/Cards";
 import Signup from "./components/Signup";
 
 // dashboard imports
-import Repair from "./components/Repair";
 import Dashboard from "./pages/Dashboard";
+import Repair from "./components/Repair";
 import Request from "./components/Request";
 import Reservations from "./components/Reservations";
 import Location from "./components/Directions";
 import Help from "./components/Help";
 import Settings from "./components/Settings";
 
-function NavbarLayout() {
+function HomeLayout() {
   return (
     <div>
-      <Navbar />
+      <Home />
     </div>
   );
 }
@@ -35,7 +35,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/*" element={<NavbarLayout />}>
+        <Route path="/*" element={<HomeLayout />}>
           <Route index element={<Carousel />} />
           <Route path="products" element={<Cards />} />
           <Route path="signup" element={<Signup />} />

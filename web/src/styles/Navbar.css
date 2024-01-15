@@ -1,93 +1,55 @@
-.container-nav{
-  display: flex;
-  flex-direction: column;
-} 
-
-.navbar-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  
-}
 .navbar {
-    position: fixed;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem;
-    background-color: #ffffff;
-    font-family: Roboto, sans-serif;
-    height: 60px;
-    z-index: 1000;
-  }
-  
-  .navbar-left {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-logo {
-    margin-right: 1rem;
-    margin-left: 1rem;
-    margin-bottom: 1rem;
-    height:35px;
-    width:35px;
-  }
-  
-  .navbar-company-name {
-    font-weight: bold;
-    margin-right: 1rem;
-    margin-left: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .navbar-links-container {
-    display: flex;
-    margin-top: 0;
-  }
-  
-  .navbar-link-box {
-    background-color: #f0f0f0;
-    border: 0px solid #ddd;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .navbar-link-box.active {
-    background-color: #164863;
-    color: #00ddff;
-    border: 0px solid #00ddff;
-  }
-  
-  .navbar-right {
-    margin-left: auto;
-  }
-  
-  .navbar-button {
-    background-color: #164863;
-    color: #00ddff;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
-    margin-right: 2rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
- .outlet{
   width: 100vw;
+  position: fixed;
   display: flex;
-  justify-content: center;
-  margin: 0; 
-  padding: 0;
- 
-  
+  flex-direction: row;
+  justify-content: flex-start; /* Aligns items to the left */
+  align-items: center;
+  padding: 0.5rem;
+  background-color: #fff;
+  font-family: Roboto, sans-serif;
+  height: 50px;
+  box-shadow: 1px 1px 2px #09BEB1;
+  z-index: 2;
+}
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
 
- }
+.navbar-logo {
+  margin-right: 10px;
+  height:35px;
+  width:35px;
+}
+
+
+
+.navbar-company-name {
+  font-weight: bold;
+  margin-right: 0;
+  margin-left: 0px;
+  margin-bottom: 0;
+  margin-top:0px;
+  color: #22A1CB;
+}
+
+.navbar-link-box {
+  background-color: #f0f0f0;
+  border: 0px solid #ddd;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.navbar-link-box.active {
+  background-color: #164863;
+  color: #00ddff;
+  border: 0px solid #00ddff;
+}
+
+
+
