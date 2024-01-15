@@ -8,6 +8,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
+import Logo from "../assets/wrenchit.png";
 import "../styles/Signup.css";
 
 const theme = createTheme({
@@ -43,10 +44,14 @@ const theme = createTheme({
   },
 });
 
-export default function CustomTextField() {
+export default function Signup() {
   return (
     <div className="signup-container">
       <div className="signup-cols-2">
+        <div className="signup-title-container">
+          <img src={Logo} alt="Logo" className="signup-logo" />
+          <span className="signup-title">Wrenchit</span>
+        </div>
         <ThemeProvider theme={theme}>
           <Box
             component="form"
