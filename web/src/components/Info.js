@@ -4,6 +4,10 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { TimeField } from "@mui/x-date-pickers/TimeField";
 import Checkbox from "@mui/material/Checkbox";
 import { styled } from "@mui/system";
 import Button from "@mui/material/Button";
@@ -168,7 +172,7 @@ const Info = () => {
       component="form"
       sx={{
         "& > :not(style)": { m: 2, width: "250ch", fontSize: "20px" },
-        "& .info-field-text:not(:last-child)": { mb: 2 },
+        "& .info-field-text:not(:last-child)": { mb: 3 },
       }}
       noValidate
       autoComplete="off"
@@ -177,7 +181,7 @@ const Info = () => {
         <span className="info-field-title">Service Center Details</span>
 
         <TextField
-          id="standard-basic"
+          id="outlined-basic"
           label="Repair Center Name"
           variant="outlined"
           size="small"
@@ -187,64 +191,71 @@ const Info = () => {
           sx={{ width: "400px" }}
         />
         <TextField
-          id="standard-basic"
+          id="outlined-basic"
           label="Owner Name"
-          variant="standard"
+          variant="outlined"
+          size="small"
           className="info-field-text"
           value={ownerName}
           onChange={handleOwnerNameChange}
           sx={{ width: "400px" }}
         />
         <TextField
-          id="standard-basic"
+          id="outlined-basic"
           label="Owner NIC"
-          variant="standard"
+          variant="outlined"
+          size="small"
           className="info-field-text"
           value={ownerNIC}
           onChange={handleOwnerNICChange}
           sx={{ width: "300px" }}
         />
         <TextField
-          id="standard-basic"
+          id="outlined-basic"
           label="Number Of Workers"
           type="number"
-          variant="standard"
+          variant="outlined"
+          size="small"
           className="info-field-text"
           value={numOfWorkers}
           onChange={handleNumOfWorkersChange}
           sx={{ width: "300px" }}
         />
         <TextField
-          id="standard-basic"
+          id="outlined-basic"
           label="Street Address"
-          variant="standard"
+          variant="outlined"
+          size="small"
           className="info-field-text"
           value={street}
           onChange={handleStreetChange}
           sx={{ width: "400px" }}
         />
         <TextField
-          id="standard-basic"
+          id="outlined-basic"
           label="City or Locality"
-          variant="standard"
+          variant="outlined"
+          size="small"
           className="info-field-text"
           value={city}
           onChange={handleCityChange}
           sx={{ width: "400px" }}
         />
         <TextField
-          id="standard-basic"
+          id="outlined-basic"
           label="State"
-          variant="standard"
+          variant="outlined"
+          size="small"
           className="info-field-text"
           value={state}
           onChange={handleStateChange}
           sx={{ width: "400px" }}
         />
         <TextField
-          id="standard-basic"
+          id="outlined-basic"
           label="Postal Code"
-          variant="standard"
+          variant="outlined"
+          size="small"
           type="text"
           className="info-field-text"
           value={postalCode}
@@ -253,35 +264,27 @@ const Info = () => {
         />
 
         {/*<TextField
-          id="standard-basic"
-          label="Standard"
-          variant="standard"
+          id="outlined-basic"
+          label="outlined"
+          variant="outlined"
           InputLabelProps={{ style: { fontSize: "15px", color: "black" } }}
           inputProps={{ style: { fontSize: "15px" } }}
         />*/}
       </div>
       <div className="info-field">
         <span className="info-field-title">Opening Hours</span>
-        <TextField
-          id="standard-basic"
-          label=""
-          variant="standard"
-          type="time"
-          className="info-field-text"
-          sx={{ width: "300px" }}
-        />
-        <TextField
-          id="standard-basic"
-          label=""
-          variant="standard"
-          type="time"
-          className="info-field-text"
-          sx={{ width: "300px" }}
-        />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={["TimeField"]}>
+            <TimeField label="Opening Hours" size="small" />
+          </DemoContainer>
+        </LocalizationProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={["TimeField"]}>
+            <TimeField label="Closing Hours" size="small" />
+          </DemoContainer>
+        </LocalizationProvider>
         <br />
-        <span className="info-field-title">Services Offered</span>
-
-        <br />
+        <span className="info-field-title">Vehicle Categories</span>
         <FormGroup className="info-check-list">
           <FormControlLabel
             control={<Checkbox />}
@@ -316,7 +319,7 @@ const Info = () => {
         </FormGroup>
       </div>
       <div className="info-field">
-        <span className="info-field-title">Vehicle Categories</span>
+        <span className="info-field-title">Services Offered</span>
         <FormGroup className="info-check-list">
           <FormControlLabel control={<Checkbox />} label="Towing Services" />
           <FormControlLabel control={<Checkbox />} label="Battery Services" />

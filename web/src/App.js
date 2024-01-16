@@ -47,7 +47,7 @@ function App() {
           <Route path="stat" element={<Repair />} />
           <Route path="res" element={<Reservations />} />
           <Route path="help" element={<Help />} />
-          <Route path="loc" element={<Location />} />
+          <Route path="com" element={<Location />} />
           <Route path="set" element={<Settings />} />
         </Route>
       </Routes>
