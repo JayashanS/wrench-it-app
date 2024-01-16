@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.11.0",
     "@mapbox/mapbox-gl-geocoder": "^5.0.2",
     "@mui/icons-material": "^5.15.2",
+    "@mui/lab": "^5.0.0-alpha.160",
     "@mui/material": "^5.15.2",
     "@mui/x-date-pickers": "^6.19.0",
     "@testing-library/jest-dom": "^5.17.0",

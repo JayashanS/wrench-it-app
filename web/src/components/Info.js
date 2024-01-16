@@ -7,9 +7,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { styled } from "@mui/system";
 import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import SaveIcon from "@mui/icons-material/Save";
+
 import "../styles/Info.css";
 
 const Info = () => {
@@ -22,6 +25,7 @@ const Info = () => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [postalCode, setPostalCode] = useState("");
+  const [loading, setLoading] = React.useState(true);
 
   const handleRepairCenterNameChange = (event) => {
     setRepairCenterName(event.target.value);
@@ -57,6 +61,7 @@ const Info = () => {
   });
 
   const handleSaveButtonClick = async () => {
+    setLoading(true);
     console.log("handleSaveButtonClick function is called");
     try {
       const response = await axios.get(
@@ -90,6 +95,7 @@ const Info = () => {
         );
         console.log("Document updated successfully!");
         handleClick();
+        setLoading(false);
       } else {
         console.log("Creating New Document...");
         await axios.post("http://localhost:4000/api/garage", updatedData, {
@@ -341,6 +347,18 @@ const Info = () => {
           className="info-save"
           onClick={handleSaveButtonClick}
         />
+        <LoadingButton
+          size="small"
+          color="secondary"
+          onClick={handleClick}
+          loading={loading}
+          loadingPosition="start"
+          startIcon={<SaveIcon />}
+          variant="contained"
+          onClick={handleSaveButtonClick}
+        >
+          <span>Save</span>
+        </LoadingButton>
         <input
           type="button"
           value="Discard"
