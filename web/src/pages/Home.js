@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 
 import "../styles/Home.css";
 
-function Dashboard() {
+function Home() {
   return (
     <div className="container-home">
       <Navbar />
@@ -16,4 +16,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Home;
