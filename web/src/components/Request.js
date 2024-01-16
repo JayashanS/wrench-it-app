@@ -1,15 +1,63 @@
 import React, { useState } from "react";
 import "../styles/Request.css";
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import CallIcon from '@mui/icons-material/Call';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { green, red } from "@mui/material/colors";
 
 function Request() {
   return (
     <div className="container-request">
       <div className="view-request">
         <div className="incoming-request">
-          <p>incoming request</p>
+          <div className="header-bar">
+            <p style={{marginLeft:"20px"}}>Incoming</p><VolumeUpIcon style={{marginLeft:"350px",marginBottom:"15px"}}/>
+          </div>
+
+          <hr className="horizontal-line"/>
+
+          <div className="user-details">
+            <div className="profile-circle"/>
+            <div className="name-box"><b>Alice Smith</b></div>
+            <div className="icon-box">
+              <DirectionsCarIcon/>
+              <CallIcon/>
+              <LocationOnIcon/>
+            </div>
+            <div className="details-box">
+              Toyota Camry <br />
+              +94710000000 <br /> 
+              Matara <br />
+            </div>
+            <div className="button-box">
+              <button style={{color:green}}>View</button>
+              <button style={{color:red}}>Decline</button>
+            </div>
+          </div>
+
+          <div className="user-details">
+            <div className="profile-circle"/>
+            <div className="name-box"><b>Alice Smith</b></div>
+            <div className="icon-box">
+              <DirectionsCarIcon/>
+              <CallIcon/>
+              <LocationOnIcon/>
+            </div>
+            <div className="details-box">
+              Toyota Camry <br />
+              +94710000000 <br /> 
+              Matara <br />
+            </div>
+          </div>
+          
+
         </div>
         <div className="accepted-request">
-          <p>accepted request</p>
+          <p>Accepted </p><hr></hr>
+          <table>
+            <tr></tr>
+          </table>
         </div>
       </div>
       <div className="request-details">
