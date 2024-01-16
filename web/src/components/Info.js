@@ -25,7 +25,7 @@ const Info = () => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
 
   const handleRepairCenterNameChange = (event) => {
     setRepairCenterName(event.target.value);
@@ -179,7 +179,8 @@ const Info = () => {
         <TextField
           id="standard-basic"
           label="Repair Center Name"
-          variant="standard"
+          variant="outlined"
+          size="small"
           className="info-field-text"
           value={repairCenterName}
           onChange={handleRepairCenterNameChange}
@@ -350,7 +351,6 @@ const Info = () => {
         <LoadingButton
           size="small"
           color="secondary"
-          onClick={handleClick}
           loading={loading}
           loadingPosition="start"
           startIcon={<SaveIcon />}
