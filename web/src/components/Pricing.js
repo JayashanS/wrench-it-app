@@ -1,53 +1,39 @@
-import React from "react";
-import "../styles/Pricing.css";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import { styled } from "@mui/system";
+import React, { useState } from "react";
+import EditableField from "./EditableField";
 
-const SmallLabel = styled("div")({
-  fontSize: "10px",
-});
+const UserProfile = () => {
+  const [username, setUsername] = useState("JohnDoe");
+  const [email, setEmail] = useState("john.doe@example.com");
 
-const MediumLabel = styled("div")({
-  fontSize: "14px",
-});
-
-const LargeLabel = styled("div")({
-  fontSize: "18px",
-});
-
-const Pricing = () => {
-  const isEnabled = true; // Replace with your state logic
-  const handleCheckboxChange = () => {
-    // Handle checkbox change
+  const handleSave = (fieldType, value) => {
+    // You can add logic here to save the edited value, for example, make an API call.
+    console.log(`Saved ${fieldType}: ${value}`);
+    // Assuming you want to update the state after saving
+    if (fieldType === "username") {
+      setUsername(value);
+    } else if (fieldType === "email") {
+      setEmail(value);
+    }
+    // Update other state variables if needed
   };
 
   return (
-    <div className="pricing-container">
-      <FormGroup>
-        <FormControlLabel
-          control={<Checkbox size="small" />}
-          label={<SmallLabel>Small Label</SmallLabel>}
-          checked={isEnabled}
-          onChange={handleCheckboxChange}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label={<MediumLabel>Medium Label (Default)</MediumLabel>}
-          checked={isEnabled}
-          onChange={handleCheckboxChange}
-        />
-        <FormControlLabel
-          control={<Checkbox size="large" />}
-          label={<LargeLabel>Large Label</LargeLabel>}
-          checked={isEnabled}
-          onChange={handleCheckboxChange}
-        />
-      </FormGroup>
-      {/* Other pricing-related content can go here */}
+    <div className="user-profile-container">
+      <EditableField
+        label="Username"
+        value={username}
+        fieldType="username"
+        onSave={(value) => handleSave("username", value)}
+      />
+      <EditableField
+        label="Email"
+        value={email}
+        fieldType="email"
+        onSave={(value) => handleSave("email", value)}
+      />
+      {/* Add more EditableField components for other fields */}
     </div>
   );
 };
 
-export default Pricing;
+export default UserProfile;

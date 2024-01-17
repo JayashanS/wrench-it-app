@@ -20,7 +20,7 @@ function Navbar() {
           activeClassName="active"
           style={{ textDecoration: "none" }}
         >
-          Home
+          HOME
         </NavLink>
         <NavLink
           to="/products"
@@ -28,7 +28,7 @@ function Navbar() {
           activeClassName="active"
           style={{ textDecoration: "none" }}
         >
-          Products
+          PRODUCTS
         </NavLink>
         <NavLink
           to="/signup"
@@ -36,15 +36,15 @@ function Navbar() {
           activeClassName="active"
           style={{ textDecoration: "none" }}
         >
-          Register
+          REGISTER
         </NavLink>
         <NavLink
           to="/dashboard"
           className="navbar-link-box"
           activeClassName="active"
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none", marginRight: "100px" }}
         >
-          Dashboard
+          DASHBOARD
         </NavLink>
       </div>
     </div>

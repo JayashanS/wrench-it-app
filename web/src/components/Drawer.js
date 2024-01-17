@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Drawer.css";
 
@@ -15,10 +15,22 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 function Drawer() {
   const [selectedLink, setSelectedLink] = useState("/dashboard/view");
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1000);
 
   const handleLinkClick = (link) => {
     setSelectedLink(link);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 1000);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div className="drawer">
@@ -39,14 +51,16 @@ function Drawer() {
           }}
           onClick={() => handleLinkClick("")}
         >
-          <span
-            className="list-item d-drawer-title"
-            style={{
-              color: "#09BEB1",
-            }}
-          >
-            Workflow
-          </span>
+          {!isSmallScreen && (
+            <span
+              className="list-item d-drawer-title"
+              style={{
+                color: "#09BEB1",
+              }}
+            >
+              Workflow
+            </span>
+          )}
         </Link>
       </div>
       <div
@@ -77,7 +91,7 @@ function Drawer() {
             }}
             className="icon"
           />
-          <span className="list-item">Overview</span>
+          {!isSmallScreen && <span className="list-item">Overview</span>}
         </Link>
       </div>
       <div
@@ -108,7 +122,7 @@ function Drawer() {
             }}
             className="icon"
           />
-          <span className="list-item">Request</span>
+          {!isSmallScreen && <span className="list-item">Request</span>}
         </Link>
       </div>
       <div
@@ -138,7 +152,7 @@ function Drawer() {
               fontSize: 20,
             }}
           />
-          <span className="list-item">Repair</span>
+          {!isSmallScreen && <span className="list-item">Repair</span>}
         </Link>
       </div>
       <div
@@ -168,7 +182,7 @@ function Drawer() {
               fontSize: 20,
             }}
           />
-          <span className="list-item">Reservations</span>
+          {!isSmallScreen && <span className="list-item">Reservations</span>}
         </Link>
       </div>
       <div
@@ -198,7 +212,7 @@ function Drawer() {
               fontSize: 20,
             }}
           />
-          <span className="list-item">Community</span>
+          {!isSmallScreen && <span className="list-item">Community</span>}
         </Link>
       </div>
       <div className="drawer-section" style={{}}>
@@ -251,7 +265,7 @@ function Drawer() {
               fontSize: 20,
             }}
           />
-          <span className="list-item">Help</span>
+          {!isSmallScreen && <span className="list-item">Help</span>}
         </Link>
       </div>
       <div
@@ -280,7 +294,7 @@ function Drawer() {
               fontSize: 20,
             }}
           />
-          <span className="list-item">Feedback</span>
+          {!isSmallScreen && <span className="list-item">Feedback</span>}
         </Link>
       </div>
       <div
@@ -310,7 +324,7 @@ function Drawer() {
               fontSize: 20,
             }}
           />
-          <span className="list-item">Settings</span>
+          {!isSmallScreen && <span className="list-item">Settings</span>}
         </Link>
       </div>
       <hr />
@@ -340,7 +354,7 @@ function Drawer() {
               fontSize: 20,
             }}
           />
-          <span className="list-item">Logout</span>
+          {!isSmallScreen && <span className="list-item">Logout</span>}
         </Link>
       </div>
     </div>

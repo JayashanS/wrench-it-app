@@ -1,55 +1,50 @@
 .navbar {
-  width: 100vw;
+  width: 100%;
   position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start; /* Aligns items to the left */
   align-items: center;
-  padding: 0.5rem;
+  justify-content: flex-start;
   background-color: #fff;
   font-family: Roboto, sans-serif;
-  height: 50px;
+  height: 60px;
   box-shadow: 1px 1px 2px #09BEB1;
   z-index: 2;
-}
-.navbar-left {
-  display: flex;
-  align-items: center;
 }
 
 .navbar-logo {
   margin-right: 10px;
-  height:35px;
-  width:35px;
+  margin-left: 20px;
+  height: 35px;
+  width: 35px;
 }
-
-
 
 .navbar-company-name {
   font-weight: bold;
-  margin-right: 0;
-  margin-left: 0px;
+  margin-right: auto; /* Push the company name to the right */
+  margin-left: 10px;
   margin-bottom: 0;
-  margin-top:0px;
+  margin-top: 0;
   color: #22A1CB;
 }
 
 .navbar-link-box {
-  background-color: #f0f0f0;
-  border: 0px solid #ddd;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  color: #000000;
+  border-bottom: 2px solid transparent;
+  border-radius: 0px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  margin-left: 20px;
+  transition: color 0.1s cubic-bezier(0.42, 0, 0.58, 1), border-bottom 0.1s ease-in-out,;
 }
+
 
 .navbar-link-box.active {
-  background-color: #164863;
-  color: #00ddff;
-  border: 0px solid #00ddff;
+  color: #09BEB1;
+  border-bottom: 2px solid #09BEB1;
+  
 }
-
-
 
