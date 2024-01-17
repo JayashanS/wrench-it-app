@@ -1,212 +1,123 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { getContrastRatio } from "@mui/material/styles";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Button from "@mui/material/Button";
+import Logo from "../assets/wrenchit.png";
 import "../styles/Signup.css";
 
-const Signup = () => {
+const theme = createTheme({
+  typography: {
+    fontFamily: "Roboto, sans-serif",
+  },
+  palette: {
+    primary: {
+      main: "#09BEB1",
+      contrastText: getContrastRatio("#09BEB1", "#fff") > 4.5 ? "#fff" : "#111",
+    },
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
+            borderColor: "your_hover_color",
+          },
+          "&$focused $notchedOutline": {
+            borderColor: "your_focus_color",
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: "your_label_color",
+        },
+      },
+    },
+  },
+});
+
+export default function Signup() {
   return (
-    <form validate>
-      <div className="container-signup">
-        <div className="field-container">
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">
-              Full Name
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="John Doe"
-              required
+    <div className="signup-container">
+      <div className="signup-cols-2">
+        <div className="signup-title-container">
+          <img src={Logo} alt="Logo" className="signup-logo" />
+          <span className="signup-title">Wrenchit</span>
+        </div>
+        <ThemeProvider theme={theme}>
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { ml: 5, mt: 2 },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              id="outlined-basic"
+              label="First Name"
+              variant="outlined"
+              sx={{
+                width: "80%",
+                marginLeft: "50px",
+              }}
+              size="small"
             />
-            <div class="valid-feedback">Looks good!</div>
-          </div>
-          <div class="mb-3" style={{ width: "60%" }}>
-            <label for="addressLine1" class="form-label">
-              Address
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="addressLine1"
-              placeholder="Line-1"
-              required
+            <TextField
+              id="outlined-basic"
+              label="Last Name"
+              variant="outlined"
+              sx={{ width: "80%", marginLeft: "50px" }}
+              size="small"
             />
-          </div>
-          <div class="mb-3" style={{ width: "60%" }}>
-            <input
-              type="text"
-              className="form-control"
-              id="addressLine2"
-              placeholder="Line-2"
-              required
-            />
-          </div>
-
-          <div class="mb-3" style={{ width: "60%" }}>
-            <div style={{ flex: 1 }}>
-              <input
-                type="text"
-                className="form-control"
-                id="city"
-                placeholder="City"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="mb-3" style={{ width: "60%" }}>
-            <div style={{ flex: 1 }}>
-              <input
-                type="text"
-                className="form-control"
-                id="PostalCode"
-                placeholder="Postal Code"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="mb-3" style={{ width: "40%" }}>
-            <label for="exampleFormControlInput1" class="form-label">
-              Birthday
-            </label>
-            <input
-              type="date"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="name@example.com"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">
-              Email address
-            </label>
-            <input
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DatePicker"]} size="small">
+                <DatePicker label="Birthday" size="medium" />
+              </DemoContainer>
+            </LocalizationProvider>
+            <TextField
+              id="outlined-basic"
+              label="Email"
+              variant="outlined"
               type="email"
-              class="form-control"
-              id="exampleFormControlInput1"
-              placeholder="name@example.com"
-              required
+              sx={{ width: "80%", marginLeft: "50px" }}
+              size="small"
             />
-            <p>**This will be your username.</p>
-          </div>
-          <div class="mb-3" style={{ width: "40%" }}>
-            <label for="exampleFormControlInput1" class="form-label">
-              Password
-            </label>
-            <input
+            <TextField
+              id="outlined-basic"
+              label="Password"
+              variant="outlined"
               type="password"
-              class="form-control"
-              id="exampleFormControlInput1"
-              required
+              sx={{ width: "250px", marginLeft: "50px" }}
+              size="small"
             />
-          </div>
-          <div class="mb-3" style={{ width: "40%" }}>
-            <label for="exampleFormControlInput1" class="form-label">
-              Confirm Password
-            </label>
-            <input
-              type="confirm-password"
-              class="form-control"
-              id="exampleFormControlInput1"
-              required
+            <TextField
+              id="outlined-basic"
+              label="Confirm Password"
+              variant="outlined"
+              type="password"
+              sx={{ width: "250px", marginLeft: "50px" }}
+              size="small"
             />
-          </div>
-          <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckChecked"
-                    />
-                    <label class="form-check-label" for="flexCheckChecked">
-                      I have read and accept the terms and conditions.
-                    </label>
-                  </div>
-                </button>
-              </h2>
-              <div
-                id="collapseOne"
-                class="accordion-collapse collapse show"
-                data-bs-parent="#accordionExample"
-              >
-                <div class="accordion-body ">
-                  <p>
-                    Vehicle Breakdown System License Agreement: This agreement
-                    governs the use of the Vehicle Breakdown System provided by
-                    Wrench it. By accessing or using this system, you agree to
-                    be bound by the terms and conditions outlined herein.
-                  </p>
-                  <ul>
-                    <li>
-                      <strong>License Grant:</strong> You are granted a license
-                      to use the Vehicle Breakdown System for managing breakdown
-                      services.
-                    </li>
-                    <li>
-                      <strong>Permitted Use:</strong> Authorized use of the
-                      software in compliance with laws and regulations.
-                    </li>
-                    <li>
-                      <strong>Restrictions:</strong> Prohibited actions
-                      including modification, reverse engineering, or
-                      transferring the Software.
-                    </li>
-                    <li>
-                      <strong>Ownership:</strong> The Software and its rights
-                      remain the exclusive property of Wrench it.
-                    </li>
-                    <li>
-                      <strong>Support and Maintenance:</strong> Wrench it
-                      provides reasonable technical support for the Software.
-                    </li>
-                    <li>
-                      <strong>Fees:</strong> Agreement to pay specified fees as
-                      per an invoice or separate agreement.
-                    </li>
-                    <li>
-                      <strong>Termination:</strong> This agreement remains in
-                      effect until terminated; Wrench it reserves the right to
-                      terminate access in case of violations.
-                    </li>
-                    <li>
-                      <strong>Confidentiality:</strong> Agreement to maintain
-                      confidentiality of proprietary information.
-                    </li>
-                    <li>
-                      <strong>Limitation of Liability:</strong> Wrench it is not
-                      liable for indirect or consequential damages arising from
-                      software use.
-                    </li>
-                    <li>
-                      <strong>Governing Law:</strong> This agreement is governed
-                      by the laws of [Jurisdiction].
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br />
-        <div>
-          <input type="submit" value="Register" class="button" />
-        </div>
+            <br />
+            <br />
+            <Button
+              variant="contained"
+              style={{ color: "white", width: "80%" }}
+            >
+              Register
+            </Button>
+          </Box>
+        </ThemeProvider>
       </div>
-    </form>
+    </div>
   );
-};
-
-export default Signup;
+}

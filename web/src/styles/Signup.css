@@ -1,33 +1,75 @@
-.container-signup{
-    width: 50%; 
-    height: 200vh; 
-    border: 0px solid #ccc; 
-    border-radius: 1%;
-    box-shadow: 2px 2px 10px #5b4cdda7; 
+.signup-container{
+    width: 100vw; 
+    height: 100vh;    
     display: flex; 
+    flex-direction: row;
+    justify-content: center;
+    background-color: #EEF2F5 ;  
+}
+.signup-cols-1{
+    display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    background-color: #ffffff;
     margin-top: 100px;
-    font-family: Roboto;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 50vh;
+    height: 80%;
+    padding-top: 3%;
 }
-
-.field-container{
-    margin: 10px auto 0;
-    margin-top: 30px;
-    width: 80%;
-    
-    
+.signup-cols-2{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    margin-top: 100px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius:5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width: 50vh;
+    height: 80%;
+    padding-top: 3%;
 }
-.button {
-    display: block; /* Ensure it takes full width */
-    width: 80%;
-    padding: 8px 16px;
-    margin: 10px auto 0; /* Center horizontally and add top margin */
-    background-color: #164863;
-    color: #00ddff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center; /* Center text */
+.signup-box{
+    display: flex;
+    flex-direction: column;
+}
+.signup-title-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signup-title{
+    background: linear-gradient(45deg, #09BEB1, #22A1CB);
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
+    animation: textGradient 5s linear infinite;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+@keyframes textGradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
   }
-   
+.signup-logo {
+    height:50px;
+    width:50px;
+    animation: rotate 5s linear infinite;
+}
+@keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
