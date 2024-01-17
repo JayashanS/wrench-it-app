@@ -70,6 +70,7 @@ export default function Signup() {
                 marginLeft: "50px",
               }}
               size="small"
+              helperText="hello"
             />
             <TextField
               id="outlined-basic"
