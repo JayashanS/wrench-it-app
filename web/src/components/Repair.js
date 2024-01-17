@@ -33,6 +33,51 @@ function Repair() {
     },
   });
 
+  
+    const[repairId,setRepairId]=useState('')
+    const[licensePlateNo,setlicensePlateNo]=useState('')
+    const[model,setmodel]=useState('')
+    const[fault,setfault]=useState('')
+    const[NIC,setNIC]=useState('')
+    const[date,setdate]=useState('')
+    const[phoneNo,setphoneNo]=useState('')
+    const[status,setstatus]=useState('')
+    const[error,setError]=useState(null)
+
+   const handleSubmit=async(e)=>{
+    console.log('button clicked')
+      e.preventDefault()
+      const  repair={repairId,licensePlateNo,model,fault,NIC,date,phoneNo,status}
+     
+      const response=await fetch('/api/repair',{
+        method:'POST',
+        body:JSON.stringify(repair),
+        headers:{
+          'Content-Type':'application/json'
+        }
+      })
+      console.log('button clicked')
+
+      const json=await response.json()
+
+      if(!response.ok){
+          setError(json.error)
+      }
+      if(response.ok){
+        setRepairId('')
+        setlicensePlateNo('')
+        setmodel('')
+        setfault('')
+        setNIC('')
+        setdate('')
+        setphoneNo('')
+        setstatus('')
+        setError(null)
+        console.log('new workout added',json)
+      }
+   }
+ 
+
 
  
 // form validation
@@ -80,37 +125,38 @@ function Repair() {
             <Card.Body>
 			
 		<h2>Repair Information Form</h2>
-			<form id="repairForm">
+			<form id="repairForm" onSubmit={handleSubmit}>
 				<label for="repairId">Repair ID:</label>
-    			<input type="text" id="repairId" name="repairId" required/>
+    			<input type="text" id="repairId" name="repairId" onChange={(e)=>setRepairId(e.target.value)} value={repairId} required/>
 
 				<label for="licensePlateNo">License Plate No:</label>
-   	 			<input type="text" id="licensePlateNo" name="licensePlateNo" required></input>
+   	 			<input type="text" id="licensePlateNo" name="licensePlateNo" onChange={(e)=>setlicensePlateNo(e.target.value)} value={licensePlateNo} required></input>
 				
 				<label for="model">Model:</label>
-    			<input type="text" id="model" name="model" required/>
+    			<input type="text" id="model" name="model" onChange={(e)=>setmodel(e.target.value)} value={model} required/>
 
 				<label for="fault">Fault:</label>
-    			<textarea id="fault" name="fault" rows="4" required></textarea>
+    			<textarea id="fault" name="fault" rows="4" onChange={(e)=>setfault(e.target.value)} value={fault} required></textarea>
 				
 				<label for="NIC">NIC:</label>
-    			<input type="text" id="NIC" name="NIC" required />
+    			<input type="text" id="NIC" name="NIC" onChange={(e)=>setNIC(e.target.value)} value={NIC} required />
 
    				 <label for="phoneNo">Phone No:</label>
-    			<input type="tel" id="phoneNo" name="phoneNo" required />
+    			<input type="tel" id="phoneNo" name="phoneNo" onChange={(e)=>setphoneNo(e.target.value)} value={phoneNo} required />
 
     			<label for="date">Date:</label>
-    			<input type="date" id="date" name="date" required />
+    			<input type="date" id="date" name="date" onChange={(e)=>setdate(e.target.value)} value={date} required />
 
     			<label for="status">Status:</label>
-				<select id="status" name="status" required>
+				<select id="status" name="status" onChange={(e)=>setstatus(e.target.value)} value={status} required>
       				<option value="Pending">Pending</option>
       				<option value="In Progress">In Progress</option>
       				<option value="Completed">Completed</option>
+            
     			</select>
 				
-				<button type="button" onclick="validateForm()">Submit</button>
-				
+				<button type="button" onClick={handleSubmit}>Submit</button>
+				{error && <div className="error">error</div>}
 				</form>
 				
               <Accordion defaultActiveKey="0">
