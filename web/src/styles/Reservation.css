@@ -53,6 +53,7 @@
     width:95%;
     height: 18%;
     border-radius: 5px;
+    padding: 10px;
     
 
  }
@@ -68,6 +69,7 @@
     display:flex;
     height:40%;
     margin: 10px;
+    
  }
 
  .item-1{
@@ -129,3 +131,8 @@
     
 }
 
+.res-titleBar{
+   width:100%;
+   height: 40px;
+   border-bottom: 3px solid #EEF2F5 ;
+}
