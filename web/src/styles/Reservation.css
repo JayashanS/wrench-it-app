@@ -1,9 +1,11 @@
 .container-reservation {
-
+   width:100vw;
+   height: 100vh;
     display: flex;
     flex-direction:  row;
     background-color: #EEF2F5;
-    padding-left: 200px;
+    margin-top: 60px;
+   
     
 }
 .container-title{
@@ -14,7 +16,7 @@
     display:flex;
     flex-direction: column;
     background-color: #fff;
-    width:50vw;
+    flex:1;
     height: 100vh;
     margin-left:200px;
     padding: 10px;
@@ -24,7 +26,7 @@
     display:flex;
     flex-direction: column;
     background-color: #fff;
-    width:50vw;
+    flex:1;
     height: 100vh;
     margin-left:10px;
     padding: 10px;
