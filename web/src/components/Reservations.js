@@ -7,6 +7,11 @@ import {
   ThemeProvider,
   getContrastRatio,
 } from "@mui/material/styles";
+import DeleteIcon from '@mui/icons-material/Delete';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 
 const Reservations = () => {
@@ -31,41 +36,23 @@ const Reservations = () => {
     
 
     <div class="column-1">
-        <p ><span class="container-title">Request</span></p>
-        <hr/>
+        <p class="res-titleBar" ><span class="container-title">Request</span></p>
+        
         <div class="column-3">
           <div class="innerColumn-1">
             <p class="circle-kawishka"></p>
             <p><center><span class="container-title">john Smith</span></center></p>
           </div>
           <div class="innerColumn-1">
-          <table class="ReservationServices">
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td> service1</td>
-            </tr>
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td> service2</td>
-            </tr>
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td> service3</td>
-            </tr>
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td> service4</td>
-            </tr>
-          </table>
-  
+
+          <FormGroup>
+              
+              <FormControlLabel  control={<Checkbox />} label="Service 1" />
+              <FormControlLabel  control={<Checkbox />} label="Service 2" />
+              <FormControlLabel  control={<Checkbox />} label="Service 3" />
+              <FormControlLabel  control={<Checkbox />} label="Service 4" />
+             
+          </FormGroup>
   
   
           </div>
@@ -75,7 +62,7 @@ const Reservations = () => {
             <p>10/11/2023</p>
            
 
-            <ThemeProvider theme={theme}>
+      
 
               <Stack spacing={2} direction="row">
       
@@ -83,7 +70,7 @@ const Reservations = () => {
       
               </Stack>
 
-           </ThemeProvider>
+           
 
 
 
@@ -143,8 +130,8 @@ const Reservations = () => {
     </div>
   
     <div class="column-2">
-        <p ><span class="container-title">Accepted</span></p>
-        <hr/>
+        <p class="res-titleBar"><span class="container-title">Accepted</span></p>
+        
   
         <div class="column-4">
   
@@ -154,18 +141,21 @@ const Reservations = () => {
            <div class="item-1"> Toyota Chammy</div>
            <div class="item-1">10/11/2023</div>
            <div class="item-1"> 16.00 pm</div>
-           <div class="item-1"> icon</div>
-           <div class="item-1"> icon</div>
+           <div style={{marginRight:"20px"}}><CheckCircleOutlineIcon style={{color:"#09BEB1"}}/></div>
+           <div ><DeleteIcon style={{color:"red"}}/></div>
+           
+           
            
           </div>
           <div class="innerRow-2">
            
-  
-            <div class="item-2"> <input type="checkbox" /> service1</div>
-            <div class="item-2"> <input type="checkbox" /> service1</div>
-            <div class="item-2"> <input type="checkbox" /> service1</div>
-            <div class="item-2"> <input type="checkbox" /> service1</div>
-  
+          <FormGroup>
+            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
+            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
+            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
+            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
+              
+          </FormGroup>
           </div>
         </div>
   
