@@ -5,18 +5,22 @@
     flex-direction: row;
     height: 100vh;
     font-size: 12px;
+    margin-top: 60px;
+    
 }
 .RepairContainer1{
-    flex: 3;
+    flex:2;
     /* Takes up 50% of the available space */
-    background-color: lightblue;
-    padding: 0;
+    background-color: white;
+    padding:10px;
+    border-radius: 5px;
+    margin-left: 10px;
     
 }
 .RepairContainer2{
     flex: 1; /* Takes up 50% more space than the first division */
     background-color: #EEF2F5;
-    padding: 0;
+    padding: 10px;
 }
 h2{
     color: #09BEB1;
@@ -89,7 +93,7 @@ h2{
 
 .parts{
 	border-collapse:collapse;
-	width:100%;
+	width:400px;
     
 }
 
