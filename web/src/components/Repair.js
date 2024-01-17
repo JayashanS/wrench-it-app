@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { Accordion, Card } from "react-bootstrap";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import "../styles/Repair.css";
+import {
+  createTheme,
+  ThemeProvider,
+  getContrastRatio,
+} from "@mui/material/styles";
 
 function Repair() {
 	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isPartsFormOpen, setIsPartsFormOpen] = useState(false);
+  
+
 	const toggleAccordion = () => {
 	  setIsAccordionOpen(!isAccordionOpen);
 	};
@@ -12,6 +21,20 @@ function Repair() {
     setIsPartsFormOpen(!isPartsFormOpen);
   };
 
+  const theme = createTheme({
+    typography: {
+      fontFamily: "Roboto, sans-serif",
+    },
+    palette: {
+      primary: {
+        main: "#09BEB1",
+        contrastText: getContrastRatio("#09BEB1", "#fff") > 4.5 ? "#fff" : "#111",
+      },
+    },
+  });
+
+
+ 
 // form validation
 /*const validateForm = () => {
     const form = document.getElementById("repairForm");
@@ -30,6 +53,7 @@ function Repair() {
 
 */
 
+
 //const Repair = () => {
   return (
     <div class="RepairPage">
@@ -37,7 +61,14 @@ function Repair() {
         <h2>Details</h2>
         <hr />
         <br />
-        <button class="btn"  onClick={toggleAccordion}>Add new Repair Record</button>
+        <ThemeProvider theme={theme}>
+        <Stack spacing={2} direction="row">
+    
+      <Button variant="contained" onClick={toggleAccordion} style={{ color: 'white',textTransform:'none' }}>Add new Repair Record  </Button>
+
+    </Stack>
+    </ThemeProvider>
+
         <br />
         <br />
 		{isAccordionOpen && (
@@ -161,15 +192,21 @@ function Repair() {
           <tr>
             <td>Date</td>
             <td>09-01-2024</td>
-          </tr>
+          </tr> 
           <tr>
             <td>Parts</td>
             <td>
-              <button class="btnParts" onClick={togglePartsForm} >Add Parts</button>
+              
+            <ThemeProvider theme={theme}>
+        <Stack spacing={2} direction="row">
+    
+      <Button variant="contained" onClick={togglePartsForm} style={{ color: 'white',textTransform:'none' }}>Add new Repair Record  </Button>
+
+    </Stack>
+    </ThemeProvider>
               {isPartsFormOpen && (
-
      //Add new parts form
-
+           
         <div className="Add-new-parts-Form">
           <Card className="Add-New-parts-card">
 
@@ -191,6 +228,7 @@ function Repair() {
                   <button type="submit">Submit</button>
             
             </form>
+            
             <Accordion defaultActiveKey="0">
                 
                 <br />
@@ -203,6 +241,9 @@ function Repair() {
               
             </td>
           </tr>
+                </table>
+     <br />
+     
 
           <table class="parts">
             <tr>
@@ -225,7 +266,7 @@ function Repair() {
               <td>$30.00</td>
             </tr>
           </table>
-        </table>
+        
         <hr />
         
         
