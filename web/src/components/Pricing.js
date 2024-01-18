@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import EditableField from "./EditableField";
 
-const UserProfile = () => {
+const UserProfile = ({ garageId }) => {
   const [username, setUsername] = useState("JohnDoe");
   const [email, setEmail] = useState("john.doe@example.com");
-
+  const storedValue = localStorage.getItem("key_2024");
   const handleSave = (fieldType, value) => {
     // You can add logic here to save the edited value, for example, make an API call.
     console.log(`Saved ${fieldType}: ${value}`);
@@ -21,7 +21,7 @@ const UserProfile = () => {
     <div className="user-profile-container">
       <EditableField
         label="Username"
-        value={username}
+        value={storedValue}
         fieldType="username"
         onSave={(value) => handleSave("username", value)}
       />

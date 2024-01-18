@@ -11,7 +11,7 @@ import Select from "@mui/material/Select";
 import "../styles/Info.css";
 
 const Info = ({ onSaveGarageIdToSuperComponent }) => {
-  const [garageId, setgarageId] = useState(true);
+  let garageId;
   const [oname, setoname] = useState("");
   const [nic, setnic] = useState("");
   const [pNum, setPNum] = useState("");
@@ -74,9 +74,8 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
   };
 
   const handleSaveButtonClick = async () => {
-    setgarageId(generateGarageId());
-    onSaveGarageIdToSuperComponent(garageId);
     setLoading(true);
+    onSaveGarageIdToSuperComponent(garageId);
     console.log("handleSaveButtonClick function is called");
     try {
       const response = await axios.get(
@@ -109,6 +108,7 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
 
       if (existingData) {
         console.log("Updating Document...");
+        onSaveGarageIdToSuperComponent(garageId);
         await axios.put(
           `http://localhost:4000/api/owner/ABC123456`,
           updatedData,
@@ -122,6 +122,8 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
         // onSaveGarageIdToSuperComponent(updatedData.garageId);
       } else {
         console.log("Creating New Document...");
+        garageId = generateGarageId();
+        onSaveGarageIdToSuperComponent(garageId);
         await axios.post("http://localhost:4000/api/owner", updatedData, {
           headers,
         });
@@ -134,8 +136,6 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
 
   const fetchData = async () => {
     try {
-      setgarageId(generateGarageId());
-      onSaveGarageIdToSuperComponent(garageId);
       const response = await axios.get(
         "http://localhost:4000/api/owner/ABC123456"
       );
@@ -154,7 +154,7 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
       setOpeningHours(responseData.openingHours);
       setClosingHours(responseData.closingHours);
       setstatuS(responseData.statuS);
-      onSaveGarageIdToSuperComponent(garageId);
+      localStorage.setItem("key_2024", responseData.garageId);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
