@@ -80,14 +80,34 @@
     flex:1;
     
  }
+ .service-button{
+   border-radius: 5px;
+    background-color: #09BEB1;
+    border:none;
+    color: #fff;
+    padding: 10px;
+ }
+
+ .service-accordion {
+   position: relative;
+   z-index: 1;
+}
  
+.service-accordion-card {
+   background-color: white;
+   box-shadow: 0 0 10px rgba(231, 231, 231, 0.1);
+   border-radius: 4px;
+   width: 200px; 
+   height: 300px;
+   padding: 10px;
+}
 
 
  .innerColumn-1{
     flex:1;
     margin:10px;
     padding:5px;
-    text-align: center;
+    
 
  }
 
