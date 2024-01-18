@@ -1,45 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DDrawer from "./components/Drawer";
-import Dashboard from "./components/Dashboard";
-import GaragesTable from "./components/GaragesTable";
-import Drivers from "./components/Drivers";
-import Logout from "./components/Logout";
-import LoginForm from "./pages/LoginForm"; // Import your login form component
-import Box from "@mui/material/Box";
 
-const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+// dashboard imports
+import Dashboard from "./pages/Dashboard";
+import User from "./components/UserTable";
+import Request from "./components/RequestTable";
+import Repair from "./components/RepairTable";
+import Reservation from "./components/ReservationTable";
+import Garage from "./components/GarageTable";
 
-  const handleLogin = () => {
-    // Implement your login logic here
-    setIsLoggedIn(true); // For example, set to true upon successful login
-  };
+function DashboardLayout() {
+  return (
+    <div>
+      <Dashboard />
+    </div>
+  );
+}
 
+function App() {
   return (
     <Router>
-      <Box sx={{ display: "flex" }}>
-        {!isLoggedIn ? (
-          <Routes>
-            <Route path="/" element={<LoginForm onLogin={handleLogin} />} />
-          </Routes>
-        ) : (
-          <>
-            <DDrawer />
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/garages" element={<GaragesTable />} />
-              <Route path="/drivers" element={<Drivers />} />
-              <Route
-                path="/logout"
-                element={<LoginForm onLogin={handleLogin} />}
-              />
-            </Routes>
-          </>
-        )}
-      </Box>
+      <Routes>
+        <Route path="/*" element={<DashboardLayout />}>
+          <Route index element={<User />} />
+          <Route path="user" element={<User />} />
+          <Route path="req" element={<Request />} />
+          <Route path="rep" element={<Repair />} />
+          <Route path="res" element={<Reservation />} />
+          <Route path="gar" element={<Garage />} />
+        </Route>
+      </Routes>
     </Router>
   );
-};
+}
 
 export default App;

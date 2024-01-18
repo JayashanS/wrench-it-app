@@ -1,0 +1,49 @@
+.drawer {
+    width: 12%;
+    height: 100vh;
+    flex-direction: column;
+    background-color: #fff;
+    position: fixed;
+    font-size: 14px;
+    margin-top:50px;
+    padding-top: 1%;
+  }
+  .drawer-section {
+    width: 85%; /* Adjusted width to account for padding */
+    height: 30px;
+    margin-left: 10px; /* Adjusted margin-left */
+    border-radius: 2px;
+    flex: 1;
+    transition: background-color 0s ease;
+    margin-top: 10px;
+    color: #bcbcbc;
+  }
+  
+  .list-item-container {
+    display: flex;
+    align-items: center;
+    padding-top: 5px;
+    padding-left: 10px;
+  }
+  
+  .d-drawer-title {
+    color:#075961;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .link {
+    width: 90%;
+    border-radius: 2px;
+    text-decoration: none;
+    display: flex;
+    height: 100%;
+    transition: background-color 0.1s ease, color 0.1s ease;
+  }
+  
+  .link:hover {
+    background-color: #0861461e;
+  }

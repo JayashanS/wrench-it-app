@@ -70,7 +70,7 @@ export default function BasicTabs() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ width: "100%" }} className="settings-container">
+      <Box className="settings-container">
         <Box
           sx={{ borderBottom: 1, borderColor: "divider" }}
           className="settings-tabs-title"
@@ -89,7 +89,7 @@ export default function BasicTabs() {
               }}
             />
             <Tab
-              label="Pricing"
+              label="Services & Pricing"
               {...a11yProps(1)}
               sx={{
                 "&:hover": { backgroundColor: "transparent" },
