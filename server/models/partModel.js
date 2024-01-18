@@ -2,30 +2,30 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const partSchema = new Schema({
-  fname: {
+  garageId: {
     type: String,
     required: true,
   },
-  lname: {
+  partId: {
     type: String,
     required: true,
   },
-  bday: {
+  partName: {
+    type: String,
+    required: true,
+  },
+  unitPrice: {
+    type: String,
+    required: true,
+  },
+  count: {
     type: Date,
     required: true,
   },
-  email: {
+  description: {
     type: String,
     required: true,
     unique: true,
-  },
-  pw: {
-    type: String,
-    required: true,
-  },
-  cpw: {
-    type: String,
-    required: true,
   },
 });
 
