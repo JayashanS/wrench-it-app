@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import Info from "./Info";
@@ -27,6 +27,10 @@ const theme = createTheme({
     },
   },
 });
+const onSaveGarageIdToSuperComponent = (id) => {
+  // Implement the logic to save garageId in the parent component
+  console.log(`Garage ID saved in parent component: ${id}`);
+};
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -107,7 +111,9 @@ export default function BasicTabs() {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0} className="settings-tabs">
-          <Info />
+          <Info
+            onSaveGarageIdToSuperComponent={onSaveGarageIdToSuperComponent}
+          />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1} className="settings-tabs">
           <Pricing />
