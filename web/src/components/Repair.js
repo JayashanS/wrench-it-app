@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Accordion, Card } from "react-bootstrap";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -16,6 +16,7 @@ function Repair() {
   const [phoneNo, setphoneNo] = useState("");
   const [status, setstatus] = useState("");
   const [error, setError] = useState(null);
+  const [data,setData]=useState([]);
 
   const toggleAccordion = () => {
     setIsAccordionOpen(!isAccordionOpen);
@@ -67,6 +68,37 @@ function Repair() {
     }
   };
 
+  
+  
+  //load data from database to Repair table
+    
+
+    useEffect(()=>{
+      const fetchData=async()=>{
+        try{
+          const response = await fetch("http://localhost:4000/api/repair");
+          const jsonData=await response.json();
+          setData(sortData(jsonData));
+        }catch(error){
+          console.error("Error fetching data: ",error);
+
+        }
+      };
+      fetchData();
+    },[]);
+    
+
+    const sortData=(data=[],sortBy="repairId",ascending = true) => {
+      return data.sort((a, b) => {
+        const aValue = a[sortBy] ?? "";
+        const bValue = b[sortBy] ?? "";
+        return ascending
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      });
+    };
+
+  //begining of the page
   return (
     <div class="RepairPage">
       <div class="RepairContainer1">
@@ -190,48 +222,41 @@ function Repair() {
         )}
 
         <table class="Repair">
+          <thead>
           <tr>
+          
             <th>Repair ID</th>
-            <th>Vehicle</th>
+            <th>License Plate Number</th>
             <th>Model</th>
             <th>Fault</th>
+            <th>NIC</th>
+            <th>Phone Number</th>
             <th>Date</th>
-            <th>Owner</th>
-            <th>Contact</th>
             <th>Status</th>
+            
           </tr>
-          <tr>
-            <td>R789012</td>
-            <td>XYZ789</td>
-            <td>CarModel2</td>
-            <td>Brake Problem</td>
-            <td>2024-01-15 14:30:00</td>
-            <td>987654321Y</td>
-            <td>987-654-3210</td>
-            <td>In Progress</td>
-          </tr>
-          <tr>
-            <td>R345678</td>
-            <td>DEF456</td>
-            <td>CarModel3</td>
-            <td>Transmission Issue</td>
-            <td>2024-01-20 10:45:00</td>
-            <td>456789012Z</td>
-            <td>456-789-0123</td>
-            <td>Completed</td>
-          </tr>
-          <tr>
-            <td>R123456</td>
-            <td>ABC123</td>
-            <td>CarModel1</td>
-            <td>Engine Issue</td>
-            <td>2024-01-10 12:00:00</td>
-            <td>123456789X</td>
-            <td>123-456-7890</td>
-            <td>Pending</td>
-          </tr>
+          </thead>
+          <tbody>
+            {data.map((item)=>(
+                <tr key={item.repairId}>
+             <td>{item.repairId}</td>
+              <td>{item.licensePlateNo}</td>
+              <td>{item.model}</td>
+              <td>{item.fault}</td>
+              <td>{item.NIC}</td>
+              <td>{item.phoneNo}</td>
+              <td>{item.date}</td>
+              <td>{item.status}</td>
+              
+                </tr>
+
+            ))}
+          </tbody>
         </table>
       </div>
+      
+  
+
       <div class="RepairContainer2">
         <h2>Billing</h2>
         <hr />
@@ -267,7 +292,7 @@ function Repair() {
                   onClick={togglePartsForm}
                   style={{ color: "white", textTransform: "none" }}
                 >
-                  Add new Repair Record{" "}
+                  Add new Parts{" "}
                 </Button>
               </Stack>
 
