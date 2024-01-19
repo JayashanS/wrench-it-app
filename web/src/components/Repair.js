@@ -67,8 +67,21 @@ function Repair() {
       console.log("new workout added", json);
     }
   };
+//Delete button function
 
-  
+const handleDelete = async (repairId) => {
+  try {
+    await fetch(`http://localhost:4000/api/repair/${repairId}`, {
+      method: "DELETE",
+    });
+
+    setData((prevData) => prevData.filter((item) => item.repairId !== repairId));
+  } catch (error) {
+    console.error("Error deleting data: ", error);
+  }
+};
+
+
   
   //load data from database to Repair table
     
@@ -119,7 +132,8 @@ function Repair() {
         <br />
         <br />
         {isAccordionOpen && (
-          //Add new Repair form
+
+  //Add new Repair form
 
           <div className="Add-new-Form">
             <Card className="Add-New-Form-card">
@@ -219,9 +233,13 @@ function Repair() {
               </Card.Body>
             </Card>
           </div>
+    // End of the Add repair form
         )}
 
+
+    {/*Repair table */}
         <table class="Repair">
+          
           <thead>
           <tr>
           
@@ -233,6 +251,7 @@ function Repair() {
             <th>Phone Number</th>
             <th>Date</th>
             <th>Status</th>
+            <th></th>
             
           </tr>
           </thead>
@@ -247,7 +266,13 @@ function Repair() {
               <td>{item.phoneNo}</td>
               <td>{item.date}</td>
               <td>{item.status}</td>
-              
+              <td> <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => handleDelete(item._id)}
+                  >
+                    Delete
+                  </Button></td>
                 </tr>
 
             ))}
@@ -256,6 +281,7 @@ function Repair() {
       </div>
       
   
+    {/*Billing section----- */}
 
       <div class="RepairContainer2">
         <h2>Billing</h2>
@@ -297,7 +323,8 @@ function Repair() {
               </Stack>
 
               {isPartsFormOpen && (
-                //Add new parts form
+
+    //Add new parts form
 
                 <div className="Add-new-parts-Form">
                   <Card className="Add-New-parts-card">
@@ -350,6 +377,8 @@ function Repair() {
           </tr>
         </table>
         <br />
+
+    {/*parts table--------------- */}
 
         <table class="parts">
           <tr>
