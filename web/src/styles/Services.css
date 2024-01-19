@@ -1,0 +1,29 @@
+.services-container{
+    width: 80vw;
+    height: 77vh;
+}
+.services-row-1{
+    flex:4;
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+}
+.services-row-1-column{
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  background-color: #922222;
+}
+.services-row-2{
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  padding-right:5%;
+  background-color: #ffffff;
+  align-items: end;
+}
+.services-title{
+    font-size:16px;
+    color: #09BEB1;
+    margin-bottom:0.5%;
+}

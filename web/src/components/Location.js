@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import mapboxgl from "mapbox-gl";
 import "../styles/Location.css";
 
@@ -10,6 +12,7 @@ const Map = () => {
   const [lng, setLng] = useState(80.540379);
   const [lat, setLat] = useState(5.949636);
   const [zoom, setZoom] = useState(10);
+  const [loading, setLoading] = React.useState(false);
 
   // Initialize map when component mounts
   useEffect(() => {
@@ -33,6 +36,13 @@ const Map = () => {
     return () => map.remove();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const handleSave = () => {
+    setLoading(true);
+    if (zoom > 16.9) {
+    } else {
+      console.log("set proper zoomlevel");
+    }
+  };
   return (
     <div className="location-container">
       <div className="map-inner-left">
@@ -53,7 +63,16 @@ const Map = () => {
           Once set, click the 'Save' button below for confirmation.{" "}
         </p>
         <br />
-        <input type="submit" className="location-save" value="Save" />
+        <Stack spacing={2} direction="row">
+          <Button
+            variant="contained"
+            sx={{ color: "white", width: "270px" }}
+            onClick={handleSave}
+            disabled={loading}
+          >
+            Save
+          </Button>
+        </Stack>
       </div>
       <div className="sidebarStyle">
         <div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import PropTypes from "prop-types";
 import Info from "./Info";
-import Pricing from "./Pricing";
+import Services from "./Services";
 import Location from "./Location";
 import Inventory from "./Inventory";
 
@@ -96,7 +96,7 @@ export default function Settings() {
               }}
             />
             <Tab
-              label="Services & Pricing"
+              label="Services & Services"
               {...a11yProps(1)}
               sx={{
                 "&:hover": { backgroundColor: "transparent" },
@@ -127,7 +127,7 @@ export default function Settings() {
           />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1} className="settings-tabs">
-          <Pricing garageId={garageId} />
+          <Services garageId={garageId} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2} className="settings-tabs">
           <Location />
