@@ -239,8 +239,7 @@ function Repair() {
           <tbody>
             {data.map((item)=>(
                 <tr key={item.repairId}>
-              
-              <td>{item.repairId}</td>
+             <td>{item.repairId}</td>
               <td>{item.licensePlateNo}</td>
               <td>{item.model}</td>
               <td>{item.fault}</td>
