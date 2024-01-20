@@ -75,7 +75,7 @@ const handleDelete = async (repairId) => {
       method: "DELETE",
     });
 
-    setData((prevData) => prevData.filter((item) => item.repairId !== repairId));
+    setData((prevData) => prevData.filter((item) => item._id !== repairId));
   } catch (error) {
     console.error("Error deleting data: ", error);
   }
@@ -257,7 +257,7 @@ const handleDelete = async (repairId) => {
           </thead>
           <tbody>
             {data.map((item)=>(
-                <tr key={item.repairId}>
+                <tr key={item._id}>
              <td>{item.repairId}</td>
               <td>{item.licensePlateNo}</td>
               <td>{item.model}</td>
