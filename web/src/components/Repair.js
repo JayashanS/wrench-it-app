@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { Accordion, Card } from "react-bootstrap";
+import { Accordion, Card,Form } from "react-bootstrap";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import "../styles/Repair.css";
@@ -17,6 +17,15 @@ function Repair() {
   const [status, setstatus] = useState("");
   const [error, setError] = useState(null);
   const [data,setData]=useState([]);
+// Add part form
+  const [partId, setPartId] = useState("");
+  const [partName, setPartName] = useState("");
+  const [unitPrice, setUnitPrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  const [partsData, setPartsData] = useState([]);
+  const calculateTotalPrice = () => {
+    return unitPrice * quantity;
+  };
 
   const toggleAccordion = () => {
     setIsAccordionOpen(!isAccordionOpen);
@@ -25,6 +34,7 @@ function Repair() {
     setIsPartsFormOpen(!isPartsFormOpen);
   };
 
+  //handlesubmit of repair details
   const handleSubmit = async (e) => {
     console.log("button clicked");
     e.preventDefault();
@@ -55,6 +65,8 @@ function Repair() {
       setError(json.error);
     }
     if (response.ok) {
+      setData((prevData) => [...prevData, json]);
+      
       setRepairId("");
       setlicensePlateNo("");
       setmodel("");
@@ -110,6 +122,43 @@ const handleDelete = async (repairId) => {
           : bValue.localeCompare(aValue);
       });
     };
+
+    //handlsubmit of Addparts
+
+const handlePartSubmit = async (e) => {
+  e.preventDefault();
+
+  const totalPrice = calculateTotalPrice();
+
+  const newPartData = {
+    partId,
+    partName,
+    unitPrice,
+    quantity,
+    totalPrice,
+  };
+  setPartsData((prevPartsData) => [...prevPartsData, newPartData]);
+  try {
+    const response = await fetch("http://localhost:4000/api/parts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPartData),
+    });
+
+    if (response.ok) {
+    
+      console.log("Part added successfully");
+    } else {
+     
+      const errorData = await response.json();
+      console.error("Error adding part:", errorData.error);
+    }
+  } catch (error) {
+    console.error("Error adding part:", error);
+  }
+};
 
   //begining of the page
   return (
@@ -330,38 +379,42 @@ const handleDelete = async (repairId) => {
                   <Card className="Add-New-parts-card">
                     <Card.Body>
                       <h2>Add Parts</h2>
-                      <form action="/submit" method="post">
-                        <label for="part">Part:</label>
+                      <form onSubmit={handlePartSubmit} method="post">
+                      <label for="partId">part Id:</label>
                         <input
                           type="text"
-                          id="part"
+                          value={partId}
+                          name="partId"
+                          onChange={(e) => setPartId(e.target.value)}
+                        ></input>
+
+                        <label for="partName">Part Name:</label>
+                        <input
+                          type="text"
+                          value={partName}
                           name="part"
+                          onChange={(e) => setPartName(e.target.value)}
+                          
                           required
                         ></input>
 
                         <label for="quantity">Quantity:</label>
                         <input
                           type="number"
-                          id="quantity"
-                          name="quantity"
-                          required
+                          value={quantity}
+                          onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
                         ></input>
 
-                        <label for="price">Price per unit:</label>
+                        <label for="price">Unit Price:</label>
                         <input
                           type="number"
-                          id="price"
-                          name="price"
-                          required
+                      
+                          value={unitPrice}
+                           onChange={(e) => setUnitPrice(parseFloat(e.target.value))}
                         ></input>
 
                         <label for="totalPrice">Total Price:</label>
-                        <input
-                          type="number"
-                          id="totalPrice"
-                          name="totalPrice"
-                          readonly
-                        ></input>
+                        <Form.Control type="text" readOnly value={calculateTotalPrice()}style={{ color: 'red' }} />
 
                         <button type="submit">Submit</button>
                       </form>
@@ -381,25 +434,24 @@ const handleDelete = async (repairId) => {
     {/*parts table--------------- */}
 
         <table class="parts">
+          <thead>
           <tr>
             <th>part</th>
             <th>quantity</th>
             <th>price</th>
             <th>Total price</th>
           </tr>
-          <tr>
-            <td>Part 1</td>
-            <td>5</td>
-            <td>$10.00</td>
-            <td>$50.00</td>
-          </tr>
-
-          <tr>
-            <td>Part 2</td>
-            <td>2</td>
-            <td>$15.00</td>
-            <td>$30.00</td>
-          </tr>
+          </thead>
+          <tbody>
+    {partsData.map((item, index) => (
+      <tr key={index}>
+        <td>{item.partName}</td>
+        <td>{item.quantity}</td>
+        <td>${item.unitPrice.toFixed(2)}</td>
+        <td>${item.totalPrice.toFixed(2)}</td>
+      </tr>
+      ))}
+        </tbody>
         </table>
 
         <hr />
