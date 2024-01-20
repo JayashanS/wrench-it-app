@@ -2,10 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const partSchema = new Schema({
-  garageId: {
-    type: String,
-    required: true,
-  },
+
   partId: {
     type: String,
     required: true,
@@ -15,17 +12,17 @@ const partSchema = new Schema({
     required: true,
   },
   unitPrice: {
-    type: String,
+    type:Number,
     required: true,
   },
-  count: {
-    type: Date,
+  quantity: {
+    type:Number,
     required: true,
   },
-  description: {
-    type: String,
+  totalPrice: {
+    type: Number,
     required: true,
-    unique: true,
+    
   },
 });
 
