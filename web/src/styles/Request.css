@@ -11,7 +11,7 @@
  .view-request{
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 40vw;
     height: 100vh; /*vh = view point height */
     top: 5%;
     left: 4%;
@@ -31,7 +31,7 @@
  .incoming-request{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 36.7vw;
     margin-top: 4%;
     margin-left: 4%;
     height: 50vh;
@@ -40,7 +40,7 @@
 
  .accepted-request{
     display: flex;
-    width: 92%;
+    width: 36.7vw;
     margin-top: 4%;
     margin-left: 4%;
     margin-bottom: 4%;
@@ -104,10 +104,10 @@
 
 .user-details{
    display: flex;
-   width: 85%;
+   width: 90%;
    height: 12vh;
    margin-top: 0.5%;
-   margin-left: 6%;
+   margin-left: 3%;
    background-color: #FFFFFF;
 }
 
@@ -120,10 +120,7 @@
    align-items: center;
    color: #09BEB1;
    background-color: #EEF2F5;
-}
-
-.horizontal-line{
-   border: 1px solid black;
+   border-bottom: 2px solid #ada9a9
 }
 
 .profile-circle{
@@ -164,4 +161,13 @@
 .button-box{
    display: flex;
    flex-direction: column;
+   background-color: rgb(246, 198, 8);
+   margin-top: 2%;
+}
+
+.custom-button{
+   display: flex;
+   flex-direction: column;
+   margin-top: 2%;
+   text-align: center;
 }

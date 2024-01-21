@@ -4,21 +4,19 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { green, red } from "@mui/material/colors";
-
+import SendIcon from '@mui/icons-material/Send';
+import Directions from "./Directions"
 function Request() {
   return (
     <div className="container-request">
       <div className="view-request">
         <div className="incoming-request">
           <div className="header-bar">
-            <p style={{marginLeft:"20px"}}>Incoming</p><VolumeUpIcon style={{marginLeft:"350px",marginBottom:"15px"}}/>
+            <p style={{marginLeft:"20px"}}>Incoming</p>
+            <VolumeUpIcon style={{marginLeft:"350px",marginBottom:"15px"}}/><br/>
           </div>
-
-          <hr className="horizontal-line"/>
-
           <div className="user-details">
-            <div className="profile-circle"/>
+            <div className="profile-circle"></div>
             <div className="name-box"><b>Alice Smith</b></div>
             <div className="icon-box">
               <DirectionsCarIcon/>
@@ -31,13 +29,12 @@ function Request() {
               Matara <br />
             </div>
             <div className="button-box">
-              <button style={{color:green}}>View</button>
-              <button style={{color:red}}>Decline</button>
+                <button className="custom-button">View</button>
+                <button className="custom-button" style={{backgroundColor:"red"}}>Decline</button>
             </div>
           </div>
 
           <div className="user-details">
-            <div className="profile-circle"/>
             <div className="name-box"><b>Alice Smith</b></div>
             <div className="icon-box">
               <DirectionsCarIcon/>
@@ -63,7 +60,7 @@ function Request() {
       <div className="request-details">
         <div className="map">
           <div className="map-view">
-            <p>map view</p>
+            <Directions/>
           </div>
           <div className="map-details">
             <p>map details</p>
@@ -71,7 +68,8 @@ function Request() {
         </div>
         <div className="chatbox">
           <div className="process-request">
-            <p>Process request</p>
+            <div className="profile-circle"></div>
+            <div className="name-box"></div>
           </div>
           <div className="messagebox">
             <p>messagebox</p>  
