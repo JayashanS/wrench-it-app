@@ -1,9 +1,11 @@
 .container-reservation {
-
+   width:100vw;
+   height: 100vh;
     display: flex;
     flex-direction:  row;
     background-color: #EEF2F5;
-    padding-left: 200px;
+    margin-top: 60px;
+   
     
 }
 .container-title{
@@ -14,7 +16,7 @@
     display:flex;
     flex-direction: column;
     background-color: #fff;
-    width:50vw;
+    flex:1;
     height: 100vh;
     margin-left:200px;
     padding: 10px;
@@ -24,7 +26,7 @@
     display:flex;
     flex-direction: column;
     background-color: #fff;
-    width:50vw;
+    flex:1;
     height: 100vh;
     margin-left:10px;
     padding: 10px;
@@ -45,22 +47,67 @@
 
  .column-4{
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color: #EEF2F5;
     margin:10px;
     width:95%;
     height: 18%;
     border-radius: 5px;
+    padding: 10px;
     
 
  }
 
+ .innerRow-1{
+    display:flex;
+    height:30%;
+    margin: 10px;
+    
+    
+ }
+ .innerRow-2{
+    display:flex;
+    height:40%;
+    margin: 10px;
+    
+ }
+
+ .item-1{
+    flex:1;
+    font-size: small;
+ }
+ .item-2{
+    flex:1;
+    
+ }
+ .service-button{
+   border-radius: 5px;
+    background-color: #09BEB1;
+    border:none;
+    color: #fff;
+    padding: 10px;
+ }
+
+ .service-accordion {
+   position: relative;
+   z-index: 1;
+}
+ 
+.service-accordion-card {
+   background-color: white;
+   box-shadow: 0 0 10px rgba(231, 231, 231, 0.1);
+   border-radius: 4px;
+   width: 200px; 
+   height: 300px;
+   padding: 10px;
+}
+
 
  .innerColumn-1{
-    display: flex;
-    flex-direction: column;
+    flex:1;
     margin:10px;
     padding:5px;
+    
 
  }
 
@@ -72,4 +119,40 @@
     margin: 10px;
  }
 
+ .ReservationServices{
+    margin: 10px;
+ }
 
+ 
+
+.button{
+    margin:15px;
+    border: 1px solid white;
+    border-radius:5px;
+ 
+    font-size:15px;
+    color:#0a0a0a;
+  
+    
+}
+
+.button1{
+    background-color:#09BEB1;
+
+}
+.button2{
+    background-color:#CB2269;
+}
+
+.button:hover{
+    cursor: pointer;
+    background-color: #fff;
+    color:#141111;
+    
+}
+
+.res-titleBar{
+   width:100%;
+   height: 40px;
+   border-bottom: 3px solid #EEF2F5 ;
+}

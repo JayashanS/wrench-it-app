@@ -1,80 +1,213 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Typography from "@mui/material/Typography";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import BusinessIcon from "@mui/icons-material/Business";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import LogoutIcon from "@mui/icons-material/Logout";
-import { Link } from "react-router-dom"; // Import Link component
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "../styles/Drawer.css";
 
-export default function TemporaryDrawer() {
-  const [selectedPath, setSelectedPath] = React.useState("/"); // Track selected path
+// icons and logos
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import CarRepairIcon from "@mui/icons-material/CarRepair";
+import MinorCrashIcon from "@mui/icons-material/MinorCrash";
+import EventIcon from "@mui/icons-material/Event";
+import BusinessIcon from "@mui/icons-material/Business";
+
+function Drawer() {
+  const [selectedLink, setSelectedLink] = useState("/user");
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1000);
+
+  const handleLinkClick = (link) => {
+    setSelectedLink(link);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 1000);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <Drawer
-        anchor="left"
-        open
-        variant="persistent"
-        sx={{
-          width: 250,
-          flexShrink: 0,
+    <div className="drawer">
+      <div
+        className="drawer-section"
+        style={{
+          paddingLeft: "10px",
         }}
       >
-        <Box sx={{ p: 2 }}>
-          <Typography variant="h6" component="div">
-            Wrench it
-          </Typography>
-        </Box>
-        <List>
-          {[
-            { text: "Dashboard", icon: <DashboardIcon />, path: "/" },
-            { text: "Garages", icon: <BusinessIcon />, path: "/garages" },
-            { text: "Drivers", icon: <PeopleAltIcon />, path: "/drivers" },
-          ].map((item, index) => (
-            <ListItem
-              key={index}
-              disablePadding
-              selected={item.path === selectedPath} // Apply selected styling
-              sx={{ "&:hover": { backgroundColor: "inherit" } }} // Remove hover effect
+        <Link
+          to=""
+          style={{
+            color: selectedLink === "" ? "#fff" : "#868e96",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+          }}
+          onClick={() => handleLinkClick("")}
+        >
+          {!isSmallScreen && (
+            <span
+              className="list-item d-drawer-title"
+              style={{
+                color: "#075961",
+              }}
             >
-              <ListItemButton
-                component={Link}
-                to={item.path}
-                onClick={() => setSelectedPath(item.path)} // Update selected path
-              >
-                {" "}
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {[{ text: "Logout", icon: <LogoutIcon />, path: "/logout" }].map(
-            (item, index) => (
-              <ListItem key={index} disablePadding>
-                <ListItemButton component={Link} to={item.path}>
-                  {" "}
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.text} />
-                </ListItemButton>
-              </ListItem>
-            )
+              DATA VIEWS
+            </span>
           )}
-        </List>
-      </Drawer>
-      <Box sx={{ flexGrow: 1, p: 3 }}>
-        {/* Main content of the page goes here */}
-      </Box>
-    </Box>
+        </Link>
+      </div>
+      <div
+        className="drawer-section"
+        style={{
+          backgroundColor: selectedLink === "/user" ? "#075961" : "#fff",
+        }}
+      >
+        <Link
+          className="link"
+          to="/user"
+          style={{
+            color: selectedLink === "/user" ? "#fff" : "#868e96",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+            paddingLeft: "10px",
+          }}
+          onClick={() => handleLinkClick("/user")}
+        >
+          <GroupAddIcon
+            style={{
+              color: selectedLink === "/user" ? "#fff" : "#868e96",
+              marginRight: "10px",
+              fontSize: 20,
+            }}
+            className="icon"
+          />
+          {!isSmallScreen && <span className="list-item">Users</span>}
+        </Link>
+      </div>
+      <div
+        className="drawer-section"
+        style={{
+          backgroundColor: selectedLink === "/req" ? "#075961" : "#fff",
+        }}
+      >
+        <Link
+          className="link"
+          to="/req"
+          style={{
+            color: selectedLink === "/req" ? "#fff" : "#868e96",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+            paddingLeft: "10px",
+          }}
+          onClick={() => handleLinkClick("/req")}
+        >
+          <MinorCrashIcon
+            style={{
+              color: selectedLink === "/req" ? "#fff" : "#868e96",
+              marginRight: "10px",
+              fontSize: 20,
+            }}
+            className="icon"
+          />
+          {!isSmallScreen && <span className="list-item">Request</span>}
+        </Link>
+      </div>
+      <div
+        className="drawer-section"
+        style={{
+          backgroundColor: selectedLink === "/rep" ? "#075961" : "#fff",
+        }}
+      >
+        <Link
+          className="link"
+          to="/rep"
+          style={{
+            color: selectedLink === "/rep" ? "#fff" : "#868e96",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+            paddingLeft: "10px",
+          }}
+          onClick={() => handleLinkClick("/rep")}
+        >
+          <CarRepairIcon
+            style={{
+              color: selectedLink === "/rep" ? "#fff" : "#868e96",
+              marginRight: "10px",
+              fontSize: 20,
+            }}
+          />
+          {!isSmallScreen && <span className="list-item">Repair</span>}
+        </Link>
+      </div>
+      <div
+        className="drawer-section"
+        style={{
+          backgroundColor: selectedLink === "/res" ? "#075961" : "#fff",
+        }}
+      >
+        <Link
+          className="link"
+          to="/res"
+          style={{
+            color: selectedLink === "/res" ? "#fff" : "#868e96",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+            paddingLeft: "10px",
+          }}
+          onClick={() => handleLinkClick("/res")}
+        >
+          <EventIcon
+            style={{
+              color: selectedLink === "/res" ? "#fff" : "#868e96",
+              marginRight: "10px",
+              fontSize: 20,
+            }}
+          />
+          {!isSmallScreen && <span className="list-item">Reservations</span>}
+        </Link>
+      </div>
+      <div
+        className="drawer-section"
+        style={{
+          backgroundColor: selectedLink === "/gar" ? "#075961" : "#fff",
+        }}
+      >
+        <Link
+          className="link"
+          to="/gar"
+          style={{
+            color: selectedLink === "/gar" ? "#fff" : "#868e96",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+            paddingLeft: "10px",
+          }}
+          onClick={() => handleLinkClick("/gar")}
+        >
+          <BusinessIcon
+            style={{
+              color: selectedLink === "/gar" ? "#fff" : "#868e96",
+              marginRight: "10px",
+              fontSize: 20,
+            }}
+          />
+          {!isSmallScreen && <span className="list-item">Garages</span>}
+        </Link>
+      </div>
+    </div>
   );
 }
+
+export default Drawer;

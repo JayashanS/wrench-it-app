@@ -36,4 +36,26 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, deleteUser };
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find();
+    res.status(200).json(allUsers);
+  } catch (error) {
+    console.error("Error fetching all users", error);
+    res.status(500).json({ error: "Could not fetch all users" });
+  }
+};
+
+const insertManyUsers = async (req, res) => {
+  const usersToInsert = req.body;
+
+  try {
+    const insertedUsers = await User.insertMany(usersToInsert);
+    res.status(201).json(insertedUsers);
+  } catch (error) {
+    console.error("Error inserting many users", error);
+    res.status(500).json({ error: "Could not insert many users" });
+  }
+};
+
+module.exports = { createUser, deleteUser, getAllUsers, insertManyUsers };

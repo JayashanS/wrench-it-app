@@ -1,141 +1,337 @@
-import React, { useState } from "react";
-import { Accordion, Card } from "react-bootstrap";
+import React, { useState,useEffect } from "react";
+import { Accordion, Card,Form } from "react-bootstrap";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import "../styles/Repair.css";
 
 function Repair() {
-	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isPartsFormOpen, setIsPartsFormOpen] = useState(false);
-	const toggleAccordion = () => {
-	  setIsAccordionOpen(!isAccordionOpen);
-	};
+  const [repairId, setRepairId] = useState("");
+  const [licensePlateNo, setlicensePlateNo] = useState("");
+  const [model, setmodel] = useState("");
+  const [fault, setfault] = useState("");
+  const [NIC, setNIC] = useState("");
+  const [date, setdate] = useState("");
+  const [phoneNo, setphoneNo] = useState("");
+  const [status, setstatus] = useState("");
+  const [error, setError] = useState(null);
+  const [data,setData]=useState([]);
+// Add part form
+  const [partId, setPartId] = useState("");
+  const [partName, setPartName] = useState("");
+  const [unitPrice, setUnitPrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  const [partsData, setPartsData] = useState([]);
+  const calculateTotalPrice = () => {
+    return unitPrice * quantity;
+  };
+
+  const toggleAccordion = () => {
+    setIsAccordionOpen(!isAccordionOpen);
+  };
   const togglePartsForm = () => {
     setIsPartsFormOpen(!isPartsFormOpen);
   };
 
-// form validation
-/*const validateForm = () => {
-    const form = document.getElementById("repairForm");
-    const elements = form.elements;
+  //handlesubmit of repair details
+  const handleSubmit = async (e) => {
+    console.log("button clicked");
+    e.preventDefault();
+    const repair = {
+      repairId,
+      licensePlateNo,
+      model,
+      fault,
+      NIC,
+      date,
+      phoneNo,
+      status,
+    };
+    console.log("Form Data:", repair);
 
-    for (let i = 0; i < elements.length; i++) {
-      if (elements[i].type !== "button" && elements[i].type !== "submit") {
-        if (!elements[i].value.trim()) {
-          alert("Please fill in all required fields.");
-          return;
-        }
-      }
+    const response = await fetch("http://localhost:4000/api/repair/", {
+      method: "POST",
+      body: JSON.stringify(repair),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("button clicked");
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      setError(json.error);
     }
-    alert("Form submitted successfully!");
+    if (response.ok) {
+      setData((prevData) => [...prevData, json]);
+      
+      setRepairId("");
+      setlicensePlateNo("");
+      setmodel("");
+      setfault("");
+      setNIC("");
+      setdate("");
+      setphoneNo("");
+      setstatus("");
+      setError(null);
+      console.log("new workout added", json);
+    }
   };
+//Delete button function
 
-*/
+const handleDelete = async (repairId) => {
+  try {
+    await fetch(`http://localhost:4000/api/repair/${repairId}`, {
+      method: "DELETE",
+    });
 
-//const Repair = () => {
+    setData((prevData) => prevData.filter((item) => item._id !== repairId));
+  } catch (error) {
+    console.error("Error deleting data: ", error);
+  }
+};
+
+
+  
+  //load data from database to Repair table
+    
+
+    useEffect(()=>{
+      const fetchData=async()=>{
+        try{
+          const response = await fetch("http://localhost:4000/api/repair");
+          const jsonData=await response.json();
+          setData(sortData(jsonData));
+        }catch(error){
+          console.error("Error fetching data: ",error);
+
+        }
+      };
+      fetchData();
+    },[]);
+    
+
+    const sortData=(data=[],sortBy="repairId",ascending = true) => {
+      return data.sort((a, b) => {
+        const aValue = a[sortBy] ?? "";
+        const bValue = b[sortBy] ?? "";
+        return ascending
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      });
+    };
+
+    //handlsubmit of Addparts
+
+const handlePartSubmit = async (e) => {
+  e.preventDefault();
+
+  const totalPrice = calculateTotalPrice();
+
+  const newPartData = {
+    partId,
+    partName,
+    unitPrice,
+    quantity,
+    totalPrice,
+  };
+  setPartsData((prevPartsData) => [...prevPartsData, newPartData]);
+  try {
+    const response = await fetch("http://localhost:4000/api/parts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPartData),
+    });
+
+    if (response.ok) {
+    
+      console.log("Part added successfully");
+    } else {
+     
+      const errorData = await response.json();
+      console.error("Error adding part:", errorData.error);
+    }
+  } catch (error) {
+    console.error("Error adding part:", error);
+  }
+};
+
+  //begining of the page
   return (
     <div class="RepairPage">
       <div class="RepairContainer1">
         <h2>Details</h2>
         <hr />
         <br />
-        <button class="btn"  onClick={toggleAccordion}>Add new Repair Record</button>
+
+        <Stack spacing={2} direction="row">
+          <Button
+            variant="contained"
+            onClick={toggleAccordion}
+            style={{ color: "white", textTransform: "none" }}
+          >
+            Add new Repair Record{" "}
+          </Button>
+        </Stack>
+
         <br />
         <br />
-		{isAccordionOpen && (
+        {isAccordionOpen && (
 
-//Add new Repair form
+  //Add new Repair form
 
-        <div className="Add-new-Form">
-          <Card className="Add-New-Form-card">
-            <Card.Body>
-			
-		<h2>Repair Information Form</h2>
-			<form id="repairForm">
-				<label for="repairId">Repair ID:</label>
-    			<input type="text" id="repairId" name="repairId" required/>
+          <div className="Add-new-Form">
+            <Card className="Add-New-Form-card">
+              <Card.Body>
+                <h2>Repair Information Form</h2>
+                <form id="repairForm" onSubmit={handleSubmit}>
+                  <label for="repairId">Repair ID:</label>
+                  <input
+                    type="text"
+                    id="repairId"
+                    name="repairId"
+                    onChange={(e) => setRepairId(e.target.value)}
+                    value={repairId}
+                    required
+                  />
 
-				<label for="licensePlateNo">License Plate No:</label>
-   	 			<input type="text" id="licensePlateNo" name="licensePlateNo" required></input>
-				
-				<label for="model">Model:</label>
-    			<input type="text" id="model" name="model" required/>
+                  <label for="licensePlateNo">License Plate No:</label>
+                  <input
+                    type="text"
+                    id="licensePlateNo"
+                    name="licensePlateNo"
+                    onChange={(e) => setlicensePlateNo(e.target.value)}
+                    value={licensePlateNo}
+                    required
+                  ></input>
 
-				<label for="fault">Fault:</label>
-    			<textarea id="fault" name="fault" rows="4" required></textarea>
-				
-				<label for="NIC">NIC:</label>
-    			<input type="text" id="NIC" name="NIC" required />
+                  <label for="model">Model:</label>
+                  <input
+                    type="text"
+                    id="model"
+                    name="model"
+                    onChange={(e) => setmodel(e.target.value)}
+                    value={model}
+                    required
+                  />
 
-   				 <label for="phoneNo">Phone No:</label>
-    			<input type="tel" id="phoneNo" name="phoneNo" required />
+                  <label for="fault">Fault:</label>
+                  <textarea
+                    id="fault"
+                    name="fault"
+                    rows="4"
+                    onChange={(e) => setfault(e.target.value)}
+                    value={fault}
+                    required
+                  ></textarea>
 
-    			<label for="date">Date:</label>
-    			<input type="date" id="date" name="date" required />
+                  <label for="NIC">NIC:</label>
+                  <input
+                    type="text"
+                    id="NIC"
+                    name="NIC"
+                    onChange={(e) => setNIC(e.target.value)}
+                    value={NIC}
+                    required
+                  />
 
-    			<label for="status">Status:</label>
-				<select id="status" name="status" required>
-      				<option value="Pending">Pending</option>
-      				<option value="In Progress">In Progress</option>
-      				<option value="Completed">Completed</option>
-    			</select>
-				
-				<button type="button" onclick="validateForm()">Submit</button>
-				
-				</form>
-				
-              <Accordion defaultActiveKey="0">
-                
-                <br />
-              </Accordion>
-            </Card.Body>
-          </Card>
-        </div>
-        
-      )}
-		
+                  <label for="phoneNo">Phone No:</label>
+                  <input
+                    type="tel"
+                    id="phoneNo"
+                    name="phoneNo"
+                    onChange={(e) => setphoneNo(e.target.value)}
+                    value={phoneNo}
+                    required
+                  />
+
+                  <label for="date">Date:</label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    onChange={(e) => setdate(e.target.value)}
+                    value={date}
+                    required
+                  />
+
+                  <label for="status">Status:</label>
+                  <select
+                    id="status"
+                    name="status"
+                    onChange={(e) => setstatus(e.target.value)}
+                    value={status}
+                    required
+                  >
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+
+                  <button onClick={handleSubmit}>Submit</button>
+                  {error && <div className="error">error</div>}
+                </form>
+
+                <Accordion defaultActiveKey="0">
+                  <br />
+                </Accordion>
+              </Card.Body>
+            </Card>
+          </div>
+    // End of the Add repair form
+        )}
+
+
+    {/*Repair table */}
         <table class="Repair">
+          
+          <thead>
           <tr>
+          
             <th>Repair ID</th>
-            <th>Vehicle</th>
+            <th>License Plate Number</th>
             <th>Model</th>
             <th>Fault</th>
+            <th>NIC</th>
+            <th>Phone Number</th>
             <th>Date</th>
-            <th>Owner</th>
-            <th>Contact</th>
             <th>Status</th>
+            <th></th>
+            
           </tr>
-          <tr>
-            <td>R789012</td>
-            <td>XYZ789</td>
-            <td>CarModel2</td>
-            <td>Brake Problem</td>
-            <td>2024-01-15 14:30:00</td>
-            <td>987654321Y</td>
-            <td>987-654-3210</td>
-            <td>In Progress</td>
-          </tr>
-          <tr>
-            <td>R345678</td>
-            <td>DEF456</td>
-            <td>CarModel3</td>
-            <td>Transmission Issue</td>
-            <td>2024-01-20 10:45:00</td>
-            <td>456789012Z</td>
-            <td>456-789-0123</td>
-            <td>Completed</td>
-          </tr>
-          <tr>
-            <td>R123456</td>
-            <td>ABC123</td>
-            <td>CarModel1</td>
-            <td>Engine Issue</td>
-            <td>2024-01-10 12:00:00</td>
-            <td>123456789X</td>
-            <td>123-456-7890</td>
-            <td>Pending</td>
-          </tr>
+          </thead>
+          <tbody>
+            {data.map((item)=>(
+                <tr key={item._id}>
+             <td>{item.repairId}</td>
+              <td>{item.licensePlateNo}</td>
+              <td>{item.model}</td>
+              <td>{item.fault}</td>
+              <td>{item.NIC}</td>
+              <td>{item.phoneNo}</td>
+              <td>{item.date}</td>
+              <td>{item.status}</td>
+              <td> <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => handleDelete(item._id)}
+                  >
+                    Delete
+                  </Button></td>
+                </tr>
+
+            ))}
+          </tbody>
         </table>
-        
       </div>
+      
+  
+    {/*Billing section----- */}
+
       <div class="RepairContainer2">
         <h2>Billing</h2>
         <hr />
@@ -165,72 +361,103 @@ function Repair() {
           <tr>
             <td>Parts</td>
             <td>
-              <button class="btnParts" onClick={togglePartsForm} >Add Parts</button>
+              <Stack spacing={2} direction="row">
+                <Button
+                  variant="contained"
+                  onClick={togglePartsForm}
+                  style={{ color: "white", textTransform: "none" }}
+                >
+                  Add new Parts{" "}
+                </Button>
+              </Stack>
+
               {isPartsFormOpen && (
 
-     //Add new parts form
+    //Add new parts form
 
-        <div className="Add-new-parts-Form">
-          <Card className="Add-New-parts-card">
+                <div className="Add-new-parts-Form">
+                  <Card className="Add-New-parts-card">
+                    <Card.Body>
+                      <h2>Add Parts</h2>
+                      <form onSubmit={handlePartSubmit} method="post">
+                      <label for="partId">part Id:</label>
+                        <input
+                          type="text"
+                          value={partId}
+                          name="partId"
+                          onChange={(e) => setPartId(e.target.value)}
+                        ></input>
 
-          <Card.Body>
-            <h2>Add Parts</h2>
-            <form action="/submit" method="post">
-                   <label for="part">Part:</label>
-                   <input type="text" id="part" name="part" required></input>
-            
-                   <label for="quantity">Quantity:</label>
-                   <input type="number" id="quantity" name="quantity" required></input>
+                        <label for="partName">Part Name:</label>
+                        <input
+                          type="text"
+                          value={partName}
+                          name="part"
+                          onChange={(e) => setPartName(e.target.value)}
+                          
+                          required
+                        ></input>
 
-                   <label for="price">Price per unit:</label>
-                   <input type="number" id="price" name="price" required></input>
+                        <label for="quantity">Quantity:</label>
+                        <input
+                          type="number"
+                          value={quantity}
+                          onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+                        ></input>
 
-                  <label for="totalPrice">Total Price:</label>
-                  <input type="number" id="totalPrice" name="totalPrice" readonly></input>
+                        <label for="price">Unit Price:</label>
+                        <input
+                          type="number"
+                      
+                          value={unitPrice}
+                           onChange={(e) => setUnitPrice(parseFloat(e.target.value))}
+                        ></input>
 
-                  <button type="submit">Submit</button>
-            
-            </form>
-            <Accordion defaultActiveKey="0">
-                
-                <br />
-              </Accordion>
-            </Card.Body>
-            </Card>
-            </div>
+                        <label for="totalPrice">Total Price:</label>
+                        <Form.Control type="text" readOnly value={calculateTotalPrice()}style={{ color: 'red' }} />
 
+                        <button type="submit">Submit</button>
+                      </form>
+
+                      <Accordion defaultActiveKey="0">
+                        <br />
+                      </Accordion>
+                    </Card.Body>
+                  </Card>
+                </div>
               )}
-              
             </td>
           </tr>
-
-          <table class="parts">
-            <tr>
-              <th>part</th>
-              <th>quantity</th>
-              <th>price</th>
-              <th>Total price</th>
-            </tr>
-            <tr>
-              <td>Part 1</td>
-              <td>5</td>
-              <td>$10.00</td>
-              <td>$50.00</td>
-            </tr>
-
-            <tr>
-              <td>Part 2</td>
-              <td>2</td>
-              <td>$15.00</td>
-              <td>$30.00</td>
-            </tr>
-          </table>
         </table>
+        <br />
+
+    {/*parts table--------------- */}
+
+        <table class="parts">
+          <thead>
+          <tr>
+            <th>part</th>
+            <th>quantity</th>
+            <th>price</th>
+            <th>Total price</th>
+          </tr>
+          </thead>
+          <tbody>
+    {partsData.map((item, index) => (
+      <tr key={index}>
+        <td>{item.partName}</td>
+        <td>{item.quantity}</td>
+        <td>${item.unitPrice.toFixed(2)}</td>
+        <td>${item.totalPrice.toFixed(2)}</td>
+      </tr>
+      ))}
+        </tbody>
+        </table>
+
         <hr />
-        
-        
+
         <h2>services</h2>
-        
+
         <table class="services">
           <tr>
             <td>
@@ -260,7 +487,6 @@ function Repair() {
       </div>
     </div>
   );
-		};
-	
+}
 
 export default Repair;

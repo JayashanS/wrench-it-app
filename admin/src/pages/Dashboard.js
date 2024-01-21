@@ -17,19 +17,19 @@ function Dashboard() {
     palette: {
       primary: {
         main: "#09BEB1",
-        contrastText: getContrastRatio("#09BEB1", "#fff") > 4.5 ? "#fff" : "#111",
+        contrastText:
+          getContrastRatio("#09BEB1", "#fff") > 4.5 ? "#fff" : "#111",
       },
-      
     },
   });
   return (
     <div className="container-dashboard">
-       <ThemeProvider theme={theme}>
-      <Titlebar />
-      <Drawer />
-      <div className="outlet">
-        <Outlet />
-      </div>
+      <ThemeProvider theme={theme}>
+        <Titlebar />
+        <Drawer />
+        <div className="outlet">
+          <Outlet />
+        </div>
       </ThemeProvider>
     </div>
   );

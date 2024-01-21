@@ -11,13 +11,14 @@ const vehicleRoutes = require("./routes/vehicle");
 const repairRoutes = require("./routes/repair");
 const requestRoutes = require("./routes/request");
 const garageRoutes = require("./routes/garage");
+const partRoutes = require("./routes/part");
 //const partRoutes = require('./routes/part')
 
 // middleware
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://localhost:8080"],
     credentials: true,
   })
 );
@@ -29,7 +30,7 @@ app.use("/api/vehicle", vehicleRoutes);
 app.use("/api/request", requestRoutes);
 app.use("/api/repair", repairRoutes);
 app.use("/api/garage", garageRoutes);
-//app.use("/api/part", partRoutes);
+app.use("/api/part", partRoutes);
 
 // connecting to the database and start listning...
 mongoose

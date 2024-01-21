@@ -1,22 +1,20 @@
-.info-container{
-    width: 84vw;
+.services-container{
+    width: 80vw;
     height: 77vh;
-    display: flex;
-    flex-direction: column;
 }
-.info-row-1{
+.services-row-1{
     flex:4;
     display: flex;
     flex-direction: row;
-    background-color: #bf6060;
+    background-color: #ffffff;
 }
-.info-row-1-column{
+.services-row-1-column{
   flex:1;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: #922222;
 }
-.info-row-2{
+.services-row-2{
   flex:1;
   display: flex;
   flex-direction: column;
@@ -24,18 +22,8 @@
   background-color: #ffffff;
   align-items: end;
 }
-.info-title{
+.services-title{
     font-size:16px;
     color: #09BEB1;
     margin-bottom:0.5%;
 }
-
-.info-row-save {
-    flex:1;
-    height:50px;
-    padding:50%;
-    background-color: #09BEB1;
-  }
-  
- 
-  

@@ -34,4 +34,31 @@ const deleteRequest = async (req, res) => {
   }
 };
 
-module.exports = { createRequest, deleteRequest };
+const insertManyRequests = async (req, res) => {
+  const requestsToInsert = req.body;
+
+  try {
+    const insertedRequests = await Request.insertMany(requestsToInsert);
+    res.status(201).json(insertedRequests);
+  } catch (error) {
+    console.error("Error inserting many requests:", error);
+    res.status(500).json({ error: "Could not insert many requests" });
+  }
+};
+
+const getAllRequests = async (req, res) => {
+  try {
+    const allRequests = await Request.find();
+    res.status(200).json(allRequests);
+  } catch (error) {
+    console.error("Error fetching all requests:", error);
+    res.status(500).json({ error: "Could not fetch all requests" });
+  }
+};
+
+module.exports = {
+  createRequest,
+  deleteRequest,
+  insertManyRequests,
+  getAllRequests,
+};

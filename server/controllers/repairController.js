@@ -57,4 +57,4 @@ const deleteRepair = async (req, res) => {
   }
 };
 
-module.exports = { createRepair, deleteRepair };
+module.exports = { createRepair, deleteRepair, getAllRepair };

@@ -22,6 +22,7 @@
   margin-left: 5%;
   overflow: hidden;
   position: relative;
+  background-color: #ffffff;
 }
 
 .overlay-layer {
@@ -29,8 +30,8 @@
   width: 58%; 
   height: 77.2%;
   top: 100; 
-  left: 36.56%; 
-  background-color: rgba(198, 92, 92, 0);
+  left: 39.56%; 
+  background-color: rgba(255, 255, 255, 0);
   pointer-events: none;
   align-items: center;
   justify-content: center;
@@ -47,8 +48,8 @@
 .sidebarStyle {
   display: inline-block;
   position: absolute;
-  left: 37%;
-  top: 20%;
+  left: 40.5%;
+  top: 21.7%;
   background-color: #ffffff;
   color: #09BEB1;
   z-index: 1 !important;
