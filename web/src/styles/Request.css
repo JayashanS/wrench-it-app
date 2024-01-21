@@ -1,67 +1,64 @@
 .container-request{
     display: flex;
     flex-direction: row;
-    width: 100%;
-    height: 100vh;
-    top :0 ;
-    margin-top: 55px;
+    width: 87%;
+    height: 90vh;
     margin-left :200px;
-    background-color: #808386;
+    margin-right :20px;
+    margin-top: 70px;
+    background-color: #EEF2F5;
 }
  .view-request{
     display: flex;
     flex-direction: column;
-    width: 40vw;
-    height: 100vh; /*vh = view point height */
+    width: 35%;
+    height: 90vh; /*vh = view point height */
     top: 5%;
     left: 4%;
-    background-color: #FFFFFF;
+    background-color: #EEF2F5;
  }
 
  .request-details{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 60%;
-    height: 100vh;
-    top: 5%;
+    height: 87vh;
+    margin-left:20px;
     left: 5%;
+    border-radius: 2px;
     background-color: #FFFFFF;
  }
 
  .incoming-request{
     display: flex;
     flex-direction: column;
-    width: 36.7vw;
-    margin-top: 4%;
-    margin-left: 4%;
+    width: 100%;
     height: 50vh;
-    background-color: #EEF2F5;
+    background-color: #ffffff;
+    border-radius: 2px;
  }
 
  .accepted-request{
     display: flex;
-    width: 36.7vw;
+    width: 100%;
     margin-top: 4%;
-    margin-left: 4%;
     margin-bottom: 4%;
     height: 40vh;
-    background-color: #EEF2F5;
+    border-radius: 2px;
+    background-color: #ffffff;
  }
 
 .map{
-   display: flex;
-   flex-direction: column;
-   width: 50%;
+   width:100%;
+   height:400px;
    background-color: #FFFFFF;
 }
 
 .map-view{
     display: flex;
-    height: 60vh;
+    height: 400px;
     width: 92%;
-    margin-top: 4%;
-    margin-left: 4%;
-    margin-bottom: 4%;
+    margin-left:20px;
     background-color: #EEF2F5
 }
 
@@ -108,19 +105,19 @@
    height: 12vh;
    margin-top: 0.5%;
    margin-left: 3%;
-   background-color: #FFFFFF;
+   background-color: #EEF2F5;
 }
 
 .header-bar{
    display: flex;
-   font-size: 20;
+   font-size: 15;
    width: 100%;
-   height: 5vh;
+   height: 4vh;
    margin-top: 1.5%;
-   align-items: center;
+   margin-bottom: 2%;
    color: #09BEB1;
-   background-color: #EEF2F5;
-   border-bottom: 2px solid #ada9a9
+   background-color: #ffffff;
+   border-bottom: 1px solid #cbc7c7
 }
 
 .profile-circle{
