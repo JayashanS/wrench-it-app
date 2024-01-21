@@ -11,7 +11,7 @@
  .view-request{
     display: flex;
     flex-direction: column;
-    width: 40vw;
+    width: 40%;
     height: 100vh; /*vh = view point height */
     top: 5%;
     left: 4%;
@@ -20,7 +20,7 @@
 
  .request-details{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 60%;
     height: 100vh;
     top: 5%;
@@ -50,12 +50,13 @@
 
 .map{
    display: flex;
-   flex-direction: column;
-   width: 50%;
+   /*flex-direction: column;*/
+   width: 93%;
+   margin-top: 2%;
    background-color: #FFFFFF;
 }
 
-.map-view{
+/*.map-view{
     display: flex;
     height: 60vh;
     width: 92%;
@@ -73,12 +74,12 @@
    margin-left: 4%;
    margin-bottom: 4%;
    background-color: #EEF2F5;
-}
+}*/
 
 .chatbox{
    display: flex;
-   flex-direction: column;
-   width: 50%;
+   /*flex-direction: column;*/
+   width: 93%;
    background-color: #FFFFFF;
 }
 
@@ -104,7 +105,7 @@
 
 .user-details{
    display: flex;
-   width: 90%;
+   width: 93%;
    height: 12vh;
    margin-top: 0.5%;
    margin-left: 3%;
@@ -161,7 +162,6 @@
 .button-box{
    display: flex;
    flex-direction: column;
-   background-color: rgb(246, 198, 8);
    margin-top: 2%;
 }
 

@@ -6,9 +6,11 @@ import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SendIcon from '@mui/icons-material/Send';
 import Directions from "./Directions"
+
 function Request() {
   return (
     <div className="container-request">
+
       <div className="view-request">
         <div className="incoming-request">
           <div className="header-bar">
@@ -57,14 +59,13 @@ function Request() {
           </table>
         </div>
       </div>
+
       <div className="request-details">
+      <div className="header-bar">
+            <p style={{marginLeft:"20px"}}>Details</p>
+          </div>
         <div className="map">
-          <div className="map-view">
             <Directions/>
-          </div>
-          <div className="map-details">
-            <p>map details</p>
-          </div>
         </div>
         <div className="chatbox">
           <div className="process-request">
