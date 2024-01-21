@@ -4,7 +4,8 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-
+import SendIcon from '@mui/icons-material/Send';
+import Directions from "./Directions"
 function Request() {
   return (
     <div className="container-request">
@@ -14,9 +15,8 @@ function Request() {
             <p style={{marginLeft:"20px"}}>Incoming</p>
             <VolumeUpIcon style={{marginLeft:"350px",marginBottom:"15px"}}/><br/>
           </div>
-          <hr style={{width:"96%"}}/>
           <div className="user-details">
-            <div className="profile-circle"/>
+            <div className="profile-circle"></div>
             <div className="name-box"><b>Alice Smith</b></div>
             <div className="icon-box">
               <DirectionsCarIcon/>
@@ -35,7 +35,6 @@ function Request() {
           </div>
 
           <div className="user-details">
-            <div className="profile-circle"/>
             <div className="name-box"><b>Alice Smith</b></div>
             <div className="icon-box">
               <DirectionsCarIcon/>
@@ -61,7 +60,7 @@ function Request() {
       <div className="request-details">
         <div className="map">
           <div className="map-view">
-            <p>map view</p>
+            <Directions/>
           </div>
           <div className="map-details">
             <p>map details</p>
@@ -69,7 +68,8 @@ function Request() {
         </div>
         <div className="chatbox">
           <div className="process-request">
-            <p>Process request</p>
+            <div className="profile-circle"></div>
+            <div className="name-box"></div>
           </div>
           <div className="messagebox">
             <p>messagebox</p>  
