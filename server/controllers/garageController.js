@@ -2,128 +2,113 @@ const Garage = require("../models/garageModel");
 
 const createGarage = async (req, res) => {
   const {
-    ownerId,
-    repairCenterName,
-    ownerName,
+    userId,
+    garageId,
+    oname,
+    nic,
+    phoneNumber,
     street,
     city,
     state,
     postalCode,
-    ownerNIC,
+    repairCenterName,
     numOfWorkers,
+    openingHours,
+    closingHours,
+    allDayService,
+    statuS,
   } = req.body;
 
   try {
     const garage = await Garage.create({
-      ownerId,
-      repairCenterName,
-      ownerName,
+      userId,
+      garageId,
+      oname,
+      nic,
+      phoneNumber,
       street,
       city,
       state,
       postalCode,
-      ownerNIC,
+      repairCenterName,
       numOfWorkers,
+      openingHours,
+      closingHours,
+      allDayService,
+      statuS,
     });
+
     res.status(201).json(garage);
   } catch (error) {
-    res.status(500).json({ error: "Could not create garage" });
+    console.error("Error creating Garage document", error);
+    res.status(500).json({ error: "Could not create Garage document" });
   }
 };
 
-const getAllGarages = async (req, res) => {
+const updateGarageServicesAndCharges = async (req, res) => {
+  const garageId = req.params.garageId;
+  const { services, categories, minCharge, maxCharge } = req.body;
+
   try {
-    // Fetch all garage records from the database
-    const garages = await Garage.find();
-    res.status(200).json(garages);
-  } catch (error) {
-    res.status(500).json({ error: "Could not retrieve garage details" });
-  }
-};
-
-const deleteGarage = async (req, res) => {
-  try {
-    const garageId = req.params.id; // Correctly retrieve the ID from req.params
-    console.log("Received garageId:", garageId); // Log received ID for debugging
-
-    const deletedGarage = await Garage.findByIdAndDelete(garageId);
-
-    if (!deletedGarage) {
-      return res
-        .status(404)
-        .json({ message: "Garage not found", deletedGarageId: garageId });
-    }
-
-    return res.status(200).json({ message: "Garage deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting garage:", error);
-    return res.status(500).json({ error: "Could not delete garage" });
-  }
-};
-
-const getGarageByOwnerId = async (req, res) => {
-  try {
-    const Id = req.params.ownerID;
-    const garage = await Garage.findOne({ ownerId: Id });
-
-    if (!garage) {
-      return res
-        .status(404)
-        .json({ message: "Garage not found for ownerId", ownerId });
-    }
-
-    res.status(200).json(garage);
-  } catch (error) {
-    console.error("Error retrieving garage:", error);
-    res.status(500).json({ error: "Could not retrieve garage" });
-  }
-};
-
-const updateGarage = async (req, res) => {
-  try {
-    const {
-      repairCenterName,
-      ownerName,
-      ownerNIC,
-      numOfWorkers,
-      street,
-      city,
-      state,
-      postalCode,
-    } = req.body;
     const updatedGarage = await Garage.findOneAndUpdate(
-      { ownerId: req.params.ownerId }, // Assuming ownerId is the identifier
+      { garageId: garageId },
       {
-        repairCenterName,
-        ownerName,
-        ownerNIC: ownerNIC,
-        numOfWorkers,
-        street,
-        city,
-        state,
-        postalCode,
+        $set: {
+          services,
+          categories,
+          minCharge,
+          maxCharge,
+        },
       },
       { new: true }
     );
 
     if (!updatedGarage) {
-      return res.status(404).json({
-        message: "Garage not found for ownerId",
-        ownerId: req.params.ownerId,
-      });
+      return res
+        .status(404)
+        .json({ message: "Garage not found", garageId: garageId });
     }
 
     res.status(200).json(updatedGarage);
   } catch (error) {
-    console.error("Error updating garage:", error);
-    res.status(500).json({ error: "Could not update garage" });
+    console.error("Error updating services and charges for Garage", error);
+    res.status(500).json({
+      error: "Could not update services and charges for Garage",
+    });
+  }
+};
+
+const updateGarageLocation = async (req, res) => {
+  const garageId = req.params.garageId;
+  const { longitudes, latitudes } = req.body;
+
+  try {
+    const updatedGarage = await Garage.findOneAndUpdate(
+      { garageId: garageId },
+      {
+        $set: {
+          longitudes,
+          latitudes,
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedGarage) {
+      return res
+        .status(404)
+        .json({ message: "Garage not found", garageId: garageId });
+    }
+
+    res.status(200).json(updatedGarage);
+  } catch (error) {
+    console.error("Error updating location for Garage", error);
+    res.status(500).json({ error: "Could not update location for Garage" });
   }
 };
 
 module.exports = {
   createGarage,
-  getAllGarages,
-  deleteGarage,
-  getGarageByOwnerId,
-  updateGarage,
+  updateGarageServicesAndCharges,
+  updateGarageLocation,
 };

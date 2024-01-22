@@ -21,8 +21,8 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
   const [postalCode, setPostalCode] = useState("");
   const [repairCenterName, setRepairCenterName] = useState("");
   const [numOfWorkers, setNumOfWorkers] = useState("");
-  const [openingHours, setOpeningHours] = useState(""); // Initialize with 00:00:00
-  const [closingHours, setClosingHours] = useState(""); // Initialize with 00:00:00
+  const [openingHours, setOpeningHours] = useState("");
+  const [closingHours, setClosingHours] = useState("");
   const [statuS, setstatuS] = useState(1);
   const [loading, setLoading] = React.useState(false);
 
