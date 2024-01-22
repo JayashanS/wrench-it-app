@@ -14,14 +14,14 @@ import { Ionicons } from "@expo/vector-icons";
 
 import HomeScreen from "../screens/Home";
 import NavigationScreen from "../screens/Navigation";
-import ShopScreen from "../screens/Shop";
+import ViewCentersScreen from "../screens/ViewCenters";
 
 const Drawer = createDrawerNavigator();
 
 const renderScene = SceneMap({
   home: HomeScreen,
   navigation: NavigationScreen,
-  shop: ShopScreen,
+  shop: ViewCentersScreen,
 });
 
 const renderTabBar = (props) => (
