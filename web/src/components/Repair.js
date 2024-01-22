@@ -34,7 +34,12 @@ function Repair() {
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedDiagnosis, setSelectedDiagnosis] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+//services
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [cost, setCost] = useState(0);
+  const [totalCost, setTotalCost] = useState(0);
 
+  
   const toggleAccordion = () => {
     setIsAccordionOpen(!isAccordionOpen);
   };
@@ -43,6 +48,7 @@ function Repair() {
   };
 
   //handlesubmit of repair details
+
   const handleSubmit = async (e) => {
     console.log("button clicked");
     e.preventDefault();
@@ -146,6 +152,8 @@ const handlePartSubmit = async (e) => {
     totalPrice,
   };
   setPartsData((prevPartsData) => [...prevPartsData, newPartData]);
+  setTotalCost(calculateTotalCost());
+
   try {
     const response = await fetch("http://localhost:4000/api/parts", {
       method: "POST",
@@ -167,6 +175,15 @@ const handlePartSubmit = async (e) => {
     console.error("Error adding part:", error);
   }
 };
+
+const handleServiceSelection = (e) => {
+  const selectedService = e.target.value;
+  setSelectedServices((prevServices) => [...prevServices, selectedService]);
+  
+  // Calculate and set total cost
+  setTotalCost(calculateTotalCost());
+};
+
 //send data to textfield
 const handleRowClick = (item) => {
   setSelectedRepairId(item.repairId);
@@ -175,6 +192,13 @@ const handleRowClick = (item) => {
   setSelectedDiagnosis(item.diagnosis); 
   setSelectedDate(item.date);
 };
+
+ // Calculate total cost function
+ const calculateTotalCost = () => {
+  const partsTotal = partsData.reduce((acc, item) => acc + item.totalPrice, 0);
+  return partsTotal + parseFloat(cost);
+};
+
   //begining of the page
   return (
     <div class="RepairPage">
@@ -442,7 +466,7 @@ const handleRowClick = (item) => {
                           name="part"
                           onChange={(e) => setPartName(e.target.value)}
                           
-                          required
+                         
                         ></input>
 
                         <label for="quantity">Quantity:</label>
@@ -450,6 +474,7 @@ const handleRowClick = (item) => {
                           type="number"
                           value={quantity}
                           onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+                          required
                         ></input>
 
                         <label for="price">Unit Price:</label>
@@ -462,8 +487,10 @@ const handleRowClick = (item) => {
 
                         <label for="totalPrice">Total Price:</label>
                         <Form.Control type="text" readOnly value={calculateTotalPrice()}style={{ color: 'red' }} />
-
+                        <div className="button-container2">
                         <button type="submit">Submit</button>
+                        <button onClick={() => setIsPartsFormOpen(false)}>Close</button>
+                      </div>
                       </form>
 
                       <Accordion defaultActiveKey="0">
@@ -503,34 +530,52 @@ const handleRowClick = (item) => {
 
         <hr />
 
-        <h2>services</h2>
+        <h2>Services</h2>
+        <table className="services">
+          <tr>
+            <td>
+            <select
+          id="selectedServices"
+          name="selectedServices"
+          onChange={handleServiceSelection}
+       
+          value={selectedServices}
+          >
+            <option value="Suspension Repairs">Suspension Repairs</option>
+            <option value="Transmission Issues">Transmission Issues</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Electronic">Electronic</option>
+            <option value="Body Repairs & Painting">Body Repairs & Painting</option>
+            <option value="Breakdown Repair and Services">Breakdown Repair and Services</option>
+            <option value="Engine">Engine</option>
+            <option value="Scanning">Scanning</option>
+            <option value="HV System">HV System</option>
+            <option value="HV System">HV System</option>
+            <option value="Brake Services and Maintenance">Brake Services and Maintenance</option>
+          </select>
+           
+            </td>
+            <td>
+            <label for="cost">Cost:</label>
+                  <input
+                    type="number"
+                    onChange={(e) => setCost(parseFloat(e.target.value))}
+                    value={cost}
+                    
+                    required
+                  ></input>
 
-        <table class="services">
-          <tr>
-            <td>
-              <input type="checkbox" />
             </td>
-            <td>service1</td>
-            <td>$50</td>
-          </tr>
-          <tr>
-            <td>
-              <input type="checkbox" />
-            </td>
-            <td>service2</td>
-            <td>$150</td>
-          </tr>
-          <tr>
-            <td>
-              <input type="checkbox" />
-            </td>
-            <td>service3</td>
-            <td>$250</td>
           </tr>
         </table>
+     
+       
+
+        
         <hr />
 
         <h2>Total cost</h2>
+        <label>{calculateTotalCost()}</label>
       </div>
     </div>
   );
