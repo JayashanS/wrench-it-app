@@ -96,7 +96,7 @@ export default function Settings() {
               }}
             />
             <Tab
-              label="Services & Services"
+              label="Services"
               {...a11yProps(1)}
               sx={{
                 "&:hover": { backgroundColor: "transparent" },

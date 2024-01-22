@@ -4,6 +4,7 @@
 }
 .services-row-1{
     flex:4;
+    margin-left:20px;
     display: flex;
     flex-direction: row;
     background-color: #ffffff;
@@ -12,7 +13,13 @@
   flex:1;
   display: flex;
   flex-direction: column;
-  background-color: #922222;
+  background-color: #ffffff;
+}
+.services-row-1-column-2{
+  flex:0.5;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
 }
 .services-row-2{
   flex:1;
@@ -26,4 +33,11 @@
     font-size:16px;
     color: #09BEB1;
     margin-bottom:0.5%;
+}
+.services-body{
+  font-size:14px;
+  color: #737474;
+  margin-top:2%;
+  margin-bottom:0.5%;
+  padding-right:40px;
 }

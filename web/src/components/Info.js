@@ -8,13 +8,17 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { styled } from "@mui/system";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import "../styles/Info.css";
 
 const Info = ({ onSaveGarageIdToSuperComponent }) => {
-  let garageId;
+  const [userId, setUserId] = useState("1234");
+  const [garageId, setGarageId] = useState("garage123");
   const [oname, setoname] = useState("");
   const [nic, setnic] = useState("");
-  const [pNum, setPNum] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -25,6 +29,7 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
   const [closingHours, setClosingHours] = useState("");
   const [statuS, setstatuS] = useState(1);
   const [loading, setLoading] = React.useState(false);
+  const [allDayService, setAllDayService] = useState(false);
 
   const handleonameChange = (event) => {
     setoname(event.target.value);
@@ -33,7 +38,7 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
     setnic(event.target.value);
   };
   const handlePNumChange = (event) => {
-    setPNum(event.target.value);
+    setPhoneNumber(event.target.value);
   };
   const handleStreetChange = (event) => {
     setStreet(event.target.value);
@@ -64,6 +69,9 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
   const handlestatuSChange = (event) => {
     setstatuS(event.target.value);
   };
+  const MediumLabel = styled("div")({
+    fontSize: "14px",
+  });
 
   const generateGarageId = () => {
     const timestamp = Date.now();
@@ -79,24 +87,26 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
     console.log("handleSaveButtonClick function is called");
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/owner/ABC123456"
+        `http://localhost:4000/api/garage/${garageId}`
       );
       const existingData = response.data;
 
       const updatedData = {
-        repairCenterName,
+        userId,
+        garageId,
         oname,
         nic,
-        numOfWorkers,
+        phoneNumber,
         street,
         city,
         state,
         postalCode,
-        pNum,
+        repairCenterName,
+        numOfWorkers,
         openingHours,
         closingHours,
+        allDayService,
         statuS,
-        garageId,
       };
 
       const headers = {
@@ -110,7 +120,7 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
         console.log("Updating Document...");
         onSaveGarageIdToSuperComponent(garageId);
         await axios.put(
-          `http://localhost:4000/api/owner/ABC123456`,
+          `http://localhost:4000/api/garage/${garageId}`,
           updatedData,
           {
             headers,
@@ -124,7 +134,7 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
         console.log("Creating New Document...");
         garageId = generateGarageId();
         onSaveGarageIdToSuperComponent(garageId);
-        await axios.post("http://localhost:4000/api/owner", updatedData, {
+        await axios.post("http://localhost:4000/api/garage", updatedData, {
           headers,
         });
         console.log("New document created successfully!");
@@ -137,14 +147,14 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/owner/ABC123456"
+        `http://localhost:4000/api/garage/${garageId}`
       );
       console.log("Response Data:", response.data);
       const responseData = response.data;
 
       setoname(responseData.oname);
       setnic(responseData.nic);
-      setPNum(responseData.phoneNumber);
+      setPhoneNumber(responseData.phoneNumber);
       setStreet(responseData.street);
       setCity(responseData.city);
       setState(responseData.state);
@@ -153,6 +163,7 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
       setNumOfWorkers(responseData.numOfWorkers);
       setOpeningHours(responseData.openingHours);
       setClosingHours(responseData.closingHours);
+      setAllDayService(responseData.allDayService);
       setstatuS(responseData.statuS);
       localStorage.setItem("key_2024", responseData.garageId);
     } catch (error) {
@@ -210,7 +221,7 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
               variant="outlined"
               size="small"
               className="info-field-text"
-              value={pNum}
+              value={phoneNumber}
               onChange={handlePNumChange}
               sx={{ width: "400px" }}
             />
@@ -311,6 +322,14 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
               size="small"
               value={closingHours}
               onChange={handleClosingHoursChange}
+            />
+            <FormControlLabel
+              control={<Checkbox size="small" />}
+              label={
+                <MediumLabel>We Provide 24/7 Breaakdown Service</MediumLabel>
+              }
+              onChange={() => setAllDayService((prevValue) => !prevValue)}
+              checked={allDayService}
             />
 
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">

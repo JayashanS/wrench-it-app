@@ -22,7 +22,7 @@ const garageSchema = new Schema({
     unique: true,
   },
   phoneNumber: {
-    type: [String],
+    type: String,
     required: true,
   },
   street: {

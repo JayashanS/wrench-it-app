@@ -44,6 +44,59 @@ const createGarage = async (req, res) => {
     res.status(500).json({ error: "Could not create Garage document" });
   }
 };
+const updateGarageDetails = async (req, res) => {
+  const garageId = req.params.garageId;
+  const {
+    oname,
+    nic,
+    phoneNumber,
+    street,
+    city,
+    state,
+    postalCode,
+    repairCenterName,
+    numOfWorkers,
+    openingHours,
+    closingHours,
+    allDayService,
+    statuS,
+  } = req.body;
+
+  try {
+    const updatedGarage = await Garage.findOneAndUpdate(
+      { garageId: garageId },
+      {
+        $set: {
+          oname,
+          nic,
+          phoneNumber,
+          street,
+          city,
+          state,
+          postalCode,
+          repairCenterName,
+          numOfWorkers,
+          openingHours,
+          closingHours,
+          allDayService,
+          statuS,
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedGarage) {
+      return res
+        .status(404)
+        .json({ message: "Garage not found", garageId: garageId });
+    }
+
+    res.status(200).json(updatedGarage);
+  } catch (error) {
+    console.error("Error updating garage details", error);
+    res.status(500).json({ error: "Could not update garage details" });
+  }
+};
 
 const updateGarageServicesAndCharges = async (req, res) => {
   const garageId = req.params.garageId;
@@ -106,9 +159,28 @@ const updateGarageLocation = async (req, res) => {
     res.status(500).json({ error: "Could not update location for Garage" });
   }
 };
+const getGarageById = async (req, res) => {
+  const garageId = req.params.garageId;
 
+  try {
+    const garage = await Garage.findOne({ garageId: garageId });
+
+    if (!garage) {
+      return res
+        .status(404)
+        .json({ message: "Garage not found", garageId: garageId });
+    }
+
+    res.status(200).json(garage);
+  } catch (error) {
+    console.error("Error retrieving Garage by ID", error);
+    res.status(500).json({ error: "Could not retrieve Garage by ID" });
+  }
+};
 module.exports = {
   createGarage,
+  updateGarageDetails,
   updateGarageServicesAndCharges,
   updateGarageLocation,
+  getGarageById,
 };
