@@ -1,11 +1,11 @@
-// components/screens/ProfileScreen.js
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 
-const ProfileScreen = () => {
+const Loading = () => {
   return (
     <View style={styles.container}>
-      <Text>Profile Screen</Text>
+      <ActivityIndicator size="large" color="#0000ff" />
+      <Text>Loading...</Text>
     </View>
   );
 };
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default Loading;

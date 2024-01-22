@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSignup } from "../hooks/useSignup";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -45,6 +46,18 @@ const theme = createTheme({
 });
 
 export default function Signup() {
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [bday, setBday] = useState("");
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [cpw, setCpw] = useState("");
+  const { signup, error, isLoading } = useSignup();
+
+  const handleSubmit = async (e) => {
+    await signup(fname, lname, bday, email, pw, cpw);
+  };
+
   return (
     <div className="signup-container">
       <div className="signup-cols-2">
@@ -70,7 +83,7 @@ export default function Signup() {
                 marginLeft: "50px",
               }}
               size="small"
-              helperText="hello"
+              onChange={(e) => setFname(e.target.value)}
             />
             <TextField
               id="outlined-basic"
@@ -78,10 +91,16 @@ export default function Signup() {
               variant="outlined"
               sx={{ width: "80%", marginLeft: "50px" }}
               size="small"
+              onChange={(e) => setLname(e.target.value)}
             />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]} size="small">
-                <DatePicker label="Birthday" size="medium" />
+                <DatePicker
+                  label="Birthday"
+                  value={bday}
+                  onChange={(date) => setBday(date)}
+                  renderInput={(props) => <TextField {...props} />}
+                />
               </DemoContainer>
             </LocalizationProvider>
             <TextField
@@ -91,6 +110,7 @@ export default function Signup() {
               type="email"
               sx={{ width: "80%", marginLeft: "50px" }}
               size="small"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               id="outlined-basic"
@@ -99,6 +119,7 @@ export default function Signup() {
               type="password"
               sx={{ width: "250px", marginLeft: "50px" }}
               size="small"
+              onChange={(e) => setPw(e.target.value)}
             />
             <TextField
               id="outlined-basic"
@@ -107,15 +128,18 @@ export default function Signup() {
               type="password"
               sx={{ width: "250px", marginLeft: "50px" }}
               size="small"
+              onChange={(e) => setCpw(e.target.value)}
             />
             <br />
             <br />
             <Button
               variant="contained"
               style={{ color: "white", width: "80%" }}
+              onClick={handleSubmit}
             >
               Register
             </Button>
+            {error && <div className="signup-error">{error}</div>}
           </Box>
         </ThemeProvider>
       </div>

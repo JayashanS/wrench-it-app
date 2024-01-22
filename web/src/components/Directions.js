@@ -156,7 +156,7 @@ const MapWithDirections = () => {
 
   return (
     <div style={{ display: "flex" }} className="directions-container">
-      <div ref={mapContainerRef} style={{ flex: 1, height: "100vh" }} />
+      <div ref={mapContainerRef} style={{ flex: 1, height: "400px" }} />
       <div
         id="instructions"
         ref={instructionsContainerRef}
@@ -166,6 +166,8 @@ const MapWithDirections = () => {
           backgroundColor: "#fff",
           overflowY: "scroll",
           fontFamily: "sans-serif",
+          fontSize: "12px",
+          height: "400px",
         }}
       ></div>
     </div>

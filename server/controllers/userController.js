@@ -1,5 +1,38 @@
 const User = require("../models/userModel");
+const jwt = require("jsonwebtoken");
 
+const createToken = (_id) => {
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+};
+
+// login a user
+const loginUser = async (req, res) => {
+  const { email, pw } = req.body;
+
+  try {
+    const user = await User.login(email, pw);
+
+    // create a token
+    const token = createToken(user._id);
+
+    res.status(200).json({ email, token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const signupUser = async (req, res) => {
+  const { fname, lname, bday, email, pw, cpw } = req.body;
+
+  try {
+    const user = await User.signup(fname, lname, bday, email, pw, cpw);
+    const token = createToken(user._id);
+
+    res.status(200).json({ email, token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 const createUser = async (req, res) => {
   const { fname, lname, bday, email, pw, cpw } = req.body;
 
@@ -58,4 +91,11 @@ const insertManyUsers = async (req, res) => {
   }
 };
 
-module.exports = { createUser, deleteUser, getAllUsers, insertManyUsers };
+module.exports = {
+  loginUser,
+  signupUser,
+  createUser,
+  deleteUser,
+  getAllUsers,
+  insertManyUsers,
+};
