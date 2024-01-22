@@ -80,11 +80,12 @@ h2{
 }
 .RepairDetails{
     border: none;
-    padding: 0px;
+    padding:10px 2px 1px 4px;
 }
 .RepairContainer2 h2{
     color: #09BEB1;
     font-size:15px;
+    padding: 1px;
 }
 .RepairDetails td{
     padding: 5px;
@@ -120,27 +121,32 @@ h2{
 .Add-new-Form {
     position: fixed;
     z-index: 1;
-    margin: -20px 0px;
+    margin: -100px 200px;
 }
   
 .Add-New-Form-card {
     width: 500px;
-    height: 550px;
+    height: 590px;
     margin: auto;
     background-color:white;
     box-shadow:0 0 10px rgba(231, 231, 231, 0.1);
     border-radius: 4px;
    
 }
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px; /* Adjust the margin as needed */
+}
 .Add-new-parts-Form {
   position: fixed;
   z-index: 1;
-  margin: -30px -250px;
+  margin: -200px 130px;
 }
 
 .Add-New-parts-card {
   width: 250px;
-  height: 350px;
+  height: 380px;
   margin: auto;
   background-color:white;
   box-shadow:0 0 10px rgba(231, 231, 231, 0.1);
