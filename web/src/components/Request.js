@@ -7,14 +7,8 @@ import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SendIcon from '@mui/icons-material/Send';
 import Directions from "./Directions"
+import MessageBox from "./MessageBox";
 
-
-import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import CallIcon from "@mui/icons-material/Call";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import SendIcon from "@mui/icons-material/Send";
-import Directions from "./Directions";
 
 function Request() {
   return (
@@ -86,25 +80,22 @@ function Request() {
 
       <div className="request-details">
 
-      <div className="header-bar">
-            <p style={{marginLeft:"20px"}}>Details</p>
-          </div>
-        <div className="map">
-            <Directions/>
-
         <div className="header-bar">
-          <p style={{ marginLeft: "20px" }}>Request Details</p>
-
-          <br />
+          <p style={{marginLeft:"20px"}}>Details</p>
         </div>
         <div className="map">
-          <div className="map-view">
-            <Directions />
-          </div>
-
         </div>
+
+        <div className="chat-box">
+          <div className="message-box">
+            <MessageBox/>
+          </div>
+          <div className="user-details">
+
+          </div>
+        </div>
+
       </div>
-    </div>
   </div>
   );
 }
