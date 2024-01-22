@@ -17,6 +17,8 @@ function Repair() {
   const [status, setstatus] = useState("");
   const [error, setError] = useState(null);
   const [data,setData]=useState([]);
+
+
 // Add part form
   const [partId, setPartId] = useState("");
   const [partName, setPartName] = useState("");
@@ -26,6 +28,12 @@ function Repair() {
   const calculateTotalPrice = () => {
     return unitPrice * quantity;
   };
+  // State variables for "Billing" section
+  const [selectedRepairId, setSelectedRepairId] = useState("");
+  const [selectedLicensePlateNo, setSelectedLicensePlateNo] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+  const [selectedDiagnosis, setSelectedDiagnosis] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
 
   const toggleAccordion = () => {
     setIsAccordionOpen(!isAccordionOpen);
@@ -159,7 +167,14 @@ const handlePartSubmit = async (e) => {
     console.error("Error adding part:", error);
   }
 };
-
+//send data to textfield
+const handleRowClick = (item) => {
+  setSelectedRepairId(item.repairId);
+  setSelectedLicensePlateNo(item.licensePlateNo);
+  setSelectedModel(item.model);
+  setSelectedDiagnosis(item.diagnosis); 
+  setSelectedDate(item.date);
+};
   //begining of the page
   return (
     <div class="RepairPage">
@@ -227,6 +242,7 @@ const handlePartSubmit = async (e) => {
                     onChange={(e) => setfault(e.target.value)}
                     value={fault}
                     required
+                    style={{ width: '300px' }}
                   ></textarea>
 
                   <label for="NIC">NIC:</label>
@@ -271,8 +287,10 @@ const handlePartSubmit = async (e) => {
                     <option value="In Progress">In Progress</option>
                     <option value="Completed">Completed</option>
                   </select>
-
+                  <div className="button-container">
                   <button onClick={handleSubmit}>Submit</button>
+                  <button onClick={() => setIsAccordionOpen(false)}>Close</button>
+                  </div>
                   {error && <div className="error">error</div>}
                 </form>
 
@@ -306,7 +324,7 @@ const handlePartSubmit = async (e) => {
           </thead>
           <tbody>
             {data.map((item)=>(
-                <tr key={item._id}>
+                <tr key={item._id} onClick={() => handleRowClick(item)}>
              <td>{item.repairId}</td>
               <td>{item.licensePlateNo}</td>
               <td>{item.model}</td>
@@ -335,29 +353,58 @@ const handlePartSubmit = async (e) => {
       <div class="RepairContainer2">
         <h2>Billing</h2>
         <hr />
-        <br />
-        <br />
-        <table class="RepairDetails">
-          <tr>
-            <td>Repair ID</td>
-            <td>R001</td>
-          </tr>
-          <tr>
-            <td>Vehicle</td>
-            <td>Honda civic</td>
-          </tr>
-          <tr>
-            <td>Diagnosis</td>
-            <td>
-              From analyzing symptoms to conducting specific tests, the
-              diagnostic report outlines findings and proposes precise actions
-              for resolution. It succinctly communicates the identified issue
-            </td>
-          </tr>
-          <tr>
-            <td>Date</td>
-            <td>09-01-2024</td>
-          </tr>
+        
+        <div class="RepairDetails">
+         
+        <label for="repairId">Repair ID:</label>
+                  <input
+                    type="text"
+                    id="repairId"
+                    name="repairId"
+                    onChange={(e) => setRepairId(e.target.value)}
+                    value={selectedRepairId}
+                    required
+                  />
+     <label for="licensePlateNo">License Plate No:</label>
+                  <input
+                    type="text"
+                    id="licensePlateNo"
+                    name="licensePlateNo"
+                    onChange={(e) => setlicensePlateNo(e.target.value)}
+                    value={selectedLicensePlateNo}
+                    required
+                  ></input>
+
+        <label for="Model">Model:</label>
+                  <input
+                    type="text"
+                    id="Model"
+                    name="Model"
+                    onChange={(e) => setmodel(e.target.value)}
+                    value={selectedModel}
+                    required
+                  ></input>
+         
+         <label for="Diagnosis">Diagnosis:</label>
+         <textarea
+                    id="selectedDiagnosis"
+                    name="selectedDiagnosis"
+                    rows="4"
+                    onChange={(e) => setSelectedDiagnosis(e.target.value)}
+                    value={selectedDiagnosis}
+                    required
+                    style={{ width: '300px' }}
+                  ></textarea>
+         
+         <label for="date">Date:</label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    onChange={(e) => setdate(e.target.value)}
+                    value={date}
+                    required
+                  />
           <tr>
             <td>Parts</td>
             <td>
@@ -428,7 +475,7 @@ const handlePartSubmit = async (e) => {
               )}
             </td>
           </tr>
-        </table>
+        </div>
         <br />
 
     {/*parts table--------------- */}
