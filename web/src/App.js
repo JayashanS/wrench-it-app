@@ -14,6 +14,7 @@ import Request from "./components/Request";
 import Reservations from "./components/Reservations";
 import Location from "./components/Directions";
 import Help from "./components/Help";
+import Community from "./components/Community";
 import Settings from "./components/Settings";
 
 function HomeLayout() {
@@ -47,7 +48,7 @@ function App() {
           <Route path="stat" element={<Repair />} />
           <Route path="res" element={<Reservations />} />
           <Route path="help" element={<Help />} />
-          <Route path="com" element={<Location />} />
+          <Route path="com" element={<Community />} />
           <Route path="set" element={<Settings />} />
         </Route>
       </Routes>
