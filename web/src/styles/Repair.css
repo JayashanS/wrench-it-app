@@ -138,6 +138,12 @@ h2{
   justify-content: space-between;
   margin-top: 10px; /* Adjust the margin as needed */
 }
+.button-container2 {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px; /* Adjust the margin as needed */
+}
+
 .Add-new-parts-Form {
   position: fixed;
   z-index: 1;
