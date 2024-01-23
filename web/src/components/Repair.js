@@ -7,6 +7,8 @@ import "../styles/Repair.css";
 function Repair() {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isPartsFormOpen, setIsPartsFormOpen] = useState(false);
+  //const [isPartsTableOpen, setIsPartsTableOpen] = useState(false);
+
   const [repairId, setRepairId] = useState("");
   const [licensePlateNo, setlicensePlateNo] = useState("");
   const [model, setmodel] = useState("");
@@ -47,6 +49,7 @@ function Repair() {
     setIsPartsFormOpen(!isPartsFormOpen);
   };
 
+  
   //handlesubmit of repair details
 
   const handleSubmit = async (e) => {
@@ -197,6 +200,19 @@ const handleRowClick = (item) => {
  const calculateTotalCost = () => {
   const partsTotal = partsData.reduce((acc, item) => acc + item.totalPrice, 0);
   return partsTotal + parseFloat(cost);
+};
+
+//refresh the billing section
+const handleRefreshBilling = () => {
+ 
+  setSelectedServices([]);
+  setCost(0);
+  setTotalCost(0);
+  setPartId("");
+  setPartName("");
+  setUnitPrice(0);
+  setQuantity(0);
+  setPartsData([]);
 };
 
   //begining of the page
@@ -436,16 +452,17 @@ const handleRowClick = (item) => {
                 <Button
                   variant="contained"
                   onClick={togglePartsForm}
+                  
                   style={{ color: "white", textTransform: "none" }}
                 >
                   Add new Parts{" "}
                 </Button>
               </Stack>
-
+           
               {isPartsFormOpen && (
 
     //Add new parts form
-
+               
                 <div className="Add-new-parts-Form">
                   <Card className="Add-New-parts-card">
                     <Card.Body>
@@ -506,7 +523,10 @@ const handleRowClick = (item) => {
         <br />
 
     {/*parts table--------------- */}
-
+    {isPartsFormOpen &&(
+      <div className="Add-new-parts-Table">
+      <Card className="Add-New-parts-card-Table">
+      <Card.Body>
         <table class="parts">
           <thead>
           <tr>
@@ -521,13 +541,17 @@ const handleRowClick = (item) => {
       <tr key={index}>
         <td>{item.partName}</td>
         <td>{item.quantity}</td>
-        <td>${item.unitPrice.toFixed(2)}</td>
-        <td>${item.totalPrice.toFixed(2)}</td>
+        <td>Rs.{item.unitPrice.toFixed(2)}</td>
+        <td>Rs.{item.totalPrice.toFixed(2)}</td>
       </tr>
       ))}
         </tbody>
-        </table>
 
+        </table>
+        </Card.Body>
+        </Card>
+        </div>
+    )}
         <hr />
 
         <h2>Services</h2>
@@ -550,8 +574,7 @@ const handleRowClick = (item) => {
             <option value="Engine">Engine</option>
             <option value="Scanning">Scanning</option>
             <option value="HV System">HV System</option>
-            <option value="HV System">HV System</option>
-            <option value="Brake Services and Maintenance">Brake Services and Maintenance</option>
+           <option value="Brake Services and Maintenance">Brake Services and Maintenance</option>
           </select>
            
             </td>
@@ -567,15 +590,20 @@ const handleRowClick = (item) => {
 
             </td>
           </tr>
-        </table>
-     
-       
-
-        
+        </table> 
         <hr />
 
         <h2>Total cost</h2>
-        <label>{calculateTotalCost()}</label>
+        <label style={{ color: 'red', fontSize: '18px' }}>{calculateTotalCost()}</label>
+        <Stack spacing={1} direction="column">
+            <Button
+              variant="contained"
+              onClick={handleRefreshBilling}
+              style={{ color: "white", textTransform: "none" }}
+            >
+              Refresh Billing
+            </Button>
+          </Stack>
       </div>
     </div>
   );
