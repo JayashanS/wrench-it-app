@@ -73,3 +73,7 @@
       transform: rotate(360deg);
     }
   }
+  .signup-error{
+    font-size:14px;
+    color:rgb(255, 0, 115);
+  }

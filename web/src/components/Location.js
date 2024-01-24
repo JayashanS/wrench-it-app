@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import axios from "axios";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import mapboxgl from "mapbox-gl";
@@ -8,28 +9,77 @@ mapboxgl.accessToken = `${process.env.REACT_APP_API_TOKEN}`;
 
 const Map = () => {
   const mapContainerRef = useRef(null);
-
-  const [lng, setLng] = useState(80.540379);
-  const [lat, setLat] = useState(5.949636);
-  const [zoom, setZoom] = useState(10);
   const [loading, setLoading] = React.useState(false);
+  const [clickedLongitude, setClickedLongitude] = useState(null);
+  const [clickedLatitude, setClickedLatitude] = useState(null);
+
+  const [garageId, setGarageId] = useState("garage123");
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/garage/${garageId}`
+      );
+      const responseData = response.data;
+
+      setClickedLongitude(responseData.longitudes);
+      setClickedLatitude(responseData.latitudes);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const updateServices = async () => {
+    try {
+      const updatedData = {
+        longitudes: clickedLongitude,
+        latitudes: clickedLatitude,
+      };
+
+      const response = await axios.put(
+        `http://localhost:4000/api/garage/location/${garageId}`,
+        updatedData
+      );
+
+      console.log("Update successful:", response.data);
+    } catch (error) {
+      console.error("Error updating services:", error);
+    }
+  };
 
   // Initialize map when component mounts
   useEffect(() => {
+    fetchData();
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [lng, lat],
-      zoom: zoom,
+      center: [80.540379, 5.949636], // Default center coordinates
+      zoom: 10,
     });
 
     // Add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-    map.on("move", () => {
-      setLng(map.getCenter().lng.toFixed(4));
-      setLat(map.getCenter().lat.toFixed(4));
-      setZoom(map.getZoom().toFixed(2));
+    map.on("click", (e) => {
+      // Handle click event
+      const coordinates = e.lngLat;
+      console.log("Clicked on coordinates:", coordinates);
+
+      // Set the clicked coordinates in the state
+      setClickedLongitude(coordinates.lng);
+      setClickedLatitude(coordinates.lat);
+
+      // Remove existing pin if any
+      const existingMarker = document.getElementById("marker");
+      if (existingMarker) {
+        existingMarker.remove();
+      }
+
+      // Add a pin to the clicked point
+      const marker = new mapboxgl.Marker({ color: "#FF0000" })
+        .setLngLat(coordinates)
+        .addTo(map)
+        .getElement();
+      marker.id = "marker"; // Set an ID for the marker element
     });
 
     // Clean up on unmount
@@ -38,11 +88,9 @@ const Map = () => {
 
   const handleSave = () => {
     setLoading(true);
-    if (zoom > 16.9) {
-    } else {
-      console.log("set proper zoomlevel");
-    }
+    // Perform save operation if needed
   };
+
   return (
     <div className="location-container">
       <div className="map-inner-left">
@@ -58,8 +106,7 @@ const Map = () => {
         </p>
         <br />
         <p style={{ color: "#09BEB1", fontWeight: "bold" }}>
-          Position your location under the red circle at the center and adjust
-          the zoom level between 17 to 19 (Recomended) using the scroll button.
+          Position your location and click where your repair center located.
           Once set, click the 'Save' button below for confirmation.{" "}
         </p>
         <br />
@@ -67,7 +114,7 @@ const Map = () => {
           <Button
             variant="contained"
             sx={{ color: "white", width: "270px" }}
-            onClick={handleSave}
+            onClick={updateServices}
             disabled={loading}
           >
             Save
@@ -76,13 +123,15 @@ const Map = () => {
       </div>
       <div className="sidebarStyle">
         <div>
-          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+          Current Saved Coordinates:{" "}
+          {clickedLongitude !== null && clickedLatitude !== null
+            ? `Longitude: ${clickedLongitude.toFixed(
+                4
+              )} | Latitude: ${clickedLatitude.toFixed(4)}`
+            : "No coordinates clicked yet"}
         </div>
       </div>
       <div className="map-container" ref={mapContainerRef} />
-      <div class="overlay-layer">
-        <div class="circle"></div>
-      </div>
     </div>
   );
 };

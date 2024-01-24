@@ -304,7 +304,7 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
           <Box
             component="form"
             sx={{
-              "& > :not(style)": { m: 2, width: "25ch", fontSize: "20px" },
+              "& > :not(style)": { m: 2, width: "23.5ch", fontSize: "20px" },
               "& .info-field-text:not(:last-child)": { mb: 1 },
             }}
             noValidate
@@ -331,6 +331,7 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
               onChange={() => setAllDayService((prevValue) => !prevValue)}
               checked={allDayService}
             />
+            <br />
 
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
               <InputLabel id="demo-select-small-label">Status</InputLabel>

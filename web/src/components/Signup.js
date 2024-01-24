@@ -131,7 +131,7 @@ export default function Signup() {
               onChange={(e) => setCpw(e.target.value)}
             />
             <br />
-            <br />
+            {error && <div className="signup-error">{error}</div>}
             <Button
               variant="contained"
               style={{ color: "white", width: "80%" }}
@@ -139,7 +139,6 @@ export default function Signup() {
             >
               Register
             </Button>
-            {error && <div className="signup-error">{error}</div>}
           </Box>
         </ThemeProvider>
       </div>
