@@ -212,6 +212,16 @@ function Reservations () {
     </div>
   
     <div class="column-2">
+
+
+
+
+
+      <div class="calenderContainer">
+
+
+      </div>
+      <div class="reservationContainer">
         <p class="res-titleBar"><span class="container-title">Accepted</span></p>
         
   
@@ -231,16 +241,11 @@ function Reservations () {
           </div>
           <div class="innerRow-2">
            
-          <FormGroup>
-            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
-            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 2" /></div>
-            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 3" /></div>
-            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 4" /></div>
-              
-          </FormGroup>
+          have a Electrical problem
           </div>
         </div>
   
+        
         <div class="column-4">
   
         <div class="innerRow-1">
@@ -257,15 +262,10 @@ function Reservations () {
          </div>
          <div class="innerRow-2">
           
-         <FormGroup>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 2" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 3" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 4" /></div>
-             
-         </FormGroup>
+         have a Electrical problem
          </div>
         </div>
+        
         <div class="column-4">
   
         <div class="innerRow-1">
@@ -282,66 +282,11 @@ function Reservations () {
          </div>
          <div class="innerRow-2">
           
-         <FormGroup>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 2" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 3" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 4" /></div>
-             
-         </FormGroup>
+          have a Electrical problem
+         
          </div>
         </div>
-        <div class="column-4">
-  
-        <div class="innerRow-1">
-          
-          <div class="item-1"> Alice Smith</div>
-          <div class="item-1"> Toyota Chammy</div>
-          <div class="item-1">10/11/2023</div>
-          <div class="item-1"> 16.00 pm</div>
-          <div style={{marginRight:"20px"}}><CheckCircleOutlineIcon style={{color:"#09BEB1"}}/></div>
-          <div ><DeleteIcon style={{color:"red"}}/></div>
-          
-          
-          
-         </div>
-         <div class="innerRow-2">
-          
-         <FormGroup>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 2" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 3" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 4" /></div>
-             
-         </FormGroup>
-         </div>
         </div>
-        <div class="column-4">
-  
-        <div class="innerRow-1">
-          
-          <div class="item-1"> Alice Smith</div>
-          <div class="item-1"> Toyota Chammy</div>
-          <div class="item-1">10/11/2023</div>
-          <div class="item-1"> 16.00 pm</div>
-          <div style={{marginRight:"20px"}}><CheckCircleOutlineIcon style={{color:"#09BEB1"}}/></div>
-          <div ><DeleteIcon style={{color:"red"}}/></div>
-          
-          
-          
-         </div>
-         <div class="innerRow-2">
-          
-         <FormGroup>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 2" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 3" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 4" /></div>
-             
-         </FormGroup>
-         </div>
-        </div>
-  
     </div>
   
   </div>
