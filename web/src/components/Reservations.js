@@ -32,6 +32,7 @@ function Reservations () {
   });
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+
   const toggleAccordion = () => {
     setIsAccordionOpen(!isAccordionOpen);
   };
@@ -71,28 +72,30 @@ function Reservations () {
           </div>
           <div class="innerColumn-1">
             <Stack spacing={2} direction="row">
-      
                 <Button variant="contained" style={{textTransform:"none", color:"white",width:"100px"}}>Accept</Button>
-
             </Stack>
             <br/>
               <Stack spacing={2} direction="row">
-      
                <Button variant="contained" color="error" style={{textTransform:"none", color:"white",width:"100px"}}>Decline</Button>
-      
+
               </Stack>
             <br/>
-
-            <Button className="service-button"style={{textTransform:"none"}} endIcon={<KeyboardArrowDownIcon/>} onClick={toggleAccordion} onMouseOver={toggleAccordion}>
+            <Stack spacing={2} direction="row">
+            <Button className="service-button"style={{textTransform:"none"}} endIcon={<KeyboardArrowDownIcon/>} onClick={toggleAccordion}>
              Service
             </Button>
+
+            </Stack>
+
+
             {isAccordionOpen && (
               <div className="service-accordion">
                 <Card className="service-accordion-card">
                 <Card.Body>
                     <Accordion defaultActiveKey="0">
-                      Hello!
+                      Have some battery issue
                       <br />
+                      <br/>
                       <button className="service-button" onClick={toggleAccordion}>
                       Close
                       </button>
@@ -148,24 +151,10 @@ function Reservations () {
               </Stack>
             <br/>
 
-            <Button className="service-button"style={{textTransform:"none"}} endIcon={<KeyboardArrowDownIcon/>} onClick={toggleAccordion} onMouseOver={toggleAccordion}>
+            <Button>
              Service
             </Button>
-            {isAccordionOpen && (
-              <div className="service-accordion">
-                <Card className="service-accordion-card">
-                <Card.Body>
-                    <Accordion defaultActiveKey="0">
-                      Hello!
-                      <br />
-                      <button className="service-button" onClick={toggleAccordion}>
-                      Close
-                      </button>
-                    </Accordion>
-                  </Card.Body>
-                </Card>
-              </div>
-            )}
+           
 
 
           
@@ -211,25 +200,10 @@ function Reservations () {
               </Stack>
             <br/>
 
-            <Button className="service-button"style={{textTransform:"none"}} endIcon={<KeyboardArrowDownIcon/>} onClick={toggleAccordion} onMouseOver={toggleAccordion}>
+            <Button>
              Service
             </Button>
-            {isAccordionOpen && (
-              <div className="service-accordion">
-                <Card className="service-accordion-card">
-                <Card.Body>
-                    <Accordion defaultActiveKey="0">
-                      Hello!
-                      <br />
-                      <button className="service-button" onClick={toggleAccordion}>
-                      Close
-                      </button>
-                    </Accordion>
-                  </Card.Body>
-                </Card>
-              </div>
-            )}
-
+            
 
           
           </div>
