@@ -3,18 +3,18 @@ import { View, Text, TextInput, Button } from 'react-native';
 
 const HomeScreen = () => {
   return (
-    <View style={styles.homeApp}>
-      <View style={styles.header}>
+    <View style={homestyles.homeApp}>
+      <View style={homestyles.header}>
         <Text>Wrench it</Text>
         <Button title="Menu" onPress={() => {}} />
       </View>
-      <TextInput style={styles.searchBar} placeholder="Search" />
+      <TextInput style={homestyles.searchBar} placeholder="Search" />
       <View style={styles.navTabs}>
         <Button title="Home" onPress={() => {}} />
         <Button title="Ongoing" onPress={() => {}} />
         <Button title="Shop" onPress={() => {}} />
       </View>
-      <View style={styles.mainContent}>
+      <View style={homestyles.mainContent}>
         <Button title="Find Garages" onPress={() => {}} />
         <Button title="My Location" onPress={() => {}} />
         <Button title="Book" onPress={() => {}} />
@@ -29,7 +29,7 @@ const HomeScreen = () => {
   );
 };
 
-const styles=StyleSheet.create({
+const homestyles=StyleSheet.create({
   homeApp: {
     flex: 1,
     alignItems: 'center',
