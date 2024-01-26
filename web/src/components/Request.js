@@ -95,8 +95,7 @@ function Request() {
           <div className="message-box">
             <MessageBox/>
           </div>
-          <div className="user-details">
-
+          <div className="desicion-box">
           </div>
         </div>
 
