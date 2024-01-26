@@ -107,10 +107,10 @@
 
 .user-details{
    display: flex;
-   width: 50%;
-   height: 32vh;
+   width: 98%;
+   height: 25%;
    margin-top: 0.5%;
-   margin-left: 3%;
+   margin-left: 1%;
    background-color: #EEF2F5;
 }
 

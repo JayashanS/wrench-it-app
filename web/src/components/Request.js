@@ -18,9 +18,7 @@ function Request() {
         <div className="incoming-request">
           <div className="header-bar">
             <p style={{ marginLeft: "20px" }}>Incoming</p>
-            <VolumeUpIcon
-              style={{ marginLeft: "350px", marginBottom: "15px" }}
-            />
+            <VolumeUpIcon style={{ marginLeft: "350px", marginBottom: "15px" }}/>
             <br />
           </div>
           <div className="user-details">
@@ -50,6 +48,7 @@ function Request() {
           </div>
 
           <div className="user-details">
+            <div className="profile-circle"></div>
             <div className="name-box">
               <b>Alice Smith</b>
             </div>
@@ -62,6 +61,12 @@ function Request() {
               Toyota Camry <br />
               +94710000000 <br />
               Matara <br />
+            </div>
+            <div className="button-box">
+              <button className="custom-button">View</button>
+              <button className="custom-button"style={{ backgroundColor: "red" }}>
+                Decline
+              </button>
             </div>
           </div>
         </div>
@@ -96,7 +101,7 @@ function Request() {
         </div>
 
       </div>
-  </div>
+    </div>
   );
 }
 
