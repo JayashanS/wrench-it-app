@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./routes/TabNavigator";
 import Profile from "./screens/Request/Profile";
-import Request from "./routes/RequestNavigator";
+import RequestNavigator from "./routes/RequestNavigator";
 
 const Stack = createStackNavigator();
 
@@ -21,6 +21,11 @@ export default function App() {
           name="Main"
           options={{ headerShown: false }}
           component={TabNavigator}
+        />
+        <Stack.Screen
+          name="Request"
+          options={{ headerShown: false }}
+          component={RequestNavigator}
         />
       </Stack.Navigator>
     </NavigationContainer>

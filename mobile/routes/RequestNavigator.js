@@ -7,14 +7,12 @@ const Stack = createStackNavigator();
 
 export default function RequestStack() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Profile"
-          options={{ headerShown:  false}}
-          component={Profile}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Profile"
+        options={{ headerShown: false }}
+        component={Profile}
+      />
+    </Stack.Navigator>
   );
 }
