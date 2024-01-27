@@ -1,4 +1,5 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import { View, Text, TextInput, Button } from 'react-native';
 
 const HomeScreen = () => {
@@ -9,13 +10,13 @@ const HomeScreen = () => {
         <Button title="Menu" onPress={() => {}} />
       </View>
       <TextInput style={homestyles.searchBar} placeholder="Search" />
-      <View style={styles.navTabs}>
+      <View style={homestyles.navTabs}>
         <Button title="Home" onPress={() => {}} />
         <Button title="Ongoing" onPress={() => {}} />
         <Button title="Shop" onPress={() => {}} />
       </View>
       <View style={homestyles.mainContent}>
-        <Button title="Find Garages" onPress={() => {}} />
+        <Button title="SFind Garages" onPress={() => {}} />
         <Button title="My Location" onPress={() => {}} />
         <Button title="Book" onPress={() => {}} />
         <Button title="Calls" onPress={() => {}} />
@@ -29,7 +30,7 @@ const HomeScreen = () => {
   );
 };
 
-const homestyles=StyleSheet.create({
+const homestyles = StyleSheet.create({
   homeApp: {
     flex: 1,
     alignItems: 'center',
