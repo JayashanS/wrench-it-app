@@ -16,6 +16,15 @@ import { Accordion, Card } from "react-bootstrap";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
+
+import dayjs from 'dayjs';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+
+
+
 function Reservations () {
 
   const theme = createTheme({
@@ -30,6 +39,14 @@ function Reservations () {
       
     },
   });
+  
+
+//
+
+
+//
+
+  const [value, setValue] = React.useState(dayjs('2022-04-17'));
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
@@ -218,6 +235,15 @@ function Reservations () {
 
 
       <div class="calenderContainer">
+
+            <LocalizationProvider dateAdapter={AdapterDayjs} >
+            <DemoContainer components={['DateCalendar', 'DateCalendar']}>
+              
+              <DemoItem label="Calendar">
+                <DateCalendar value={value} onChange={(newValue) => setValue(newValue)} />
+              </DemoItem>
+            </DemoContainer>
+          </LocalizationProvider>
 
 
       </div>
