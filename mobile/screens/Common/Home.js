@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button , TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const HomeScreen = () => {
@@ -8,13 +8,12 @@ const HomeScreen = () => {
     <View style={homestyles.homeApp}>
       <TextInput style={homestyles.searchBar} placeholder="Search" />
       <View style={homestyles.mainContent}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#D9D9D9', padding: 10}}>
-        {/* Icon */}
-        <Icon name="search" size={30} color="white" style={{ marginRight: 10 }} />
 
-        {/* Text or other content */}
-        <Text style={{ color: 'white', fontSize: 20 }}>Find Garages</Text>
-      </View>
+      <TouchableOpacity style={homestyles.buttonContainer}>
+        <Icon name="search" size={30} color="#00aaff" />
+        <Text style={homestyles.buttonText}>Find Garages</Text>
+      </TouchableOpacity>
+
         <Button title="My Location" onPress={() => {}} />
         <Button title="Book" onPress={() => {}} />
         <Button title="Calls" onPress={() => {}} />
@@ -62,6 +61,18 @@ const homestyles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 10,
     backgroundColor: '#FFFFFF',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#00aaff',
+    fontSize: 18,
+    marginLeft: 10,
   },
 })
 
