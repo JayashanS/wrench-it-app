@@ -511,7 +511,7 @@ const handleRefreshBilling = () => {
                       </form>
 
                       <Accordion defaultActiveKey="0">
-                        <br />
+                     
                       </Accordion>
                     </Card.Body>
                   </Card>
@@ -520,7 +520,7 @@ const handleRefreshBilling = () => {
             </td>
           </tr>
         </div>
-        <br />
+        
 
     {/*parts table--------------- */}
     {isPartsFormOpen &&(
