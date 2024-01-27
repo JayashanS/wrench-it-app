@@ -27,6 +27,8 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
 function Reservations () {
 
+  const[output,setOutput]=useState("");
+  
   const theme = createTheme({
     typography: {
       fontFamily: "Roboto, sans-serif",
@@ -54,7 +56,19 @@ function Reservations () {
     setIsAccordionOpen(!isAccordionOpen);
   };
 
+  const handleDayClick = (date) => {
+    localStorage.setItem("resDate", date);
+    console.log("Clicked date:", date);
+    setOutput(reservationList(date.toString()));
+  };
 
+  function reservationList(date) {
+    return (
+      <div className="reservationList">
+        <p>Selected Date: {date}</p>
+      </div>
+    );
+  }
 
   return (
     <div class="container-reservation">
@@ -236,17 +250,27 @@ function Reservations () {
 
       <div class="calenderContainer">
       
+          
               
             <LocalizationProvider dateAdapter={AdapterDayjs} >
             <DemoContainer components={['DateCalendar', 'DateCalendar']}>
               
               <DemoItem label="Calendar">
-                <DateCalendar value={value} onChange={(newValue) => setValue(newValue)} />
+                <DateCalendar value={value} onChange={handleDayClick} onClickDay={handleDayClick}/>
               </DemoItem>
             </DemoContainer>
           </LocalizationProvider>
 
+          <div className="reservationList-container">
+              
+              {output}
+hghggghhg
+
+          </div>
+
       </div>
+
+
       <div class="reservationContainer">
         <p class="res-titleBar"><span class="container-title">Accepted</span></p>
         
