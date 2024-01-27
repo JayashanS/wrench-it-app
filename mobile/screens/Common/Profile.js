@@ -1,10 +1,11 @@
 import { Feather} from "expo-vector-icons";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { View, Text ,StyleSheet, SafeAreaView,Image} from "react-native";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { Linking } from "react-native";
-
+import MapView, {Marker, PROVIDER_GOOGLE,Polyline} from "react-native-maps";
+import Geolocation from "react-native-geolocation-service";
 const ProfileScreen = () => {
   const imagePaths =[
       require('E:/3rd Year/Final Project/wrench-it-app/mobile/assets/profileImage3.jpg'),
@@ -27,9 +28,18 @@ const ProfileScreen = () => {
   const openPhoneDialer = () => {
     Linking.openURL('tel:0768030344'); 
   };
+
+  const [mapRegion,setMapRegion]=useState({
+    latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+  
   
   return (
     <SafeAreaView>
+      <ScrollView>
     <View style={styles.appBarWrapper}>
       <View style={styles.appBar}>
 
@@ -98,19 +108,42 @@ const ProfileScreen = () => {
         </View>
       </View>
 
-      <View style={styles.contactContainer}>
-      <TouchableOpacity onPress={openPhoneDialer}>
-      <View style={styles.contact}>
-     
-         <Ionicons name="call" size={20} color="gray"/>
-         <Text>Call</Text>
-          </View>
-         </TouchableOpacity>
-      </View>
     
 
-    </SafeAreaView>
+      <View style={styles.contactContainer}>
+  <TouchableOpacity onPress={openPhoneDialer}>
+    <View style={styles.contact}>
+      <Ionicons name="call" size={20} color="gray" />
+      <Text>Call</Text>
+    </View>
+  </TouchableOpacity>
+  </View>
 
+  
+  <View style={styles.locationContainer}>
+  <View style={styles.location}>
+      <Ionicons name="location" size={20} color="gray" />
+      <Text style={styles.locationFont}> location</Text>
+     
+    </View>
+            
+    <Text> Dharmapala place, Rajagiriya</Text>
+     <View style={styles.mapContainer}>
+    <MapView
+            style={{ flex: 1 }}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation={true}
+            region={mapRegion}
+            />
+            <Marker coordinate={mapRegion} />
+          
+            
+     </View>
+</View>
+
+</ScrollView>
+    </SafeAreaView>
+    
   
    
   );
@@ -173,7 +206,7 @@ const styles = StyleSheet.create({
     alignItems:"center",
   },
   image: {
-    width: 350,
+    width: "100%",
     height: 200,
     aspectRatio:2,
     resizeMode:"cover",
@@ -181,7 +214,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   details:{
-    marginTop:200,
+    marginTop:0,
     backgroundColor:"lightWhite",
     borderTopLeftRadius:5,
     borderTopRightRadius:5
@@ -193,8 +226,7 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     justifyContent:"center",
     alignItems:"center",
-   
-    top:20
+    top:10
   },
 
   Title:{
@@ -218,14 +250,12 @@ const styles = StyleSheet.create({
   contactContainer:{
     backgroundColor:"#D1D0CF",
     borderRadius:5,
-
     width:100,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
     alignSelf: "center",
-    position: "absolute",
-    bottom:-40,
+    bottom:-10,
   },
   contact:{
     padding:5,
@@ -233,6 +263,41 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+
+  locationContainer: {
+    backgroundColor: "#D1D0CF",
+    borderRadius: 20,
+    marginVertical: 20,
+   
+    width: "100%",
+    alignSelf: "center",
+  
+  },
+location:{
+    padding:8,
+    marginLeft: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    
+  },
+
+  locationFont: {
+    fontWeight:"bold",
+    fontSize: 20,
+    alignContent: "center",
+    color: "#2c3e50", 
+   
+  },
+
+  mapContainer:{
+    marginVertical:10,
+    width:390,
+    height:200,
+    borderRadius:20,
+    borderColor:"gray",
+    justifyContent: "center",
+  },
+
 });
 
 export default ProfileScreen;
