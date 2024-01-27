@@ -4,7 +4,7 @@ import OngoingScreen from "../screens/Common/Ongoing";
 import CommunityScreen from "../screens/Common/Community";
 const Tab = createMaterialTopTabNavigator();
 
-function TabNavigator() {
+export default function TabNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={HomeScreen} />
@@ -13,4 +13,4 @@ function TabNavigator() {
     </Tab.Navigator>
   );
 }
-export default TabNavigator;
+
