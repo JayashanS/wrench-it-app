@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import Request from "../../routes/RequestNavigator";
+import { NavigationContainer } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -17,11 +19,15 @@ export default function HomeScreen() {
   const goToProfile = () => {
     navigation.navigate("Profile");
   };
+  const goToRequest = () => {
+    navigation.navigate("Request");
+  };
   return (
+    <NavigationContainer>
     <View style={homestyles.homeApp}>
       {/*<TextInput style={homestyles.searchBar} placeholder="Search" />*/}
       <View style={homestyles.row}>
-        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+        <TouchableOpacity style={homestyles.cell} onPress={goToRequest}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Find Garages</Text>
           </View>
@@ -72,6 +78,7 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
     </View>
+    </NavigationContainer>
   );
 }
 
