@@ -9,7 +9,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Main" component={TabNavigator} />
+        <Stack.Screen name="Wrench it" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );
