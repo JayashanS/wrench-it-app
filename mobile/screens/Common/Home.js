@@ -40,7 +40,7 @@ const homestyles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#008080',
   },
-  /*searchBar: {
+  searchBar: {
     width: '90%',
     padding: 10,
     margin: 10,
@@ -52,7 +52,7 @@ const homestyles = StyleSheet.create({
     width: '100%',
     padding: 10,
     backgroundColor: '#008080',
-  },*/
+  },
   mainContent: {
     flex: 1,
     flexDirection: 'row',
