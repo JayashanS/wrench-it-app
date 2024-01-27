@@ -1,6 +1,6 @@
 // TabNavigator.js
 import * as React from "react";
-import { View, useWindowDimensions } from "react-native";
+import { View, Text, Dimensions, useWindowDimensions } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -17,7 +17,7 @@ const renderScene = SceneMap({
 
 export default function TabNavigator({ navigation }) {
   const layout = useWindowDimensions();
-
+  const windowWidth = Dimensions.get("window").width;
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: "first", title: "Home" },
@@ -43,7 +43,7 @@ export default function TabNavigator({ navigation }) {
     <View style={{ flex: 1 }}>
       <TouchableOpacity
         style={{
-          marginLeft: 30,
+          marginLeft: windowWidth * 0.9,
           marginTop: 50,
           marginBottom: 20,
           zIndex: 1,
@@ -52,6 +52,17 @@ export default function TabNavigator({ navigation }) {
         onPress={handleMenuButtonClick}
       >
         <Icon name="menu" size={24} color="#fff" />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          marginLeft: windowWidth * 0.05,
+          marginTop: 50,
+          marginBottom: 20,
+          zIndex: 1,
+          position: "absolute",
+        }}
+      >
+        <Text style={{ fontSize: 20, color: "#fff" }}>Wrench it</Text>
       </TouchableOpacity>
       <TabView
         navigationState={{ index, routes }}

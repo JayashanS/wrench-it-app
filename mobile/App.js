@@ -4,6 +4,7 @@ import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./routes/TabNavigator";
+import Profile from "./screens/Request/Profile";
 
 const Stack = createStackNavigator();
 
@@ -16,15 +17,16 @@ export default function App() {
         barStyle="light-content"
       />
       <Stack.Navigator>
-<<<<<<< Updated upstream
-        <Stack.Screen name="Wrench it" component={TabNavigator} />
-=======
         <Stack.Screen
           name="Main"
           options={{ headerShown: false }}
           component={TabNavigator}
         />
->>>>>>> Stashed changes
+        <Stack.Screen
+          name="Profile"
+          options={{ headerShown: false }}
+          component={Profile}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
