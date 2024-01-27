@@ -12,7 +12,7 @@
   
   h6 {
     margin-bottom: 10px;
-    border-bottom: 1px solid#cbc7c7;
+    border-bottom: 1px solid#f0f0f0;
   }
   
   .div-container {
@@ -23,9 +23,9 @@
   
   .left {
     float: left;
-    width: 49%;
+    width: 42%;
     height:92vh;
-    background-color: #9c40da; 
+    background-color: #b5bdc1; 
     padding: 10px; 
     margin-right: 10px; 
     border-radius: 5px;
@@ -34,7 +34,7 @@
   .userRatings
    {
     width: 100%;
-    background-color: #c5e1a5; 
+    background-color:  #EEF2F5; 
     padding: 10px; 
     border-radius: 5px;
     margin-bottom: 10px;
@@ -42,7 +42,7 @@
   }
   .feedbacks {
     width: 100%;
-    background-color: #c5e1a5; 
+    background-color:  #EEF2F5; 
     padding: 10px; 
     border-radius: 5px;
     margin-bottom: 10px;
@@ -51,8 +51,8 @@
   }
   .right {
     float: left;
-    width: 50%; 
-    background-color: #e0f7fa; 
+    width: 57%; 
+    background-color: #b5bdc1; 
     padding: 10px; 
     border-radius: 5px;
     height:92vh;
@@ -66,11 +66,12 @@
   }
 
   .scrollable-container::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
   
   .scrollable-container::-webkit-scrollbar-thumb {
     background-color: #888;
+    border-radius: 4px;
   }
   
   .scrollable-container::-webkit-scrollbar-track {
@@ -81,39 +82,50 @@
     padding:10px;
     font-size: 12px;
     margin-bottom: 10px;
+    border:solid 1px #888;
   }
   .post1 {
     width: 100%;
-    background-color: #c5e1a5; 
+    background-color: #EEF2F5; 
     padding: 10px; 
     border-radius: 5px;
     margin-bottom: 10px;
-    height: 67%; 
+    height: 94%; 
     
     
   }
   .scrollable-post {
     width:100%; 
-    height: 90%;
     overflow: auto; 
-    border: none; 
+    max-height:32vh;
+    margin-top: 10px; 
+    border:none;
   }
 
   .scrollable-post::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
   
   .scrollable-post::-webkit-scrollbar-thumb {
     background-color: #888;
+    border-radius: 4px;
   }
   
   .scrollable-post::-webkit-scrollbar-track {
     background-color: #f1f1f1;
   }
   .posts{
-    background-color: white;
+    background-color:  #fff;
     padding:10px;
     font-size: 12px;
+    margin-bottom: 10px;
+    border-radius: 5px ;
+    border: solid 1px #888;
+  }
+  .post {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
     margin-bottom: 10px;
   }
   
