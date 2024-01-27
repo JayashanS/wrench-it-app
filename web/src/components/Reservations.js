@@ -32,6 +32,7 @@ function Reservations () {
   });
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+
   const toggleAccordion = () => {
     setIsAccordionOpen(!isAccordionOpen);
   };
@@ -71,28 +72,30 @@ function Reservations () {
           </div>
           <div class="innerColumn-1">
             <Stack spacing={2} direction="row">
-      
                 <Button variant="contained" style={{textTransform:"none", color:"white",width:"100px"}}>Accept</Button>
-
             </Stack>
             <br/>
               <Stack spacing={2} direction="row">
-      
                <Button variant="contained" color="error" style={{textTransform:"none", color:"white",width:"100px"}}>Decline</Button>
-      
+
               </Stack>
             <br/>
-
-            <Button className="service-button"style={{textTransform:"none"}} endIcon={<KeyboardArrowDownIcon/>} onClick={toggleAccordion} onMouseOver={toggleAccordion}>
+            <Stack spacing={2} direction="row">
+            <Button className="service-button"style={{textTransform:"none"}} endIcon={<KeyboardArrowDownIcon/>} onClick={toggleAccordion}>
              Service
             </Button>
+
+            </Stack>
+
+
             {isAccordionOpen && (
               <div className="service-accordion">
                 <Card className="service-accordion-card">
                 <Card.Body>
                     <Accordion defaultActiveKey="0">
-                      Hello!
+                      Have some battery issue
                       <br />
+                      <br/>
                       <button className="service-button" onClick={toggleAccordion}>
                       Close
                       </button>
@@ -148,24 +151,10 @@ function Reservations () {
               </Stack>
             <br/>
 
-            <Button className="service-button"style={{textTransform:"none"}} endIcon={<KeyboardArrowDownIcon/>} onClick={toggleAccordion} onMouseOver={toggleAccordion}>
+            <Button>
              Service
             </Button>
-            {isAccordionOpen && (
-              <div className="service-accordion">
-                <Card className="service-accordion-card">
-                <Card.Body>
-                    <Accordion defaultActiveKey="0">
-                      Hello!
-                      <br />
-                      <button className="service-button" onClick={toggleAccordion}>
-                      Close
-                      </button>
-                    </Accordion>
-                  </Card.Body>
-                </Card>
-              </div>
-            )}
+           
 
 
           
@@ -211,25 +200,10 @@ function Reservations () {
               </Stack>
             <br/>
 
-            <Button className="service-button"style={{textTransform:"none"}} endIcon={<KeyboardArrowDownIcon/>} onClick={toggleAccordion} onMouseOver={toggleAccordion}>
+            <Button>
              Service
             </Button>
-            {isAccordionOpen && (
-              <div className="service-accordion">
-                <Card className="service-accordion-card">
-                <Card.Body>
-                    <Accordion defaultActiveKey="0">
-                      Hello!
-                      <br />
-                      <button className="service-button" onClick={toggleAccordion}>
-                      Close
-                      </button>
-                    </Accordion>
-                  </Card.Body>
-                </Card>
-              </div>
-            )}
-
+            
 
           
           </div>
@@ -238,6 +212,16 @@ function Reservations () {
     </div>
   
     <div class="column-2">
+
+
+
+
+
+      <div class="calenderContainer">
+
+
+      </div>
+      <div class="reservationContainer">
         <p class="res-titleBar"><span class="container-title">Accepted</span></p>
         
   
@@ -257,16 +241,11 @@ function Reservations () {
           </div>
           <div class="innerRow-2">
            
-          <FormGroup>
-            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
-            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 2" /></div>
-            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 3" /></div>
-            <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 4" /></div>
-              
-          </FormGroup>
+          have a Electrical problem
           </div>
         </div>
   
+        
         <div class="column-4">
   
         <div class="innerRow-1">
@@ -283,15 +262,10 @@ function Reservations () {
          </div>
          <div class="innerRow-2">
           
-         <FormGroup>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 2" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 3" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 4" /></div>
-             
-         </FormGroup>
+         have a Electrical problem
          </div>
         </div>
+        
         <div class="column-4">
   
         <div class="innerRow-1">
@@ -308,66 +282,11 @@ function Reservations () {
          </div>
          <div class="innerRow-2">
           
-         <FormGroup>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 2" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 3" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 4" /></div>
-             
-         </FormGroup>
+          have a Electrical problem
+         
          </div>
         </div>
-        <div class="column-4">
-  
-        <div class="innerRow-1">
-          
-          <div class="item-1"> Alice Smith</div>
-          <div class="item-1"> Toyota Chammy</div>
-          <div class="item-1">10/11/2023</div>
-          <div class="item-1"> 16.00 pm</div>
-          <div style={{marginRight:"20px"}}><CheckCircleOutlineIcon style={{color:"#09BEB1"}}/></div>
-          <div ><DeleteIcon style={{color:"red"}}/></div>
-          
-          
-          
-         </div>
-         <div class="innerRow-2">
-          
-         <FormGroup>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 2" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 3" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 4" /></div>
-             
-         </FormGroup>
-         </div>
         </div>
-        <div class="column-4">
-  
-        <div class="innerRow-1">
-          
-          <div class="item-1"> Alice Smith</div>
-          <div class="item-1"> Toyota Chammy</div>
-          <div class="item-1">10/11/2023</div>
-          <div class="item-1"> 16.00 pm</div>
-          <div style={{marginRight:"20px"}}><CheckCircleOutlineIcon style={{color:"#09BEB1"}}/></div>
-          <div ><DeleteIcon style={{color:"red"}}/></div>
-          
-          
-          
-         </div>
-         <div class="innerRow-2">
-          
-         <FormGroup>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 1" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 2" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 3" /></div>
-           <div class="item-2"> <FormControlLabel  control={<Checkbox />} label="Service 4" /></div>
-             
-         </FormGroup>
-         </div>
-        </div>
-  
     </div>
   
   </div>
