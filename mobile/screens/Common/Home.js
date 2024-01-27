@@ -1,22 +1,20 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { View, Text, TextInput, Button } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const HomeScreen = () => {
   return (
     <View style={homestyles.homeApp}>
-      <View style={homestyles.header}>
-        <Text>Wrench it</Text>
-        <Button title="Menu" onPress={() => {}} />
-      </View>
       <TextInput style={homestyles.searchBar} placeholder="Search" />
-      <View style={homestyles.navTabs}>
-        <Button title="Home" onPress={() => {}} />
-        <Button title="Ongoing" onPress={() => {}} />
-        <Button title="Shop" onPress={() => {}} />
-      </View>
       <View style={homestyles.mainContent}>
-        <Button title="SFind Garages" onPress={() => {}} />
+      <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#D9D9D9', padding: 10}}>
+        {/* Icon */}
+        <Icon name="search" size={30} color="white" style={{ marginRight: 10 }} />
+
+        {/* Text or other content */}
+        <Text style={{ color: 'white', fontSize: 20 }}>Find Garages</Text>
+      </View>
         <Button title="My Location" onPress={() => {}} />
         <Button title="Book" onPress={() => {}} />
         <Button title="Calls" onPress={() => {}} />
