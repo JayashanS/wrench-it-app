@@ -43,10 +43,7 @@ function Reservations () {
   });
   
 
-//
 
-
-//
 
   const [value, setValue] = React.useState(dayjs('2022-04-17'));
 
@@ -69,6 +66,8 @@ function Reservations () {
       </div>
     );
   }
+  
+ 
 
   return (
     <div class="container-reservation">
@@ -264,7 +263,7 @@ function Reservations () {
           <div className="reservationList-container">
               
               {output}
-hghggghhg
+
 
           </div>
 
