@@ -60,9 +60,32 @@ const getAllReservations = async (req, res) => {
   }
 };
 
+const getReservationsByFilter = async (req, res) => {
+  try {
+    const { reservationDate } = req.params;
+
+    const filter = {};
+    if (reservationDate) {
+           const startDate = new Date(reservationDate);
+      const endDate = new Date(reservationDate);
+      endDate.setDate(endDate.getDate() + 1); 
+      filter.reservationtDate = { $gte: startDate, $lt: endDate };
+    }
+
+    const filteredReservations = await Reservation.find(filter);
+
+    res.status(200).json(filteredReservations);
+  } catch (error) {
+    console.error("Error fetching reservations by filter:", error);
+    res.status(500).json({ error: "Could not fetch reservations by filter" });
+  }
+};
+
+
 module.exports = {
   createReservation,
   deleteReservation,
   insertManyReservations,
   getAllReservations,
+  getReservationsByFilter,
 };
