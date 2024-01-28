@@ -22,12 +22,16 @@ import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import axios from "axios";
 
 
 
 function Reservations () {
 
   const[output,setOutput]=useState("");
+  const[description,setDescription]=useState("");
+  const[vehicleType,setVehicleType]=useState("");
+  const[reservationDate,setReservationDate]=useState("");
   
   const theme = createTheme({
     typography: {
@@ -66,6 +70,35 @@ function Reservations () {
       </div>
     );
   }
+
+  const fetchReservations = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/reservation/filter/2023-02-01`
+      );
+      console.log("Response Data:", response.data);
+      const responseData = response.data;
+  
+      // Assuming setDescription and setVehicleType are state updater functions
+  
+      // If responseData is an array of objects
+      const reservationsJSX = responseData.map((item, index) => (
+        <div className="reservationList" key={index}>
+          <p>Model: {item.vehicleType}</p>
+          <p>Description: {item.description}</p>
+        </div>
+      ));
+  
+      // Return the JSX
+      return (setOutput({reservationsJSX}))
+  
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  
+
+
   
  
 
@@ -255,7 +288,7 @@ function Reservations () {
             <DemoContainer components={['DateCalendar', 'DateCalendar']}>
               
               <DemoItem label="Calendar">
-                <DateCalendar value={value} onChange={handleDayClick} onClickDay={handleDayClick}/>
+                <DateCalendar value={value} onChange={fetchReservations} onClickDay={fetchReservations}/>
               </DemoItem>
             </DemoContainer>
           </LocalizationProvider>
