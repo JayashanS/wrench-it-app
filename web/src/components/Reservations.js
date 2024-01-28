@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Reservation.css";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -24,9 +24,18 @@ import axios from "axios";
 
 function Reservations() {
   const [output, setOutput] = useState("");
+ 
+
+  //add accepted default reservation
+  const [customerName, setCustomerName] = useState("");
+  const [reservationtTime, setReservationTime] = useState("");
   const [description, setDescription] = useState("");
   const [vehicleType, setVehicleType] = useState("");
   const [reservationDate, setReservationDate] = useState("");
+  const [data,setData]=useState([]);
+
+
+
 
   const theme = createTheme({
     typography: {
@@ -41,7 +50,7 @@ function Reservations() {
     },
   });
 
-  const [value, setValue] = React.useState(dayjs("2022-04-17"));
+  const [value, setValue] = React.useState(dayjs("2023-01-31"));
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
@@ -52,7 +61,7 @@ function Reservations() {
   const handleDayClick = (date) => {
     localStorage.setItem("resDate", date);
     console.log("Clicked date:", date);
-    setOutput(reservationList(date.toString()));
+   
   };
 
   function reservationList(date) {
@@ -63,10 +72,13 @@ function Reservations() {
     );
   }
 
-  const fetchReservations = async () => {
+  const fetchReservations = async (date) => {
+
+    const formattedDate = dayjs(date).format('YYYY-MM-DD');
+
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/reservation/filter/2023-02-01`
+        `http://localhost:4000/api/reservation/filter/${formattedDate}`
       );
       console.log("Response Data:", response.data);
       const responseData = response.data;
@@ -85,6 +97,25 @@ function Reservations() {
       console.error("Error fetching data:", error);
     }
   };
+
+  //load data from database to Accepted reservation
+
+  useEffect(()=>{
+    const apiUrl = 'http://localhost:4000/api/reservation/filter/2023-01-31'; // Replace with your actual endpoint
+
+    // Make a GET request using Axios
+    axios.get(apiUrl)
+      .then(response => {
+        // Handle the data received from the backend
+        setData(response.data);
+      })
+      .catch(error => {
+        
+        console.error('Error fetching data:', error);
+      });
+  },[]);
+
+
 
   return (
     <div class="container-reservation">
@@ -341,6 +372,27 @@ function Reservations() {
             <span class="container-title">Accepted</span>
           </p>
 
+          {data.map((item)=>(
+          <div class="column-4" key={item._id}>
+            <div class="innerRow-1">
+
+                  <div class="item-1">{item.customerName}</div>
+                  <div class="item-1"> {item.vehicleType}</div>
+                  <div class="item-1">{item.reservationtDate}</div>
+                  <div class="item-1">{item.reservationtTime}</div>
+                  <div style={{ marginRight: "20px" }}>
+                    <CheckCircleOutlineIcon style={{ color: "#09BEB1" }} />
+                  </div>
+                  <div>
+                    <DeleteIcon style={{ color: "red" }} />
+                  </div>
+
+              
+            </div>
+            <div class="innerRow-2">{item.description}</div>
+          </div>
+          ))}
+{/*
           <div class="column-4">
             <div class="innerRow-1">
               <div class="item-1"> Alice Smith</div>
@@ -372,22 +424,7 @@ function Reservations() {
             </div>
             <div class="innerRow-2">have a Electrical problem</div>
           </div>
-
-          <div class="column-4">
-            <div class="innerRow-1">
-              <div class="item-1"> Alice Smith</div>
-              <div class="item-1"> Toyota Chammy</div>
-              <div class="item-1">10/11/2023</div>
-              <div class="item-1"> 16.00 pm</div>
-              <div style={{ marginRight: "20px" }}>
-                <CheckCircleOutlineIcon style={{ color: "#09BEB1" }} />
-              </div>
-              <div>
-                <DeleteIcon style={{ color: "red" }} />
-              </div>
-            </div>
-            <div class="innerRow-2">have a Electrical problem</div>
-          </div>
+          */}
         </div>
       </div>
     </div>
