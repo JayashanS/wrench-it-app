@@ -16,8 +16,19 @@ import { Accordion, Card } from "react-bootstrap";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
+
+import dayjs from 'dayjs';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+
+
+
 function Reservations () {
 
+  const[output,setOutput]=useState("");
+  
   const theme = createTheme({
     typography: {
       fontFamily: "Roboto, sans-serif",
@@ -30,6 +41,14 @@ function Reservations () {
       
     },
   });
+  
+
+//
+
+
+//
+
+  const [value, setValue] = React.useState(dayjs('2022-04-17'));
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
@@ -37,7 +56,19 @@ function Reservations () {
     setIsAccordionOpen(!isAccordionOpen);
   };
 
+  const handleDayClick = (date) => {
+    localStorage.setItem("resDate", date);
+    console.log("Clicked date:", date);
+    setOutput(reservationList(date.toString()));
+  };
 
+  function reservationList(date) {
+    return (
+      <div className="reservationList">
+        <p>Selected Date: {date}</p>
+      </div>
+    );
+  }
 
   return (
     <div class="container-reservation">
@@ -218,9 +249,28 @@ function Reservations () {
 
 
       <div class="calenderContainer">
+      
+          
+              
+            <LocalizationProvider dateAdapter={AdapterDayjs} >
+            <DemoContainer components={['DateCalendar', 'DateCalendar']}>
+              
+              <DemoItem label="Calendar">
+                <DateCalendar value={value} onChange={handleDayClick} onClickDay={handleDayClick}/>
+              </DemoItem>
+            </DemoContainer>
+          </LocalizationProvider>
 
+          <div className="reservationList-container">
+              
+              {output}
+hghggghhg
+
+          </div>
 
       </div>
+
+
       <div class="reservationContainer">
         <p class="res-titleBar"><span class="container-title">Accepted</span></p>
         
