@@ -1,68 +1,123 @@
 import React from "react";
-import { StyleSheet } from "react-native";
-import { View, Text, TextInput, Button } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { StyleSheet, View } from "react-native";
+import {
+  StyleSheetView,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-const HomeScreen = () => {
+const windowWidth = Dimensions.get("window").width;
+
+export default function HomeScreen() {
+  const navigation = useNavigation();
+
+  const goToProfile = () => {
+    navigation.navigate("Profile");
+  };
+  const goToRequest = () => {
+    navigation.navigate("Request");
+  };
   return (
     <View style={homestyles.homeApp}>
-      <TextInput style={homestyles.searchBar} placeholder="Search" />
-      <View style={homestyles.mainContent}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#D9D9D9', padding: 10}}>
-        {/* Icon */}
-        <Icon name="search" size={30} color="white" style={{ marginRight: 10 }} />
-
-        {/* Text or other content */}
-        <Text style={{ color: 'white', fontSize: 20 }}>Find Garages</Text>
+      {/*<TextInput style={homestyles.searchBar} placeholder="Search" />*/}
+      <View style={homestyles.row}>
+        <TouchableOpacity style={homestyles.cell} onPress={goToRequest}>
+          <View style={homestyles.buttonContent}>
+            <Text style={homestyles.buttonText}>Find Garages</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+          <View style={homestyles.buttonContent}>
+            <Text style={homestyles.buttonText}>Book</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+          <View style={homestyles.buttonContent}>
+            <Text style={homestyles.buttonText}>Calls</Text>
+          </View>
+        </TouchableOpacity>
       </View>
-        <Button title="My Location" onPress={() => {}} />
-        <Button title="Book" onPress={() => {}} />
-        <Button title="Calls" onPress={() => {}} />
-        <Button title="Chats" onPress={() => {}} />
-        <Button title="Ongoing" onPress={() => {}} />
-        <Button title="Promos" onPress={() => {}} />
-        <Button title="Rides" onPress={() => {}} />
-        <Button title="History" onPress={() => {}} />
+      <View style={homestyles.row}>
+        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+          <View style={homestyles.buttonContent}>
+            <Text style={homestyles.buttonText}>Find Garages</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+          <View style={homestyles.buttonContent}>
+            <Text style={homestyles.buttonText}>Book</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+          <View style={homestyles.buttonContent}>
+            <Text style={homestyles.buttonText}>Calls</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View style={homestyles.row}>
+        <TouchableOpacity style={homestyles.cell} onPress={goToProfile}>
+          <View style={homestyles.buttonContent}>
+            <Text style={homestyles.buttonText}>Profile(Imalsha)</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+          <View style={homestyles.buttonContent}>
+            <Text style={homestyles.buttonText}>Book</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+          <View style={homestyles.buttonContent}>
+            <Text style={homestyles.buttonText}>Calls</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
-};
+}
 
 const homestyles = StyleSheet.create({
   homeApp: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#008080',
+    flexDirection: "column",
+    margin: windowWidth * 0.1,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    padding: 10,
-    backgroundColor: '#008080',
+  row: {
+    flex: 1,
+    flexDirection: "row",
+    marginBottom: windowWidth * 0.05,
+    paddingLeft: windowWidth * 0.04,
+  },
+  cell: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "#176B87",
+    borderRadius: 5,
+    height: windowWidth * 0.35,
+    marginRight: windowWidth * 0.04,
+    padding: windowWidth * 0.01,
   },
   searchBar: {
-    width: '90%',
+    width: "90%",
     padding: 10,
     margin: 10,
     borderRadius: 5,
   },
   navTabs: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
     padding: 10,
-    backgroundColor: '#008080',
+    backgroundColor: "#008080",
   },
   mainContent: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
     padding: 10,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
-})
-
-export default HomeScreen;
+});

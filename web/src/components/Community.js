@@ -79,7 +79,35 @@ const Community = () => {
                   Introduction:
                   The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
                   // Rest of the essay
+                  Sure, here's an essay on the environment:
+                  Title: The Fragile Harmony of Our Environment
+                  Introduction:
+                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
+                  
+                  
                 `)}
+                {message(`
+                  Sure, here's an essay on the environment:
+                  Title: The Fragile Harmony of Our Environment
+                  Introduction:
+                  
+                  Introduction:
+                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
+                  // Rest of the essay
+                 
+                `)}
+                {message(`
+                  Sure, here's an essay on the environment:
+                  Title: The Fragile Harmony of Our Environment
+                  Introduction:
+                  
+                  Introduction:
+                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
+                  // Rest of the essay
+                 
+                `)}
+                
+                
               </div>
             </div>
           </div>
@@ -88,7 +116,6 @@ const Community = () => {
           <h6>Community</h6>
 
           <div className="post1">
-            {/* Position the Accordion absolutely */}
             <div className="accordion-container">
               <Accordion>
                 <AccordionSummary
@@ -101,7 +128,7 @@ const Community = () => {
                   <Box
                     component="form"
                     sx={{
-                      '& > :not(style)': { m: 1, width: '50ch' },
+                      '& > :not(style)': { m: 1, width: '100%' },
                     }}
                     noValidate
                     autoComplete="off"
@@ -112,16 +139,17 @@ const Community = () => {
                       label="Description"
                       multiline
                       maxRows={8}
+                      fullWidth
                     />
                   </Box>
                   <Stack spacing={2} direction="row" sx={{ marginLeft: "9px", marginTop: "9px" }}>
                     <Button variant="contained" disabled={isLoading} >Add Post</Button></Stack>
                 </AccordionDetails>
-              </Accordion>
+                  </Accordion>
             </div>
 
             <div className="scrollable-post">
-              <div className="posts">
+              
                 {posts(`
                   Sure, here's an essay on the environment:
                   Title: The Fragile Harmony of Our Environment
@@ -129,8 +157,36 @@ const Community = () => {
                   The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
                   // Rest of the essay
                   // (Repeat the content as needed)
+                  Sure, here's an essay on the environment:
+                  Title: The Fragile Harmony of Our Environment
+                  Introduction:
+                  
                 `)}
-              </div>
+                {posts(`
+                  Sure, here's an essay on the environment:
+                  Title: The Fragile Harmony of Our Environment
+                  Introduction:
+                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
+                  // Rest of the essay
+                  // (Repeat the content as needed)
+                  Sure, here's an essay on the environment:
+                  Title: The Fragile Harmony of Our Environment
+                  Introduction:
+                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
+                  
+                 
+                `)}
+                {message(`
+                  Sure, here's an essay on the environment:
+                  Title: The Fragile Harmony of Our Environment
+                  Introduction:
+                  
+                  Introduction:
+                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
+                  // Rest of the essay
+                 
+                `)}
+              
             </div>
           </div>
         </div>
