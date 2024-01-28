@@ -89,6 +89,7 @@ function Request() {
           <p style={{marginLeft:"20px"}}>Details</p>
         </div>
         <div className="map">
+          <Directions/>
         </div>
 
         <div className="chat-box">
