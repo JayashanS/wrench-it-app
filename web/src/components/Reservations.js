@@ -378,7 +378,8 @@ function Reservations() {
 
                   <div class="item-1">{item.customerName}</div>
                   <div class="item-1"> {item.vehicleType}</div>
-                  <div class="item-1">{item.reservationtDate}</div>
+                  <div class="item-1">{new Intl.DateTimeFormat('en-GB').format(new Date(item.reservationtDate))}</div>
+                 {/* <div class="item-1">{item.reservationtDate}</div>*/}
                   <div class="item-1">{item.reservationtTime}</div>
                   <div style={{ marginRight: "20px" }}>
                     <CheckCircleOutlineIcon style={{ color: "#09BEB1" }} />
