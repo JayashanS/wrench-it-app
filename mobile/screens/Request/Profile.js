@@ -151,7 +151,7 @@ const ProfileScreen = () => {
         <View style={styles.serviceContainer}>
           <View style={styles.Service}>
             <Ionicons name="list" size={22} color="gray" />
-            <Text style={styles.headFont}> Services</Text>
+            <Text style={styles.headFont}> Our Services</Text>
           </View>
 
           {services.map((service, index) => (
@@ -165,7 +165,7 @@ const ProfileScreen = () => {
           
             <View style={styles.request}>
               <Ionicons name="car" size={22} color="gray" />
-              <Text style={styles.headFont}> We Are Here For You</Text>
+              <Text style={styles.ForYouFont}> We Are Here For You</Text>
              
             </View>
             <TouchableOpacity onPress={() => requestAssistance()} style={styles.requestButton}>
@@ -312,14 +312,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     alignContent: "center",
-    color: "#2c3e50",
+    color: "#125C75",
   },
-
+  ForYouFont: {
+    fontWeight: "bold",
+    fontSize: 20,
+    alignContent: "center",
+    color: "#F79191",
+  },
   hours:{
     fontWeight: "bold",
     fontSize: 18,
     alignContent: "center",
-    color: "#FF0202",
+    color: "#F79191",
   },
   locationContainer: {
     backgroundColor: "#F1EEFF",
@@ -384,7 +389,7 @@ serviceList:{
     fontSize: 17,
     alignContent: "center",
     color: "#3F3432",
-    paddingLeft:45,
+    paddingLeft:60,
 },
 PricechargeHeader:{
   fontWeight: "bold",
