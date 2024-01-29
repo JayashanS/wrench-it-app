@@ -10,7 +10,7 @@ import Directions from "./Directions"
 import MessageBox from "./MessageBox";
 
 
-function Request() {
+export default function Request() {
   return (
     <div className="container-request">
 
@@ -105,4 +105,4 @@ function Request() {
   );
 }
 
-export default Request;
+

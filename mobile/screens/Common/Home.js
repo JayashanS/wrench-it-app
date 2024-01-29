@@ -80,7 +80,7 @@ export default function HomeScreen() {
         <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Calls</Text>
-          </View>
+          </View> 
         </TouchableOpacity>
       </View>
     </View>
