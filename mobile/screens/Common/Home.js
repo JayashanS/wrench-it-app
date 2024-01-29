@@ -21,7 +21,9 @@ export default function HomeScreen() {
     navigation.navigate("Request");
   };
   const goToProfile2 = () => {
-    navigation.navigate("Profile2");
+    navigation.navigate("Main", {
+      index: "second",
+    });
   };
 
   return (
@@ -45,7 +47,7 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
       <View style={homestyles.row}>
-        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+        <TouchableOpacity style={homestyles.cell} onPress={goToProfile2}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Find Garages</Text>
           </View>
