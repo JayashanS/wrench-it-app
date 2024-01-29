@@ -138,12 +138,15 @@ const ProfileScreen = () => {
             <Text style={styles.headFont}> Price Range</Text>
           </View>
 
-          <Text style={styles.hours}>           24/7 Service</Text>
+          <Text style={styles.PricechargeHeader}>          Roadside assistant charges </Text>
+          <Text style={styles.Pricecharge}>          1 km -  10 km   <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3000 </Text>
+          <Text style={styles.Pricecharge}>          10 km - 15 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3500</Text>
+          <Text style={styles.Pricecharge}>          15 km - 20 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.4000</Text>
         </View>
 
         <View style={styles.serviceContainer}>
           <View style={styles.Service}>
-            <Ionicons name="list" size={20} color="gray" />
+            <Ionicons name="list" size={22} color="gray" />
             <Text style={styles.headFont}> Services</Text>
           </View>
 
@@ -277,7 +280,7 @@ const styles = StyleSheet.create({
   },
   TimeContainer: {
     backgroundColor: "#D1D0CF",
-    borderRadius: 20,
+    borderRadius: 10,
     marginVertical: 20,
     paddingBottom:5,
     width: "100%",
@@ -304,7 +307,7 @@ const styles = StyleSheet.create({
   },
   locationContainer: {
     backgroundColor: "#D1D0CF",
-    borderRadius: 20,
+    borderRadius: 6,
     marginVertical: -10,
     padding:0,
     width: "100%",
@@ -317,18 +320,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
  mapContainer: {
-    marginVertical: 8,
-    width: 380,
+    marginVertical: 0,
+    width: 400,
     height: 200,
     padding:8,
-    borderRadius: 20,
+    borderRadius:0,
     borderColor: "gray",
     justifyContent: "center",
+    paddingLeft:30
   },
 
   priceContainer: {
     backgroundColor: "#D1D0CF",
-    borderRadius: 20,
+    borderRadius: 6,
     marginVertical: 20,
     paddingBottom:5,
     width: "100%",
@@ -344,10 +348,9 @@ const styles = StyleSheet.create({
 
   serviceContainer: {
     backgroundColor: "#D1D0CF",
-    borderRadius: 20,
-    marginVertical: 20,
-    paddingBottom:10,
-    paddingTop:10,
+    borderRadius: 6,
+    marginVertical: -10,
+    paddingBottom:5,
     width: "100%",
     alignSelf: "center",
   },
@@ -359,8 +362,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 serviceList:{
-   // paddingLeft:10,
+    
+    paddingTop:5,
+    fontWeight: "bold",
+    fontSize: 17,
+    alignContent: "center",
+    color: "#3F3432",
+    paddingLeft:45,
+},
+PricechargeHeader:{
+  fontWeight: "bold",
+  fontSize: 18,
+  alignContent: "center",
+  color: "#000000",
+},
+Pricecharge:{
+  paddingTop:8,
+  fontWeight: "bold",
+  fontSize: 17,
+  alignContent: "center",
+  color: "#3F3432",
+  paddingLeft:20,
 }
+,
 });
 
 export default ProfileScreen;
