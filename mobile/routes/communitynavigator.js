@@ -1,13 +1,13 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import events from "../screens/Common/events";
-import members from "../screens/Common/members";
-import offers from "../screens/Common/offers";
+import Events from "../screens/Common/Events";
+import Members from "../screens/Common/Members";
+import Offers from "../screens/Common/Offers";
 
 const Stack = createStackNavigator();
 
-export default function communityStack() {
+export default function CommunityStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen

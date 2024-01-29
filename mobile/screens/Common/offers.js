@@ -2,11 +2,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const offers = () => {
+const Offers = () => {
   return (
     <View style={styles.container}>
       <Text>This is the Offers Page</Text>
-      {/* Add content specific to the OffersPage if needed */}
+      
     </View>
   );
 };
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default offers;
+export default Offers;

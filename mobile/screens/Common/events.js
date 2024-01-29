@@ -2,11 +2,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const events = () => {
+const Events = () => {
   return (
     <View style={styles.container}>
       <Text>This is the Events Page</Text>
-      {/* Add content specific to the Events Page if needed */}
+    
     </View>
   );
 };
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default events;
+export default Events;

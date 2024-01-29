@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./routes/TabNavigator";
 import Profile from "./screens/Request/Profile";
 import RequestNavigator from "./routes/RequestNavigator";
-import communitynavigator from "./routes/communitynavigator";
+import Communitynavigator from "./routes/Communitynavigator";
 
 const Stack = createStackNavigator();
 
@@ -31,7 +31,7 @@ export default function App() {
         <Stack.Screen
           name="community"
           options={{ headerShown: false }}
-          component={communitynavigator}
+          component={Communitynavigator}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import members from './members'; 
-import events from './events'; 
-import offers from './offers'; 
+import Members from './Members'; 
+import Events from './Events'; 
+import Offers from './Offers'; 
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -25,7 +25,7 @@ const CommunityPage = () => {
         <BoxItem
           title="Offers"
           content="Company offers will be displayed inside this"
-          onPress={() => navigation.navigate('offers')}
+          onPress={() => navigation.navigate('Offers')}
         />
       </View>
 
@@ -33,7 +33,7 @@ const CommunityPage = () => {
         <BoxItem
           title="Members"
           content="Member since 2021"
-          onPress={() => navigation.navigate('members')}
+          onPress={() => navigation.navigate('Members')}
         />
       </View>
 
@@ -41,7 +41,7 @@ const CommunityPage = () => {
         <BoxItem
           title="Events"
           content="Date: April 10, 2024"
-          onPress={() => navigation.navigate('events')}
+          onPress={() => navigation.navigate('Events')}
         />
       </View>
     </View>
