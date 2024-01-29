@@ -39,7 +39,10 @@ const ProfileScreen = () => {
     longitudeDelta: 0.0421,
   });
 
-  return (
+  const services = ["Suspension Repairs", "Transmission Issues", "Electrical", "Electronic",
+   "Body Repairs & Painting", "Breakdown Repair and Services", "Engine", "Scanning", "HV System","Brake Services and Maintenance"];
+  
+   return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.appBarWrapper}>
@@ -97,7 +100,7 @@ const ProfileScreen = () => {
           <TouchableOpacity onPress={openPhoneDialer}>
             <View style={styles.contact}>
               <Ionicons name="call" size={20} color="gray" />
-              <Text>Call</Text>
+              <Text  style={styles.contacttext}>  Call</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -105,19 +108,19 @@ const ProfileScreen = () => {
         <View style={styles.TimeContainer}>
           <View style={styles.Time}>
             <Ionicons name="time" size={20} color="gray" />
-            <Text style={styles.timeFont}> Opening Hours</Text>
+            <Text style={styles.headFont}> Opening Hours</Text>
           </View>
 
-          <Text> Dharmapala place, Rajagiriya</Text>
+          <Text style={styles.hours}>           24/7 Service</Text>
         </View>
 
         <View style={styles.locationContainer}>
           <View style={styles.location}>
             <Ionicons name="location" size={20} color="gray" />
-            <Text style={styles.locationFont}> location</Text>
+            <Text style={styles.headFont}> location</Text>
           </View>
 
-          <Text> Dharmapala place, Rajagiriya</Text>
+          <Text>         No.02, Dharmapala place, Rajagiriya</Text>
           <View style={styles.mapContainer}>
             <MapView
               style={{ flex: 1 }}
@@ -127,6 +130,28 @@ const ProfileScreen = () => {
             />
             <Marker coordinate={mapRegion} />
           </View>
+        </View>
+
+        <View style={styles.priceContainer}>
+          <View style={styles.Price}>
+            <Ionicons name="pricetag" size={20} color="gray" />
+            <Text style={styles.headFont}> Price Range</Text>
+          </View>
+
+          <Text style={styles.hours}>           24/7 Service</Text>
+        </View>
+
+        <View style={styles.serviceContainer}>
+          <View style={styles.Service}>
+            <Ionicons name="list" size={20} color="gray" />
+            <Text style={styles.headFont}> Services</Text>
+          </View>
+
+          {services.map((service, index) => (
+            <Text key={index} style={styles.serviceList}>
+              {service}
+            </Text>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -228,7 +253,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   contactContainer: {
-    backgroundColor: "#D1D0CF",
+    backgroundColor: "#125C75",
     borderRadius: 5,
     width: 100,
     alignItems: "center",
@@ -236,38 +261,52 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "center",
     bottom: -10,
+   
+   
   },
+  contacttext:{
+    color:"#FFFFFF"
+  },
+
   contact: {
     padding: 5,
     marginLeft: 5,
     flexDirection: "row",
     alignItems: "center",
+   
   },
   TimeContainer: {
     backgroundColor: "#D1D0CF",
     borderRadius: 20,
     marginVertical: 20,
-
+    paddingBottom:5,
     width: "100%",
     alignSelf: "center",
   },
   Time: {
-    padding: 8,
+    padding: 5,
     marginLeft: 5,
     flexDirection: "row",
     alignItems: "center",
   },
-  timeFont: {
+  headFont: {
     fontWeight: "bold",
     fontSize: 20,
     alignContent: "center",
     color: "#2c3e50",
   },
+
+  hours:{
+    fontWeight: "bold",
+    fontSize: 18,
+    alignContent: "center",
+    color: "#FF0202",
+  },
   locationContainer: {
     backgroundColor: "#D1D0CF",
     borderRadius: 20,
-    marginVertical: 20,
-
+    marginVertical: -10,
+    padding:0,
     width: "100%",
     alignSelf: "center",
   },
@@ -277,22 +316,51 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-
-  locationFont: {
-    fontWeight: "bold",
-    fontSize: 20,
-    alignContent: "center",
-    color: "#2c3e50",
-  },
-
-  mapContainer: {
-    marginVertical: 10,
-    width: 390,
+ mapContainer: {
+    marginVertical: 8,
+    width: 380,
     height: 200,
+    padding:8,
     borderRadius: 20,
     borderColor: "gray",
     justifyContent: "center",
   },
+
+  priceContainer: {
+    backgroundColor: "#D1D0CF",
+    borderRadius: 20,
+    marginVertical: 20,
+    paddingBottom:5,
+    width: "100%",
+    alignSelf: "center",
+  },
+
+  Price: {
+    padding: 8,
+    marginLeft: 5,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  serviceContainer: {
+    backgroundColor: "#D1D0CF",
+    borderRadius: 20,
+    marginVertical: 20,
+    paddingBottom:10,
+    paddingTop:10,
+    width: "100%",
+    alignSelf: "center",
+  },
+  
+  Service: {
+    padding: 8,
+    marginLeft: 5,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+serviceList:{
+   // paddingLeft:10,
+}
 });
 
 export default ProfileScreen;
