@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./routes/TabNavigator";
 import Profile from "./screens/Request/Profile";
 import RequestNavigator from "./routes/RequestNavigator";
+import communitynavigator from "./routes/communitynavigator";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,11 @@ export default function App() {
           name="Request"
           options={{ headerShown: false }}
           component={RequestNavigator}
+        />
+        <Stack.Screen
+          name="community"
+          options={{ headerShown: false }}
+          component={communitynavigator}
         />
       </Stack.Navigator>
     </NavigationContainer>
