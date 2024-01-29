@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Feather } from "expo-vector-icons";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
-
+import { useNavigation } from "@react-navigation/native";
 import { View, Text, StyleSheet, SafeAreaView, Image } from "react-native";
 import {
   ScrollView,
@@ -13,6 +13,7 @@ import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import Geolocation from "react-native-geolocation-service";
 
 const ProfileScreen = () => {
+  const navigation = useNavigation();
   const imagePaths = [require("../../assets/profileImage3.jpg")];
   const [count, setCount] = useState(1);
 
@@ -30,6 +31,9 @@ const ProfileScreen = () => {
 
   const openPhoneDialer = () => {
     Linking.openURL("tel:0768030344");
+  };
+  const requestAssistance= () => {
+    navigation.navigate("Assistance");
   };
 
   const [mapRegion, setMapRegion] = useState({
@@ -73,7 +77,7 @@ const ProfileScreen = () => {
 
         <View style={styles.details}>
           <View style={styles.titleRow}>
-            <Text style={styles.Title}>ABC Repair centre</Text>
+            <Text style={styles.headFont}>ABC Repair Center</Text>
           </View>
         </View>
 
@@ -155,6 +159,19 @@ const ProfileScreen = () => {
               {service}
             </Text>
           ))}
+        </View>
+
+        <View style={styles.requestButtonContainer}>
+          
+            <View style={styles.request}>
+              <Ionicons name="car" size={22} color="gray" />
+              <Text style={styles.headFont}> We Are Here For You</Text>
+             
+            </View>
+            <TouchableOpacity onPress={() => requestAssistance()} style={styles.requestButton}>
+                <Text style={styles.requestButtonText}>Request Assistance</Text>
+              </TouchableOpacity>
+          
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -238,9 +255,8 @@ const styles = StyleSheet.create({
     top: 10,
   },
 
-  Title: {
-    fontSize: 18,
-  },
+  
+  
   ratingRow: {
     paddingBottom: 12,
     flexDirection: "row",
@@ -279,7 +295,7 @@ const styles = StyleSheet.create({
    
   },
   TimeContainer: {
-    backgroundColor: "#D1D0CF",
+    backgroundColor: "#F1EEFF",
     borderRadius: 10,
     marginVertical: 20,
     paddingBottom:5,
@@ -306,7 +322,7 @@ const styles = StyleSheet.create({
     color: "#FF0202",
   },
   locationContainer: {
-    backgroundColor: "#D1D0CF",
+    backgroundColor: "#F1EEFF",
     borderRadius: 6,
     marginVertical: -10,
     padding:0,
@@ -331,7 +347,7 @@ const styles = StyleSheet.create({
   },
 
   priceContainer: {
-    backgroundColor: "#D1D0CF",
+    backgroundColor: "#F1EEFF",
     borderRadius: 6,
     marginVertical: 20,
     paddingBottom:5,
@@ -347,10 +363,10 @@ const styles = StyleSheet.create({
   },
 
   serviceContainer: {
-    backgroundColor: "#D1D0CF",
+    backgroundColor: "#F1EEFF",
     borderRadius: 6,
     marginVertical: -10,
-    paddingBottom:5,
+    paddingBottom:20,
     width: "100%",
     alignSelf: "center",
   },
@@ -383,8 +399,41 @@ Pricecharge:{
   alignContent: "center",
   color: "#3F3432",
   paddingLeft:20,
-}
-,
+},
+
+requestButtonContainer: {
+  backgroundColor: "#F1EEFF",
+  borderRadius: 6,
+  marginVertical: -10,
+  paddingBottom: 20,
+  width: "100%",
+  alignSelf: "center",
+},
+request: {
+  padding: 20,
+  marginLeft: -5,
+  flexDirection: "row",
+  alignItems: "center",
+},
+requestButton: {
+  backgroundColor: "#125C75",
+  borderRadius: 8,
+  paddingVertical: 5,
+  paddingHorizontal: 20,
+  width:300,
+  alignSelf: "center",
+  marginVertical: 10,
+  paddingTop:10
+},
+requestButtonText: {
+  color: "#fff",
+  fontSize: 18,
+  fontWeight: "bold",
+  textAlign: "center",
+  padding:-10,
+  marginBottom:5,
+},
+
 });
 
 export default ProfileScreen;
