@@ -14,6 +14,7 @@ import Geolocation from "react-native-geolocation-service";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+
   const imagePaths = [require("../../assets/profileImage3.jpg")];
   const [count, setCount] = useState(1);
 
@@ -77,7 +78,7 @@ const ProfileScreen = () => {
 
         <View style={styles.details}>
           <View style={styles.titleRow}>
-            <Text style={styles.headFont}>ABC Repair Center</Text>
+            <Text style={styles.headFont}>AMK Repair Center</Text>
           </View>
         </View>
 
