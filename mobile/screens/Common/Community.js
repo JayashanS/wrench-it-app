@@ -1,83 +1,85 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Members from './Members'; 
-import Events from './Events'; 
-import Offers from './Offers'; 
+import React from "react";
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions,Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Members from './Members';
+import Offers from './Offers';
+import Events from './Events';
+
 
 const windowWidth = Dimensions.get("window").width;
 
-const BoxItem = ({ title, content, onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress} style={styles.box}>
-      <Text style={styles.boxTitle}>{title}</Text>
-      <Text>{content}</Text>
-    </TouchableOpacity>
-  );
-};
-
-const CommunityPage = () => {
+export default function HomeScreen() {
   const navigation = useNavigation();
 
+  const goToOffers = () => {
+    navigation.navigate("Offers");
+  };
+  const goToMembers = () => {
+    navigation.navigate("Members");
+  };
+  const goToEvents = () => {
+    navigation.navigate("Events");
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.rowContainer}>
-        <BoxItem
-          title="Offers"
-          content="Company offers will be displayed inside this"
-          onPress={() => navigation.navigate('Offers')}
-        />
-      </View>
-
-      <View style={styles.rowContainer}>
-        <BoxItem
-          title="Members"
-          content="Member since 2021"
-          onPress={() => navigation.navigate('Members')}
-        />
-      </View>
-
-      <View style={styles.rowContainer}>
-        <BoxItem
-          title="Events"
-          content="Date: April 10, 2024"
-          onPress={() => navigation.navigate('Events')}
-        />
+    <View style={communitystyles.container}>
+      <View style={communitystyles.column}>
+        <TouchableOpacity style={communitystyles.box} onPress={goToOffers}>
+          <View style={communitystyles.boxContent}>
+         
+           
+            <Text style={communitystyles.boxText}>Offers</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={communitystyles.box} onPress={goToMembers}>
+          <View style={communitystyles.boxContent}>
+            <Text style={communitystyles.boxText}>Members</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={communitystyles.box} onPress={goToEvents}>
+          <View style={communitystyles.boxContent}>
+            <Text style={communitystyles.boxText}>Events</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
-};
+}
 
-const styles = StyleSheet.create({
+const communitystyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  rowContainer: {
-    flexDirection: 'row',
+  column: {
+    flexDirection: 'column',
     justifyContent: 'space-between',
-    marginBottom: windowWidth * 0.05,
-    paddingLeft: windowWidth * 0.005,
+    marginTop: windowWidth * 0.05,
   },
   box: {
-    flex: 1,
-    width: '90%',
-    height: windowWidth * 0.45,
-    borderWidth: 1.2,
-    borderColor: "#176B87",
+    width: windowWidth * 0.9,
+    height: windowWidth * 0.5,
+    backgroundColor: 'white',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
     padding: windowWidth * 0.03,
     marginBottom: windowWidth * 0.05,
-    borderRadius: 8,
-    backgroundColor: 'white',
-    elevation: 5,
-    shadowColor: "#176B87",
+    borderRadius: windowWidth * 0.03,
+    borderWidth: 1.5,
+    borderColor: 'black',
   },
-  boxTitle: {
+  boxContent: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  
+  
+  boxText: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 5,
+    color: 'black',
+    textAlign: 'left',
   },
 });
-
-export default CommunityPage;
-

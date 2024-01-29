@@ -5,7 +5,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./routes/TabNavigator";
 import Profile from "./screens/Request/Profile";
 import RequestNavigator from "./routes/RequestNavigator";
+
 import Communitynavigator from "./routes/Communitynavigator";
+
+
+import Profile2 from "./screens/Common/Profile";
+
 
 const Stack = createStackNavigator();
 
@@ -29,10 +34,17 @@ export default function App() {
           component={RequestNavigator}
         />
         <Stack.Screen
+
           name="community"
           options={{ headerShown: false }}
           component={Communitynavigator}
         />
+        <Stack.Screen
+          name="Profile2"
+          options={{ headerShown: false }}
+          component={Profile2}
+         /> 
+
       </Stack.Navigator>
     </NavigationContainer>
   );

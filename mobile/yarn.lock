@@ -2261,7 +2261,7 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/geojson@^7946.0.13":
+"@types/geojson@^7946.0.10":
   version "7946.0.13"
   resolved "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.13.tgz"
   integrity sha512-bmrNrgKMOhM3WsafmbGmC+6dsF2Z308vLFsQ3a/bT8X8Sv5clVYpPars/UPq+sAaJP+5OoLAYgwbkS5QEJdLUQ==
@@ -4243,6 +4243,11 @@ expo-keep-awake@~12.8.2:
   version "12.8.2"
   resolved "https://registry.npmjs.org/expo-keep-awake/-/expo-keep-awake-12.8.2.tgz"
   integrity sha512-uiQdGbSX24Pt8nGbnmBtrKq6xL/Tm3+DuDRGBk/3ZE/HlizzNosGRIufIMJ/4B4FRw4dw8KU81h2RLuTjbay6g==
+
+expo-location@~16.5.2:
+  version "16.5.2"
+  resolved "https://registry.npmjs.org/expo-location/-/expo-location-16.5.2.tgz"
+  integrity sha512-i+Ps8ADohd+YJtWqH1eOfzWZdRJOhNEX1E3TcUoGbhO+wcIq5DKJz3r1CrnJDlaM9yy2QuFmvvxruHatQPi42w==
 
 expo-modules-autolinking@>=0.8.1, expo-modules-autolinking@1.10.2:
   version "1.10.2"
@@ -7152,12 +7157,12 @@ react-native-geolocation-service@^5.3.1:
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
-react-native-maps@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.npmjs.org/react-native-maps/-/react-native-maps-1.10.0.tgz"
-  integrity sha512-Zs6lHZucEijTwkRVFyInMbPVkJ2UudDEI2fJPc8ArdzdnwDFAdL6OagqTjNRZyI1DBPHRihazfIWpy2+X1VwLg==
+react-native-maps@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.npmjs.org/react-native-maps/-/react-native-maps-1.8.0.tgz"
+  integrity sha512-KfVZ03L42+a22Fkcl2uDe5d+73BweTlcRUzm2G+aQUJ7fHrBxj7CuXWtKMSNpVDiO3YDCWcshiiyjSXxkd/qOw==
   dependencies:
-    "@types/geojson" "^7946.0.13"
+    "@types/geojson" "^7946.0.10"
 
 react-native-pager-view@*, "react-native-pager-view@>= 4.0.0", react-native-pager-view@6.2.3:
   version "6.2.3"
