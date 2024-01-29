@@ -1,8 +1,8 @@
 // OffersPage.js
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
-const offers = () => {
+const Offers = () => {
   return (
     <View style={styles.container}>
       <Text>This is the Offers Page</Text>
@@ -14,9 +14,9 @@ const offers = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
-export default offers;
+export default Offers;

@@ -12,47 +12,48 @@ export default function RequestStack() {
     <Stack.Navigator>
       <Stack.Screen
         name="Profile"
-       
-        options={{ title: "Profile",
-        headerStyle: {
-          backgroundColor: "#125C75",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold",
-        }, }}
+        options={{
+          title: "Profile",
+          headerStyle: {
+            backgroundColor: "#125C75",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
         component={Profile}
       />
 
-<Stack.Screen
-          name="Assistance"
-          component={Assistance}
-          options={{
-            title: "Assistance",
-            headerStyle: {
-              backgroundColor: "#125C75",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-          }}
-        />
+      <Stack.Screen
+        name="Assistance"
+        component={Assistance}
+        options={{
+          title: "Assistance",
+          headerStyle: {
+            backgroundColor: "#125C75",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
 
-<Stack.Screen
-          name="RequestSuccess"
-          component={RequestSuccess}
-          options={{
-            title: "Assistance Success",
-            headerStyle: {
-              backgroundColor: "#125C75",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-          }}
-        />
+      <Stack.Screen
+        name="RequestSuccess"
+        component={RequestSuccess}
+        options={{
+          title: "Assistance Success",
+          headerStyle: {
+            backgroundColor: "#125C75",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 }
