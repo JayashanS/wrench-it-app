@@ -20,6 +20,12 @@ export default function HomeScreen() {
   const goToRequest = () => {
     navigation.navigate("Request");
   };
+  const goToProfile2 = () => {
+    navigation.navigate("Main", {
+      index: "second",
+    });
+  };
+
   return (
     <View style={homestyles.homeApp}>
       {/*<TextInput style={homestyles.searchBar} placeholder="Search" />*/}
@@ -31,9 +37,10 @@ export default function HomeScreen() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+        
+        <TouchableOpacity style={homestyles.cell} onPress={goToProfile2}>
           <View style={homestyles.buttonContent}>
-            <Text style={homestyles.buttonText}>Book</Text>
+            <Text style={homestyles.buttonText}>Profile</Text>
           </View>
         </TouchableOpacity>
 
@@ -45,7 +52,7 @@ export default function HomeScreen() {
       </View>
 
       <View style={homestyles.row}>
-        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+        <TouchableOpacity style={homestyles.cell} onPress={goToProfile2}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Find Garages</Text>
           </View>

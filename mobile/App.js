@@ -2,9 +2,10 @@ import React from "react";
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import AuthNavigator from "./routes/AuthNavigator";
 import TabNavigator from "./routes/TabNavigator";
-import Profile from "./screens/Request/Profile";
 import RequestNavigator from "./routes/RequestNavigator";
+import CommunityNavigator from "./routes/CommunityNavigator";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,11 @@ export default function App() {
       />
       <Stack.Navigator>
         <Stack.Screen
+          name="Auth"
+          options={{ headerShown: false }}
+          component={AuthNavigator}
+        />
+        <Stack.Screen
           name="Main"
           options={{ headerShown: false }}
           component={TabNavigator}
@@ -26,6 +32,11 @@ export default function App() {
           name="Request"
           options={{ headerShown: false }}
           component={RequestNavigator}
+        />
+        <Stack.Screen
+          name="Community"
+          options={{ headerShown: false }}
+          component={CommunityNavigator}
         />
       </Stack.Navigator>
     </NavigationContainer>
