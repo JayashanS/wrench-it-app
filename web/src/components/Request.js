@@ -5,12 +5,15 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import SendIcon from '@mui/icons-material/Send';
+//import SendIcon from '@mui/icons-material/Send';
+import ReorderIcon from '@mui/icons-material/Reorder';
 import Directions from "./Directions"
 import MessageBox from "./MessageBox";
 
 
-function Request() {
+export default function Request() {
+
+
   return (
     <div className="container-request">
 
@@ -84,11 +87,13 @@ function Request() {
       </div>
 
       <div className="request-details">
+        {/*<ReorderIcon style={{ marginLeft: "350px", marginBottom: "15px" }}/>*/}
 
         <div className="header-bar">
           <p style={{marginLeft:"20px"}}>Details</p>
         </div>
         <div className="map">
+          <Directions/>
         </div>
 
         <div className="chat-box">
@@ -104,4 +109,4 @@ function Request() {
   );
 }
 
-export default Request;
+

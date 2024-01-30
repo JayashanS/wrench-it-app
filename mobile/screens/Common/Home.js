@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, TextInput } from "react-native";
 import {
   StyleSheetView,
   Text,
@@ -9,7 +9,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-const windowWidth = Dimensions.get("window").width;
+const windowWidth = Dimensions.get("window").width; {/*Define the width of the window using the Dimensions module*/}
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -35,55 +35,71 @@ export default function HomeScreen() {
   return (
     <View style={homestyles.homeApp}>
       {/*<TextInput style={homestyles.searchBar} placeholder="Search" />*/}
+      
       <View style={homestyles.row}>
         <TouchableOpacity style={homestyles.cell} onPress={goToRequest}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Find Garages</Text>
           </View>
         </TouchableOpacity>
+
+
+        
+        <TouchableOpacity style={homestyles.cell} onPress={goToProfile2}>
         <TouchableOpacity style={homestyles.cell} onPress={goToProfile4}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Profile</Text>
           </View>
         </TouchableOpacity>
+
+
+        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+
         <TouchableOpacity style={homestyles.cell} onPress={goToProfile3}>
+
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Calls</Text>
           </View>
         </TouchableOpacity>
       </View>
+
       <View style={homestyles.row}>
         <TouchableOpacity style={homestyles.cell} onPress={goToProfile2}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Find Garages</Text>
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Book</Text>
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Calls</Text>
           </View>
         </TouchableOpacity>
       </View>
+
       <View style={homestyles.row}>
         <TouchableOpacity style={homestyles.cell} onPress={goToProfile}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Profile(Imalsha)</Text>
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Book</Text>
           </View>
         </TouchableOpacity>
+
         <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Calls</Text>
-          </View>
+          </View> 
         </TouchableOpacity>
       </View>
     </View>
@@ -100,16 +116,17 @@ const homestyles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     marginBottom: windowWidth * 0.05,
-    paddingLeft: windowWidth * 0.04,
+    paddingLeft: windowWidth * 0.02,
   },
   cell: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "#176B87",
+    //borderWidth: 1,
+    //borderColor: "#176B87",
+    backgroundColor:"#D9D9D9",
     borderRadius: 5,
-    height: windowWidth * 0.35,
-    marginRight: windowWidth * 0.04,
-    padding: windowWidth * 0.01,
+    height: windowWidth * 0.4,
+    marginRight: windowWidth * 0.02,
+    padding: windowWidth * 0.02,
   },
   searchBar: {
     width: "90%",
