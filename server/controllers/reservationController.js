@@ -82,10 +82,23 @@ const getReservationsByFilter = async (req, res) => {
 };
 
 
+const getPendingReservations = async (req, res) => {
+  try {
+    const pendingReservations = await Reservation.find({ reservationStatus: 'Pending' });
+    res.status(200).json(pendingReservations);
+  } catch (error) {
+    console.error('Error fetching pending reservations:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+
 module.exports = {
   createReservation,
   deleteReservation,
   insertManyReservations,
   getAllReservations,
   getReservationsByFilter,
+  getPendingReservations,
 };
