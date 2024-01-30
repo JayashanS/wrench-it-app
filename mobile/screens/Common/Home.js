@@ -17,6 +17,12 @@ export default function HomeScreen() {
   const goToProfile = () => {
     navigation.navigate("Profile");
   };
+  const goToProfile3 = () => {
+    navigation.navigate("NearByCenters");
+  };
+  const goToProfile4 = () => {
+    navigation.navigate("Profile");
+  };
   const goToRequest = () => {
     navigation.navigate("Request");
   };
@@ -35,12 +41,12 @@ export default function HomeScreen() {
             <Text style={homestyles.buttonText}>Find Garages</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={homestyles.cell} onPress={goToProfile2}>
+        <TouchableOpacity style={homestyles.cell} onPress={goToProfile4}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Profile</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+        <TouchableOpacity style={homestyles.cell} onPress={goToProfile3}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Calls</Text>
           </View>
