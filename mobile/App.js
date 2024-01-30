@@ -6,6 +6,7 @@ import AuthNavigator from "./routes/AuthNavigator";
 import TabNavigator from "./routes/TabNavigator";
 import RequestNavigator from "./routes/RequestNavigator";
 import CommunityNavigator from "./routes/CommunityNavigator";
+import ReservationNavigator from "./routes/ReservationNavigator";
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,11 @@ export default function App() {
           name="Community"
           options={{ headerShown: false }}
           component={CommunityNavigator}
+        />
+         <Stack.Screen
+          name="Reservation"
+          options={{ headerShown: false }}
+          component={ReservationNavigator}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -38,6 +38,7 @@ const Assistance = () => {
   const [vehicleNumber, setVehicleNumber] = useState("")
   const [fault, setFault] = useState("")
   const navigation = useNavigation();
+  
   const submit= () => {
     navigation.navigate("RequestSuccess");
   };

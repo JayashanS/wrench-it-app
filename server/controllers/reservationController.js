@@ -82,10 +82,70 @@ const getReservationsByFilter = async (req, res) => {
 };
 
 
+const getPendingReservations = async (req, res) => {
+  try {
+    const pendingReservations = await Reservation.find({ reservationStatus: 'Pending' });
+    res.status(200).json(pendingReservations);
+  } catch (error) {
+    console.error('Error fetching pending reservations:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+const deletePendingReservation = async (req, res) => {
+  try {
+    const reservationId = req.params.id;
+    const deletedReservation = await Reservation.findOneAndDelete({ _id: reservationId, reservationStatus: 'Pending' });
+
+    if (!deletedReservation) {
+      return res.status(404).json({ message: "Pending reservation not found or already processed" });
+    }
+
+    return res.status(200).json({ message: "Pending reservation deleted successfully" });
+  } catch (error) {
+    console.error('Error deleting pending reservation:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+const changeStatus =async (req,res)=>{
+
+  const reservationtId = req.params.id;
+  const  {reservationStatus} =req.body;
+
+  try {
+    const updatedReservation = await Reservation.findOneAndUpdate(
+      { reservationtId: reservationtId },
+      {
+        $set: {
+          reservationStatus,
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedReservation) {
+      return res
+        .status(404)
+        .json({ message: "Garage not found", reservationtId: reservationtId });
+    }
+
+    res.status(200).json(updatedReservation);
+  } catch (error) {
+    console.error("Error updating reservation", error);
+    res.status(500).json({ error: "Could not update reservation",error });
+  }
+}
+
+
 module.exports = {
   createReservation,
   deleteReservation,
   insertManyReservations,
   getAllReservations,
   getReservationsByFilter,
+  getPendingReservations,
+  deletePendingReservation,
+  changeStatus,
 };
