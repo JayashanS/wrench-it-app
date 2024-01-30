@@ -202,6 +202,8 @@ const handleRowClick = (item) => {
   return partsTotal + parseFloat(cost);
 };
 
+const printBilling = () => {
+};
 //refresh the billing section
 const handleRefreshBilling = () => {
  
@@ -602,6 +604,13 @@ const handleRefreshBilling = () => {
               style={{ color: "white", textTransform: "none" }}
             >
               Refresh Billing
+            </Button>
+            <Button
+              variant="contained"
+              onClick={printBilling}
+              style={{ color: "white", textTransform: "none" }}
+            >
+              Print Bill
             </Button>
           </Stack>
       </div>
