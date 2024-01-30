@@ -83,7 +83,7 @@
    margin-left: 1%;
    width: 98%;
    height: 310px;
-   background-color: #cbc7c7;
+   background-color: EEF2F5;
 }
 
 .process-request{
@@ -170,7 +170,6 @@
 
 .custom-button{
    border-radius: 5px;
-   background-color: #09BEB1;
    border: none;
    margin-top: 2%;
    padding: 5px;
@@ -188,7 +187,51 @@
 
 .custom-button:hover{
    cursor: pointer;
-   background-color: #fff;
-   color:#141111;
+   background-color: #2ae8f3;
+   color:#796666;
    
 }
+
+.buttons {
+   display: flex;
+   /*width: 100px;*/
+   margin-top: 20px;
+   font-size: 18px;
+   width: 156px;
+   flex-shrink: 0;
+ }
+
+ .accept {
+   background-color: #0be7ff;
+   color: white;
+ }
+ 
+ .hold {
+   background-color: #63bec1;
+   color: white;
+ }
+ 
+ .decline {
+   background-color: #ef0951;
+   color: white;
+ }
+
+.detail-boxes{
+   display: flex;
+   flex-direction: row;
+   width: 20%;
+   border-right:1px solid #141111;
+   margin-left: 2%;
+}
+
+.vehicle-detail{
+   display: flex;
+   flex-direction: row;
+   margin-left: 6%;
+   margin-top: 4%;
+}
+
+ .info p {
+   margin: 5px 0;
+   font-size: 11px;
+ }
