@@ -83,7 +83,7 @@
    margin-left: 1%;
    width: 98%;
    height: 310px;
-   background-color: #D9D9D9;
+   background-color: #cbc7c7;
 }
 
 .process-request{
@@ -99,7 +99,7 @@
 .message-box{
    display: flex;
    height: 96%;
-   width: 50%;
+   width: 40%;
    margin-top: 0.5%;
    margin-left: 1%;
    margin-bottom: 4%;
@@ -169,18 +169,26 @@
 }
 
 .custom-button{
-   display: flex;
-   flex-direction: column;
+   border-radius: 5px;
+   background-color: #09BEB1;
+   border: none;
    margin-top: 2%;
-   text-align: center;
+   padding: 5px;
 }
 
 .desicion-box{
    display: flex;
    flex-direction: column;
-   width: 47%;
+   width: 57%;
    height: 96%;
    margin-top: 0.5%;
    margin-left: 1%;
    background-color: #ffffff;
+}
+
+.custom-button:hover{
+   cursor: pointer;
+   background-color: #fff;
+   color:#141111;
+   
 }
