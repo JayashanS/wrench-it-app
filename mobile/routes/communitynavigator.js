@@ -1,19 +1,18 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Profile from "../screens/Request/Profile";
-import Assistance from "../screens/Request/Assistance";
-import RequestSuccess from "../screens/Request/RequestSuccess";
+import Events from "../screens/Common/Events";
+import Offers from "../screens/Common/Offers";
+import Members from "../screens/Common/Members";
 
 const Stack = createStackNavigator();
 
-export default function RequestStack() {
+export default function CommunityStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Profile"
+        name="Events"
         options={{
-          title: "Profile",
+          title: "Events",
           headerStyle: {
             backgroundColor: "#125C75",
           },
@@ -22,14 +21,14 @@ export default function RequestStack() {
             fontWeight: "bold",
           },
         }}
-        component={Profile}
+        component={Events}
       />
 
       <Stack.Screen
-        name="Assistance"
-        component={Assistance}
+        name="Offers"
+        component={Offers}
         options={{
-          title: "Assistance",
+          title: "Offers",
           headerStyle: {
             backgroundColor: "#125C75",
           },
@@ -41,10 +40,10 @@ export default function RequestStack() {
       />
 
       <Stack.Screen
-        name="RequestSuccess"
-        component={RequestSuccess}
+        name="Members"
+        component={Members}
         options={{
-          title: "Assistance Success",
+          title: "Offers Success",
           headerStyle: {
             backgroundColor: "#125C75",
           },
