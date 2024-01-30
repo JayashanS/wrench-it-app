@@ -8,6 +8,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import HomeScreen from "../screens/Common/Home";
 import OngoingScreen from "../screens/Common/Ongoing";
 import CommunityScreen from "../screens/Common/Community";
+import RequestSuccess from "../screens/Request/RequestSuccess";
 
 const renderScene = SceneMap({
   first: HomeScreen,

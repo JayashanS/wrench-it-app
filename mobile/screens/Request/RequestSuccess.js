@@ -1,7 +1,19 @@
-import React from "react";
-import { View, Text,StyleSheet} from "react-native";
+import React , { useState } from "react";
+import { View, Text,StyleSheet,Button} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+
+
 const RequestSuccess = () => {
+
+    const navigation = useNavigation();
+
+const okclicked= () => {
+   // From the component where you want to navigate to 'OngoingScreen' within a nested navigator
+   navigation.navigate("Main", { screen: "OngoingScreen", params: { index: 'second'} });
+  };
+
+
   return (
     <View style={styles.container}>
     <View style={styles.TimeContainer}>
@@ -10,13 +22,15 @@ const RequestSuccess = () => {
       <Text style={styles.headFont}>Request Has Been Sent Successfully</Text>
     </View>
 
-    <TouchableOpacity onPress={() => ok()}style={styles.okButton}>
+    <TouchableOpacity onPress={() => okclicked()}style={styles.okButton}>
       <Text style={styles.okButtonText}>Ok</Text>
       </TouchableOpacity>
   </View>
   </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
     container: {
