@@ -22,6 +22,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import axios from "axios";
 
+
 function Reservations() {
   const [output, setOutput] = useState("");
   const [output2, setOutput_2] = useState("");
@@ -74,7 +75,25 @@ function Reservations() {
     setIsAccordionOpen(!isAccordionOpen);
   };
 
-    const getPendingReservations =async()=>{
+ const declineHandle= async (id)=>{
+  try {
+    const updatedData = {
+      reservationStatus:"decline"
+    };
+
+    const response = await axios.put(
+      `http://localhost:4000/api/reservation/${id}`,
+      updatedData
+    );
+
+    console.log("Update successful:", response.data);
+  } catch (error) {
+    console.error("Error updating reservation:", error);
+  }
+
+ }
+
+  const getPendingReservations =async()=>{
       
     
 
@@ -139,7 +158,7 @@ function Reservations() {
             </Stack>
             <br />
             <Stack spacing={2} direction="row">
-              <Button
+              <Button onClick={()=>declineHandle(item.reservationtId)}
                 variant="contained"
                 color="error"
                 style={{
@@ -262,7 +281,7 @@ function Reservations() {
 
   useEffect(()=>{
     getPendingReservations();
-  },[]);
+  },[declineHandle]);
 
 
   //Update the completed reservation
