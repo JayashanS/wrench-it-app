@@ -6,6 +6,8 @@ const {
   insertManyReservations,
   getReservationsByFilter,
   getPendingReservations,
+  deletePendingReservation,
+  changeStatus,
 } = require("../controllers/reservationController");
 const router = express.Router();
 
@@ -15,4 +17,6 @@ router.get("/",  getAllReservations);
 router.get(  "/filter/:reservationDate", getReservationsByFilter); 
 router.get("/pending",getPendingReservations);
 router.delete("/:id", deleteReservation);
+router.delete("/:id",deletePendingReservation);
+router.put("/:id",changeStatus);
 module.exports = router;

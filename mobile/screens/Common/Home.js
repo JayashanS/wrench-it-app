@@ -26,6 +26,9 @@ export default function HomeScreen() {
   const goToRequest = () => {
     navigation.navigate("Request");
   };
+  const goToReservation = () => {
+    navigation.navigate("Reservation");
+  };
   const goToProfile2 = () => {
     navigation.navigate("Main", {
       index: "second",
@@ -64,9 +67,9 @@ export default function HomeScreen() {
       </View>
 
       <View style={homestyles.row}>
-        <TouchableOpacity style={homestyles.cell} onPress={goToProfile2}>
+        <TouchableOpacity style={homestyles.cell} onPress={goToReservation}>
           <View style={homestyles.buttonContent}>
-            <Text style={homestyles.buttonText}>Find Garages</Text>
+            <Text style={homestyles.buttonText}>Reservation</Text>
           </View>
         </TouchableOpacity>
 
