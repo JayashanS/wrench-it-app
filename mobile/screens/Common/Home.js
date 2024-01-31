@@ -37,6 +37,7 @@ export default function HomeScreen() {
       {/*<TextInput style={homestyles.searchBar} placeholder="Search" />*/}
       <View style={homestyles.row}>
         <TouchableOpacity style={homestyles.cell} onPress={goToRequest}>
+          <Icon/>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Find Garages</Text>
           </View>
