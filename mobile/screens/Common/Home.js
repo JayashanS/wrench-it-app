@@ -48,7 +48,8 @@ export default function HomeScreen() {
 
 
         
-        <TouchableOpacity style={homestyles.cell} onPress={goToProfile2}>
+        <TouchableOpacity style={homestyles.cell} onPress={goToProfile2}></TouchableOpacity>
+
         <TouchableOpacity style={homestyles.cell} onPress={goToProfile4}>
           <View style={homestyles.buttonContent}>
             <Text style={homestyles.buttonText}>Profile</Text>
