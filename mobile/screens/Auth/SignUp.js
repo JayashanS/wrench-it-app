@@ -11,6 +11,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 import DatePicker from "@react-native-community/datetimepicker";
+import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -28,6 +29,9 @@ export default function Signup() {
 
   const handleSubmit = async () => {
     navigation.navigate("Main", { screen: "Community" });
+  };
+  const handleSearch = async () => {
+    navigation.navigate("NearByCenters");
   };
 
   return (
@@ -181,6 +185,9 @@ export default function Signup() {
             >
               <Text style={{ color: "#fff", fontSize: 16 }}>Register</Text>
             </TouchableOpacity>
+            <View style={{ justifyContent: "center", alignItems: "flex-end", marginLeft: 100 }}>
+            <TouchableOpacity onPress={handleSearch}><Ionicons name="search" size={40} color="#125C75" /></TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
