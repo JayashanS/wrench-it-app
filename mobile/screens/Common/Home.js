@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width; {/*Define the width of the window using the Dimensions module*/}
 
@@ -43,25 +44,28 @@ export default function HomeScreen() {
         <TouchableOpacity style={homestyles.cell} onPress={goToRequest}>
           <Icon/>
           <View style={homestyles.buttonContent}>
+          <Ionicons name="search" size={80} color="#125C75" />
             <Text style={homestyles.buttonText}>Find Garages</Text>
           </View>
         </TouchableOpacity>
 
 
         
-        <TouchableOpacity style={homestyles.cell} onPress={goToProfile2}>
+        
         <TouchableOpacity style={homestyles.cell} onPress={goToProfile4}>
           <View style={homestyles.buttonContent}>
+          <Ionicons name="person" size={80} color="#125C75" marginBottom={10}/>
             <Text style={homestyles.buttonText}>Profile</Text>
           </View>
         </TouchableOpacity>
 
 
-        <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
+        
 
         <TouchableOpacity style={homestyles.cell} onPress={goToProfile3}>
 
           <View style={homestyles.buttonContent}>
+          <Ionicons name="call" size={80} color="#125C75" marginBottom={10}/>
             <Text style={homestyles.buttonText}>Calls</Text>
           </View>
         </TouchableOpacity>
@@ -70,19 +74,22 @@ export default function HomeScreen() {
       <View style={homestyles.row}>
         <TouchableOpacity style={homestyles.cell} onPress={goToReservation}>
           <View style={homestyles.buttonContent}>
-            <Text style={homestyles.buttonText}>Reservation</Text>
+          <Ionicons name="book-sharp" size={80} color="#125C75"  marginRight={10}/>
+            <Text style={homestyles.buttonText}>Reserve</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
           <View style={homestyles.buttonContent}>
-            <Text style={homestyles.buttonText}>Book</Text>
+          <Ionicons name="chatbox" size={80} color="#125C75"  marginRight={10}/>
+            <Text style={homestyles.buttonText}>Chats</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
           <View style={homestyles.buttonContent}>
-            <Text style={homestyles.buttonText}>Calls</Text>
+          <Ionicons name="settings" size={80} color="#125C75"  marginRight={10}/>
+            <Text style={homestyles.buttonText}>Ongoing</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -90,19 +97,22 @@ export default function HomeScreen() {
       <View style={homestyles.row}>
         <TouchableOpacity style={homestyles.cell} onPress={goToProfile}>
           <View style={homestyles.buttonContent}>
-            <Text style={homestyles.buttonText}>Profile(Imalsha)</Text>
+          <Ionicons name="bag" size={80} color="#125C75"  marginRight={10}/>
+            <Text style={homestyles.buttonText}>Promos</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
           <View style={homestyles.buttonContent}>
-            <Text style={homestyles.buttonText}>Book</Text>
+          <Ionicons name="car" size={80} color="#125C75"  marginRight={10}/>
+            <Text style={homestyles.buttonText}>Rides</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity style={homestyles.cell} onPress={() => {}}>
           <View style={homestyles.buttonContent}>
-            <Text style={homestyles.buttonText}>Calls</Text>
+          <Ionicons name="list" size={80} color="#125C75"  marginRight={10}/>
+            <Text style={homestyles.buttonText}>History</Text>
           </View> 
         </TouchableOpacity>
       </View>
@@ -152,5 +162,12 @@ const homestyles = StyleSheet.create({
     justifyContent: "space-around",
     padding: 10,
     backgroundColor: "#FFFFFF",
+  },
+  buttonText: {
+    fontWeight: "bold",
+    fontSize: 16,
+    padding:10,
+    color: "#125C75",
+
   },
 });

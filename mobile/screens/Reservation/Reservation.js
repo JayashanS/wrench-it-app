@@ -6,10 +6,14 @@ import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 const Reservation = () => {
   const navigation = useNavigation();
 
-  const imagePaths = [require("../../assets/repairIcon.jpg")]
+  const imagePaths = [require("../../assets/booking.png")]
 
   const viewProfile = () => {
     navigation.navigate("Profile"); 
+  };
+
+  const viewReservationForm = () => {
+    navigation.navigate("ReservationForm"); 
   };
   
   return (
@@ -36,13 +40,28 @@ const Reservation = () => {
             </TouchableOpacity>
          
         </View>
+        
+
+
+
         <View style={styles.details}>
-        <Text> Roadside assistant charges </Text>
-          <Text>1 km -  10 km   <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3000 </Text>
-          <Text>10 km - 15 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3500</Text>
-          <Text>15 km - 20 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.4000</Text>
-          </View>
+        <Text> Good service can be obtained by booking </Text>
+          <Text></Text>
+          <Text> Give reservation and booking your time slot </Text>
+          
+        </View>
+
+        <View style={styles.view}>
+            <TouchableOpacity onPress={() => viewReservationForm()} style={styles.viewButton}>
+              <Text style={styles.viewButtonText}>Booking</Text>
+            </TouchableOpacity>
+         
+        </View>
+
+
+
       </View>
+      
       
     </View>
   );
@@ -103,6 +122,7 @@ const styles = StyleSheet.create({
     width: 220,
     alignSelf: "flex-start",
     marginVertical: 10,
+    marginRight:20,
   },
   requestButtonText: {
     color: "#fff",
