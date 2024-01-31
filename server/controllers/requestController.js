@@ -6,9 +6,13 @@ const createRequest = async (req, res) => {
   try {
     const request = await Request.create({
       requestId,
-      requestType,
       requestStatus,
       requestDate,
+      ownerName,
+      vehicleType,
+      phoneNo,
+      longitude,
+      lattitude,
     });
     res.status(201).json(request);
   } catch (error) {
@@ -55,6 +59,16 @@ const getAllRequests = async (req, res) => {
     res.status(500).json({ error: "Could not fetch all requests" });
   }
 };
+
+const checkStatus = async (req,res)=>{
+  try{
+    const statusRequest = await Request.find();
+    res.status(200).json(statusRequest);
+  }catch(error){
+    console.error("Error changing status :",error);
+    res.status(500).json({error : "Could not change status of the request"});
+  }
+}
 
 module.exports = {
   createRequest,
