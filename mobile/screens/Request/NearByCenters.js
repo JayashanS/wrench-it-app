@@ -44,10 +44,22 @@ const NearByCenters = () => {
          
         </View>
         <View style={styles.details}>
-        <Text> Roadside assistant charges </Text>
-          <Text>1 km -  10 km   <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3000 </Text>
-          <Text>10 km - 15 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3500</Text>
-          <Text>15 km - 20 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.4000</Text>
+        
+        <View style={styles.rating}>
+            {[1, 2, 3, 4, 5].map((index) => (
+              <Ionicons key={index} name="star" size={20} color="gold" />
+            ))}
+            <Text style={styles.ratingText}> (4.9)</Text>
+          </View>
+          <View style={styles.contactContainer}>
+         
+            <View style={styles.contact}>
+            <Text style={styles.textcharge}> Roadside assistant charges </Text>
+          <Text>Starting From Rs.3000 within 10 km </Text>
+            </View>
+          
+        </View>
+         
           </View>
       </View>
       
@@ -134,5 +146,30 @@ const styles = StyleSheet.create({
     flexDirection:"column",
     alignItems:"flex-start",
   },
+  ratingRow: {
+    paddingBottom: 12,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    top: 5,
+  },
+  rating: {
+    top: 10,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginHorizontal: 10,
+  },
+  contact: {
+    //padding: 0,
+    marginTop:10,
+    //flexDirection: "row",
+    alignItems:"flex-start",
+    
+   
+  },
+  textcharge:{
+    fontSize:15,
+  }
 });
 export default NearByCenters;
