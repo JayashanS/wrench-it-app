@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Splash from "../screens/Auth/Splash";
+import Starting from "../screens/Auth/Starting";
 import Login from "../screens/Auth/Login";
 import SignUp from "../screens/Auth/SignUp";
 import Profile from "../screens/Request/Profile";
@@ -20,6 +21,11 @@ export default function AuthStack() {
         component={Splash}
       />
       <Stack.Screen
+        name="Starting"
+        options={{ headerShown: false }}
+        component={Starting}
+      />
+      <Stack.Screen
         name="Login"
         options={{ headerShown: false }}
         component={Login}
@@ -31,65 +37,65 @@ export default function AuthStack() {
         component={SignUp}
       />
 
-<Stack.Screen
-          name="NearByCenters"
-          component={NearByCenters}
-          options={{
-            title: "Repair Centers Near You",
-            headerStyle: {
-              backgroundColor: "#125C75",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-          }}
-        />
+      <Stack.Screen
+        name="NearByCenters"
+        component={NearByCenters}
+        options={{
+          title: "Repair Centers Near You",
+          headerStyle: {
+            backgroundColor: "#125C75",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
 
       <Stack.Screen
         name="Profile"
-       
-        options={{ title: "Profile",
-        headerStyle: {
-          backgroundColor: "#125C75",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold",
-        }, }}
+        options={{
+          title: "Profile",
+          headerStyle: {
+            backgroundColor: "#125C75",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
         component={Profile}
       />
 
-<Stack.Screen
-          name="Assistance"
-          component={Assistance}
-          options={{
-            title: "Assistance",
-            headerStyle: {
-              backgroundColor: "#125C75",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-          }}
-        />
+      <Stack.Screen
+        name="Assistance"
+        component={Assistance}
+        options={{
+          title: "Assistance",
+          headerStyle: {
+            backgroundColor: "#125C75",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
 
-<Stack.Screen
-          name="RequestSuccess"
-          component={RequestSuccess}
-          options={{
-            title: "Assistance Success",
-            headerStyle: {
-              backgroundColor: "#125C75",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-          }}
-        />
-
+      <Stack.Screen
+        name="RequestSuccess"
+        component={RequestSuccess}
+        options={{
+          title: "Assistance Success",
+          headerStyle: {
+            backgroundColor: "#125C75",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 }

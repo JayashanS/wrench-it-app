@@ -9,7 +9,7 @@ export default function Splash() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace("SignUp");
+      navigation.replace("Starting");
     }, 5000);
 
     return () => clearTimeout(timer);
