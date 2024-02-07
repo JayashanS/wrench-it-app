@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { View, Text, Image, Animated, Easing } from "react-native";
+import { View, Text, Animated, Easing } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Logo from "../../assets/wrenchit-white.png";
 
@@ -16,7 +16,6 @@ export default function Splash() {
   }, [navigation]);
 
   useEffect(() => {
-    // Configure the animation
     Animated.loop(
       Animated.timing(rotationValue, {
         toValue: 1,
