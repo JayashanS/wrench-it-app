@@ -1,8 +1,8 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Events from "../screens/Common/Events";
-import Offers from "../screens/Common/Offers";
-import Members from "../screens/Common/Members";
+import Events from "../screens/Community/Events";
+import Offers from "../screens/Community/Offers";
+import Members from "../screens/Community/Members";
 
 const Stack = createStackNavigator();
 

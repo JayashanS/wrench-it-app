@@ -7,9 +7,9 @@ import {
   Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Members from "./Members";
-import Events from "./Events";
-import Offers from "./Offers";
+import Members from "../Community/Members";
+import Events from "../Community/Events";
+import Offers from "../Community/Offers";
 
 const windowWidth = Dimensions.get("window").width;
 

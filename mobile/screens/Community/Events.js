@@ -1,4 +1,3 @@
-// OffersPage.js
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
@@ -6,7 +5,6 @@ const Events = () => {
   return (
     <View style={styles.container}>
       <Text>This is the Events Page</Text>
-      {/* Add content specific to the Events Page if needed */}
     </View>
   );
 };

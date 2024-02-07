@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import { View, Text, Image } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { View, Text, Image, Animated, Easing } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Logo from "../../assets/wrenchit.png";
+import Logo from "../../assets/wrenchit-white.png";
 
 export default function Splash() {
   const navigation = useNavigation();
+  const rotationValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -13,6 +14,23 @@ export default function Splash() {
 
     return () => clearTimeout(timer);
   }, [navigation]);
+
+  useEffect(() => {
+    // Configure the animation
+    Animated.loop(
+      Animated.timing(rotationValue, {
+        toValue: 1,
+        duration: 3000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      })
+    ).start();
+  }, [rotationValue]);
+
+  const rotateInterpolate = rotationValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "360deg"],
+  });
 
   return (
     <View
@@ -23,10 +41,17 @@ export default function Splash() {
         backgroundColor: "#176B87",
       }}
     >
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <Image
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <Animated.Image
           source={Logo}
-          style={{ width: 50, height: 50, marginRight: 10 }}
+          style={{
+            width: 50,
+            height: 50,
+            marginRight: 10,
+            transform: [{ rotate: rotateInterpolate }],
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         />
         <Text
           style={{
