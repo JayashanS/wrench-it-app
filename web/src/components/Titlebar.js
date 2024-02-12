@@ -54,7 +54,7 @@ function Titlebar() {
             paddingRight: "10px",
             paddingTop: "5px",
             paddingBottom: "5px",
-            marginLeft: "700px",
+            marginLeft: "59%",
           }}
         >
           #Company Name
