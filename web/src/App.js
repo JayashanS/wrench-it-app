@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Carousel from "./components/Carousel";
 import Cards from "./components/Cards";
-import Signup from "./components/Signup";
+import Signup from "./components/Login";
 
 // dashboard imports
 import Dashboard from "./pages/Dashboard";

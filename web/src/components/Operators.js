@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import {
   ThemeProvider,
@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Logo from "../assets/wrenchit.png";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import "../styles/Operator.css";
 
@@ -22,44 +22,83 @@ const Operator = () => {
   const [data, setData] = useState([]);
   const [uname, setUname] = useState("");
   const [pw, setPw] = useState("");
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:4000/api/operator/${garageId}`
-        );
-        const jsonData = await response.json();
-        setData(sortData(jsonData));
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/operator/${garageId}`
+      );
+      const jsonData = await response.json();
+      setData(sortData(jsonData));
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/api/operator/${id}`
+      );
+      fetchData();
+    } catch (error) {
+      console.error("Error Deleting data: ", error);
+    }
+  };
+  const handleClick = useCallback(async () => {
+    try {
+      const updatedData = {
+        garageId: garageId,
+        opId: uname,
+        pw: pw,
+      };
+
+      const response = await axios.post(
+        `http://localhost:4000/api/operator/`,
+        updatedData
+      );
+
+      console.log("Update successful:", response.data);
+      fetchData();
+    } catch (error) {
+      console.error("Error Adding Operator:", error);
+    }
+  }, [garageId, uname, pw]);
+
+  useEffect(() => {
     fetchData();
-  }, []);
+  }, [handleClick]); // Now handleClick can be safely included in the dependency array
 
   const lightTheme = createTheme({
     palette: {
-      mode: "light",
       primary: {
-        main: "#007bff", // Light blue primary color
+        main: "#007bff",
         contrastText: "#6e7278",
       },
       secondary: {
-        main: "#6699ff", // Lighter blue for accents
+        main: "#6699ff",
         contrastText: "#fff",
       },
       background: {
-        paper: "#fffffff", // Light gray background
+        paper: "#fffffff",
       },
       text: {
-        primary: "#333", // Darker text for contrast
-        secondary: "#666", // Slightly lighter text
+        primary: "#09BEB1",
+        secondary: "#09BEB1",
+      },
+    },
+    components: {
+      MuiTableCell: {
+        styleOverrides: {
+          root: {
+            borderBottomColor: "#e0e0e0",
+          },
+        },
       },
     },
   });
 
-  const sortData = (data = [], sortBy = "repairId", ascending = true) => {
+  const sortData = (data = [], sortBy = "garageId", ascending = true) => {
     return data.sort((a, b) => {
       const aValue = a[sortBy] ?? "";
       const bValue = b[sortBy] ?? "";
@@ -80,27 +119,19 @@ const Operator = () => {
     color: lightTheme.palette.primary.contrastText,
     textAlign: "center",
   };
-  const handleClick = async () => {
-    try {
-      const updatedData = {
-        garageId: garageId,
-        opId: uname,
-        pw: pw,
-      };
 
-      const response = await axios.post(
-        `http://localhost:4000/api/operator/`,
-        updatedData
-      );
-
-      console.log("Update successful:", response.data);
-    } catch (error) {
-      console.error("Error Adding Operator:", error);
-    }
-  };
   return (
     <div className="operator-container">
       <div className="operator-col-1">
+        <span></span>
+        <span className="operator-title">Access Control</span>
+        <p className="operator-text">
+          If you'd like to extend access to this application to others within
+          your company, particularly at your repair center, you have the option
+          to add them as operators. Once added, these individuals will be able
+          to log in to the system using the username and password you've created
+          for them.
+        </p>
         <Box
           component="form"
           sx={{
@@ -152,6 +183,7 @@ const Operator = () => {
                   </TableCell>
                   <TableCell sx={centeredCellStyle}>Password</TableCell>
                   <TableCell sx={centeredCellStyle}>Role</TableCell>
+                  <TableCell sx={centeredCellStyle}></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -168,8 +200,12 @@ const Operator = () => {
                     <TableCell sx={centeredCellStyleBody}>
                       {item.role}
                     </TableCell>
-
-                    <TableCell sx={{ ...centeredCellStyle }}></TableCell>
+                    <TableCell sx={centeredCellStyleBody}>
+                      <DeleteIcon
+                        color="error"
+                        onClick={() => handleDelete(item._id)}
+                      />
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -18,12 +18,11 @@ const createOperator = async (req, res) => {
   }
 };
 
-// Delete an operator by garage ID and operator ID
 const deleteOperator = async (req, res) => {
-  const { garageId, opId } = req.params;
+  const { itemId } = req.params;
 
   try {
-    const deletedOperator = await Operator.findOneAndDelete({ garageId, opId });
+    const deletedOperator = await Operator.findOneAndDelete({ _id: itemId });
 
     if (!deletedOperator) {
       return res.status(404).json({ message: "Operator not found" });
