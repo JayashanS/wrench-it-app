@@ -1,7 +1,5 @@
 .carousel {
   width: 100vw; 
-  margin: 0; /* Reset margin */
-  padding: 0;
 }
 
 .c-item {

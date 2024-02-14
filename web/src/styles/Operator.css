@@ -1,0 +1,18 @@
+.operator-container{
+    width: 84vw;
+    height: 77vh;
+    display: flex;
+    flex-direction: row;
+}
+.operator-col-1{
+    flex:2;
+    display: flex;
+    flex-direction: column;
+    
+}
+.operator-col-2{
+  flex:3;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
