@@ -1,10 +1,10 @@
 .login-container{
     width: 100vw; 
-    height:100%;    
+    height:100vh;    
     display: flex; 
     flex-direction: row;
     justify-content: center;
-    background-color: #EEF2F5 ;  
+    background-color: #0000007f ;  
 }
 
 .login-col{
