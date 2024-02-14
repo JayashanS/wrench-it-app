@@ -11,9 +11,11 @@ import {
   Paper,
   Button,
 } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import "../styles/Operator.css";
 
@@ -201,10 +203,12 @@ const Operator = () => {
                       {item.role}
                     </TableCell>
                     <TableCell sx={centeredCellStyleBody}>
-                      <DeleteIcon
-                        color="error"
-                        onClick={() => handleDelete(item._id)}
-                      />
+                      <IconButton aria-label="delete">
+                        <DeleteIcon
+                          color="error"
+                          onClick={() => handleDelete(item._id)}
+                        />
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 ))}

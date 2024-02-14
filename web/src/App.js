@@ -1,11 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+
+import Login from "./components/Login";
 
 //web imports
 import Home from "./pages/Home";
 import Carousel from "./components/Carousel";
 import Cards from "./components/Cards";
-import Signup from "./components/Login";
+import Signup from "./components/Signup";
 
 // dashboard imports
 import Dashboard from "./pages/Dashboard";
@@ -32,17 +39,33 @@ function DashboardLayout() {
   );
 }
 
+const isAuthenticated = () => {
+  // Implement your authentication logic here, e.g., check if the user has a valid token
+  // Return true if authenticated, false otherwise
+  return false; // For demonstration purposes, always return true
+};
+
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/*" element={<HomeLayout />}>
+        <Route path="/" element={<HomeLayout />}>
           <Route index element={<Carousel />} />
           <Route path="products" element={<Cards />} />
           <Route path="signup" element={<Signup />} />
         </Route>
+        <Route path="/login" element={<Login />} />
 
-        <Route path="dashboard/*" element={<DashboardLayout />}>
+        <Route
+          path="/dashboard/*"
+          element={
+            isAuthenticated() ? (
+              <DashboardLayout />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        >
           <Route index element={<Request />} />
           <Route path="req" element={<Request />} />
           <Route path="stat" element={<Repair />} />
