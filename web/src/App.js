@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 import Login from "./components/Login";
 
@@ -40,9 +41,15 @@ function DashboardLayout() {
 }
 
 const isAuthenticated = () => {
-  // Implement your authentication logic here, e.g., check if the user has a valid token
-  // Return true if authenticated, false otherwise
-  return false; // For demonstration purposes, always return true
+  const userData = JSON.parse(localStorage.getItem("user"));
+  if (userData && userData.email && userData.token) {
+    const decodedToken = jwtDecode(userData.token);
+    const currentTime = Date.now() / 1000;
+    if (decodedToken.exp && decodedToken.exp > currentTime) {
+      return true;
+    }
+  }
+  return false;
 };
 
 function App() {
