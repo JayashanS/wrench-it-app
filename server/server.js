@@ -13,6 +13,7 @@ const requestRoutes = require("./routes/request");
 const garageRoutes = require("./routes/garage");
 const partRoutes = require("./routes/part");
 const reservationRoutes = require("./routes/reservation");
+const operatorRoutes = require("./routes/operator");
 
 //const partRoutes = require('./routes/part')
 
@@ -34,6 +35,7 @@ app.use("/api/repair", repairRoutes);
 app.use("/api/garage", garageRoutes);
 app.use("/api/part", partRoutes);
 app.use("/api/reservation", reservationRoutes);
+app.use("/api/operator", operatorRoutes);
 
 // connecting to the database and start listning...
 mongoose
