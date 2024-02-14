@@ -38,3 +38,13 @@
   font-weight: 100;
 
 }
+/* Override default styles for carousel control buttons */
+button.carousel-control-prev,
+button.carousel-control-next {
+  color: rgba(0, 0, 0, 0.5) !important; /* Original dark transparent black color */
+}
+
+button.carousel-control-prev:hover,
+button.carousel-control-next:hover {
+  color: rgba(0, 0, 0, 0.7) !important; /* Darken the color on hover if needed */
+}
