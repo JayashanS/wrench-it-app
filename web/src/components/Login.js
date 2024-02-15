@@ -1,12 +1,11 @@
 import React from "react";
+import { useState } from "react";
+import { useLogin } from "../hooks/useLogin";
+import { Routes, Route, Navigate } from "react-router-dom"; // Import Routes and Navigate
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getContrastRatio } from "@mui/material/styles";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import Logo from "../assets/wrenchit.png";
 import "../styles/Login.css";
@@ -44,7 +43,22 @@ const theme = createTheme({
   },
 });
 
-export default function login() {
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [pw, setpw] = useState("");
+  const { login, error, isLoading } = useLogin();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      await login(email, pw);
+      console.error("going to dashboard");
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  };
+
   return (
     <div className="login-container">
       <div className="login-col">
@@ -66,6 +80,7 @@ export default function login() {
               label="Email"
               variant="outlined"
               type="email"
+              onChange={(e) => setEmail(e.target.value)}
               sx={{ width: "80%", marginLeft: "50px" }}
               size="small"
             />
@@ -74,15 +89,18 @@ export default function login() {
               label="Password"
               variant="outlined"
               type="password"
+              onChange={(e) => setpw(e.target.value)}
               sx={{ width: "80%", marginLeft: "50px" }}
               size="small"
             />
-
+            {error && <div className="login-error">{error}</div>}
             <br />
             <br />
             <Button
               variant="contained"
               style={{ color: "white", width: "80%", marginBottom: "15px" }}
+              onClick={handleLogin}
+              disabled={isLoading}
             >
               Login
             </Button>

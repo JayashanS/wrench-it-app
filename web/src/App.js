@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
 import { jwtDecode } from "jwt-decode";
 
 import Login from "./components/Login";
@@ -53,6 +54,7 @@ const isAuthenticated = () => {
 };
 
 function App() {
+  const { user } = useAuthContext();
   return (
     <Router>
       <Routes>
@@ -61,17 +63,14 @@ function App() {
           <Route path="products" element={<Cards />} />
           <Route path="signup" element={<Signup />} />
         </Route>
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={!user ? <Login /> : <Navigate to="/dashboard" />}
+        />
 
         <Route
-          path="/dashboard/*"
-          element={
-            isAuthenticated() ? (
-              <DashboardLayout />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
+          path="/dashboard"
+          element={user ? <Dashboard /> : <Navigate to="/login" />}
         >
           <Route index element={<Request />} />
           <Route path="req" element={<Request />} />

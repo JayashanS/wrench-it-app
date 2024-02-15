@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSignup } from "../hooks/useSignup";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -46,6 +47,7 @@ const theme = createTheme({
 });
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [bday, setBday] = useState("");
@@ -56,6 +58,7 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     await signup(fname, lname, bday, email, pw, cpw);
+    navigate("/dashboard");
   };
 
   return (
