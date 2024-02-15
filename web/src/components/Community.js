@@ -1,24 +1,25 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import "../styles/Community.css";
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useDrawingArea } from '@mui/x-charts/hooks';
 import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Snackbar from '@mui/material/Snackbar';
 
+import Alert from '@mui/material/Alert';
+
+
 const data = [
   { value: 5, label: 'Excellent' },
   { value: 10, label: 'Good' },
   { value: 15, label: 'Average' },
   { value: 20, label: 'Poor' },
+  
 ];
 
 const size = {
@@ -32,6 +33,8 @@ const StyledText = styled('text')(({ theme }) => ({
   dominantBaseline: 'central',
   fontSize: 15,
 }));
+
+
 
 function PieCenterLabel({ children }: { children: React.ReactNode }) {
   const { width, height, left, top } = useDrawingArea();
@@ -47,21 +50,71 @@ function message(contents) {
 </span></div>
 )
 }
-function posts(mess) {
-  return(<div className="posts">
-  <span >{mess}
-</span></div>
-)
-}
-
-// ... (imports)
 
 const Community = () => {
-  const [isLoading, setisLoading] = useState(false);
+const [isLoading, setisLoading] = useState(false);
+const [selectedImage, setSelectedImage] = useState(null);
+const [logoImage, setLogoImage] = useState(null);
+const [ad,setAd]=useState([]);
+const [companyName,setCompanyName]=useState('');
+const [snackbarOpen, setSnackbarOpen] = useState(false);
+const [snackbarMessage, setSnackbarMessage] = useState("");
+const initialImage = URL.createObjectURL(new File([""], "placeholder.jpg"));
+
+const handleSnackbarClose = () => {
+  setSnackbarOpen(false);
+};
+  
+
+const handleUpload = () => {
+  if (!companyName) {
+    alert("Please Fill company name");
+    return;
+  }
+
+  const data = {
+    name: companyName,
+    image: selectedImage,
+    logo: logoImage,
+  };
+  setAd([...ad, data]);
+
+  setCompanyName('');
+  setSelectedImage(initialImage);
+  setLogoImage(null);
+};
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+      
+    }
+  };
+
+  const handleLogoChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const logoUrl = URL.createObjectURL(file);
+      setLogoImage(logoUrl);
+      
+      // Add the following code to display the selected image in logo-label
+      const logoLabel = document.querySelector('.logo-label');
+      logoLabel.innerHTML = `<img src="${logoUrl}" alt="Logo" class="selected-image" />`;
+    }
+  };
+  
+  useEffect(() => {
+    const initialImage = URL.createObjectURL(new File([""], "placeholder.jpg"));
+    setSelectedImage(initialImage);
+  }, []);
 
   return (
     <div className="community-container">
-      <h6>Community</h6>
+        <div className="bar">
+          <h6>Community</h6>
+        </div>
       <div className="div-container">
         <div className="left">
           <div className="userRatings">
@@ -70,40 +123,43 @@ const Community = () => {
             </PieChart>
           </div>
           <div className="feedbacks">
-            <h6>Feedbacks</h6>
+            <div className="inbar"><h6>Feedbacks</h6></div>
             <div className="scrollable-container">
               <div className="content">
                 {message(`
-                  Sure, here's an essay on the environment:
-                  Title: The Fragile Harmony of Our Environment
-                  Introduction:
-                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
-                  // Rest of the essay
-                  Sure, here's an essay on the environment:
-                  Title: The Fragile Harmony of Our Environment
-                  Introduction:
-                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
+                 ⭐️⭐️⭐️⭐️
+                 "The app provides a seamless user experience, but I noticed that the onboarding process could be more user-friendly. Consider adding interactive tutorials or tooltips to guide new users through key features."
+                 - UXObserver
+                 
                   
                   
                 `)}
                 {message(`
-                  Sure, here's an essay on the environment:
-                  Title: The Fragile Harmony of Our Environment
-                  Introduction:
+                  ⭐️⭐️⭐️⭐️⭐️
+                  "I love this app! The user interface is intuitive, and it has become an essential tool in my daily routine. The features are fantastic, and I appreciate the regular updates that enhance the overall experience. Highly recommended!"
+                  - HappyUser123
                   
-                  Introduction:
-                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
-                  // Rest of the essay
                  
                 `)}
                 {message(`
-                  Sure, here's an essay on the environment:
-                  Title: The Fragile Harmony of Our Environment
-                  Introduction:
-                  
-                  Introduction:
-                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
-                  // Rest of the essay
+                 ⭐️⭐️⭐️
+                 "Great potential, but there's room for improvement. The app occasionally lags, especially when navigating between sections. Also, it would be great to see more customization options. Looking forward to future updates!"
+                 - TechEnthusiast456
+                 
+                `)}
+                 {message(`
+                 
+                 ⭐️⭐️⭐️⭐️
+                  "Love the app, but it would be awesome to have a dark mode option for nighttime use. Please consider adding this feature in the next update! Keep up the good work!"
+                  - NightOwlUser789
+
+                 
+                `)}
+                 {message(`
+                 ⭐️⭐️⭐️⭐️⭐️
+                 "I faced a technical issue, but the support team was incredibly responsive and helped me resolve it promptly. Excellent customer service! The app is now working smoothly. Thank you!"
+                 - GratefulUser101
+                 
                  
                 `)}
                 
@@ -113,83 +169,102 @@ const Community = () => {
           </div>
         </div>
         <div className="right">
-          <h6>Community</h6>
+          <div className="inbar"><h6>Offers</h6></div>
 
-          <div className="post1">
-            <div className="accordion-container">
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2-content"
-                  id="panel2-header">
-                  <Typography>Post Here...</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Box
-                    component="form"
-                    sx={{
-                      '& > :not(style)': { m: 1, width: '100%' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                  >
-                    <TextField id="outlined-basic" label="Title" variant="outlined" size="small" />
-                    <TextField
-                      id="outlined-multiline-flexible"
-                      label="Description"
-                      multiline
-                      maxRows={8}
-                      fullWidth
-                    />
-                  </Box>
-                  <Stack spacing={2} direction="row" sx={{ marginLeft: "9px", marginTop: "9px" }}>
-                    <Button variant="contained" disabled={isLoading} >Add Post</Button></Stack>
-                </AccordionDetails>
-                  </Accordion>
-            </div>
-
-            <div className="scrollable-post">
+          
+          <div className="post-container">
+          <div className="post-buttons">
+            <label className="file-label">
+              Post
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="file-input"
+              />
+            </label>
+            <button className="upload-button" onClick={handleUpload}>
+              Upload
+            </button>
+          </div>
+          <div className="comes">
+            {selectedImage && (
+              <div className="selected-image-box" >
+                
+                <img
+                  src={selectedImage}
+                  alt="Upload an image by clicking post"
+                  className="selected-image"
+                />
+                
               
-                {posts(`
-                  Sure, here's an essay on the environment:
-                  Title: The Fragile Harmony of Our Environment
-                  Introduction:
-                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
-                  // Rest of the essay
-                  // (Repeat the content as needed)
-                  Sure, here's an essay on the environment:
-                  Title: The Fragile Harmony of Our Environment
-                  Introduction:
-                  
-                `)}
-                {posts(`
-                  Sure, here's an essay on the environment:
-                  Title: The Fragile Harmony of Our Environment
-                  Introduction:
-                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
-                  // Rest of the essay
-                  // (Repeat the content as needed)
-                  Sure, here's an essay on the environment:
-                  Title: The Fragile Harmony of Our Environment
-                  Introduction:
-                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
-                  
-                 
-                `)}
-                {message(`
-                  Sure, here's an essay on the environment:
-                  Title: The Fragile Harmony of Our Environment
-                  Introduction:
-                  
-                  Introduction:
-                  The environment, our intricate web of ecosystems, provides the very foundation of life on Earth...
-                  // Rest of the essay
-                 
-                `)}
-              
-            </div>
+              </div>
+            )}
+              <div className="Details">
+                <TextField
+                required={true}
+                label="Company Name"
+                variant="outlined"
+                size="small"
+                fullWidth
+                margin="normal"
+                className="TextFieldStyles" 
+                value={companyName}
+                onChange={(e)=>setCompanyName(e.target.value)}
+                />
+              <div className="RoundShape">
+              <label className="logo-label" >
+              Upload
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleLogoChange}
+                className="file-input"
+              />
+            </label>
+              </div>
+              </div>
           </div>
         </div>
+        <div className="offersInbar"><h6>Offers</h6></div>
+        
+          <div className="scrollable-post">
+            
+            {console.log(ad)}
+              
+               <div className="Offer">
+                {
+                
+                ad.length>0?
+                ad.map((item,index)=>(
+                  <div key={index} className="OfferDisplay">
+                    <div className="CompanyDetails">
+                      <div className="ItemName">{item.name}</div>
+                      <div className="logoImg">
+                        
+                        <img
+                      src={item.logo}
+                      alt="Upload an image by clicking post"
+                      className="logoRound"
+                    />
+
+                      </div>
+                    </div>
+                    <div className="itemImage">
+                      <img
+                      src={item.image}
+                      alt="Upload an image by clicking post"
+                      className="selected-image"
+                    />
+                    </div>
+                  </div>
+                ))
+                :null}
+               </div>
+               
+            </div>
+          </div>
+        
       </div>
     </div>
   );

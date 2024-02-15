@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Dimensions,Image } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions, } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Members from './Members';
 import Offers from './Offers';
