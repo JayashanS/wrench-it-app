@@ -1,16 +1,12 @@
-import React,{useState,useEffect} from "react";
-import "../styles/Community.css";
+import React, { useState, useEffect } from "react";
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useDrawingArea } from '@mui/x-charts/hooks';
 import { styled } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Snackbar from '@mui/material/Snackbar';
-
+import Alert from '@mui/material/Alert';
+import "../styles/Community.css";
 
 const data = [
   { value: 5, label: 'Excellent' },
@@ -39,32 +35,52 @@ function PieCenterLabel({ children }: { children: React.ReactNode }) {
     </StyledText>
   );
 }
+
 function message(contents) {
-  return(<div className="message">
-  <span >{contents}
-</span></div>
-)
+  return (
+    <div className="message">
+      <span>{contents}</span>
+    </div>
+  );
 }
+
 function posts(mess) {
-  return(<div className="posts">
-  <span >{mess}
-</span></div>
-)
+  return (
+    <div className="posts">
+      <span>{mess}</span>
+    </div>
+  );
 }
-
-
 
 const Community = () => {
-  const [isLoading, setisLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  
+  const [logoImage, setLogoImage] = useState(null);
+  const [ad, setAd] = useState([]);
+  const [companyName, setCompanyName] = useState('');
+  const initialImage = URL.createObjectURL(new File([""], "placeholder.jpg"));
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
-  
-  
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   const handleUpload = () => {
+    if (!companyName) {
+      alert("Please Fill company name");
+      return;
+    }
 
-    console.log("Upload button clicked. ");
+    const data = {
+      name: companyName,
+      image: selectedImage,
+      logo: logoImage,
+    };
+    setAd([...ad, data]);
+
+    setCompanyName('');
+    setSelectedImage(initialImage);
+    setLogoImage(null);
   };
 
   const handleImageChange = (event) => {
@@ -72,19 +88,30 @@ const Community = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
-      
     }
   };
-  
-  
+
+  const handleLogoChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const logoUrl = URL.createObjectURL(file);
+      setLogoImage(logoUrl);
+
+      // Add the following code to display the selected image in logo-label
+      const logoLabel = document.querySelector('.logo-label');
+      logoLabel.innerHTML = `<img src="${logoUrl}" alt="Logo" class="selected-image" />`;
+    }
+  };
+
   useEffect(() => {
-    const initialImage = URL.createObjectURL(new File([""], "placeholder.jpg"));
     setSelectedImage(initialImage);
   }, []);
 
   return (
     <div className="community-container">
-      <h6>Community</h6>
+      <div className="bar">
+        <h6>Community</h6>
+      </div>
       <div className="div-container">
         <div className="left">
           <div className="userRatings">
@@ -93,127 +120,129 @@ const Community = () => {
             </PieChart>
           </div>
           <div className="feedbacks">
-            <h6>Feedbacks</h6>
+            <div className="inbar"><h6>Feedbacks</h6></div>
             <div className="scrollable-container">
               <div className="content">
                 {message(`
                  ⭐️⭐️⭐️⭐️
                  "The app provides a seamless user experience, but I noticed that the onboarding process could be more user-friendly. Consider adding interactive tutorials or tooltips to guide new users through key features."
                  - UXObserver
-                 
-                  
-                  
                 `)}
                 {message(`
                   ⭐️⭐️⭐️⭐️⭐️
                   "I love this app! The user interface is intuitive, and it has become an essential tool in my daily routine. The features are fantastic, and I appreciate the regular updates that enhance the overall experience. Highly recommended!"
                   - HappyUser123
-                  
-                 
                 `)}
                 {message(`
                  ⭐️⭐️⭐️
                  "Great potential, but there's room for improvement. The app occasionally lags, especially when navigating between sections. Also, it would be great to see more customization options. Looking forward to future updates!"
                  - TechEnthusiast456
-                 
                 `)}
-                 {message(`
-                 
+                {message(`
                  ⭐️⭐️⭐️⭐️
                   "Love the app, but it would be awesome to have a dark mode option for nighttime use. Please consider adding this feature in the next update! Keep up the good work!"
                   - NightOwlUser789
-
-                 
                 `)}
-                 {message(`
+                {message(`
                  ⭐️⭐️⭐️⭐️⭐️
                  "I faced a technical issue, but the support team was incredibly responsive and helped me resolve it promptly. Excellent customer service! The app is now working smoothly. Thank you!"
                  - GratefulUser101
-                 
-                 
                 `)}
-                
-                
               </div>
             </div>
           </div>
         </div>
         <div className="right">
+          <div className="inbar"><h6>Offers</h6></div>
           <h6>Offers</h6>
-
-          
           <div className="post-container">
-          <div className="post-buttons">
-            <label className="file-label">
-              Post
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="file-input"
-              />
-            </label>
-            <button className="upload-button" onClick={handleUpload}>
-              Upload
-            </button>
-          </div>
-          <div className="comes">
-            {selectedImage && (
-              <div className="selected-image-box" >
-                
-                <img
-                  src={selectedImage}
-                  alt="Upload an image by clicking post"
-                  className="selected-image"
+            <div className="post-buttons">
+              <label className="file-label">
+                Post
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="file-input"
                 />
-                
-              
-              </div>
-            )}
+              </label>
+              <button className="upload-button" onClick={handleUpload}>
+                Upload
+              </button>
+            </div>
+            <div className="comes">
+              {selectedImage && (
+                <div className="selected-image-box" >
+                  <img
+                    src={selectedImage}
+                    alt="Upload an image by clicking post"
+                    className="selected-image"
+                  />
+                </div>
+              )}
               <div className="Details">
                 <TextField
-                label="Company Name"
-                variant="outlined"
-                size="small"
-                fullWidth
-                margin="normal"
-               className="TextFieldStyles" 
+                  required={true}
+                  label="Company Name"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  margin="normal"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
                 />
-              <div className="RoundShape">
-                <button className="RoundButton" >
-                  Upload Logo
-                </button>
+                <div className="RoundShape">
+                  <label className="logo-label" >
+                    Upload
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleLogoChange}
+                      className="file-input"
+                    />
+                  </label>
+                </div>
               </div>
-              </div>
-          </div>
-        </div>
-          <div className="scrollable-post">
-              
-                {posts(`
-                 Offer 1 will shown in mobile app
-                  
-                `)}
-                {posts(`
-                   Offer 2 will shown in mobile app
-                 
-                `)}
-              {posts(`
-                   Offer 3 will shown in mobile app
-                 
-                `)}
-                {posts(`
-                   Offer 4 will shown in mobile app
-                 
-                `)}
-                {posts(`
-                   Offer 5 will shown in mobile app
-                 
-                `)}
-              
             </div>
           </div>
-        
+          <div className="offersInbar"><h6>Offers</h6></div>
+          <div className="scrollable-post">
+            {ad.length > 0 ?
+              ad.map((item, index) => (
+                <div key={index} className="OfferDisplay">
+                  <div className="CompanyDetails">
+                    <div className="ItemName">{item.name}</div>
+                    <div className="logoImg">
+                      <img
+                        src={item.logo}
+                        alt="Upload an image by clicking post"
+                        className="logoRound"
+                      />
+                    </div>
+                  </div>
+                  <div className="itemImage">
+                    <img
+                      src={item.image}
+                      alt="Upload an image by clicking post"
+                      className="selected-image"
+                    />
+                  </div>
+                </div>
+              ))
+              : null}
+          </div>
+        </div>
       </div>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleSnackbarClose} severity="success">
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
