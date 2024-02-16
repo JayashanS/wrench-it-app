@@ -65,4 +65,7 @@
   .login-error{
     font-size:14px;
     color:rgb(255, 0, 115);
+    width: 80%;
+    margin-left: 50px;
+    font-weight: 500;
   }

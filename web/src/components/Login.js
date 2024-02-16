@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
-import { Routes, Route, Navigate } from "react-router-dom"; // Import Routes and Navigate
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -94,8 +93,7 @@ export default function Login() {
               size="small"
             />
             {error && <div className="login-error">{error}</div>}
-            <br />
-            <br />
+
             <Button
               variant="contained"
               style={{ color: "white", width: "80%", marginBottom: "15px" }}
