@@ -5,6 +5,8 @@ import { Menu, MenuItem } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Chip from "@mui/material/Chip";
+import Tooltip from "@mui/material/Tooltip";
+
 import Logo from "../assets/wrenchit.png";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -65,8 +67,33 @@ function Titlebar() {
             marginRight: "10px",
           }}
         >
-          <Chip label="Chip Filled" />
-          <Chip label="Chip Filled" />
+          <Stack
+            direction="row"
+            spacing={0.2}
+            sx={{
+              marginLeft: "auto",
+              marginRight: "10px",
+            }}
+          >
+            <Tooltip title="Company Name">
+              <Chip label="Revive Auto Solutions" />
+            </Tooltip>
+            <Tooltip title="Associated With">
+              <IconButton aria-label="menu" sx={{ width: 30, height: 30 }}>
+                <LinkIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="User Name">
+              <Chip
+                avatar={
+                  <Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />
+                }
+                label="John Doe"
+                variant="outlined"
+              />
+            </Tooltip>
+          </Stack>
+
           <Avatar
             alt="Remy Sharp"
             src="/static/images/avatar/1.jpg"
