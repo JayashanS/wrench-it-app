@@ -15,10 +15,12 @@ import LinkIcon from "@mui/icons-material/Link";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import VolumeMuteIcon from "@mui/icons-material/VolumeMute";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 import "../styles/Titlebar.css";
-import Sound from "../assets/sound2.mp3";
+import Sound from "../assets/sound.wav";
 
 function Titlebar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -38,6 +40,11 @@ function Titlebar() {
   };
   const handleChip = () => {
     console.log("Clicked");
+  };
+  const handleLinkClick = () => {
+    const audio = audioRef.current;
+    setIsPlaying(false);
+    audio.pause();
   };
   const handleSoundToggle = () => {
     const audio = audioRef.current;
@@ -80,15 +87,22 @@ function Titlebar() {
         <span style={{ color: "#22A1CB", fontSize: "13px" }}>Dashboard</span>
 
         {isPlaying ? (
-          <div className="titlebar-call-container">
-            <div class="left-circle"></div>
+          <Link
+            to="/dashboard/req"
+            style={{ display: "flex", alignItems: "center" }}
+            className="titlebar-call-container"
+            onClick={handleLinkClick}
+          >
+            <div className="left-circle">
+              <AddIcCallIcon sx={{ color: "#fff" }} />
+            </div>
             <div class="arrow-icons">
               <span class="arrow-text">Incomming</span>
               <span class="arrow-icon">
                 <KeyboardDoubleArrowRightIcon />
               </span>
             </div>
-          </div>
+          </Link>
         ) : (
           <div></div>
         )}

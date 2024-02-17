@@ -125,14 +125,12 @@
   }
   
   .left-circle {
-    width: 20px;
-    height: 20px;
-    background-color: white;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
     position: absolute;
+    top: 4px;
     left: 5px;
-    top: 50%;
-    transform: translateY(-50%);
   }
   
   .arrow-icons {
