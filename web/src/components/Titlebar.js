@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import { Menu, MenuItem } from "@mui/material";
@@ -13,11 +13,18 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MenuIcon from "@mui/icons-material/Menu";
 import LinkIcon from "@mui/icons-material/Link";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import VolumeMuteIcon from "@mui/icons-material/VolumeMute";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+
 import "../styles/Titlebar.css";
+import Sound from "../assets/sound2.mp3";
 
 function Titlebar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audio] = useState(new Audio(Sound));
+  const audioRef = useRef(new Audio(Sound));
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,7 +38,18 @@ function Titlebar() {
   const handleChip = () => {
     console.log("Clicked");
   };
-
+  const handleSoundToggle = () => {
+    const audio = audioRef.current;
+    if (audio.paused) {
+      audio.loop = true;
+      audio.play();
+      setIsPlaying(true);
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+      setIsPlaying(false);
+    }
+  };
   return (
     <div>
       <div className="nav">
@@ -68,6 +86,17 @@ function Titlebar() {
             marginRight: "10px",
           }}
         >
+          <IconButton
+            aria-label="menu"
+            sx={{ width: 30, height: 30 }}
+            onClick={handleSoundToggle}
+          >
+            {isPlaying ? (
+              <VolumeUpIcon fontSize="small" style={{ color: "#09BEB1" }} />
+            ) : (
+              <VolumeMuteIcon fontSize="small" />
+            )}
+          </IconButton>
           <Stack
             direction="row"
             spacing={0.2}
