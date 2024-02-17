@@ -15,6 +15,7 @@ import LinkIcon from "@mui/icons-material/Link";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import VolumeMuteIcon from "@mui/icons-material/VolumeMute";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 import "../styles/Titlebar.css";
 import Sound from "../assets/sound2.mp3";
@@ -78,6 +79,19 @@ function Titlebar() {
         </Link>
         <span style={{ color: "#22A1CB", fontSize: "13px" }}>Dashboard</span>
 
+        {isPlaying ? (
+          <div className="titlebar-call-container">
+            <div class="left-circle"></div>
+            <div class="arrow-icons">
+              <span class="arrow-text">Incomming</span>
+              <span class="arrow-icon">
+                <KeyboardDoubleArrowRightIcon />
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div></div>
+        )}
         <Stack
           direction="row"
           spacing={2}
