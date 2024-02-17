@@ -12,6 +12,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MenuIcon from "@mui/icons-material/Menu";
 import LinkIcon from "@mui/icons-material/Link";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import "../styles/Titlebar.css";
 
 function Titlebar() {
@@ -94,11 +95,11 @@ function Titlebar() {
             </Tooltip>
           </Stack>
 
-          <Avatar
-            alt="Remy Sharp"
-            src="/static/images/avatar/1.jpg"
-            sx={{ width: 30, height: 30 }}
-          />
+          <Tooltip title="Owner">
+            <IconButton aria-label="menu" sx={{ width: 30, height: 30 }}>
+              <AdminPanelSettingsIcon />
+            </IconButton>
+          </Tooltip>
           <Avatar
             alt="Travis Howard"
             src="/static/images/avatar/2.jpg"
