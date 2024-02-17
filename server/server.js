@@ -4,6 +4,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
+const fileUpload = require("express-fileupload");
+const path = require("path");
 
 const userRoutes = require("./routes/user");
 const ownerRoutes = require("./routes/owner");
@@ -14,6 +16,7 @@ const garageRoutes = require("./routes/garage");
 const partRoutes = require("./routes/part");
 const reservationRoutes = require("./routes/reservation");
 const operatorRoutes = require("./routes/operator");
+const photoRoutes = require("./routes/photo");
 
 //const partRoutes = require('./routes/part')
 
@@ -25,6 +28,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(fileUpload());
 
 // routes
 app.use("/api/user", userRoutes);
@@ -36,6 +40,7 @@ app.use("/api/garage", garageRoutes);
 app.use("/api/part", partRoutes);
 app.use("/api/reservation", reservationRoutes);
 app.use("/api/operator", operatorRoutes);
+app.use("/api/photo", photoRoutes);
 
 // connecting to the database and start listning...
 mongoose

@@ -72,11 +72,13 @@
   .menu-container {
     position: relative;
     display: inline-block;
-    margin-right: 20px;
+    margin-right: 0px;
+    right:0;
   }
   
   .menu-button {
     cursor: pointer;
+    
   }
   
   .accordion-content {

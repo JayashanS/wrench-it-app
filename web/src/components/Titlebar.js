@@ -1,20 +1,32 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Accordion, Card } from "react-bootstrap";
-import "../styles/Titlebar.css";
-
-// icons and logos
+import Stack from "@mui/material/Stack";
+import { Menu, MenuItem } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import Chip from "@mui/material/Chip";
 import Logo from "../assets/wrenchit.png";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import MenuIcon from "@mui/icons-material/Menu";
 import LinkIcon from "@mui/icons-material/Link";
+import "../styles/Titlebar.css";
 
 function Titlebar() {
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [isClicked, setIsClicked] = useState(false);
 
-  const toggleAccordion = () => {
-    setIsAccordionOpen(!isAccordionOpen);
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+    setIsClicked(true);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setIsClicked(false);
+  };
+  const handleChip = () => {
+    console.log("Clicked");
   };
 
   return (
@@ -44,47 +56,56 @@ function Titlebar() {
           />
         </Link>
         <span style={{ color: "#22A1CB", fontSize: "13px" }}>Dashboard</span>
-        <span
-          style={{
-            color: "#22A1CB",
-            fontSize: "13px",
-            backgroundColor: "rgba(103, 190, 219, 0.35)",
-            borderRadius: "2px",
-            paddingLeft: "10px",
-            paddingRight: "10px",
-            paddingTop: "5px",
-            paddingBottom: "5px",
-            marginLeft: "59%",
+
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            marginLeft: "auto",
+            marginRight: "10px",
           }}
         >
-          #Company Name
-        </span>
-        <Link style={{ display: "flex", alignItems: "center" }}>
-          <LinkIcon
+          <Chip label="Chip Filled" />
+          <Chip label="Chip Filled" />
+          <Avatar
+            alt="Remy Sharp"
+            src="/static/images/avatar/1.jpg"
+            sx={{ width: 30, height: 30 }}
+          />
+          <Avatar
+            alt="Travis Howard"
+            src="/static/images/avatar/2.jpg"
+            sx={{ width: 30, height: 30 }}
+          />
+          <Avatar
+            alt="Cindy Baker"
+            src="/static/images/avatar/3.jpg"
+            sx={{ width: 30, height: 30 }}
+          />
+          <IconButton
+            aria-label="menu"
+            onClick={handleMenuOpen}
             style={{
-              color: "#868e96",
-              marginRight: "2px",
-              marginLeft: "2px",
-              fontSize: 20,
+              marginLeft: "20px",
+              marginRight: "10px",
+              backgroundColor: isClicked ? "#09beb26a" : "transparent",
             }}
-          />
-        </Link>
-        <span style={{ color: "#22A1CB", fontSize: "13px" }}>John Doe</span>
-        <Link onClick={toggleAccordion} className="menu-button">
-          <MenuIcon
-            style={{ color: "#868e96", marginLeft: "120px", fontSize: 20 }}
-          />
-        </Link>
+            sx={{ width: 30, height: 30 }}
+          >
+            <MenuIcon fontSize="small" />
+          </IconButton>
+        </Stack>
+
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={handleMenuClose}>Item 1</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Item 2</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Item 3</MenuItem>
+        </Menu>
       </div>
-      {isAccordionOpen && (
-        <div className="accordion-content">
-          <Card className="accordion-card">
-            <Card.Body>
-              <Accordion defaultActiveKey="0">{/* ... */}</Accordion>
-            </Card.Body>
-          </Card>
-        </div>
-      )}
     </div>
   );
 }

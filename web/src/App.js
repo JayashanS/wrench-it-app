@@ -22,6 +22,7 @@ import Repair from "./components/Repair";
 import Request from "./components/Request";
 import Reservations from "./components/Reservations";
 import Location from "./components/Directions";
+import Photo from "./components/Photo";
 import Help from "./components/Help";
 import Community from "./components/Community";
 import Settings from "./components/Settings";
@@ -70,7 +71,7 @@ function App() {
 
         <Route
           path="/dashboard"
-          element={user ? <Dashboard /> : <Navigate to="/login" />}
+          element={user ? <DashboardLayout /> : <Navigate to="/login" />}
         >
           <Route index element={<Request />} />
           <Route path="req" element={<Request />} />
@@ -79,6 +80,7 @@ function App() {
           <Route path="help" element={<Help />} />
           <Route path="com" element={<Community />} />
           <Route path="set" element={<Settings />} />
+          <Route path="photo" element={<Photo />} />
         </Route>
       </Routes>
     </Router>
