@@ -1,0 +1,14 @@
+.overview-container{
+    width: 87%;
+    height: 80vh;
+    margin-left :200px;
+    margin-right :20px;
+    margin-top: 70px;
+}
+.overview-tabs-title{
+    background-color: white;
+    color: aqua;
+}
+.overview-tabs{
+    background-color: white;
+}

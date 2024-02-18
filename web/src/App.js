@@ -18,6 +18,7 @@ import Signup from "./components/Signup";
 
 // dashboard imports
 import Dashboard from "./pages/Dashboard";
+import Overview from "./components/Overview";
 import Repair from "./components/Repair";
 import Request from "./components/Request";
 import Reservations from "./components/Reservations";
@@ -73,7 +74,8 @@ function App() {
           path="/dashboard"
           element={user ? <DashboardLayout /> : <Navigate to="/login" />}
         >
-          <Route index element={<Request />} />
+          <Route index element={<Overview />} />
+          <Route path="view" index element={<Overview />} />
           <Route path="req" element={<Request />} />
           <Route path="stat" element={<Repair />} />
           <Route path="res" element={<Reservations />} />
