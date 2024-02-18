@@ -13,7 +13,7 @@ const Map = () => {
   const [clickedLongitude, setClickedLongitude] = useState(null);
   const [clickedLatitude, setClickedLatitude] = useState(null);
 
-  const [garageId, setGarageId] = useState("garage123");
+  const [garageId, setGarageId] = useState(localStorage.getItem("garageId"));
 
   const fetchData = async () => {
     try {

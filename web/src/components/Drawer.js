@@ -37,6 +37,19 @@ function Drawer() {
     };
   }, []);
 
+  useEffect(() => {
+    const createGarageId = () => {
+      const userString = localStorage.getItem("user");
+      if (userString) {
+        const userObject = JSON.parse(userString);
+        const email = userObject.email;
+        const garageId = `G_${email.replace("@", "_").replace(".", "_")}`;
+        localStorage.setItem("garageId", garageId);
+      }
+    };
+    createGarageId();
+  }, []);
+
   return (
     <div className="drawer">
       <div

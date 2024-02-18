@@ -15,7 +15,7 @@ import "../styles/Info.css";
 
 const Info = ({ onSaveGarageIdToSuperComponent }) => {
   const [userId, setUserId] = useState("1234");
-  const [garageId, setGarageId] = useState("garage123");
+  const [garageId, setGarageId] = useState(localStorage.getItem("garageId"));
   const [oname, setoname] = useState("");
   const [nic, setnic] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
