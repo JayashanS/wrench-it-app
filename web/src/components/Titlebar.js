@@ -16,7 +16,7 @@ import LinkIcon from "@mui/icons-material/Link";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import VolumeMuteIcon from "@mui/icons-material/VolumeMute";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
@@ -133,7 +133,7 @@ function Titlebar() {
         )}
         <Stack
           direction="row"
-          spacing={2}
+          spacing={1}
           sx={{
             marginLeft: "auto",
             marginRight: "10px",
@@ -178,20 +178,23 @@ function Titlebar() {
           </Stack>
 
           <Tooltip title="Owner">
-            <IconButton aria-label="menu" sx={{ width: 30, height: 30 }}>
+            <IconButton
+              aria-label="menu"
+              sx={{ width: 30, height: 30, color: "#951cc9" }}
+            >
               <AdminPanelSettingsIcon />
             </IconButton>
           </Tooltip>
-          <Avatar
-            alt="Travis Howard"
-            src="/static/images/avatar/2.jpg"
-            sx={{ width: 30, height: 30 }}
-          />
-          <Avatar
-            alt="Cindy Baker"
-            src="/static/images/avatar/3.jpg"
-            sx={{ width: 30, height: 30 }}
-          />
+          <Tooltip title="Operator">
+            <IconButton
+              aria-label="menu"
+              sx={{ width: 30, height: 30, color: "#951cc9" }}
+              disabled="true"
+            >
+              <ManageAccountsIcon />
+            </IconButton>
+          </Tooltip>
+
           <IconButton
             aria-label="menu"
             onClick={handleMenuOpen}
