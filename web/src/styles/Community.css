@@ -1,7 +1,7 @@
 .community-container {
   width: 87%;
-  height: 100vh;
-  margin-left:200px;
+  height: 130vh;
+  margin-left: 165px;
   margin-right: 200px;
   margin-top: 60px;
   background-color: #f0f0f0; 
@@ -12,7 +12,14 @@
 
 h6 {
   margin-bottom: 10px;
-  border-bottom: 1px solid#f0f0f0;
+  background: linear-gradient(to right, #0c3c59, #1ca4b5);
+  height: 20px;
+  color: rgb(85, 215, 195);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
+}
+.inbar{
+  margin-top: 5px;
 }
 
 .div-container {
@@ -22,7 +29,7 @@ h6 {
 .left {
   float: left;
   width: 42%;
-  height:92vh;
+  height:121vh;
   background-color: #b5bdc1; 
   padding: 10px; 
   margin-right: 10px; 
@@ -53,12 +60,12 @@ h6 {
   background-color: #b5bdc1; 
   padding: 10px; 
   border-radius: 5px;
-  height:92vh;
+  height:121vh;
   
 }
 .scrollable-container {
   width:100%; 
-  height: 90%;
+  height: 92%;
   overflow: auto; 
   border: none; 
 }
@@ -85,9 +92,9 @@ h6 {
 
 .post-container {
   position: relative;
+  
 }
-.file-label,
-.upload-button {
+.file-label {
   display: inline-block;
   cursor: pointer;
   padding: 7px;
@@ -96,19 +103,48 @@ h6 {
   font-size: medium;
   transition: background-color 0.5s;
 }
+.upload-button {
+  display: inline-block;
+  cursor: pointer;
+  padding: 7px;
+  border-radius: 7px;
+  margin-right: 2px;
+  font-size: medium;
+  transition: background-color 0.5s;
+  
+}
 .file-label {
   background-color: transparent; 
   color: white;
   border: white solid 1px;
   text-align: center;
-  width: 40%;
+  width:12%;
+  height: 80%;
+  margin-top: 20px;
 }
 .upload-button {
   background-color: transparent; 
   color: white;
   border: white  solid 1px;
   text-align: center;
-  width: 45%;
+  width: 50%;
+  height: 20%;
+  margin-top: 10px;
+  margin-left: 46%;
+
+}
+
+.reset-button{
+  background-color: transparent;
+  border: 1px solid white;
+  width: 50%;
+  margin-left: 46%;
+  margin-top: 10px;
+  border-radius: 7px;
+  text-align: center;
+}
+.reset-button:hover{
+background-color: #1e282a;
 }
 .file-label:hover,
 .upload-button:hover {
@@ -118,15 +154,25 @@ h6 {
   
 .post-buttons {
   display: flex;
-  justify-content: space-between;
-  width:26%;
+  padding: 5px;
+  width:100%;
   margin-bottom: 10px;
+ 
+}
+
+.Sdate,
+.Edate{
   
+  width: 30%;
+  border: 1px solid black;
 }
-.com-h2{
-  text-align:center;
-  padding: 50px;
+.Sdate{
+  margin-left: 15px;
 }
+.Edate{
+  margin-left: 20px;
+}
+
 
 .file-input {
   display: none;
@@ -138,8 +184,9 @@ h6 {
   object-fit: contain; 
 }
 .comes {
+  margin-right: -7px;
   display: flex;
-  gap:10px;
+  gap:5px;
 }
 
 .selected-image-box {
@@ -151,6 +198,7 @@ h6 {
   border-radius: 5px;
 }
 .Details {
+  
   width: 38%;
   margin-top: 5px;
   background-color: #b5bdc1;
@@ -160,12 +208,19 @@ h6 {
   border: solid white 1px;
   text-align: center; 
 }
+.TextFieldStyles {
+  
+  font-size: 16px;
+  color: white; 
+  border-radius: 5px; 
+  background-color: transparent;
+}
 .RoundShape {
-  width: 70%; 
-  height: 70%; 
+  width: 70%;
+  height: 70%;
   background-color: transparent;
   border-radius: 50%;
-  display: flex;
+  
   align-items: center;
   justify-content: center;
   border: 1px solid white;
@@ -173,44 +228,139 @@ h6 {
   margin: auto;
   cursor: pointer;
   margin-top: 5px;
+  transition: background-color 0.75s; 
 }
-.RoundShape button {
-  width: 100%; 
-  height: 100%; 
-  background-color: transparent;
-  border: none;
-  outline: none;
+.logo-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  padding: 5px 10px;
-  font-size: 14px;
-  text-align: center;
+  padding: 7px;
+  border-radius: 7px;
+  margin-right: 2px;
+  font-size: medium;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   transition: background-color 0.5s;
-  
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden; 
 }
 
-.RoundShape button:hover{
-  background-color: black;
+.logo-label img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.RoundShape:hover {
+background-color: black;
 }
 
 .Details .TextFieldStyles {
   margin-top: 5px;
 }
-.TextFieldStyles {
-
-font-size: 16px;
-color: white; 
-border-radius: 5px; 
-background-color: transparent;
-}
-
 
 .scrollable-post {
   width:100%; 
   overflow: auto; 
-  max-height:32vh;
-  margin-top: 10px; 
+  max-height:53vh;
+  margin-top: 5px; 
   border:none;
 }
+
+.OfferDisplay {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 52vh;
+  overflow: hidden;
+  margin-bottom: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  
+}
+.logoAndName{
+  border: 1px solid white;
+  display : flex;
+  width: 100%;
+  margin : 5px;
+  margin-bottom: 0;
+  height: 35%;
+}
+
+.CompanyDetails {
+  width: 50%;
+  height: 100%;
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+}
+
+.itemImage {
+  
+  width: 70%;
+  margin: 5px;
+}
+
+.Due {
+  display: flex;
+  margin-left: 5px;
+  padding: 2px;
+  text-align: center;
+  border: 1px solid white;
+  height: 55%;
+  
+}
+.Starting,
+.Ending{
+  width:50%;
+  border: 1px solid white;
+  height: 100%;
+  justify-content: space-around;
+}
+
+.ItemName {
+  
+  padding: 2px;
+  margin-top : 10%;
+  text-align: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-decoration:underline ;
+  height: 70%;
+}
+
+.logoImg {
+  margin: 3px;
+  height : 90%;
+  width: 30%;
+  justify-content: center;
+  
+}
+
+.logoRound {
+  width: 100%;
+  height: 80%;
+  background-color: transparent;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid green;
+  overflow: hidden;
+  margin: auto;
+  
+  
+}
+
 
 .scrollable-post::-webkit-scrollbar {
   width: 8px;
@@ -220,21 +370,12 @@ background-color: transparent;
   background-color: #888;
   border-radius: 4px;
 }
+.logoRound img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Adjusted property */
+}
 
 .scrollable-post::-webkit-scrollbar-track {
   background-color: #f1f1f1;
-}
-.posts{
-  background-color:  #fff;
-  padding:10px;
-  font-size: 12px;
-  margin-bottom: 10px;
-  border-radius: 5px ;
-  border: solid 1px #888;
-}
-.post {
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
 }
