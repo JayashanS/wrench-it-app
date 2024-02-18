@@ -21,7 +21,7 @@ import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 import "../styles/Titlebar.css";
-import Sound from "../assets/sound3.mp3";
+import Sound from "../assets/sound_2.mp3";
 
 function Titlebar() {
   const [anchorEl, setAnchorEl] = useState(null);
