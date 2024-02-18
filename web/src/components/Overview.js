@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { LineChart } from "@mui/x-charts/LineChart";
 import "../styles/Overview.css";
+import Logo from "../assets/center.jpg";
+
+import Card from "./ProfileCard";
 
 export default function Overview() {
   const [time, setTime] = useState(new Date());
@@ -37,18 +40,33 @@ export default function Overview() {
 
   return (
     <div className="overview-container">
-      <h1>Current Time:</h1>
-      <p>Time: {currentTime}</p>
-      <p>Date: {currentDate}</p>
-      <LineChart
-        width={500}
-        height={250}
-        series={[
-          { data: pData, label: "Resevations" },
-          { data: uData, label: "Requests" },
-        ]}
-        xAxis={[{ scaleType: "point", data: xLabels }]}
-      />
+      <div className="overview-col-1">
+        <h1>Current Time:</h1>
+        <p>Time: {currentTime}</p>
+        <p>Date: {currentDate}</p>
+        <LineChart
+          width={500}
+          height={250}
+          series={[
+            { data: pData, label: "Resevations" },
+            { data: uData, label: "Requests" },
+          ]}
+          xAxis={[{ scaleType: "point", data: xLabels }]}
+        />
+      </div>
+      <div className="overview-col-2">
+        <div className="overview-profile-title">
+          <span
+            style={{ fontWeight: "bold", fontSize: "16px", paddingTop: "10px" }}
+          >
+            Revive Auto Solutions
+          </span>
+          <span style={{ fontSize: "12px" }}>Kiribathgoda</span>
+        </div>
+        <div className="overview-profile-pic-container">
+          <img src={Logo} alt="Logo" className="overview-profile-pic" />
+        </div>
+      </div>
     </div>
   );
 }
