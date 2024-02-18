@@ -62,11 +62,10 @@
     }
   }
 
-  .signup-error {
-    padding: 10px;
-    background: #ffefef;
-    border: 1px solid var(--error);
-    color: var(--error);
-    border-radius: 4px;
-    margin: 20px 0;
+  .login-error{
+    font-size:14px;
+    color:rgb(255, 0, 115);
+    width: 80%;
+    margin-left: 50px;
+    font-weight: 500;
   }

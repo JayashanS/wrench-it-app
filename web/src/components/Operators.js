@@ -20,7 +20,7 @@ import TextField from "@mui/material/TextField";
 import "../styles/Operator.css";
 
 const Operator = () => {
-  let garageId = "garage123";
+  let garageId = localStorage.getItem("garageId");
   const [data, setData] = useState([]);
   const [uname, setUname] = useState("");
   const [pw, setPw] = useState("");

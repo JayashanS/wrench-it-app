@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useLogout } from "../hooks/useLogout";
 import "../styles/Drawer.css";
 
 // icons and logos
@@ -16,11 +17,15 @@ import LogoutIcon from "@mui/icons-material/Logout";
 function Drawer() {
   const [selectedLink, setSelectedLink] = useState("/dashboard/view");
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1000);
+  const { logout } = useLogout();
 
   const handleLinkClick = (link) => {
     setSelectedLink(link);
   };
 
+  const handleLogout = async (e) => {
+    logout();
+  };
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 1000);
@@ -30,6 +35,19 @@ function Drawer() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    const createGarageId = () => {
+      const userString = localStorage.getItem("user");
+      if (userString) {
+        const userObject = JSON.parse(userString);
+        const email = userObject.email;
+        const garageId = `G_${email.replace("@", "_").replace(".", "_")}`;
+        localStorage.setItem("garageId", garageId);
+      }
+    };
+    createGarageId();
   }, []);
 
   return (
@@ -271,25 +289,26 @@ function Drawer() {
       <div
         className="drawer-section"
         style={{
-          backgroundColor: selectedLink === "/" ? "#09BEB1" : "#fff",
+          backgroundColor:
+            selectedLink === "/dashboard/photo" ? "#09BEB1" : "#fff",
         }}
       >
         <Link
           className="link"
-          to="/"
+          to="/dashboard/photo"
           style={{
-            color: selectedLink === "/" ? "#fff" : "#868e96",
+            color: selectedLink === "/dashboard/photo" ? "#fff" : "#868e96",
             textDecoration: "none",
             display: "flex",
             alignItems: "center",
             height: "100%",
             paddingLeft: "10px",
           }}
-          onClick={() => handleLinkClick("/")}
+          onClick={() => handleLinkClick("/dashboard/photo")}
         >
           <ContactMailIcon
             style={{
-              color: selectedLink === "/" ? "#fff" : "#868e96",
+              color: selectedLink === "/dashboard/photo" ? "#fff" : "#868e96",
               marginRight: "10px",
               fontSize: 20,
             }}
@@ -336,7 +355,6 @@ function Drawer() {
       >
         <Link
           className="link"
-          to="/"
           style={{
             color: selectedLink === "/" ? "#fff" : "#868e96",
             textDecoration: "none",
@@ -345,7 +363,7 @@ function Drawer() {
             height: "100%",
             paddingLeft: "10px",
           }}
-          onClick={() => handleLinkClick("/")}
+          onClick={handleLogout}
         >
           <LogoutIcon
             style={{

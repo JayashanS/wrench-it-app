@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
 import { jwtDecode } from "jwt-decode";
 
 import Login from "./components/Login";
@@ -17,10 +18,12 @@ import Signup from "./components/Signup";
 
 // dashboard imports
 import Dashboard from "./pages/Dashboard";
+import Overview from "./components/Overview";
 import Repair from "./components/Repair";
 import Request from "./components/Request";
 import Reservations from "./components/Reservations";
 import Location from "./components/Directions";
+import Photo from "./components/Photo";
 import Help from "./components/Help";
 import Community from "./components/Community";
 import Settings from "./components/Settings";
@@ -53,6 +56,7 @@ const isAuthenticated = () => {
 };
 
 function App() {
+  const { user } = useAuthContext();
   return (
     <Router>
       <Routes>
@@ -61,25 +65,24 @@ function App() {
           <Route path="products" element={<Cards />} />
           <Route path="signup" element={<Signup />} />
         </Route>
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={!user ? <Login /> : <Navigate to="/dashboard" />}
+        />
 
         <Route
-          path="/dashboard/*"
-          element={
-            isAuthenticated() ? (
-              <DashboardLayout />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
+          path="/dashboard"
+          element={user ? <DashboardLayout /> : <Navigate to="/login" />}
         >
-          <Route index element={<Request />} />
+          <Route index element={<Overview />} />
+          <Route path="view" index element={<Overview />} />
           <Route path="req" element={<Request />} />
           <Route path="stat" element={<Repair />} />
           <Route path="res" element={<Reservations />} />
           <Route path="help" element={<Help />} />
           <Route path="com" element={<Community />} />
           <Route path="set" element={<Settings />} />
+          <Route path="photo" element={<Photo />} />
         </Route>
       </Routes>
     </Router>
