@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import io from "socket.io-client";
 import Stack from "@mui/material/Stack";
 import { Menu, MenuItem } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -20,7 +21,7 @@ import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 import "../styles/Titlebar.css";
-import Sound from "../assets/sound.wav";
+import Sound from "../assets/sound2.mp3";
 
 function Titlebar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -28,6 +29,30 @@ function Titlebar() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio] = useState(new Audio(Sound));
   const audioRef = useRef(new Audio(Sound));
+
+  useEffect(() => {
+    const socket = io("http://localhost:4000");
+
+    console.log("Socket connected:", socket.connected);
+
+    socket.on("location", (data) => {
+      console.log("Received Location Data:", data);
+      const audio = audioRef.current;
+      if (audio.paused) {
+        audio.loop = true;
+        audio.play();
+        setIsPlaying(true);
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+        setIsPlaying(false);
+      }
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);

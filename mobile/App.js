@@ -7,6 +7,7 @@ import TabNavigator from "./routes/TabNavigator";
 import RequestNavigator from "./routes/RequestNavigator";
 import ComunityNavigator from "./routes/ComunityNavigator";
 import ReservationNavigator from "./routes/ReservationNavigator";
+import ChatNavigator from "./routes/ChatNavigator";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,11 @@ export default function App() {
           name="Reservation"
           options={{ headerShown: false }}
           component={ReservationNavigator}
+        />
+        <Stack.Screen
+          name="Chat"
+          options={{ headerShown: false }}
+          component={ChatNavigator}
         />
       </Stack.Navigator>
     </NavigationContainer>
