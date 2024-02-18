@@ -21,7 +21,7 @@ import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 import "../styles/Titlebar.css";
-import Sound from "../assets/sound2.mp3";
+import Sound from "../assets/sound3.mp3";
 
 function Titlebar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -177,7 +177,7 @@ function Titlebar() {
             </Tooltip>
           </Stack>
 
-          <Tooltip title="Owner">
+          <Tooltip title="Logged in as Administrator">
             <IconButton
               aria-label="menu"
               sx={{ width: 30, height: 30, color: "#951cc9" }}
@@ -185,7 +185,7 @@ function Titlebar() {
               <AdminPanelSettingsIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Operator">
+          <Tooltip title="Logged in as Operator">
             <IconButton
               aria-label="menu"
               sx={{ width: 30, height: 30, color: "#951cc9" }}
