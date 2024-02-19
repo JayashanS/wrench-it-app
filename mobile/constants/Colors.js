@@ -3,7 +3,7 @@ const black = "#000";
 const dark = "#626262";
 const blue = "#0378ad";
 const gray = "#ECECEC";
-const lightBlue = "#f1f4ff";
+const lightBlue = "#BBEFFF";
 
 export default {
   darkText: dark,
