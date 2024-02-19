@@ -31,6 +31,7 @@ function Titlebar() {
   const [garageId, setGarageId] = useState(localStorage.getItem("garageId"));
   const [fullName, setFullName] = useState("");
   const [garageName, setGarageName] = useState("");
+  const [displayUrl, setDisplayUrl] = useState(null);
   const [audio] = useState(new Audio(Sound));
   const audioRef = useRef(new Audio(Sound));
 
@@ -80,6 +81,19 @@ function Titlebar() {
       setFullName(`${responseData.fname} ${responseData.lname}`);
     } catch (error) {
       console.error("Error Fetching User Name:", error);
+    }
+    try {
+      const photoResponse = await fetch(
+        `http://localhost:4000/api/photo/${user.email}.jpg`
+      );
+      if (photoResponse.ok) {
+        const photoUrl = await photoResponse.blob();
+        setDisplayUrl(URL.createObjectURL(photoUrl));
+      } else {
+        throw new Error("Failed to retrieve uploaded photo.");
+      }
+    } catch (error) {
+      console.error("Error uploading photo:", error);
     }
   };
 
@@ -200,9 +214,7 @@ function Titlebar() {
             </Tooltip>
             <Tooltip title="User Name">
               <Chip
-                avatar={
-                  <Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />
-                }
+                avatar={<Avatar alt="Natacha" src={displayUrl} />}
                 label={fullName}
                 variant="outlined"
               />

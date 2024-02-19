@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
     height: windowWidth * 0.4,
     marginRight: windowWidth * 0.02,
     padding: windowWidth * 0.02,
-    elevation: 2, // for shadow on Android
-    shadowColor: "#000", // for shadow on iOS
-    shadowOffset: { width: 0, height: 2 }, // for shadow on iOS
-    shadowOpacity: 0.25, // for shadow on iOS
-    shadowRadius: 3.84, // for shadow on iOS
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   buttonContent: {
     flex: 1,
@@ -50,14 +50,14 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: Colors.primary, // Assuming Colors.primary holds the desired color
+    backgroundColor: Colors.primary,
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 10,
   },
   buttonText: {
-    fontWeight: "bold",
-    fontSize: 16,
+    fontFamily: Font["poppins-semiBold"],
+    fontSize: FontSize.small,
     color: "#125C75",
   },
 });
