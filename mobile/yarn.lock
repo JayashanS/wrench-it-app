@@ -2219,6 +2219,19 @@
     color "^4.2.3"
     warn-once "^0.1.0"
 
+"@rnmapbox/maps@^10.1.13":
+  version "10.1.13"
+  resolved "https://registry.npmjs.org/@rnmapbox/maps/-/maps-10.1.13.tgz"
+  integrity sha512-eXMHaiZEM2qSVBQe7+pcBAwh8m036JqWusmhi5L89vQVfM4mT82CqUd4XrULE9xBJ5S7mgVU68J9L9Hnt18BCA==
+  dependencies:
+    "@turf/along" "6.5.0"
+    "@turf/distance" "6.5.0"
+    "@turf/helpers" "6.5.0"
+    "@turf/length" "6.5.0"
+    "@turf/nearest-point-on-line" "6.5.0"
+    "@types/geojson" "^7946.0.7"
+    debounce "^1.2.0"
+
 "@segment/loosely-validate-event@^2.0.0":
   version "2.0.0"
   resolved "https://registry.npmjs.org/@segment/loosely-validate-event/-/loosely-validate-event-2.0.0.tgz"
@@ -4515,7 +4528,7 @@ expo-vector-icons@^10.0.1:
   dependencies:
     lodash "^4.17.4"
 
-expo@*, "expo@^49.0.7 || ^50.0.0-0", expo@~50.0.3:
+expo@*, "expo@^49.0.7 || ^50.0.0-0", expo@>=47.0.0, expo@~50.0.3:
   version "50.0.3"
   resolved "https://registry.npmjs.org/expo/-/expo-50.0.3.tgz"
   integrity sha512-3Yk42YShkugC90S24Dbo0mhrq/N3Kfn30FscrjCk3o8ldXh9OdE5RhVi/mc5Cqp28nw5a4DfiGSDFs0mA0t2ng==

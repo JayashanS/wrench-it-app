@@ -1,46 +1,55 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import MapboxGL from "@react-native-mapbox-gl/maps";
-import { TOKEN } from "@env";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import * as Location from "expo-location";
 
-MapboxGL.setAccessToken(TOKEN);
-
-const MapComponent = () => {
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+const YourComponent = () => {
+  const [location, setLocation] = useState(null);
+  const [region, setRegion] = useState(null);
 
   useEffect(() => {
-    // Request permission to access the device's location
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        setCurrentLocation([longitude, latitude]);
-      },
-      (error) => setErrorMessage(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Location permission not granted");
+        return;
+      }
+
+      let currentLocation = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Highest,
+      });
+
+      setLocation(currentLocation.coords);
+
+      setRegion({
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      });
+    })();
   }, []);
+
+  if (!location || !region) {
+    // Render loading or placeholder UI while waiting for location
+    return <View style={styles.container} />;
+  }
 
   return (
     <View style={styles.container}>
-      {errorMessage ? (
-        <Text>{errorMessage}</Text>
-      ) : (
-        <MapboxGL.MapView style={styles.map}>
-          {currentLocation && (
-            <>
-              <MapboxGL.Camera
-                zoomLevel={15}
-                centerCoordinate={currentLocation}
-              />
-              <MapboxGL.PointAnnotation
-                id="currentLocation"
-                coordinate={currentLocation}
-              />
-            </>
-          )}
-        </MapboxGL.MapView>
-      )}
+      <MapView
+        style={styles.map}
+        provider={PROVIDER_GOOGLE}
+        initialRegion={region}
+      >
+        <Marker
+          coordinate={{
+            latitude: location.latitude,
+            longitude: location.longitude,
+          }}
+          title="My Location"
+        />
+      </MapView>
     </View>
   );
 };
@@ -54,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MapComponent;
+export default YourComponent;
