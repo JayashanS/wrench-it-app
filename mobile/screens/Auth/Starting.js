@@ -1,14 +1,13 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
-import Start from "../../assets/wrenchit-start.png";
-import Img from "../../assets/wrenchit-white.png";
+import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
+import { StatusBar } from "react-native";
+
+import Font from "../../constants/Fonts";
+import FontSize from "../../constants/FontSize";
+import Colors from "../../constants/Colors";
+
+import Start from "../../assets/wrenchit-start.jpg";
+import CustomButton from "../../components/CustomButton";
 
 const windowWidth = Dimensions.get("window").width;
 const Starting = ({ navigation }) => {
@@ -18,38 +17,27 @@ const Starting = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor="transparent" barStyle="dark-content" />
       <View style={styles.imageContainer}>
         <Image source={Start} style={styles.image} />
       </View>
-
-      <Text style={styles.title}>Welcome to Our App</Text>
-      <Text style={styles.body}>
-        Discover nearby repair centers in moments of need! Sign up now to access
-        exclusive features for a seamless experience. Or, for quick assistance
-        during emergencies, simply tap the 'Quick Find' icon below.
-      </Text>
-      <TouchableOpacity
+      <View style={styles.contentContainer}>
+        <Text style={styles.title}>Welcome to Wrench it</Text>
+        <Text style={styles.bodyText}>
+          Discover nearby repair centers in moments of need! Sign up now to
+          access exclusive features.
+        </Text>
+      </View>
+      <CustomButton
+        title="Get Started"
         onPress={() => handleButtonClick("SignUp")}
-        style={{
-          width: windowWidth * 0.4,
-          height: windowWidth * 0.1,
-          height: 40,
-          backgroundColor: "#176B87",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: 5,
-          marginLeft: 30,
-        }}
-      >
-        <Text style={{ color: "#fff", fontSize: 16 }}>Get Started</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.touchableContainer}
+        backgroundColor={Colors.primary}
+      />
+      <CustomButton
+        title="Quick Find"
         onPress={() => handleButtonClick("NearByCenters")}
-      >
-        <Image source={Img} style={styles.icon} />
-        <Text style={styles.buttonText}>Quick Find</Text>
-      </TouchableOpacity>
+        backgroundColor={Colors.primary}
+      />
     </View>
   );
 };
@@ -57,48 +45,33 @@ const Starting = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "flex-start",
+    alignItems: "center",
     backgroundColor: "#FFFFFF",
+    padding: 20,
   },
-  imageContainer: {
-    marginLeft: windowWidth * 0.12,
-  },
+  imageContainer: {},
   image: {
-    width: 300,
-    height: 300,
+    width: 500,
+    height: 500,
     resizeMode: "contain",
-    marginTop: 60,
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  contentContainer: {
+    alignItems: "center",
     marginBottom: 20,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    marginBottom: 20,
-    marginLeft: 30,
+    fontSize: FontSize.xxLarge,
+    color: Colors.darkText,
+    fontFamily: Font["poppins-bold"],
+    textAlign: "center",
   },
-  body: {
-    fontSize: 18,
-    color: "#7d7f80",
-    marginBottom: 20,
-    marginLeft: 30,
-    marginRight: 30,
-  },
-  touchableContainer: {
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    alignItems: "center",
-  },
-  icon: {
-    width: 100,
-    height: 100,
-    resizeMode: "contain",
-    marginBottom: 10,
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#125C75",
+  bodyText: {
+    fontSize: FontSize.medium,
+    color: Colors.text,
+    fontFamily: Font["poppins-regular"],
+    textAlign: "center",
   },
 });
 

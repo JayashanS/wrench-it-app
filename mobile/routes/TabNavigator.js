@@ -3,7 +3,10 @@ import * as React from "react";
 import { View, Text, Dimensions, useWindowDimensions } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { TouchableOpacity } from "react-native";
+import { StatusBar } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+
+import Colors from "../constants/Colors";
 
 import HomeScreen from "../screens/Common/Home";
 import OngoingScreen from "../screens/Common/Ongoing";
@@ -36,12 +39,13 @@ export default function TabNavigator({ navigation }) {
     <TabBar
       {...props}
       indicatorStyle={{ backgroundColor: "#fff" }}
-      style={{ backgroundColor: "#176B87", paddingTop: 120 }}
+      style={{ backgroundColor: Colors.primary, paddingTop: 120 }}
     />
   );
 
   return (
     <View style={{ flex: 1 }}>
+      <StatusBar backgroundColor="transparent" barStyle="light-content" />
       <TouchableOpacity
         style={{
           marginLeft: windowWidth * 0.9,

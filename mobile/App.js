@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { useFonts } from "expo-font";
+import SplashScreen from "./screens/Auth/Splash";
+
 import AuthNavigator from "./routes/AuthNavigator";
 import TabNavigator from "./routes/TabNavigator";
 import RequestNavigator from "./routes/RequestNavigator";
@@ -12,6 +15,22 @@ import ChatNavigator from "./routes/ChatNavigator";
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [fontsLoaded, fontError] = useFonts({
+    "poppins-regular": require("./assets/fonts/Poppins-Regular.ttf"),
+    "poppins-bold": require("./assets/fonts/Poppins-Bold.ttf"),
+    "poppins-semiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded || fontError) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
   return (
     <NavigationContainer>
       <StatusBar
@@ -35,11 +54,7 @@ export default function App() {
           options={{ headerShown: false }}
           component={RequestNavigator}
         />
-        <Stack.Screen
-          name="Community"
-          options={{ headerShown: false }}
-          component={ComunityNavigator}
-        />
+
         <Stack.Screen
           name="Reservation"
           options={{ headerShown: false }}

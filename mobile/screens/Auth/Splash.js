@@ -3,6 +3,8 @@ import { View, Text, Animated, Easing } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Logo from "../../assets/wrenchit-white.png";
 
+import Colors from "../../constants/Colors";
+
 export default function Splash() {
   const navigation = useNavigation();
   const rotationValue = useRef(new Animated.Value(0)).current;
@@ -37,7 +39,7 @@ export default function Splash() {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#176B87",
+        backgroundColor: Colors.primary,
       }}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
