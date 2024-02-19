@@ -6,6 +6,7 @@ const PhotoUploadComponent = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [displayUrl, setDisplayUrl] = useState(null); // New state for displaying the uploaded photo
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -44,6 +45,17 @@ const PhotoUploadComponent = () => {
       setUploadError(null);
       setSelectedFile(null);
       setPreviewUrl(null); // Clear preview after successful upload
+
+      // Retrieve and display the uploaded photo
+      const photoResponse = await fetch(
+        `http://localhost:4000/api/photo/${user.email}.jpg`
+      );
+      if (photoResponse.ok) {
+        const photoUrl = await photoResponse.blob();
+        setDisplayUrl(URL.createObjectURL(photoUrl));
+      } else {
+        throw new Error("Failed to retrieve uploaded photo.");
+      }
     } catch (error) {
       console.error("Error uploading photo:", error);
       setUploadError("An error occurred while uploading the photo.");
@@ -61,6 +73,12 @@ const PhotoUploadComponent = () => {
       <button onClick={handleUpload} disabled={uploading}>
         {uploading ? "Uploading..." : "Upload Photo"}
       </button>
+      {displayUrl && (
+        <div>
+          <p>Uploaded Photo:</p>
+          <img src={displayUrl} alt="Uploaded" style={{ maxWidth: "100%" }} />
+        </div>
+      )}
       {uploadError && <p>{uploadError}</p>}
     </div>
   );

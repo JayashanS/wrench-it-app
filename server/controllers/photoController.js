@@ -21,4 +21,21 @@ const uploadPhoto = (req, res) => {
   });
 };
 
-module.exports = { uploadPhoto };
+const getPhoto = (req, res) => {
+  const { fileName } = req.params;
+
+  const uploadDir = path.join(__dirname, "../assets");
+  const filePath = path.join(uploadDir, fileName);
+
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      console.error("Error reading file:", err);
+      return res.status(404).json({ error: "Photo not found" });
+    }
+
+    res.writeHead(200, { "Content-Type": "image/jpeg" });
+    res.end(data);
+  });
+};
+
+module.exports = { uploadPhoto, getPhoto };
