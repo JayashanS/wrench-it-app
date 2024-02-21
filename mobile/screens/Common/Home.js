@@ -33,38 +33,11 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={homestyles.homeApp}>
-      {/*<TextInput style={homestyles.searchBar} placeholder="Search" />*/}
-      
-      <View style={homestyles.row}>
-        <TouchableOpacity style={homestyles.cell} onPress={goToRequest}>
-          <Icon/>
-          <View style={homestyles.buttonContent}>
-          <Ionicons name="search" size={80} color="#125C75" />
-            <Text style={homestyles.buttonText}>Find Garages</Text>
-          </View>
-        </TouchableOpacity>
-
-
-        
-        
-        <TouchableOpacity style={homestyles.cell} onPress={goToProfile4}>
-          <View style={homestyles.buttonContent}>
-          <Ionicons name="person" size={80} color="#125C75" marginBottom={10}/>
-            <Text style={homestyles.buttonText}>Profile</Text>
-          </View>
-        </TouchableOpacity>
-
-
-        
-
-        <TouchableOpacity style={homestyles.cell} onPress={goToProfile3}>
-
-          <View style={homestyles.buttonContent}>
-          <Ionicons name="call" size={80} color="#125C75" marginBottom={10}/>
-            <Text style={homestyles.buttonText}>Calls</Text>
-          </View>
-        </TouchableOpacity>
+    <View style={styles.homeApp}>
+      <View style={styles.row}>
+        <Cell iconName="search" label="Find Garages" onPress={goToRequest} />
+        <Cell iconName="person" label="Profile" onPress={goToProfile4} />
+        <Cell iconName="call" label="Calls" onPress={goToProfile3} />
       </View>
 
       <View style={styles.row}>
