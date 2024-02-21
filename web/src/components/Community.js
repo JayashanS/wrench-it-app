@@ -17,6 +17,7 @@ const data = [
   { value: 10, label: 'Good' },
   { value: 15, label: 'Average' },
   { value: 20, label: 'Poor' },
+  
 ];
 
 const size = {
@@ -30,6 +31,8 @@ const StyledText = styled('text')(({ theme }) => ({
   dominantBaseline: 'central',
   fontSize: 15,
 }));
+
+
 
 function PieCenterLabel({ children }: { children: React.ReactNode }) {
   const { width, height, left, top } = useDrawingArea();
@@ -45,26 +48,65 @@ function message(contents) {
 </span></div>
 )
 }
-function posts(mess) {
-  return(<div className="posts">
-  <span >{mess}
-</span></div>
-)
-}
-
-
 
 const Community = () => {
-  const [isLoading, setisLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  
+const [isLoading, setisLoading] = useState(false);
+const [selectedImage, setSelectedImage] = useState(null);
+
+const [logoImage, setLogoImage] = useState(null);
+
+const [ad,setAd]=useState([]);
+const [companyName,setCompanyName]=useState('');
+const [startDate, setStartDate] = useState('');
+const [endDate, setEndDate] = useState('');
 
   
-  
-
+const handleLogoChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const logoUrl = URL.createObjectURL(file);
+    setLogoImage(logoUrl);
+    
+    
+    const logoLabel = document.querySelector('.logo-label');
+    logoLabel.innerHTML = `<img src="${logoUrl}" alt="Logo" class="selected-image" />`;
+  }
+};
   const handleUpload = () => {
+    
+   /*  console.log(startDate , endDate); */
+   /*  setPostX({
+      name: companyName,
+      image: selectedImage,
+      stDate : startDate,
+      enDate : endDate,
+    })
+    console.log(postX.name) */
+    setAd([...ad,{
+      name: companyName,
+      image: selectedImage,
+      stDate: startDate,
+      enDate: endDate,
+      logo : logoImage
+    }])
 
-    console.log("Upload button clicked. ");
+    setCompanyName('');
+    setStartDate('');
+    setEndDate('');
+    setSelectedImage(null);
+    setLogoImage(null);
+
+    
+
+    const logoLabel = document.querySelector('.logo-label');
+      logoLabel.innerHTML = `Upload-Logo
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(event) => handleLogoChange(event)}
+        className="file-input"
+      />`;
+    
   };
 
   const handleImageChange = (event) => {
@@ -75,6 +117,8 @@ const Community = () => {
       
     }
   };
+
+  
   
   
   useEffect(() => {
@@ -139,11 +183,11 @@ const Community = () => {
           </div>
         </div>
         <div className="right">
-          <h6>Offers</h6>
+          <h6>Display Your Offers</h6>
 
-          
-          <div className="post-container">
+        <div className="post-container">
           <div className="post-buttons">
+            
             <label className="file-label">
               Post
               <input
@@ -152,13 +196,29 @@ const Community = () => {
                 onChange={handleImageChange}
                 className="file-input"
               />
-            </label>
-            <button className="upload-button" onClick={handleUpload}>
-              Upload
-            </button>
+              </label>
+                <div className="Sdate"><label for="startDate">Starting date::</label>
+                <input type="date" value={startDate} onChange={(e)=>setStartDate(e.target.value)} id="startDate" name="startDate"/>
+                </div>
+              <div className="Edate"><label for="endDate">End date::</label>
+                <input type="date" value={endDate} onChange={(e)=>setEndDate(e.target.value)} id="endDate" name="endDate"/>
+              </div>
+              <div className="col">
+                <div className="row">
+                    <button className="upload-button" onClick={handleUpload}>
+                    Upload
+                  </button>
+                </div>
+                <div className="row">
+                    <button className="reset-button" >
+                    Reset
+                  </button>
+                </div>
+              </div>
+              
           </div>
           <div className="comes">
-            {selectedImage && (
+            {/* {selectedImage && ( */}
               <div className="selected-image-box" >
                 
                 <img
@@ -169,47 +229,79 @@ const Community = () => {
                 
               
               </div>
-            )}
+            {/* )} */}
               <div className="Details">
                 <TextField
+                required={true}
                 label="Company Name"
                 variant="outlined"
                 size="small"
                 fullWidth
                 margin="normal"
-               className="TextFieldStyles" 
+                className="TextFieldStyles" 
+                value={companyName}
+                onChange={(e)=>setCompanyName(e.target.value)}
                 />
               <div className="RoundShape">
-                <button className="RoundButton" >
-                  Upload Logo
-                </button>
+              <label className="logo-label" >
+              Upload-Logo
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleLogoChange}
+                className="file-input"
+              />
+            </label>
               </div>
               </div>
           </div>
         </div>
+        <h6 className="inbar">Offers</h6>
           <div className="scrollable-post">
+            
+            {console.log(ad)}
               
-                {posts(`
-                 Offer 1 will shown in mobile app
-                  
-                `)}
-                {posts(`
-                   Offer 2 will shown in mobile app
-                 
-                `)}
-              {posts(`
-                   Offer 3 will shown in mobile app
-                 
-                `)}
-                {posts(`
-                   Offer 4 will shown in mobile app
-                 
-                `)}
-                {posts(`
-                   Offer 5 will shown in mobile app
-                 
-                `)}
-              
+               <div className="Offer">
+                {
+                
+                ad.length>0?
+                ad.map((item,index)=>(
+                  <div key={index} className="OfferDisplay">
+                  <div className="CompanyDetails">
+                   <div className="logoAndName"> 
+                    
+                    <div className="logoImg">
+                     {/*  {logoImage && ( */}
+                        <div className="logoRound">
+                          <img
+                            src={item.logo}
+                            alt="Logo"
+                            className="selected-image"
+                          />
+                        </div>
+                      {/* )} */}
+                     </div>
+                     <div className="ItemName">{item.name}</div>
+                    </div>
+                    <div className="Due">
+                        <div className="Starting">{item.stDate} </div>
+                        <div className="Ending">{item.enDate} </div>
+                    
+                    </div>
+                  </div>
+                  <div className="itemImage">
+                    <img
+                      src={item.image}
+                      alt="Upload an image by clicking post"
+                      className="selected-image"
+                    />
+                  </div>
+                </div>
+
+                ))
+                :null}
+               </div>
+               
             </div>
           </div>
         

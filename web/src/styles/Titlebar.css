@@ -72,11 +72,13 @@
   .menu-container {
     position: relative;
     display: inline-block;
-    margin-right: 20px;
+    margin-right: 0px;
+    right:0;
   }
   
   .menu-button {
     cursor: pointer;
+    
   }
   
   .accordion-content {
@@ -93,5 +95,82 @@
     width: 300px; 
     height: 500px;
     padding: 10px;
+  }
+ 
+  @keyframes blink {
+    0% {
+      background-color: rgb(236, 125, 125); 
+    }
+    50% {
+      background-color: rgb(255, 0, 0); 
+      animation-timing-function: ease-out;
+    }
+    100% {
+      background-color: rgb(236, 125, 125); 
+    }
+  }
+  
+  .titlebar-call-container {
+    margin-left: 2%;
+    height: 35px;
+    width: 150px;
+    background-color: rgb(255, 0, 0);
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    position: relative;
+    animation: blink 2s infinite; 
+  
+  }
+  
+  .left-circle {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    position: absolute;
+    top: 4px;
+    left: 5px;
+  }
+  
+  .arrow-icons {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+  }
+  
+  .arrow-icon {
+    margin-left: 0px;
+    font-size: 20px;
+    animation: slideArrow 1.5s infinite alternate;
+  }
+  .arrow-text {
+    margin-top: 7px;
+    margin-left: 0px;
+    font-size: 12px;
+    color:#fff;
+  }
+  .arrow-text-ani {
+    margin-top: 7px;
+    margin-left: 0px;
+    font-size: 12px;
+    animation: slideArrow 1.5s infinite alternate;
+  }
+  
+  @keyframes slideArrow {
+    0% {
+      color: #ffffff;
+      transform: translateX(0);
+    }
+    50% {
+      color: #ffffff; 
+      transform: translateX(5px);
+    }
+    100% {
+      color: #ffffff00; 
+      transform: translateX(0);
+    }
   }
   

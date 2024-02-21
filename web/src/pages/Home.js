@@ -6,8 +6,10 @@ import "../styles/Home.css";
 
 function Home() {
   return (
-    <div className="container-home">
-      <Navbar />
+    <div className="home-container">
+      <div className="navbar-container">
+        <Navbar />
+      </div>
 
       <div className="outlet">
         <Outlet />

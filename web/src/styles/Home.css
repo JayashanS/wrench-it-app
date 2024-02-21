@@ -1,15 +1,20 @@
-.container-home {
+.home-container {
   display: flex;
-    position: absolute;
-    flex-direction: column;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #EEF2F5;
-    font-family: 'Roboto', sans-serif;
+  position: absolute;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #EEF2F5;
+  font-family: 'Roboto', sans-serif;
+}
+.navbar-container{
+  position: fixed;
+  z-index: 5;
+  width: 100%;
 }
 
 .home-outlet {
   width: 100vw;
-  height: 100vh;
+  height: 5vh;
 }

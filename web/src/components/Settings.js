@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Info from "./Info";
 import Services from "./Services";
 import Location from "./Location";
-import Inventory from "./Inventory";
+import Operator from "./Operators";
 
 import "../styles/Settings.css";
 import Tabs from "@mui/material/Tabs";
@@ -112,7 +112,7 @@ export default function Settings() {
               }}
             />
             <Tab
-              label="Inventory"
+              label="Operator"
               {...a11yProps(2)}
               sx={{
                 "&:hover": { backgroundColor: "transparent" },
@@ -133,7 +133,7 @@ export default function Settings() {
           <Location />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3} className="settings-tabs">
-          <Inventory />
+          <Operator />
         </CustomTabPanel>
       </Box>
     </ThemeProvider>

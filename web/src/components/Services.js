@@ -32,7 +32,7 @@ const Services = () => {
   const [lightWeight, setLightWeight] = useState(false);
   const [maxAmount, setMaxAmount] = useState("");
   const [minAmount, setMinAmount] = useState("");
-  const [garageId, setGarageId] = useState("garage123");
+  const [garageId, setGarageId] = useState(localStorage.getItem("garageId"));
 
   const fetchData = async () => {
     try {

@@ -7,9 +7,6 @@ import {
   Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Members from "./Members";
-import Events from "./Events";
-import Offers from "./Offers";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -23,31 +20,21 @@ const BoxItem = ({ title, content, onPress }) => {
 };
 
 const CommunityPage = () => {
-  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.rowContainer}>
         <BoxItem
           title="Offers"
           content="Company offers will be displayed inside this"
-          onPress={navigation.navigate("Offers")}
         />
       </View>
 
       <View style={styles.rowContainer}>
-        <BoxItem
-          title="Members"
-          content="Member since 2021"
-          onPress={() => navigation.navigate("Members")}
-        />
+        <BoxItem title="Members" content="Member since 2021" />
       </View>
 
       <View style={styles.rowContainer}>
-        <BoxItem
-          title="Events"
-          content="Date: April 10, 2024"
-          onPress={() => navigation.navigate("Events")}
-        />
+        <BoxItem title="Events" content="Date: April 10, 2024" />
       </View>
     </View>
   );

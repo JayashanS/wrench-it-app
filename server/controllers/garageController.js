@@ -177,10 +177,33 @@ const getGarageById = async (req, res) => {
     res.status(500).json({ error: "Could not retrieve Garage by ID" });
   }
 };
+
+const getGarageNameById = async (req, res) => {
+  const garageId = req.params.garageId;
+
+  try {
+    const garage = await Garage.findOne({ garageId: garageId });
+
+    if (!garage) {
+      return res
+        .status(404)
+        .json({ message: "Garage not found", garageId: garageId });
+    }
+
+    const garageName = garage.repairCenterName;
+
+    res.status(200).json({ garageId: garageId, garageName: garageName });
+  } catch (error) {
+    console.error("Error retrieving Garage name by ID", error);
+    res.status(500).json({ error: "Could not retrieve Garage name by ID" });
+  }
+};
+
 module.exports = {
   createGarage,
   updateGarageDetails,
   updateGarageServicesAndCharges,
   updateGarageLocation,
   getGarageById,
+  getGarageNameById,
 };
