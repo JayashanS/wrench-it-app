@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
   location: {
     width: 40,
     height: 40,
-    borderRadius: 20, // Half of width and height to make a circle
-    backgroundColor: "blue", // Background color for the circle
+    borderRadius: 20,
+    backgroundColor: "blue",
     justifyContent: "center",
     alignItems: "center",
   },

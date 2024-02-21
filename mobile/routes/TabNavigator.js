@@ -8,7 +8,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 import Colors from "../constants/Colors";
 
-import HomeScreen from "../screens/Common/Home2";
+import HomeScreen from "../screens/Common/Home";
 import OngoingScreen from "../screens/Common/Ongoing";
 import CommunityScreen from "../screens/Common/Community";
 
