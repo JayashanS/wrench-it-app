@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import "../styles/Photo.css";
+import { Button, Grid, TextField } from "@mui/material";
 
-const PhotoUploadComponent = () => {
+const PhotoUploadComponent = ({ onCloseModal }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [displayUrl, setDisplayUrl] = useState(null); // New state for displaying the uploaded photo
+  const [displayUrl, setDisplayUrl] = useState(null);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-    setPreviewUrl(URL.createObjectURL(file)); // Create a temporary URL for preview
+    setPreviewUrl(URL.createObjectURL(file));
   };
 
   const handleUpload = async () => {
@@ -44,9 +44,8 @@ const PhotoUploadComponent = () => {
 
       setUploadError(null);
       setSelectedFile(null);
-      setPreviewUrl(null); // Clear preview after successful upload
+      setPreviewUrl(null);
 
-      // Retrieve and display the uploaded photo
       const photoResponse = await fetch(
         `http://localhost:4000/api/photo/${user.email}.jpg`
       );
@@ -56,30 +55,52 @@ const PhotoUploadComponent = () => {
       } else {
         throw new Error("Failed to retrieve uploaded photo.");
       }
+
+      onCloseModal();
     } catch (error) {
       console.error("Error uploading photo:", error);
       setUploadError("An error occurred while uploading the photo.");
     } finally {
       setUploading(false);
+      window.location.reload();
     }
   };
 
   return (
-    <div className="photo-container">
-      <input type="file" onChange={handleFileChange} />
+    <div>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={12}>
+          <TextField
+            type="file"
+            onChange={handleFileChange}
+            fullWidth
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            onClick={handleUpload}
+            disabled={uploading || !selectedFile}
+            variant="contained"
+            color="primary"
+          >
+            {uploading ? "Uploading..." : "Upload Photo"}
+          </Button>
+        </Grid>
+      </Grid>
       {previewUrl && (
-        <img src={previewUrl} alt="Preview" style={{ maxWidth: "100%" }} />
+        <div>
+          <p>Preview:</p>
+          <img src={previewUrl} alt="Preview" style={{ maxWidth: "100%" }} />
+        </div>
       )}
-      <button onClick={handleUpload} disabled={uploading}>
-        {uploading ? "Uploading..." : "Upload Photo"}
-      </button>
+      {uploadError && <p>{uploadError}</p>}
       {displayUrl && (
         <div>
           <p>Uploaded Photo:</p>
           <img src={displayUrl} alt="Uploaded" style={{ maxWidth: "100%" }} />
         </div>
       )}
-      {uploadError && <p>{uploadError}</p>}
     </div>
   );
 };
