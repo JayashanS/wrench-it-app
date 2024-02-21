@@ -31,7 +31,6 @@ const YourComponent = () => {
   }, []);
 
   if (!location || !region) {
-    // Render loading or placeholder UI while waiting for location
     return <View style={styles.container} />;
   }
 

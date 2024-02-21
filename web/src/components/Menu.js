@@ -10,14 +10,15 @@ import {
   Button,
 } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
-import PhotoUploadComponent from "./Photo"; // Import your PhotoUploadComponent
-import "../styles/Menu.css"; // Import the CSS file
+import Tooltip from "@mui/material/Tooltip";
+import PhotoUploadComponent from "./Photo";
+import "../styles/Menu.css";
 
 const Menu = () => {
   const [displayUrl, setDisplayUrl] = useState(null);
-  const [photo, setPhoto] = useState(""); // You can set a default photo URL here
+  const [photo, setPhoto] = useState("");
   const [fullName, setFullName] = useState("");
-  const [userDialogOpen, setUserDialogOpen] = useState(false); // State for dialog open/close
+  const [userDialogOpen, setUserDialogOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   let email = user.email;
 
@@ -51,11 +52,11 @@ const Menu = () => {
   }, []);
 
   const handleChangePhoto = () => {
-    setUserDialogOpen(true); // Open the dialog when icon button is clicked
+    setUserDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
-    setUserDialogOpen(false); // Close the dialog
+    setUserDialogOpen(false);
   };
 
   return (
@@ -64,7 +65,7 @@ const Menu = () => {
         <Avatar
           alt="Profile"
           src={displayUrl}
-          sx={{ width: 100, height: 100 }} // Adjust size inline
+          sx={{ width: 100, height: 100 }}
           className="menu-profile-photo"
         />
         <div className="menu-profile-det">
@@ -72,21 +73,22 @@ const Menu = () => {
           Administrator
         </div>
         <div className="menu-camera-button">
-          <IconButton
-            onClick={handleChangePhoto}
-            style={{ backgroundColor: "white" }}
-            size="small"
-          >
-            <PhotoCamera />
-          </IconButton>
+          <Tooltip title="Update Your Photo">
+            <IconButton
+              onClick={handleChangePhoto}
+              style={{ backgroundColor: "white" }}
+              size="small"
+            >
+              <PhotoCamera />
+            </IconButton>
+          </Tooltip>
         </div>
       </div>
-      {/* Inside Menu component */}
+
       <Dialog open={userDialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>Upload Photo</DialogTitle>
         <DialogContent>
           <PhotoUploadComponent onCloseModal={handleCloseDialog} />{" "}
-          {/* Pass handleCloseDialog as a prop */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Close</Button>
