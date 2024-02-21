@@ -23,6 +23,7 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 
 import "../styles/Titlebar.css";
 import Sound from "../assets/sound_2.mp3";
+import Mennu from "./Menu";
 
 function Titlebar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -258,9 +259,7 @@ function Titlebar() {
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
         >
-          <MenuItem onClick={handleMenuClose}>Item 1</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Item 2</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Item 3</MenuItem>
+          <Mennu />
         </Menu>
       </div>
     </div>
