@@ -1,19 +1,14 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import DatePicker from "@react-native-community/datetimepicker";
-import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
+import Font from "../../constants/Fonts";
+import FontSize from "../../constants/FontSize";
+import Colors from "../../constants/Colors";
+import CustomButton from "../../components/CustomButton";
+import CustomTextInput from "../../components/CustomTextInput";
 
-const windowWidth = Dimensions.get("window").width;
+import DatePicker from "@react-native-community/datetimepicker";
 
 export default function Signup() {
   const navigation = useNavigation();
@@ -29,9 +24,6 @@ export default function Signup() {
 
   const handleSubmit = async () => {
     navigation.navigate("Main", { screen: "Community" });
-  };
-  const handleSearch = async () => {
-    navigation.navigate("NearByCenters");
   };
 
   return (
@@ -50,11 +42,12 @@ export default function Signup() {
           <View style={{ textAlign: "left" }}>
             <Text
               style={{
-                fontSize: 30,
-                fontFamily: "Roboto",
-                fontWeight: "300",
-                color: "#176B87",
+                fontFamily: Font["poppins-semiBold"],
+                fontSize: FontSize.xxLarge,
+                color: Colors.darkText,
                 marginBottom: 10,
+                maxWidth: "80%",
+                textAlign: "center",
               }}
             >
               Register with Us
@@ -62,52 +55,25 @@ export default function Signup() {
           </View>
 
           <View style={{ paddingHorizontal: 10 }}>
-            <TextInput
+            <CustomTextInput
               placeholder="First Name"
+              onChangeText={(newText) => setFname(newText)}
               value={fname}
-              onChangeText={setFname}
-              style={{
-                width: windowWidth * 0.8,
-                height: windowWidth * 0.1,
-                marginBottom: 10,
-                borderColor: "#176B87",
-                borderWidth: 1,
-                borderRadius: 5,
-                paddingHorizontal: 10,
-              }}
             />
-            <TextInput
+            <CustomTextInput
               placeholder="Last Name"
+              onChangeText={(newText) => setLname(newText)}
               value={lname}
-              onChangeText={setLname}
-              style={{
-                width: windowWidth * 0.8,
-                height: windowWidth * 0.1,
-                marginBottom: 10,
-                borderColor: "#176B87",
-                borderWidth: 1,
-                borderRadius: 5,
-                paddingHorizontal: 10,
-              }}
             />
             <TouchableOpacity
-              style={{ width: "80%", marginBottom: 10 }}
+              style={{ width: "100%", marginBottom: 10 }}
               onPress={() => setShowDatePicker(true)}
             >
-              <TextInput
-                placeholder="Select Birthday"
+              <CustomTextInput
+                placeholder="Birthday"
+                onChangeText={(newText) => setBday(newText)}
                 value={bday.toDateString()}
                 editable={false}
-                style={{
-                  width: windowWidth * 0.6,
-                  height: windowWidth * 0.1,
-                  borderColor: "#176B87",
-                  borderWidth: 1,
-                  borderRadius: 5,
-                  paddingHorizontal: 10,
-                  height: 40,
-                  justifyContent: "center",
-                }}
               />
             </TouchableOpacity>
             {showDatePicker && (
@@ -120,74 +86,32 @@ export default function Signup() {
                 }}
               />
             )}
-            <TextInput
+            <CustomTextInput
               placeholder="Email"
+              onChangeText={(newText) => setEmail(newText)}
               value={email}
-              onChangeText={setEmail}
-              style={{
-                width: windowWidth * 0.8,
-                height: windowWidth * 0.1,
-                marginBottom: 10,
-                borderColor: "#176B87",
-                borderWidth: 1,
-                borderRadius: 5,
-                paddingHorizontal: 10,
-              }}
             />
-            <TextInput
+            <CustomTextInput
               placeholder="Password"
+              onChangeText={(newText) => setPw(newText)}
               value={pw}
-              onChangeText={setPw}
-              secureTextEntry
-              style={{
-                width: windowWidth * 0.6,
-                height: windowWidth * 0.1,
-                marginBottom: 10,
-                borderColor: "#176B87",
-                borderWidth: 1,
-                borderRadius: 5,
-                paddingHorizontal: 10,
-              }}
             />
-            <TextInput
+            <CustomTextInput
               placeholder="Confirm Password"
+              onChangeText={(newText) => setCpw(newText)}
               value={cpw}
-              onChangeText={setCpw}
-              secureTextEntry
-              style={{
-                width: windowWidth * 0.6,
-                height: windowWidth * 0.1,
-                marginBottom: 10,
-                borderColor: "#176B87",
-                borderWidth: 1,
-                borderRadius: 5,
-                paddingHorizontal: 10,
-              }}
             />
+
             {error && (
               <Text style={{ fontSize: 14, color: "rgb(255, 0, 115)" }}>
                 {error}
               </Text>
             )}
-            <TouchableOpacity
+            <CustomButton
+              title="Sign Up"
               onPress={handleSubmit}
-              disabled={false}
-              style={{
-                width: windowWidth * 0.8,
-                height: windowWidth * 0.1,
-                height: 40,
-                backgroundColor: "#176B87",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 5,
-                marginBottom: 10,
-              }}
-            >
-              <Text style={{ color: "#fff", fontSize: 16 }}>Register</Text>
-            </TouchableOpacity>
-            <View style={{ justifyContent: "center", alignItems: "flex-end", marginLeft: 100 }}>
-            <TouchableOpacity onPress={handleSearch}><Ionicons name="search" size={40} color="#125C75" /></TouchableOpacity>
-            </View>
+              backgroundColor={Colors.primary}
+            />
           </View>
         </View>
       </View>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import io from "socket.io-client";
 import Stack from "@mui/material/Stack";
 import { Menu, MenuItem } from "@mui/material";
@@ -22,13 +23,21 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 
 import "../styles/Titlebar.css";
 import Sound from "../assets/sound_2.mp3";
+import Mennu from "./Menu";
 
 function Titlebar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [garageId, setGarageId] = useState(localStorage.getItem("garageId"));
+  const [fullName, setFullName] = useState("");
+  const [garageName, setGarageName] = useState("");
+  const [displayUrl, setDisplayUrl] = useState(null);
   const [audio] = useState(new Audio(Sound));
   const audioRef = useRef(new Audio(Sound));
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  let email = user.email;
 
   useEffect(() => {
     const socket = io("http://localhost:4000");
@@ -54,6 +63,44 @@ function Titlebar() {
     };
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/garage/${garageId}`
+      );
+      const responseData = response.data;
+      setGarageName(responseData.repairCenterName);
+    } catch (error) {
+      console.error("Error Fetching Garage Name:", error);
+    }
+
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/user/${email}`
+      );
+      const responseData = response.data;
+      setFullName(`${responseData.fname} ${responseData.lname}`);
+    } catch (error) {
+      console.error("Error Fetching User Name:", error);
+    }
+    try {
+      const photoResponse = await fetch(
+        `http://localhost:4000/api/photo/${user.email}.jpg`
+      );
+      if (photoResponse.ok) {
+        const photoUrl = await photoResponse.blob();
+        setDisplayUrl(URL.createObjectURL(photoUrl));
+      } else {
+        throw new Error("Failed to retrieve uploaded photo.");
+      }
+    } catch (error) {
+      console.error("Error uploading photo:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
     setIsClicked(true);
@@ -159,7 +206,7 @@ function Titlebar() {
             }}
           >
             <Tooltip title="Company Name">
-              <Chip label="Revive Auto Solutions" />
+              <Chip label={garageName} />
             </Tooltip>
             <Tooltip title="Associated With">
               <IconButton aria-label="menu" sx={{ width: 30, height: 30 }}>
@@ -168,10 +215,8 @@ function Titlebar() {
             </Tooltip>
             <Tooltip title="User Name">
               <Chip
-                avatar={
-                  <Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />
-                }
-                label="John Doe"
+                avatar={<Avatar alt="Natacha" src={displayUrl} />}
+                label={fullName}
                 variant="outlined"
               />
             </Tooltip>
@@ -214,9 +259,7 @@ function Titlebar() {
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
         >
-          <MenuItem onClick={handleMenuClose}>Item 1</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Item 2</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Item 3</MenuItem>
+          <Mennu />
         </Menu>
       </div>
     </div>

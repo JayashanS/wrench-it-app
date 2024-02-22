@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import io from "socket.io-client";
 import { FontAwesome } from "@expo/vector-icons";
+import Font from "../../constants/Fonts";
 const CallScreen = () => {
   const handleCallAccept = () => {
     const socket = io("http://192.168.184.68:4000");
@@ -42,6 +43,16 @@ const CallScreen = () => {
         <FontAwesome name="phone" size={24} color="red" />
         <Text style={styles.buttonText}>Decline</Text>
       </TouchableOpacity>
+      <Text
+        style={{
+          fontFamily: Font["poppins-regular"],
+
+          maxWidth: "80%",
+          textAlign: "center",
+        }}
+      >
+        Create an account so you can explore all the existing jobs
+      </Text>
     </View>
   );
 };

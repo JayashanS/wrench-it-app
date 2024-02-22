@@ -23,7 +23,7 @@ import Repair from "./components/Repair";
 import Request from "./components/Request";
 import Reservations from "./components/Reservations";
 import Location from "./components/Directions";
-import Photo from "./components/Photo";
+import Feedback from "./components/Feedback";
 import Help from "./components/Help";
 import Community from "./components/Community";
 import Settings from "./components/Settings";
@@ -82,7 +82,7 @@ function App() {
           <Route path="help" element={<Help />} />
           <Route path="com" element={<Community />} />
           <Route path="set" element={<Settings />} />
-          <Route path="photo" element={<Photo />} />
+          <Route path="feed" element={<Feedback />} />
         </Route>
       </Routes>
     </Router>

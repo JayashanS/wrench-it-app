@@ -20,6 +20,7 @@
     margin-right: 10px;
     background-color: white;
     border-radius: 10px;
+    overflow:auto;
 }
 .overview-profile-title{
     display: flex;

@@ -91,6 +91,27 @@ const insertManyUsers = async (req, res) => {
   }
 };
 
+const getFullNameByEmail = async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User not found with email", email });
+    }
+
+    const { fname, lname } = user;
+
+    res.status(200).json({ fname, lname });
+  } catch (error) {
+    console.error("Error fetching user by email", error);
+    res.status(500).json({ error: "Could not fetch user by email" });
+  }
+};
+
 module.exports = {
   loginUser,
   signupUser,
@@ -98,4 +119,5 @@ module.exports = {
   deleteUser,
   getAllUsers,
   insertManyUsers,
+  getFullNameByEmail,
 };

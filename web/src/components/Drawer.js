@@ -290,25 +290,25 @@ function Drawer() {
         className="drawer-section"
         style={{
           backgroundColor:
-            selectedLink === "/dashboard/photo" ? "#09BEB1" : "#fff",
+            selectedLink === "/dashboard/feed" ? "#09BEB1" : "#fff",
         }}
       >
         <Link
           className="link"
-          to="/dashboard/photo"
+          to="/dashboard/feed"
           style={{
-            color: selectedLink === "/dashboard/photo" ? "#fff" : "#868e96",
+            color: selectedLink === "/dashboard/feed" ? "#fff" : "#868e96",
             textDecoration: "none",
             display: "flex",
             alignItems: "center",
             height: "100%",
             paddingLeft: "10px",
           }}
-          onClick={() => handleLinkClick("/dashboard/photo")}
+          onClick={() => handleLinkClick("/dashboard/feed")}
         >
           <ContactMailIcon
             style={{
-              color: selectedLink === "/dashboard/photo" ? "#fff" : "#868e96",
+              color: selectedLink === "/dashboard/feed" ? "#fff" : "#868e96",
               marginRight: "10px",
               fontSize: 20,
             }}

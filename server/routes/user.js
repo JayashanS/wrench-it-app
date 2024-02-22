@@ -5,6 +5,7 @@ const {
   deleteUser,
   getAllUsers,
   insertManyUsers,
+  getFullNameByEmail,
 } = require("../controllers/userController");
 const router = express.Router();
 
@@ -13,4 +14,5 @@ router.post("/signup", signupUser);
 router.get("/", getAllUsers);
 router.delete("/:id", deleteUser);
 router.post("/n", insertManyUsers);
+router.get("/:email", getFullNameByEmail);
 module.exports = router;

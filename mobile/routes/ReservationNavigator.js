@@ -1,8 +1,8 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import Colors from "../constants/Colors";
 
-import Reservation from "../screens/Reservation/Reservation";
+import Reservation from "../screens/Reservations/Map";
 
 const Stack = createStackNavigator();
 
@@ -15,16 +15,14 @@ export default function ReservationStack() {
         options={{
           title: "Reservation",
           headerStyle: {
-            backgroundColor: "#125C75",
+            backgroundColor: Colors.primary,
           },
           headerTintColor: "#fff",
           headerTitleStyle: {
             fontWeight: "bold",
           },
         }}
-       
       />
-    
     </Stack.Navigator>
   );
 }
