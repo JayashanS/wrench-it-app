@@ -14,9 +14,7 @@ export default function Feedback() {
           allowFullScreen
         ></iframe>
         <p>
-          <a href="https://giphy.com/gifs/dancing-kermit-etOX3h7ApZuDe7Fc5w">
-            via GIPHY
-          </a>
+          <a href="https://giphy.com/gifs/dancing-kermit-etOX3h7ApZuDe7Fc5w"></a>
         </p>
       </div>
     </div>
