@@ -35,11 +35,7 @@ export default function App() {
           options={{ headerShown: false }}
           component={RequestNavigator}
         />
-        <Stack.Screen
-          name="Community"
-          options={{ headerShown: false }}
-          component={ComunityNavigator}
-        />
+        
         <Stack.Screen
           name="Reservation"
           options={{ headerShown: false }}
