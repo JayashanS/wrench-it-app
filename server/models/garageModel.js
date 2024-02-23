@@ -81,18 +81,19 @@ const garageSchema = new Schema({
     LightWeight: { type: Boolean, default: false },
     HeavyWeight: { type: Boolean, default: false },
   },
+  location: {
+    type: { type: String, enum: ["Point"] },
+    coordinates: { type: [Number] },
+  },
   minCharge: {
     type: Number,
   },
   maxCharge: {
     type: Number,
   },
-  longitudes: {
-    type: Number,
-  },
-  latitudes: {
-    type: Number,
-  },
 });
+
+// Add a 2dsphere index on the 'location' field
+garageSchema.index({ location: "2dsphere" });
 
 module.exports = mongoose.model("Garage", garageSchema);

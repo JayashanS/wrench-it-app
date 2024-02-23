@@ -6,6 +6,7 @@ const {
   updateGarageLocation,
   getGarageById,
   getGarageNameById,
+  findNearbyRepairCenters,
 } = require("../controllers/garageController");
 const router = express.Router();
 
@@ -15,4 +16,5 @@ router.get("/:garageId", getGarageById);
 router.put("/services/:garageId", updateGarageServicesAndCharges);
 router.put("/location/:garageId", updateGarageLocation);
 router.get("/name/:garageId", getGarageNameById);
+router.get("/near/all", findNearbyRepairCenters);
 module.exports = router;

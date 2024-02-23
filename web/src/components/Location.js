@@ -22,17 +22,22 @@ const Map = () => {
       );
       const responseData = response.data;
 
-      setClickedLongitude(responseData.longitudes);
-      setClickedLatitude(responseData.latitudes);
+      if (responseData.location) {
+        setClickedLongitude(responseData.location.coordinates[0]);
+        setClickedLatitude(responseData.location.coordinates[1]);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+
   const updateServices = async () => {
     try {
       const updatedData = {
-        longitudes: clickedLongitude,
-        latitudes: clickedLatitude,
+        location: {
+          type: "Point",
+          coordinates: [clickedLongitude, clickedLatitude],
+        },
       };
 
       const response = await axios.put(
@@ -42,10 +47,9 @@ const Map = () => {
 
       console.log("Update successful:", response.data);
     } catch (error) {
-      console.error("Error updating services:", error);
+      console.error("Error updating location:", error);
     }
   };
-
   // Initialize map when component mounts
   useEffect(() => {
     fetchData();

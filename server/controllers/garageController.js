@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const Garage = require("../models/garageModel");
 
 const createGarage = async (req, res) => {
@@ -133,15 +135,14 @@ const updateGarageServicesAndCharges = async (req, res) => {
 
 const updateGarageLocation = async (req, res) => {
   const garageId = req.params.garageId;
-  const { longitudes, latitudes } = req.body;
+  const { location } = req.body;
 
   try {
     const updatedGarage = await Garage.findOneAndUpdate(
       { garageId: garageId },
       {
         $set: {
-          longitudes,
-          latitudes,
+          location,
         },
       },
       { new: true }
@@ -159,6 +160,7 @@ const updateGarageLocation = async (req, res) => {
     res.status(500).json({ error: "Could not update location for Garage" });
   }
 };
+
 const getGarageById = async (req, res) => {
   const garageId = req.params.garageId;
 
@@ -199,6 +201,77 @@ const getGarageNameById = async (req, res) => {
   }
 };
 
+const findNearbyRepairCenters = async (req, res) => {
+  const { longitude, latitude } = req.body; // Assuming the frontend sends the user's coordinates
+
+  try {
+    const nearbyRepairCenters = await Garage.aggregate([
+      {
+        $geoNear: {
+          near: {
+            type: "Point",
+            coordinates: [longitude, latitude], // User's coordinates
+          },
+          distanceField: "distance",
+          spherical: true,
+        },
+      },
+    ]);
+
+    // Fetch photo for each garage and include additional fields in the response
+    const garagesWithDetails = await Promise.all(
+      nearbyRepairCenters.map(async (garage) => {
+        const photoFileName = garage.garageId + ".jpg"; // Assuming the garageId is used as the filename
+        const photoPath = path.join(
+          __dirname,
+          "../assets/garages",
+          photoFileName
+        );
+
+        try {
+          const photoData = await fs.promises.readFile(photoPath);
+          const base64Photo = photoData.toString("base64");
+          const photoUrl = `data:image/jpeg;base64,${base64Photo}`;
+
+          // Include additional fields in the response
+          return {
+            ...garage,
+            photoUrl,
+            address: {
+              street: garage.street,
+              city: garage.city,
+              state: garage.state,
+              postalCode: garage.postalCode,
+            },
+            minCharge: garage.minCharge,
+            maxCharge: garage.maxCharge,
+          };
+        } catch (error) {
+          console.error("Error reading photo file:", error);
+          // If photo not found or error reading file, return garage without photo
+          return {
+            ...garage,
+            photoUrl: null,
+            address: {
+              street: garage.street,
+              city: garage.city,
+              state: garage.state,
+              postalCode: garage.postalCode,
+            },
+            minCharge: garage.minCharge,
+            maxCharge: garage.maxCharge,
+          };
+        }
+      })
+    );
+
+    res.status(200).json(garagesWithDetails);
+  } catch (error) {
+    console.error("Error finding nearby repair centers", error);
+    res.status(500).json({ error: "Could not find nearby repair centers" });
+  }
+};
+
 module.exports = {
   createGarage,
   updateGarageDetails,
@@ -206,4 +279,5 @@ module.exports = {
   updateGarageLocation,
   getGarageById,
   getGarageNameById,
+  findNearbyRepairCenters,
 };
