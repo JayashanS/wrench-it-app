@@ -173,4 +173,9 @@
       transform: translateX(0);
     }
   }
-  
+  @media print {
+    .nav {
+      display: none;
+    }
+    
+  }

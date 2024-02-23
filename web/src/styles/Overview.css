@@ -37,3 +37,16 @@
     width:100%;
     height:auto;
 }
+
+@media print {
+    .overview-col-1 {
+      display: none;
+    }
+    .overview-container {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 0;
+    }
+  }
+  

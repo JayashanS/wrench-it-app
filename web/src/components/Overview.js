@@ -39,6 +39,10 @@ export default function Overview() {
 
   const xLabels = daysOfWeek.reverse();
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="overview-container">
       <div className="overview-col-1">
@@ -90,6 +94,7 @@ export default function Overview() {
           functionality and convenience of a property.
         </span>
         <Map />
+        <button onClick={handlePrint}>Print</button>
       </div>
     </div>
   );

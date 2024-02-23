@@ -52,3 +52,9 @@
   background-color: #09beb26a;
 }
 
+@media print {
+  .drawer {
+    display: none;
+  }
+  
+}
