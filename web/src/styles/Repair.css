@@ -121,12 +121,12 @@ h2{
 .Add-new-Form {
     position: fixed;
     z-index: 1;
-    margin: -100px 200px;
+    margin: -150px 200px;
 }
   
 .Add-New-Form-card {
     width: 500px;
-    height: 590px;
+    height: 660px;
     margin: auto;
     background-color:white;
     box-shadow:0 0 10px rgba(231, 231, 231, 0.1);
@@ -202,4 +202,11 @@ label {
 .close-button{
   display: block;
     
+}
+.error-message-box {
+  background-color: #ffe4e1; /* Light red background */
+  color: #8b0000; /* Dark red text */
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }

@@ -52,28 +52,59 @@ function message(contents) {
 const Community = () => {
 const [isLoading, setisLoading] = useState(false);
 const [selectedImage, setSelectedImage] = useState(null);
-
 const [logoImage, setLogoImage] = useState(null);
-
 const [ad,setAd]=useState([]);
 const [companyName,setCompanyName]=useState('');
 const [startDate, setStartDate] = useState('');
 const [endDate, setEndDate] = useState('');
+const [startTime, setStartTime] = useState('');
+const [endTime, setEndTime] = useState('');
 
   
+/* const handleLogoChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const logoUrl = URL.createObjectURL(file);
+    setLogoImage(logoUrl,);    
+    const logoLabel = document.querySelector('.logo-label');
+    console.log(logoImage)
+    logoLabel.innerHTML = `<img src='${logoImage}' alt="Logo" class="selected-image" />
+        <input
+        type="file"
+        accept="image/*"
+        onChange=${handleLogoChange}
+        className="file-input"
+         />`;
+  }
+}; */
+
 const handleLogoChange = (event) => {
   const file = event.target.files[0];
   if (file) {
     const logoUrl = URL.createObjectURL(file);
-    setLogoImage(logoUrl);
-    
-    
-    const logoLabel = document.querySelector('.logo-label');
-    logoLabel.innerHTML = `<img src="${logoUrl}" alt="Logo" class="selected-image" />`;
+    setLogoImage(logoUrl);    
+  }
+};
+
+const handleLogoClick = () => {
+  const fileInput = document.getElementById('logo-input');
+  if (fileInput) {
+    fileInput.click();
   }
 };
   const handleUpload = () => {
-    
+    if (!companyName || !startDate || !endDate || !selectedImage || !logoImage || !startTime || !endTime ) {
+      alert("Please fill all the fields");
+      return;
+    }
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+
+  // Check if end date is greater than start date
+    if (endDateObj <= startDateObj) {
+      alert("End date should be greater than start date");
+      return;
+    }
    /*  console.log(startDate , endDate); */
    /*  setPostX({
       name: companyName,
@@ -87,27 +118,37 @@ const handleLogoChange = (event) => {
       image: selectedImage,
       stDate: startDate,
       enDate: endDate,
-      logo : logoImage
+      logo : logoImage,
+      stTime: startTime,
+      enTime : endTime
     }])
 
     setCompanyName('');
     setStartDate('');
     setEndDate('');
-    setSelectedImage(null);
-    setLogoImage(null);
+    setStartTime('');
+    setEndTime('');
+   // setSelectedImage(null);
+    //setLogoImage(null);
 
     
 
-    const logoLabel = document.querySelector('.logo-label');
+    /* const logoLabel = document.querySelector('.logo-label');
       logoLabel.innerHTML = `Upload-Logo
       <input
         type="file"
         accept="image/*"
-        onChange={(event) => handleLogoChange(event)}
+        onChange={handleLogoChange}
         className="file-input"
-      />`;
+      />`; */
     
   };
+  const handleDeleteOffer = (index) => {
+    const updatedAd = [...ad];
+    updatedAd.splice(index, 1);
+    setAd(updatedAd);
+  };
+
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -118,9 +159,6 @@ const handleLogoChange = (event) => {
     }
   };
 
-  
-  
-  
   useEffect(() => {
     const initialImage = URL.createObjectURL(new File([""], "placeholder.jpg"));
     setSelectedImage(initialImage);
@@ -197,25 +235,21 @@ const handleLogoChange = (event) => {
                 className="file-input"
               />
               </label>
-                <div className="Sdate"><label for="startDate">Starting date::</label>
-                <input type="date" value={startDate} onChange={(e)=>setStartDate(e.target.value)} id="startDate" name="startDate"/>
+                <div className="Sdate"><label for="startDate">Starting date:</label>
+                  <input type="date" value={startDate} onChange={(e)=>setStartDate(e.target.value)} id="startDate" name="startDate"/>
                 </div>
-              <div className="Edate"><label for="endDate">End date::</label>
-                <input type="date" value={endDate} onChange={(e)=>setEndDate(e.target.value)} id="endDate" name="endDate"/>
-              </div>
-              <div className="col">
-                <div className="row">
-                    <button className="upload-button" onClick={handleUpload}>
+                <div className="Stime">Start Time:
+                  <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+                </div>
+                <div className="Edate"><label for="endDate">End date:</label>
+                  <input type="date" value={endDate} onChange={(e)=>setEndDate(e.target.value)} id="endDate" name="endDate"/>
+                </div>
+                <div className="Etime"> End Time:
+                  <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+                </div>
+                <button className="upload-button" onClick={handleUpload}>
                     Upload
-                  </button>
-                </div>
-                <div className="row">
-                    <button className="reset-button" >
-                    Reset
-                  </button>
-                </div>
-              </div>
-              
+                 </button>
           </div>
           <div className="comes">
             {/* {selectedImage && ( */}
@@ -240,11 +274,21 @@ const handleLogoChange = (event) => {
                 margin="normal"
                 className="TextFieldStyles" 
                 value={companyName}
-                onChange={(e)=>setCompanyName(e.target.value)}
+                onChange={(e) => {
+                  if (e.target.value.length <= 20) {
+                    setCompanyName(e.target.value);
+                  }
+                }}
+                inputProps={{ maxLength: 20 }}
                 />
               <div className="RoundShape">
               <label className="logo-label" >
-              Upload-Logo
+             {logoImage?<img
+                          src={logoImage}
+                          alt="Logo"
+                          className="selected-image"
+                          onClick={handleLogoClick}
+                        />:<span>Upload-Logo</span>} 
               <input
                 type="file"
                 accept="image/*"
@@ -284,10 +328,13 @@ const handleLogoChange = (event) => {
                      <div className="ItemName">{item.name}</div>
                     </div>
                     <div className="Due">
-                        <div className="Starting">{item.stDate} </div>
-                        <div className="Ending">{item.enDate} </div>
-                    
+                        <div className="Starting">Starts in<pre>
+                          {item.stDate}</pre> {item.stTime}</div>
+                        <div className="Ending">Ends in
+                        <pre>{item.enDate}</pre>{item.enTime} </div>
                     </div>
+
+                    <button className="deletePost" onClick={() => handleDeleteOffer(index)}>Delete</button>
                   </div>
                   <div className="itemImage">
                     <img

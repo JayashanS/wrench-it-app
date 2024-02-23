@@ -12,7 +12,7 @@ const NearByCenters = () => {
     navigation.navigate("Profile"); 
   };
   const requestAssistance = () => {
-    navigation.navigate("RequestSuccess"); 
+    navigation.navigate("Assistance"); 
   };
 
   return (
