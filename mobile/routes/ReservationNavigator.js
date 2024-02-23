@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Colors from "../constants/Colors";
 
-import Reservation from "../screens/Reservations/Map";
+import Reservation from "../screens/Reservations/ListOfCenters";
 
 const Stack = createStackNavigator();
 
