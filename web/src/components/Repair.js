@@ -14,11 +14,14 @@ function Repair() {
   const [model, setmodel] = useState("");
   const [fault, setfault] = useState("");
   const [NIC, setNIC] = useState("");
+  const [NICError, setNICError] = useState("");
   const [date, setdate] = useState("");
   const [phoneNo, setphoneNo] = useState("");
+  const [phoneNoError,setPhoneNoError]=useState("");
   const [status, setstatus] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [data,setData]=useState([]);
+  const [showErrorMessageBox, setShowErrorMessageBox] = useState(false);
 
 
 // Add part form
@@ -49,12 +52,35 @@ function Repair() {
     setIsPartsFormOpen(!isPartsFormOpen);
   };
 
+
   
   //handlesubmit of repair details
 
   const handleSubmit = async (e) => {
     console.log("button clicked");
     e.preventDefault();
+
+   
+    // Check if all required fields are filled
+  if (
+    repairId === "" ||
+    licensePlateNo === "" ||
+    model === "" ||
+    fault === "" ||
+    date === "" ||
+    status === ""
+  ) {
+    setShowErrorMessageBox(true);
+    return;
+  }
+  if (!validatePhoneNo(phoneNo)) {
+    setPhoneNoError("Please enter a valid phone number !");
+    return;
+  }
+  if (!validateNIC(NIC)) {
+    setNICError("Please enter a valid NIC !");
+    return;
+  }
     const repair = {
       repairId,
       licensePlateNo,
@@ -66,6 +92,7 @@ function Repair() {
       status,
     };
     console.log("Form Data:", repair);
+
 
     const response = await fetch("http://localhost:4000/api/repair/", {
       method: "POST",
@@ -216,7 +243,16 @@ const handleRefreshBilling = () => {
   setQuantity(0);
   setPartsData([]);
 };
+ const validatePhoneNo = (phone) => {
+    const phonePattern = /^\d{10}$/; 
+    return phonePattern.test(phone);
+  };
 
+  const validateNIC = (nic) => {
+    const nicPattern = /^\d{9}[Vv]$/;
+    return nicPattern.test(nic);
+  };
+  
   //begining of the page
   return (
     <div class="RepairPage">
@@ -245,6 +281,11 @@ const handleRefreshBilling = () => {
             <Card className="Add-New-Form-card">
               <Card.Body>
                 <h2>Repair Information Form</h2>
+                {showErrorMessageBox && (
+                     <div className="error-message-box">
+                          Please fill in all the required fields before submitting the form.
+                     </div>
+                  )}
                 <form id="repairForm" onSubmit={handleSubmit}>
                   <label for="repairId">Repair ID:</label>
                   <input
@@ -292,21 +333,33 @@ const handleRefreshBilling = () => {
                     type="text"
                     id="NIC"
                     name="NIC"
-                    onChange={(e) => setNIC(e.target.value)}
+                    onChange={(e) => {setNIC(e.target.value);
+                    setNICError("");
+                    }}
                     value={NIC}
                     required
                   />
-
+              {NICError &&(
+                <div className="error" style={{color:"red",marginTop:"5px"}}>
+                {NICError}
+              </div>
+              )}
                   <label for="phoneNo">Phone No:</label>
                   <input
                     type="tel"
                     id="phoneNo"
                     name="phoneNo"
-                    onChange={(e) => setphoneNo(e.target.value)}
+                    onChange={(e) => {setphoneNo(e.target.value);
+                    setPhoneNoError("");
+                    }}
                     value={phoneNo}
                     required
                   />
-
+            {phoneNoError && (
+            <div className="error" style={{color:"red",marginTop:"5px"}}>
+              {phoneNoError}
+            </div>
+          )}
                   <label for="date">Date:</label>
                   <input
                     type="date"
@@ -333,7 +386,8 @@ const handleRefreshBilling = () => {
                   <button onClick={handleSubmit}>Submit</button>
                   <button onClick={() => setIsAccordionOpen(false)}>Close</button>
                   </div>
-                  {error && <div className="error">error</div>}
+                 
+
                 </form>
 
                 <Accordion defaultActiveKey="0">
