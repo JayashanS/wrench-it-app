@@ -1,74 +1,75 @@
 import React from "react";
+import { StyleSheet, View, TextInput } from "react-native";
 import {
-  View,
+  StyleSheetView,
   Text,
-  StyleSheet,
-  TouchableOpacity,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
 
-const BoxItem = ({ title, content, onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress} style={styles.box}>
-      <Text style={styles.boxTitle}>{title}</Text>
-      <Text>{content}</Text>
-    </TouchableOpacity>
-  );
-};
 
-const CommunityPage = () => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.rowContainer}>
-        <BoxItem
-          title="Offers"
-          content="Company offers will be displayed inside this"
-        />
-      </View>
+export default function HomeScreen() {
+return (
+<View style={homestyles.homeApp}>
+  <View style={homestyles.row}>
+          <TouchableOpacity style={homestyles.cell} >
+            <Icon />
+            <View style={homestyles.buttonContent}>
+              <Ionicons name="search" size={80} color="#125C75" />
+              <Text style={homestyles.buttonText}>Find Garages</Text>
+            </View>
+          </TouchableOpacity>
 
-      <View style={styles.rowContainer}>
-        <BoxItem title="Members" content="Member since 2021" />
-      </View>
+          <TouchableOpacity style={homestyles.cell}>
+            <View style={homestyles.buttonContent}>
+              <Ionicons
+                name="person"
+                size={80}
+                color="#125C75"
+                marginBottom={10}
+              />
+              <Text style={homestyles.buttonText}>Profile</Text>
+            </View>
+          </TouchableOpacity>
 
-      <View style={styles.rowContainer}>
-        <BoxItem title="Events" content="Date: April 10, 2024" />
-      </View>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  rowContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: windowWidth * 0.05,
-    paddingLeft: windowWidth * 0.005,
-  },
-  box: {
-    flex: 1,
-    width: "90%",
-    height: windowWidth * 0.45,
-    borderWidth: 1.2,
-    borderColor: "#176B87",
-    padding: windowWidth * 0.03,
-    marginBottom: windowWidth * 0.05,
-    borderRadius: 8,
-    backgroundColor: "white",
-    elevation: 5,
-    shadowColor: "#176B87",
-  },
-  boxTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
+          <TouchableOpacity style={homestyles.cell} >
+            <View style={homestyles.buttonContent}>
+              <Ionicons name="call" size={80} color="#125C75" marginBottom={10} />
+              <Text style={homestyles.buttonText}>Calls</Text>
+            </View>
+          </TouchableOpacity>
+        
+        </View>
+        </View>
+         );
+        }
+        
+        const homestyles = StyleSheet.create({
+          homeApp: {
+            flex: 1,
+            flexDirection: "column",
+            margin: windowWidth * 0.1,
+          },
+          row: {
+            flex: 1,
+            flexDirection: "row",
+            marginBottom: windowWidth * 0.05,
+            paddingLeft: windowWidth * 0.02,
+          },
+          cell: {
+            flex: 1,
+            //borderWidth: 1,
+            //borderColor: "#176B87",
+            backgroundColor: "#D9D9D9",
+            borderRadius: 5,
+            height: windowWidth * 0.4,
+            marginRight: windowWidth * 0.02,
+            padding: windowWidth * 0.02,
+          },
+          
 });
-
-export default CommunityPage;

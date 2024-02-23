@@ -75,12 +75,13 @@ h6 {
 }
 
 .scrollable-container::-webkit-scrollbar-thumb {
-  background-color: #888;
+  background-color: black;
   border-radius: 4px;
 }
 
 .scrollable-container::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
+  background-color: #0a7381;
+  border-radius: 4px;
 }
 .message{
   background-color: white;
@@ -94,6 +95,15 @@ h6 {
   position: relative;
   
 }
+.post-buttons {
+  display: flex;
+  justify-content: space-around; /* Add this line */
+   
+  width: 100%;
+  margin-bottom: 10px;
+  
+  
+}
 .file-label {
   display: inline-block;
   cursor: pointer;
@@ -103,14 +113,28 @@ h6 {
   font-size: medium;
   transition: background-color 0.5s;
 }
+.Stime,
+.Etime{
+  
+  width: 13%;
+  font-size:smaller;
+}
 .upload-button {
   display: inline-block;
   cursor: pointer;
   padding: 7px;
   border-radius: 7px;
-  margin-right: 2px;
+  margin-right: 5px;
   font-size: medium;
   transition: background-color 0.5s;
+  background-color: transparent; 
+  color: white;
+  border: white  solid 1px;
+  text-align: center;
+  width: 15%;
+  height: 20%;
+  margin-top: 20px;
+
   
 }
 .file-label {
@@ -122,54 +146,26 @@ h6 {
   height: 80%;
   margin-top: 20px;
 }
-.upload-button {
-  background-color: transparent; 
-  color: white;
-  border: white  solid 1px;
-  text-align: center;
-  width: 50%;
-  height: 20%;
-  margin-top: 10px;
-  margin-left: 46%;
 
-}
 
-.reset-button{
-  background-color: transparent;
-  border: 1px solid white;
-  width: 50%;
-  margin-left: 46%;
-  margin-top: 10px;
-  border-radius: 7px;
-  text-align: center;
-}
-.reset-button:hover{
-background-color: #1e282a;
-}
 .file-label:hover,
 .upload-button:hover {
   background-color: #1e282a; 
   color: white; 
 }
   
-.post-buttons {
-  display: flex;
-  padding: 5px;
-  width:100%;
-  margin-bottom: 10px;
- 
-}
+
 
 .Sdate,
-.Edate{
-  
-  width: 30%;
-  border: 1px solid black;
+.Edate {
+  width: 15%;
 }
-.Sdate{
+
+.Sdate {
   margin-left: 15px;
 }
-.Edate{
+
+.Edate {
   margin-left: 20px;
 }
 
@@ -271,7 +267,7 @@ background-color: black;
 .scrollable-post {
   width:100%; 
   overflow: auto; 
-  max-height:53vh;
+  max-height:50vh;
   margin-top: 5px; 
   border:none;
 }
@@ -280,15 +276,15 @@ background-color: black;
   display: flex;
   justify-content: space-around;
   width: 100%;
-  height: 52vh;
+  height: 48vh;
   overflow: hidden;
-  margin-bottom: 5px;
-  border: 1px solid black;
+  margin-bottom: 7px;
+  border: 1.5px solid #0a7381;
   border-radius: 5px;
   
 }
 .logoAndName{
-  border: 1px solid white;
+  
   display : flex;
   width: 100%;
   margin : 5px;
@@ -302,7 +298,8 @@ background-color: black;
   margin-right: 5px;
   display: flex;
   flex-direction: column;
-  gap: 10px; 
+  gap: 5px; 
+  
 }
 
 .itemImage {
@@ -316,34 +313,35 @@ background-color: black;
   margin-left: 5px;
   padding: 2px;
   text-align: center;
-  border: 1px solid white;
-  height: 55%;
+  height: 35%;
   
 }
 .Starting,
 .Ending{
   width:50%;
-  border: 1px solid white;
   height: 100%;
   justify-content: space-around;
+  background-color: #0a7381;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color:#f0f0f0;
+  border: #0c3c59 1px solid;
 }
 
 .ItemName {
-  
-  padding: 2px;
-  margin-top : 10%;
+  margin-left: 1px;
+  margin-top : 8%;
   text-align: center;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  text-decoration:underline ;
+  text-decoration:underline 1px  ;
   height: 70%;
+ 
 }
 
 .logoImg {
   margin: 3px;
-  height : 90%;
-  width: 30%;
+  height : 80%;
+  width: 25%;
   justify-content: center;
-  
 }
 
 .logoRound {
@@ -354,20 +352,32 @@ background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid green;
+  border: 1px solid #0a7381;
   overflow: hidden;
-  margin: auto;
-  
-  
+  margin-left:1px ;
+} 
+.deletePost{
+  width: 30%;
+  height : 15%;
+  border: white 1px solid;
+  margin-left: 35%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: transparent;
+  transition: 0.5s;
+  margin-bottom: 2px;
+  border-radius: 7px;
+  margin-top: 15px;
 }
-
-
+.deletePost:hover{
+  background-color: black;
+}
 .scrollable-post::-webkit-scrollbar {
   width: 8px;
 }
-
 .scrollable-post::-webkit-scrollbar-thumb {
-  background-color: #888;
+  background-color: black;
   border-radius: 4px;
 }
 .logoRound img {
@@ -375,7 +385,7 @@ background-color: black;
   height: 100%;
   object-fit: cover; /* Adjusted property */
 }
-
 .scrollable-post::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
+  background-color: #0a7381;
+  border-radius: 4px;
 }
