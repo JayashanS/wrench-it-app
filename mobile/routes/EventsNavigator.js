@@ -9,7 +9,7 @@ export default function EventsStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Events"
+        name="Event"
         component={Event}
         options={{
           title: "Events",
