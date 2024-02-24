@@ -1,18 +1,18 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Colors from "../constants/Colors";
-import Offer from "../screens/Community/Offers/Offers.js";
+import Event from "../screens/Community/Events/Event";
 
 const Stack = createStackNavigator();
 
-export default function OffersStack() {
+export default function EventsStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Offers"
-        component={Offer}
+        name="Events"
+        component={Event}
         options={{
-          title: "Offers",
+          title: "Events",
           headerStyle: {
             backgroundColor: "#0378ad",
           },

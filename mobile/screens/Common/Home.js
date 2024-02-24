@@ -9,7 +9,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   const goToProfile = () => {
-    navigation.navigate("Profile");
+    navigation.navigate("O");
   };
 
   const goToProfile3 = () => {
@@ -31,6 +31,9 @@ const HomeScreen = () => {
   const goToChat = () => {
     navigation.navigate("Chat");
   };
+  const toEvents = () => {
+    navigation.navigate("E");
+  };
 
   return (
     <View style={styles.homeApp}>
@@ -47,9 +50,9 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.row}>
-        <Cell iconName="bag" label="Promos" onPress={goToProfile} />
-        <Cell iconName="car" label="Rides" onPress={() => {}} />
-        <Cell iconName="list" label="History" onPress={() => {}} />
+        <Cell iconName="bag" label="Offers" onPress={goToProfile} />
+        <Cell iconName="list" label="Events" onPress={toEvents} />
+        <Cell iconName="car" label="History" onPress={() => {}} />
       </View>
     </View>
   );

@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const Offers = () => {
+const Events = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Latest Offers</Text>
+      <Text style={styles.title}>Upcoming Events</Text>
     </View>
   );
 };
@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Offers;
+export default Events;
