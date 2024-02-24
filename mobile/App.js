@@ -8,7 +8,7 @@ import SplashScreen from "./screens/Auth/Splash";
 import AuthNavigator from "./routes/AuthNavigator";
 import TabNavigator from "./routes/TabNavigator";
 import RequestNavigator from "./routes/RequestNavigator";
-
+import OffersNavigator from "./routes/OffersNavigator";
 import ReservationNavigator from "./routes/ReservationNavigator";
 import ChatNavigator from "./routes/ChatNavigator";
 
@@ -65,6 +65,12 @@ export default function App() {
           name="Chat"
           options={{ headerShown: false }}
           component={ChatNavigator}
+        />
+
+        <Stack.Screen
+          name="Offers"
+          options={{ headerShown: false }}
+          component={OffersNavigator}
         />
       </Stack.Navigator>
     </NavigationContainer>
