@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -59,13 +60,14 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-col">
-        <div className="login-title-container">
-          <img src={Logo} alt="Logo" className="login-logo" />
-          <span className="login-title">Wrenchit</span>
-        </div>
-        <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <div className="login-container">
+        <div className="login-col">
+          <div className="login-title-container">
+            <img src={Logo} alt="Logo" className="login-logo" />
+            <span className="login-title">Wrenchit</span>
+          </div>
+
           <Box
             component="form"
             sx={{
@@ -103,11 +105,32 @@ export default function Login() {
               Login
             </Button>
             <span style={{ color: "grey" }}>
-              Do not have an account? <a style={{ color: "#09BEB1" }}>SignUp</a>
+              Do not have an account?{" "}
+              <Link
+                to="/signup"
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                <a style={{ color: "#09BEB1" }}>SignUp</a>
+              </Link>
             </span>
           </Box>
-        </ThemeProvider>
+          <div className="login-back">
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                height: "100%",
+              }}
+            >
+              <Button size="small">Home</Button>
+            </Link>
+          </div>
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }
