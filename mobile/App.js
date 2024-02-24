@@ -10,7 +10,7 @@ import TabNavigator from "./routes/TabNavigator";
 import RequestNavigator from "./routes/RequestNavigator";
 import OffersNavigator from "./routes/OffersNavigator";
 import EventsNavigator from "./routes/EventsNavigator";
-import ReservationNavigator from "./routes/EventsNavigator";
+import ReservationNavigator from "./routes/ReservationNavigator";
 import ChatNavigator from "./routes/ChatNavigator";
 
 const Stack = createStackNavigator();
@@ -68,12 +68,12 @@ export default function App() {
         />
 
         <Stack.Screen
-          name="O"
+          name="Offers"
           options={{ headerShown: false }}
           component={OffersNavigator}
         />
         <Stack.Screen
-          name="E"
+          name="Events"
           options={{ headerShown: false }}
           component={EventsNavigator}
         />

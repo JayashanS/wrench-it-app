@@ -8,31 +8,26 @@ const windowWidth = Dimensions.get("window").width;
 const HomeScreen = () => {
   const navigation = useNavigation();
 
-  const goToProfile = () => {
-    navigation.navigate("O");
-  };
-
-  const goToProfile3 = () => {
-    navigation.navigate("NearByCenters");
-  };
-
-  const goToProfile4 = () => {
-    navigation.navigate("Profile");
-  };
-
   const goToRequest = () => {
     navigation.navigate("Request");
   };
-
+  const goToProfile4 = () => {
+    navigation.navigate("Profile");
+  };
+  const goToProfile3 = () => {
+    navigation.navigate("NearByCenters");
+  };
   const goToReservation = () => {
     navigation.navigate("Reservation");
   };
-
   const goToChat = () => {
     navigation.navigate("Chat");
   };
+  const goToProfile = () => {
+    navigation.navigate("Offers");
+  };
   const toEvents = () => {
-    navigation.navigate("E");
+    navigation.navigate("Events");
   };
 
   return (

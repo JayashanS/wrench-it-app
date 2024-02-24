@@ -1,4 +1,3 @@
-// TabNavigator.js
 import * as React from "react";
 import { View, Text, Dimensions, useWindowDimensions } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
@@ -29,8 +28,6 @@ export default function TabNavigator({ navigation }) {
   ]);
 
   const handleMenuButtonClick = () => {
-    // Handle the menu button click here
-    // For example, you can open a drawer or navigate to a menu screen
     console.log("Menu button clicked");
   };
 
