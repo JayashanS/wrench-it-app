@@ -1,9 +1,29 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import Rating from "./Rating"; // Assuming you have a Rating component
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
+import Rating from "./Rating";
 
 const CenterCard = ({ center }) => {
-  const { name, location, photo, rating, minCharge, maxCharge } = center;
+  const {
+    name,
+    location,
+    photo,
+    rating,
+    minCharge,
+    maxCharge,
+    phoneNumber,
+    distance,
+  } = center;
+
+  const handleCallPress = () => {
+    Linking.openURL(`tel:${phoneNumber}`);
+  };
 
   return (
     <View style={styles.card}>
@@ -13,6 +33,7 @@ const CenterCard = ({ center }) => {
       <View style={styles.middleContent}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.location}>{location}</Text>
+
         <View style={styles.ratingContainer}>
           <Rating value={rating} size={16} />
         </View>
@@ -20,14 +41,18 @@ const CenterCard = ({ center }) => {
           <Text style={styles.chargeText}>Min: {minCharge}</Text>
           <Text style={styles.chargeText}>Max: {maxCharge}</Text>
         </View>
+        <TouchableOpacity onPress={handleCallPress}>
+          <Text style={styles.phoneNumber}>{phoneNumber}</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.rightContent}>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>View</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Call</Text>
+        <TouchableOpacity style={styles.button} onPress={handleCallPress}>
+          <Text style={styles.buttonText}>Dial</Text>
         </TouchableOpacity>
+        <Text style={styles.distance}>{`${distance} km away`}</Text>
       </View>
     </View>
   );
@@ -53,23 +78,26 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   photo: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
   middleContent: {
     flex: 1,
     marginRight: 20,
   },
-  rightContent: {
-    justifyContent: "space-between",
-  },
+  rightContent: {},
   name: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
   },
   location: {
+    fontSize: 14,
+    color: "#666",
+    marginBottom: 5,
+  },
+  distance: {
     fontSize: 14,
     color: "#666",
     marginBottom: 5,
@@ -89,10 +117,18 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 5,
+    marginBottom: 5,
+    marginTop: 0,
+    alignItems: "center",
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
+  },
+  phoneNumber: {
+    color: "#007bff",
+    textDecorationLine: "underline",
+    marginBottom: 5,
   },
 });
 

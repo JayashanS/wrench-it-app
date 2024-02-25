@@ -16,5 +16,5 @@ router.get("/:garageId", getGarageById);
 router.put("/services/:garageId", updateGarageServicesAndCharges);
 router.put("/location/:garageId", updateGarageLocation);
 router.get("/name/:garageId", getGarageNameById);
-router.get("/near/all", findNearbyRepairCenters);
+router.post("/near/all", findNearbyRepairCenters);
 module.exports = router;

@@ -13,6 +13,8 @@ import EventsNavigator from "./routes/EventsNavigator";
 import ReservationNavigator from "./routes/ReservationNavigator";
 import ChatNavigator from "./routes/ChatNavigator";
 
+import { AuthContextProvider } from "./context/AuthContext";
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -33,51 +35,53 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="light-content"
-      />
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Auth"
-          options={{ headerShown: false }}
-          component={AuthNavigator}
+    <AuthContextProvider>
+      <NavigationContainer>
+        <StatusBar
+          translucent
+          backgroundColor="transparent"
+          barStyle="light-content"
         />
-        <Stack.Screen
-          name="Main"
-          options={{ headerShown: false }}
-          component={TabNavigator}
-        />
-        <Stack.Screen
-          name="Request"
-          options={{ headerShown: false }}
-          component={RequestNavigator}
-        />
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Auth"
+            options={{ headerShown: false }}
+            component={AuthNavigator}
+          />
+          <Stack.Screen
+            name="Main"
+            options={{ headerShown: false }}
+            component={TabNavigator}
+          />
+          <Stack.Screen
+            name="Request"
+            options={{ headerShown: false }}
+            component={RequestNavigator}
+          />
 
-        <Stack.Screen
-          name="Reservation"
-          options={{ headerShown: false }}
-          component={ReservationNavigator}
-        />
-        <Stack.Screen
-          name="Chat"
-          options={{ headerShown: false }}
-          component={ChatNavigator}
-        />
+          <Stack.Screen
+            name="Reservation"
+            options={{ headerShown: false }}
+            component={ReservationNavigator}
+          />
+          <Stack.Screen
+            name="Chat"
+            options={{ headerShown: false }}
+            component={ChatNavigator}
+          />
 
-        <Stack.Screen
-          name="Offers"
-          options={{ headerShown: false }}
-          component={OffersNavigator}
-        />
-        <Stack.Screen
-          name="Events"
-          options={{ headerShown: false }}
-          component={EventsNavigator}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen
+            name="Offers"
+            options={{ headerShown: false }}
+            component={OffersNavigator}
+          />
+          <Stack.Screen
+            name="Events"
+            options={{ headerShown: false }}
+            component={EventsNavigator}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthContextProvider>
   );
 }

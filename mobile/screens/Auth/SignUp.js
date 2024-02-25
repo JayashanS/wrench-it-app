@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useSignup } from "../../hooks/useSignup";
 
 import Font from "../../constants/Fonts";
 import FontSize from "../../constants/FontSize";
@@ -19,11 +20,12 @@ export default function Signup() {
   const [pw, setPw] = useState("");
   const [cpw, setCpw] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const { signup, errors, isLoading } = useSignup();
 
   const handleSubmit = async () => {
-    navigation.navigate("Main", { screen: "Community" });
+    await signup(fname, lname, bday, email, pw, cpw);
+    navigation.navigate("Main");
   };
 
   return (

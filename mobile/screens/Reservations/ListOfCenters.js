@@ -1,81 +1,55 @@
-import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
-import CenterCard from "../../components/CenterCard";
+import * as React from "react";
+import { View, Text } from "react-native";
+import CenterCard from "../../components/CenterCard"; // Importing the CenterCard component
 
-const ListOfCenters = () => {
-  // Dummy data for the list of centers
-  const centers = [
-    {
-      id: 1,
-      name: "Center 1",
-      location: "Location 1",
-      photo: "https://via.placeholder.com/150",
-      rating: 4.5,
-      minCharge: "$20",
-      maxCharge: "$50",
-    },
-    {
-      id: 2,
-      name: "Center 2",
-      location: "Location 2",
-      photo: "https://via.placeholder.com/150",
-      rating: 3.5,
-      minCharge: "$25",
-      maxCharge: "$60",
-    },
-    {
-      id: 3,
-      name: "Center 3",
-      location: "Location 3",
-      photo: "https://via.placeholder.com/150",
-      rating: 5,
-      minCharge: "$30",
-      maxCharge: "$70",
-    },
-    {
-      id: 4,
-      name: "Center 3",
-      location: "Location 3",
-      photo: "https://via.placeholder.com/150",
-      rating: 5,
-      minCharge: "$30",
-      maxCharge: "$70",
-    },
-    {
-      id: 5,
-      name: "Center 3",
-      location: "Location 3",
-      photo: "https://via.placeholder.com/150",
-      rating: 5,
-      minCharge: "$30",
-      maxCharge: "$70",
-    },
-    {
-      id: 6,
-      name: "Center 3",
-      location: "Location 3",
-      photo: "https://via.placeholder.com/150",
-      rating: 5,
-      minCharge: "$30",
-      maxCharge: "$70",
-    },
-    // Add more center objects as needed
-  ];
+const GetGarages = () => {
+  const [garages, setGarages] = React.useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "http://192.168.184.68:4000/api/garage/near/all",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            longitude: 80.7324,
+            latitude: 6.1138,
+          }),
+        }
+      );
+      const data = await response.json();
+      setGarages(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
-    <ScrollView style={styles.container}>
-      {centers.map((center) => (
-        <CenterCard key={center.id} center={center} />
+    <View>
+      {garages.map((garage) => (
+        <CenterCard
+          key={garage._id}
+          center={{
+            name: garage.repairCenterName,
+            location: `${garage.address.street}, ${garage.address.city}`,
+            photo: garage.photoUrl,
+            rating: 3.5,
+            minCharge: garage.minCharge,
+            maxCharge: garage.maxCharge,
+            phoneNumber: garage.phoneNumber,
+            distance: (garage.distance / 1000).toFixed(2),
+          }}
+        />
       ))}
-    </ScrollView>
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-});
-
-export default ListOfCenters;
+export default GetGarages;
