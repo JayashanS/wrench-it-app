@@ -1,10 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
 import SplashScreen from "./screens/Auth/Splash";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import AuthNavigator from "./routes/AuthNavigator";
 import TabNavigator from "./routes/TabNavigator";
 import RequestNavigator from "./routes/RequestNavigator";
@@ -18,11 +18,29 @@ import { AuthContextProvider } from "./context/AuthContext";
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [initialRoute, setInitialRoute] = useState("Splash");
   const [fontsLoaded, fontError] = useFonts({
     "poppins-regular": require("./assets/fonts/Poppins-Regular.ttf"),
     "poppins-bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "poppins-semiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
   });
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const user = await AsyncStorage.getItem("user");
+        if (user) {
+          setInitialRoute("Main");
+        } else {
+          setInitialRoute("Auth");
+        }
+      } catch (error) {
+        console.error("Error checking authentication:", error);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
@@ -42,7 +60,7 @@ export default function App() {
           backgroundColor="transparent"
           barStyle="light-content"
         />
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName={initialRoute}>
           <Stack.Screen
             name="Auth"
             options={{ headerShown: false }}
@@ -58,7 +76,6 @@ export default function App() {
             options={{ headerShown: false }}
             component={RequestNavigator}
           />
-
           <Stack.Screen
             name="Reservation"
             options={{ headerShown: false }}
@@ -69,7 +86,6 @@ export default function App() {
             options={{ headerShown: false }}
             component={ChatNavigator}
           />
-
           <Stack.Screen
             name="Offers"
             options={{ headerShown: false }}
