@@ -105,10 +105,12 @@ function Reservations() {
   
       console.log("Accept successful:", response.data);
       
-  
+      acceptReservation();
+      getPendingReservations();
+
       alert("Aceept successfully !");
 
-      acceptReservation();
+      
     } catch (error) {
       console.error("Error accept reservation:", error);
     }
@@ -125,27 +127,25 @@ function Reservations() {
       // If responseData is an array of objects
       const reservationsJSX = responseData.map((item, index) => (
         <div class="column-3" key={index}>
-          <div class="innerColumn-1">
-            <p class="circle-kawishka"></p>
-            <p>
-              <center>
-                <span class="container-title">{item.customerName}</span>
-              </center>
-            </p>
-          </div>
+          
           <div class="innerColumn-1">
             <p>
-              <span class="container-title">Date</span>
+              <span class="container-title">Customer Name</span>
               <br />
-              {/* {item.reservationtDate}*/}
-              {new Intl.DateTimeFormat("en-GB").format(
-                new Date(item.reservationtDate)
-              )}
+              
+
+              {item.customerName}
+
             </p>
             <p>
               <span class="container-title">Vehicle</span>
               <br />
               {item.vehicleType}
+            </p>
+            <p>
+              <span class="container-title">Service</span>
+              <br />
+              {item.description}
             </p>
           </div>
           <div class="innerColumn-1">
@@ -155,12 +155,23 @@ function Reservations() {
               {item.reservationtTime}
             </p>
             <p>
+              <span class="container-title">Date</span>
+              <br />
+
+              {/* {item.reservationtDate}*/}
+              {new Intl.DateTimeFormat("en-GB").format(
+                new Date(item.reservationtDate)
+              )}
+             
+            </p>
+            <p>
               <span class="container-title">Contact</span>
               <br />
               {item.contactNo}
             </p>
           </div>
           <div class="innerColumn-1">
+            <br/>
             <Stack spacing={2} direction="row">
               <Button
                 onClick={() => acceptReservation(item.reservationtId)}
@@ -176,6 +187,7 @@ function Reservations() {
               </Button>
             </Stack>
             <br />
+            <br/>
             <Stack spacing={2} direction="row">
               <Button
                 onClick={() => declineHandle(item.reservationtId)}
@@ -226,10 +238,7 @@ function Reservations() {
 
             */}
 
-            <select className="service" name="description" value={description}>
-              <option value="null">Service</option>
-              <option value="description">{item.description}</option>
-            </select>
+           
           </div>
         </div>
       ));
@@ -257,6 +266,8 @@ function Reservations() {
         <div className="reservationList" key={index}>
           <p>Model: {item.vehicleType}</p>
           <p>Description: {item.description}</p>
+          <p>Time: {item.reservationtTime}</p>
+
         </div>
       ));
 
