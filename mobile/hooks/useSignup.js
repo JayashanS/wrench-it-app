@@ -11,11 +11,14 @@ export const useSignup = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("http://192.168.184.68:4000/api/user/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fname, lname, bday, email, pw, cpw }),
-    });
+    const response = await fetch(
+      `http://${process.env.EXPO_PUBLIC_IP}:4000/api/user/signup`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fname, lname, bday, email, pw, cpw }),
+      }
+    );
     console.log("Response from server:", response);
 
     const json = await response.json();

@@ -13,7 +13,7 @@ export const useLogin = () => {
 
     try {
       const response = await fetch(
-        "http://192.168.184.68:4000/api/user/login",
+        `http://${process.env.EXPO_PUBLIC_IP}:4000/api/user/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
