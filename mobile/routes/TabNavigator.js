@@ -5,6 +5,7 @@ import { TouchableOpacity } from "react-native";
 import { StatusBar } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
+
 import Colors from "../constants/Colors";
 
 import HomeScreen from "../screens/Common/Home";
@@ -18,6 +19,8 @@ const renderScene = SceneMap({
 });
 
 export default function TabNavigator({ navigation }) {
+
+ // const navigation =useNavigation();
   const layout = useWindowDimensions();
   const windowWidth = Dimensions.get("window").width;
   const [index, setIndex] = React.useState(0);
@@ -28,7 +31,8 @@ export default function TabNavigator({ navigation }) {
   ]);
 
   const handleMenuButtonClick = () => {
-    console.log("Menu button clicked");
+    //console.log("Menu button clicked");
+    navigation.navigate("Profile");
   };
 
   const renderTabBar = (props) => (

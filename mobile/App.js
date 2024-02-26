@@ -12,6 +12,7 @@ import OffersNavigator from "./routes/OffersNavigator";
 import EventsNavigator from "./routes/EventsNavigator";
 import ReservationNavigator from "./routes/ReservationNavigator";
 import ChatNavigator from "./routes/ChatNavigator";
+import ProfileScreen from "./screens/Common/Profile";
 
 import { AuthContextProvider } from "./context/AuthContext";
 
@@ -96,6 +97,12 @@ export default function App() {
             options={{ headerShown: false }}
             component={EventsNavigator}
           />
+
+          <Stack.Screen
+            name="Profile"
+            options={{ headerShown: true }}
+            component={ProfileScreen}
+          />  
         </Stack.Navigator>
       </NavigationContainer>
     </AuthContextProvider>

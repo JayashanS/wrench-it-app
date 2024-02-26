@@ -92,6 +92,28 @@ function Reservations() {
     }
   };
 
+  const acceptReservation = async (reservationId) => {
+    try {
+      const updatedData = {
+        reservationStatus: "confirm",
+      };
+  
+      // Send PUT request to update the reservation status
+      const response = await axios.put(
+        `http://localhost:4000/api/reservation/${reservationId}`
+      );
+  
+      console.log("Accept successful:", response.data);
+      
+  
+      alert("Aceept successfully !");
+
+      acceptReservation();
+    } catch (error) {
+      console.error("Error accept reservation:", error);
+    }
+  };
+
   const getPendingReservations = async () => {
     try {
       const response = await axios.get(
@@ -141,6 +163,7 @@ function Reservations() {
           <div class="innerColumn-1">
             <Stack spacing={2} direction="row">
               <Button
+                onClick={() => acceptReservation(item.reservationtId)}
                 variant="contained"
                 style={{
                   textTransform: "none",
@@ -148,6 +171,7 @@ function Reservations() {
                   width: "100px",
                 }}
               >
+                
                 Accept
               </Button>
             </Stack>
@@ -308,6 +332,8 @@ const updateReservation = async (reservationId) => {
     console.error("Error updating reservation:", error);
   }
 };
+
+
 
 
   //delete reservation
