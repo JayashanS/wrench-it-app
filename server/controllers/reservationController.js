@@ -7,7 +7,7 @@ const createReservation = async (req, res) => {
     const reservation = await Reservation.create({
       reservationtId,
       vehicleType,
-      reservationStatus: reservationStatus.toUpperCase(), // Convert to uppercase
+      reservationStatus,
       reservationtDate,
       reservationtTime,
       customerName,
@@ -140,6 +140,33 @@ const updateReservation =async (req,res)=>{
   }
 }
 
+const acceptReservation= async(req,res)=>{
+  const reservationtId = req.params.id;
+  const  {reservationStatus} =req.body;
+
+  try {
+    const updatedReservation = await Reservation.findOneAndUpdate(
+      { reservationtId: reservationtId },
+      {
+        $set: {
+          reservationStatus:"confirm"
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedReservation) {
+      return res
+        .status(404)
+        .json({ message: "Not Update", reservationtId: reservationtId });
+    }
+
+    res.status(200).json(updatedReservation);
+  } catch (error) {
+    console.error("Error updating reservation", error);
+    res.status(500).json({ error: "Could not update reservation",error });
+  }
+}
 
 module.exports = {
   createReservation,
@@ -150,4 +177,5 @@ module.exports = {
   getPendingReservations,
   deletePendingReservation,
   updateReservation,
+  acceptReservation,
 };
