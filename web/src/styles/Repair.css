@@ -210,51 +210,7 @@ label {
   margin-bottom: 10px;
   border-radius: 5px;
 }
-.Add-new-bill-Table {
-  position: fixed;
-  z-index: 1;
-  margin: -300px -300px;
-}
 
-.Add-New-bill-card-Table{
-  width: 700px;
-  height: auto;
-  margin: auto;
-  background-color:white;
-  box-shadow:0 0 10px rgba(231, 231, 231, 0.1);
-  border-radius: 4px;
- 
-}
-
-.invoice-header {
-  border-bottom: 2px solid #333;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-.invoice-header h1 {
-  font-size: 24px;
-  margin: 0;
-}
-.invoice-details {
-  margin-bottom: 20px;
-}
-.invoice-details p {
-  margin: 5px 0;
-}
-.invoice-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-.invoice-table th, .invoice-table td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: left;
-}
-.invoice-total {
-  text-align: right;
-  font-weight: bold;
-}
 @media print {
 .RepairPage {
   margin-left: 0;

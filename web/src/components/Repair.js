@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import { Accordion, Card,Form } from "react-bootstrap";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import PrintBill from "./PrintBill"; 
 import "../styles/Repair.css";
 
 
@@ -9,6 +10,7 @@ function Repair() {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isPartsFormOpen, setIsPartsFormOpen] = useState(false);
   const [isBillFormOpen, setIsBillFormOpen] = useState(false);
+ 
   //const [isPartsTableOpen, setIsPartsTableOpen] = useState(false);
 
   const [repairId, setRepairId] = useState("");
@@ -584,50 +586,13 @@ const handleRefreshBilling = () => {
 
  {/*Bill printing--------------*/}
 
-        {isBillFormOpen &&(
-    <div className="Add-new-bill-Table">
-    <Card className="Add-New-bill-card-Table">
-    <Card.Body>
-      
-    <div class="invoice-header">
-    <h1>Invoice</h1>
-  </div>
-  <div class="invoice-details">
-    <p><strong>Invoice Number:</strong> #INV123</p>
-    <p><strong>Date:</strong> February 26, 2024</p>
+        {isBillFormOpen && <PrintBill  partsData={partsData}
+    invoiceDate={date} // Pass the invoice date to the PrintBill component
+    selectedServices={selectedServices} // Pass selected services to the PrintBill component
+    serviceCost={cost} // Pass the total service cost to the PrintBill component
+     />} 
+   
   
-  </div>
-  <table class="invoice-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Item</th>
-        <th>Quantity</th>
-        <th>Unit Price</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Engine Oil</td>
-        <td>1</td>
-        <td>$50</td>
-        <td>$50</td>
-      </tr>
-     
-    </tbody>
-  </table>
-  <div class="invoice-total">
-    <p><strong>Total:</strong> $150</p>
-  </div>
-      </Card.Body>
-      </Card>
-      </div>
-  )}
-
-
-
     {/*parts table--------------- */}
     {isPartsFormOpen &&(
       <div className="Add-new-parts-Table">
