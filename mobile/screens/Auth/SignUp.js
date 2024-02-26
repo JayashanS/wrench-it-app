@@ -27,8 +27,9 @@ export default function Signup() {
   const handleSubmit = async () => {
     try {
       await signup(fname, lname, bday, email, pw, cpw);
-      setUser(await AsyncStorage.setItem("user", JSON.stringify(json)));
-      if (user) {
+      const userData = await AsyncStorage.getItem("user");
+      setUser(userData);
+      if (userData) {
         navigation.navigate("Main");
       }
     } catch (error) {

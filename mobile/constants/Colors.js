@@ -2,7 +2,8 @@ const white = "#fff";
 const black = "#000";
 const dark = "#626262";
 const blue = "#0378ad";
-const gray = "#ECECEC";
+const red = "#ff0077";
+const green = "#0bb073";
 const lightBlue = "#BBEFFF";
 
 export default {
@@ -14,5 +15,6 @@ export default {
   active: blue,
   borderWithOpacity: "#1f41bb",
   lightPrimary: lightBlue,
-  gray: gray,
+  red: red,
+  green: green,
 };

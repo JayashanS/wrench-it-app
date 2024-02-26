@@ -6,8 +6,15 @@ import {
   Image,
   TouchableOpacity,
   Linking,
+  Dimensions,
 } from "react-native";
 import Rating from "./Rating";
+import Badge from "./Badge";
+import Font from "../constants/Fonts";
+import FontSize from "../constants/FontSize";
+import Colors from "../constants/Colors";
+
+const windowWidth = Dimensions.get("window").width;
 
 const CenterCard = ({ center }) => {
   const {
@@ -19,6 +26,7 @@ const CenterCard = ({ center }) => {
     maxCharge,
     phoneNumber,
     distance,
+    allday,
   } = center;
 
   const handleCallPress = () => {
@@ -26,7 +34,7 @@ const CenterCard = ({ center }) => {
   };
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card}>
       <View style={styles.leftContent}>
         <Image source={{ uri: photo }} style={styles.photo} />
       </View>
@@ -41,20 +49,15 @@ const CenterCard = ({ center }) => {
           <Text style={styles.chargeText}>Min: {minCharge}</Text>
           <Text style={styles.chargeText}>Max: {maxCharge}</Text>
         </View>
-        <TouchableOpacity onPress={handleCallPress}>
+        <View>
           <Text style={styles.phoneNumber}>{phoneNumber}</Text>
-        </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.rightContent}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>View</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleCallPress}>
-          <Text style={styles.buttonText}>Dial</Text>
-        </TouchableOpacity>
         <Text style={styles.distance}>{`${distance} km away`}</Text>
+        {allday ? <Text style={styles.day}>24/7 Service</Text> : <View></View>}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -64,7 +67,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 8,
     padding: 20,
-    marginBottom: 15,
+    marginTop: 15,
+    marginLeft: 10,
+    marginRight: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -72,7 +77,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 0,
+    elevation: 3,
   },
   leftContent: {
     marginRight: 20,
@@ -98,9 +103,25 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   distance: {
+    marginTop: 5,
+    padding: 5,
     fontSize: 14,
-    color: "#666",
-    marginBottom: 5,
+    color: Colors.red,
+    borderRadius: 20,
+    borderColor: Colors.red,
+    borderWidth: 1,
+    alignSelf: "flex-start",
+  },
+  day: {
+    marginTop: 5,
+    width: windowWidth * 0.2,
+    padding: 5,
+    fontSize: 14,
+    color: Colors.green,
+    borderRadius: 20,
+    borderColor: Colors.green,
+    borderWidth: 1,
+    alignSelf: "flex-start",
   },
   ratingContainer: {
     marginBottom: 5,
@@ -117,17 +138,18 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 5,
-    marginBottom: 5,
-    marginTop: 0,
+    marginBottom: 0,
+    marginTop: 5,
     alignItems: "center",
+    elevation: 3,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
+    fontSize: FontSize.medium,
   },
   phoneNumber: {
     color: "#007bff",
-    textDecorationLine: "underline",
     marginBottom: 5,
   },
 });

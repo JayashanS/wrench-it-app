@@ -30,7 +30,7 @@ const Starting = ({ navigation }) => {
       </View>
       <CustomButton
         title="Get Started"
-        onPress={() => handleButtonClick("SignUp")}
+        onPress={() => handleButtonClick("Login")}
         backgroundColor={Colors.primary}
       />
       <CustomButton

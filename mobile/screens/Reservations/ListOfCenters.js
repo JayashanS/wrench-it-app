@@ -45,6 +45,7 @@ const GetGarages = () => {
             maxCharge: garage.maxCharge,
             phoneNumber: garage.phoneNumber,
             distance: (garage.distance / 1000).toFixed(2),
+            allday: garage.allDayService,
           }}
         />
       ))}
