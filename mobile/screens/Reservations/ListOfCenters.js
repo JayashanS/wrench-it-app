@@ -8,7 +8,7 @@ const GetGarages = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://192.168.184.68:4000/api/garage/near/all",
+        `${process.env.EXPO_PUBLIC_IP}/api/garage/near/all`,
         {
           method: "POST",
           headers: {
