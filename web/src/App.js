@@ -78,6 +78,7 @@ function App() {
           <Route path="view" index element={<Overview />} />
           <Route path="req" element={<Request />} />
           <Route path="stat" element={<Repair />} />
+        
           <Route path="res" element={<Reservations />} />
           <Route path="help" element={<Help />} />
           <Route path="com" element={<Community />} />

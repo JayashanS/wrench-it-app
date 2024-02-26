@@ -4,9 +4,11 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import "../styles/Repair.css";
 
+
 function Repair() {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isPartsFormOpen, setIsPartsFormOpen] = useState(false);
+  const [isBillFormOpen, setIsBillFormOpen] = useState(false);
   //const [isPartsTableOpen, setIsPartsTableOpen] = useState(false);
 
   const [repairId, setRepairId] = useState("");
@@ -52,6 +54,9 @@ function Repair() {
     setIsPartsFormOpen(!isPartsFormOpen);
   };
 
+  const toggleBill = () => {
+    setIsBillFormOpen(!isBillFormOpen);
+  };
 
   
   //handlesubmit of repair details
@@ -229,8 +234,7 @@ const handleRowClick = (item) => {
   return partsTotal + parseFloat(cost);
 };
 
-const printBilling = () => {
-};
+
 //refresh the billing section
 const handleRefreshBilling = () => {
  
@@ -578,6 +582,52 @@ const handleRefreshBilling = () => {
         </div>
         <br />
 
+ {/*Bill printing--------------*/}
+
+        {isBillFormOpen &&(
+    <div className="Add-new-bill-Table">
+    <Card className="Add-New-bill-card-Table">
+    <Card.Body>
+      
+    <div class="invoice-header">
+    <h1>Invoice</h1>
+  </div>
+  <div class="invoice-details">
+    <p><strong>Invoice Number:</strong> #INV123</p>
+    <p><strong>Date:</strong> February 26, 2024</p>
+  
+  </div>
+  <table class="invoice-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Engine Oil</td>
+        <td>1</td>
+        <td>$50</td>
+        <td>$50</td>
+      </tr>
+     
+    </tbody>
+  </table>
+  <div class="invoice-total">
+    <p><strong>Total:</strong> $150</p>
+  </div>
+      </Card.Body>
+      </Card>
+      </div>
+  )}
+
+
+
     {/*parts table--------------- */}
     {isPartsFormOpen &&(
       <div className="Add-new-parts-Table">
@@ -661,15 +711,18 @@ const handleRefreshBilling = () => {
             </Button>
             <Button
               variant="contained"
-              onClick={printBilling}
-              style={{ color: "white", textTransform: "none" }}
+              onClick={toggleBill}
+              style={{ color: "white", textTransform: "none", marginTop: "20px" }}
             >
-              Print Bill
+            Print Bill
             </Button>
           </Stack>
       </div>
+      
     </div>
   );
+  //invoice
+ 
 }
 
 export default Repair;
