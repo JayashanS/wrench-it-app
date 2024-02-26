@@ -78,7 +78,7 @@ export default function App() {
             component={RequestNavigator}
           />
           <Stack.Screen
-            name="Reservation"
+            name="Reservations"
             options={{ headerShown: false }}
             component={ReservationNavigator}
           />
@@ -102,7 +102,7 @@ export default function App() {
             name="Profile"
             options={{ headerShown: true }}
             component={ProfileScreen}
-          />  
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthContextProvider>
