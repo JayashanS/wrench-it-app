@@ -13,9 +13,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import "../styles/Info.css";
 
-const Info = ({ onSaveGarageIdToSuperComponent }) => {
-  const [userId, setUserId] = useState("1234");
-  const [garageId, setGarageId] = useState(localStorage.getItem("garageId"));
+const Info = () => {
+  const [email, setEmail] = useState();
   const [oname, setoname] = useState("");
   const [nic, setnic] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -73,27 +72,17 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
     fontSize: "14px",
   });
 
-  const generateGarageId = () => {
-    const timestamp = Date.now();
-    const formattedTimestamp = new Date(timestamp)
-      .toISOString()
-      .replace(/\D/g, "");
-    return `G${formattedTimestamp}`;
-  };
-
   const handleSaveButtonClick = async () => {
     setLoading(true);
-    onSaveGarageIdToSuperComponent(garageId);
     console.log("handleSaveButtonClick function is called");
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/garage/${garageId}`
+        `http://localhost:4000/api/garage/${email}`
       );
       const existingData = response.data;
 
       const updatedData = {
-        userId,
-        garageId,
+        email,
         oname,
         nic,
         phoneNumber,
@@ -116,29 +105,26 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
       console.log("Existing Data:", existingData);
       console.log("Updated Data:", updatedData);
 
-      if (existingData) {
-        console.log("Updating Document...");
-        onSaveGarageIdToSuperComponent(garageId);
+      if (existingData.length === 0) {
+        console.log("Creating New Document...");
+
+        await axios.post("http://localhost:4000/api/garage", updatedData, {
+          headers,
+        });
+        console.log("New document created successfully!");
+      } else {
         await axios.put(
-          `http://localhost:4000/api/garage/${garageId}`,
+          `http://localhost:4000/api/garage/${email}`,
           updatedData,
           {
             headers,
           }
         );
         console.log("Document updated successfully!");
-        handleClick();
-        setLoading(false);
-        // onSaveGarageIdToSuperComponent(updatedData.garageId);
-      } else {
-        console.log("Creating New Document...");
-        garageId = generateGarageId();
-        onSaveGarageIdToSuperComponent(garageId);
-        await axios.post("http://localhost:4000/api/garage", updatedData, {
-          headers,
-        });
-        console.log("New document created successfully!");
       }
+
+      handleClick();
+      setLoading(false);
     } catch (error) {
       console.error("Error saving data:", error);
     }
@@ -147,7 +133,7 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/garage/${garageId}`
+        `http://localhost:4000/api/garage/${email}`
       );
       console.log("Response Data:", response.data);
       const responseData = response.data;
@@ -165,16 +151,23 @@ const Info = ({ onSaveGarageIdToSuperComponent }) => {
       setClosingHours(responseData.closingHours);
       setAllDayService(responseData.allDayService);
       setstatuS(responseData.statuS);
-      localStorage.setItem("key_2024", responseData.garageId);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setEmail(user.email);
+    }
   }, []);
 
+  useEffect(() => {
+    if (email) {
+      fetchData();
+    }
+  }, [email]);
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
