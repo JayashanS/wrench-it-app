@@ -18,6 +18,7 @@ const partRoutes = require("./routes/part");
 const reservationRoutes = require("./routes/reservation");
 const operatorRoutes = require("./routes/operator");
 const photoRoutes = require("./routes/photo");
+const billRoutes = require("./routes/bill");
 
 const app = express();
 const server = http.createServer(app);
@@ -53,6 +54,7 @@ app.use("/api/part", partRoutes);
 app.use("/api/reservation", reservationRoutes);
 app.use("/api/operator", operatorRoutes);
 app.use("/api/photo", photoRoutes);
+app.use("/api/bill", billRoutes);
 
 // WebSocket logic
 io.on("connection", (socket) => {
