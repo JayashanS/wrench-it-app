@@ -1,7 +1,7 @@
 .Add-new-bill-Table {
     position: fixed;
     z-index: 1;
-    margin: -300px -300px;
+    margin: -500px -900px;
   }
   
   .Add-New-bill-card-Table{
@@ -39,7 +39,26 @@
     padding: 10px;
     text-align: left;
   }
-  .invoice-total {
-    text-align: right;
-    font-weight: bold;
+  .total-cost {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .total-cost-item {
+    text-align: center;
+  }
+  
+  .total-cost-item h2 {
+   
+    margin-bottom: 5 px;
+  }
+  
+  .total-cost-item p {
+    
+    margin-bottom: 0;
+  }
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px; /* Adjust the margin as needed */
   }
