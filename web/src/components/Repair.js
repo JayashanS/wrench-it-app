@@ -587,10 +587,17 @@ const handleRefreshBilling = () => {
  {/*Bill printing--------------*/}
 
         {isBillFormOpen && <PrintBill  partsData={partsData}
-    invoiceDate={date} // Pass the invoice date to the PrintBill component
-    selectedServices={selectedServices} // Pass selected services to the PrintBill component
-    serviceCost={cost} // Pass the total service cost to the PrintBill component
-     />} 
+    invoiceDate={date} 
+    selectedServices={selectedServices} 
+    serviceCost={cost} 
+    selectedRepairId={selectedRepairId}
+    selectedLicensePlateNo={selectedLicensePlateNo}
+    selectedModel={selectedModel}
+    
+    
+     />
+     
+     } 
    
   
     {/*parts table--------------- */}
