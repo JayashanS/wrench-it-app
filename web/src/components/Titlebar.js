@@ -96,7 +96,7 @@ function Titlebar() {
     }
     try {
       const photoResponse = await fetch(
-        `http://localhost:4000/api/photo/${email}.jpg`
+        `http://localhost:4000/api/photo/user/${email}.jpg`
       );
       if (photoResponse.ok) {
         const photoUrl = await photoResponse.blob();
