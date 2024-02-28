@@ -24,7 +24,7 @@ const createGarage = async (req, res) => {
 
   try {
     const garageId = crypto.createHash("sha256").update(email).digest("hex");
-    const garage = await Garage.create({
+    const update = {
       garageId: garageId,
       oname,
       nic,
@@ -39,6 +39,29 @@ const createGarage = async (req, res) => {
       closingHours,
       allDayService,
       statuS,
+    };
+
+    // Find garage document by garageId
+    const filter = { garageId: garageId };
+    const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+    // Perform findOneAndUpdate
+    const garage = await Garage.findOneAndUpdate(filter, update, options);
+
+    res.status(200).json(garage);
+  } catch (error) {
+    console.error("Error creating/updating Garage document", error);
+    res.status(500).json({ error: "Could not create/update Garage document" });
+  }
+};
+
+const createGarageEmpty = async (req, res) => {
+  const email = req.params.email;
+
+  try {
+    const garageId = crypto.createHash("sha256").update(email).digest("hex");
+    const garage = await Garage.create({
+      garageId: garageId,
     });
 
     res.status(201).json(garage);
@@ -292,6 +315,41 @@ const checkAccountExists = async (req, res) => {
   }
 };
 
+const getGarageId = (email) => {
+  const garageId = crypto.createHash("sha256").update(email).digest("hex");
+  return garageId;
+};
+
+const updateGarageDescription = async (req, res) => {
+  const email = req.params.email;
+  const garageId = crypto.createHash("sha256").update(email).digest("hex");
+
+  const { description } = req.body;
+
+  try {
+    const updatedGarage = await Garage.findOneAndUpdate(
+      { garageId: garageId },
+      {
+        $set: {
+          description: description,
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedGarage) {
+      return res
+        .status(404)
+        .json({ message: "Garage not found", garageId: garageId });
+    }
+
+    res.status(200).json(updatedGarage);
+  } catch (error) {
+    console.error("Error updating description for Garage", error);
+    res.status(500).json({ error: "Could not update description for Garage" });
+  }
+};
+
 module.exports = {
   createGarage,
   updateGarageDetails,
@@ -301,4 +359,7 @@ module.exports = {
   getGarageNameById,
   findNearbyRepairCenters,
   checkAccountExists,
+  createGarageEmpty,
+  getGarageId,
+  updateGarageDescription,
 };

@@ -31,6 +31,28 @@ const theme = createTheme({
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
+
+  {
+    /*useEffect(() => {
+    const userString = localStorage.getItem("user");
+    const user = JSON.parse(userString);
+    if (user && user.email) {
+      fetch(`http://localhost:4000/api/garage/empty/${user.email}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("There was a problem with the fetch operation:", error);
+        });
+    }
+  }, []);*/
+  }
   return (
     <div
       role="tabpanel"

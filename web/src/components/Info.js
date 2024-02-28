@@ -73,55 +73,36 @@ const Info = () => {
   });
 
   const handleSaveButtonClick = async () => {
-    setLoading(true);
     console.log("handleSaveButtonClick function is called");
+    const updatedData = {
+      email,
+      oname,
+      nic,
+      phoneNumber,
+      street,
+      city,
+      state,
+      postalCode,
+      repairCenterName,
+      numOfWorkers,
+      openingHours,
+      closingHours,
+      allDayService,
+      statuS,
+    };
+
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    console.log("Updated Data:", updatedData);
+
+    console.log("Creating New Document...");
     try {
-      const response = await axios.get(
-        `http://localhost:4000/api/garage/${email}`
-      );
-      const existingData = response.data;
-
-      const updatedData = {
-        email,
-        oname,
-        nic,
-        phoneNumber,
-        street,
-        city,
-        state,
-        postalCode,
-        repairCenterName,
-        numOfWorkers,
-        openingHours,
-        closingHours,
-        allDayService,
-        statuS,
-      };
-
-      const headers = {
-        "Content-Type": "application/json",
-      };
-
-      console.log("Existing Data:", existingData);
-      console.log("Updated Data:", updatedData);
-
-      if (existingData.length === 0) {
-        console.log("Creating New Document...");
-
-        await axios.post("http://localhost:4000/api/garage", updatedData, {
-          headers,
-        });
-        console.log("New document created successfully!");
-      } else {
-        await axios.put(
-          `http://localhost:4000/api/garage/${email}`,
-          updatedData,
-          {
-            headers,
-          }
-        );
-        console.log("Document updated successfully!");
-      }
+      await axios.post("http://localhost:4000/api/garage", updatedData, {
+        headers,
+      });
+      console.log("New document created successfully!");
 
       handleClick();
       setLoading(false);
