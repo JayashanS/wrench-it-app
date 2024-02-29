@@ -13,6 +13,7 @@ import EventsNavigator from "./routes/EventsNavigator";
 import ReservationNavigator from "./routes/ReservationNavigator";
 import ChatNavigator from "./routes/ChatNavigator";
 import ProfileScreen from "./screens/Common/Profile";
+import Colors from "./constants/Colors";
 
 import { AuthContextProvider } from "./context/AuthContext";
 
@@ -100,8 +101,10 @@ export default function App() {
 
           <Stack.Screen
             name="Profile"
-            options={{ headerShown: true }}
+          
             component={ProfileScreen}
+            options={{ headerShown: false }}
+            
           />
         </Stack.Navigator>
       </NavigationContainer>
