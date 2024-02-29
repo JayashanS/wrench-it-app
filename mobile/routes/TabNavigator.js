@@ -1,10 +1,10 @@
-// TabNavigator.js
 import * as React from "react";
 import { View, Text, Dimensions, useWindowDimensions } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { TouchableOpacity } from "react-native";
 import { StatusBar } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+
 
 import Colors from "../constants/Colors";
 
@@ -19,6 +19,8 @@ const renderScene = SceneMap({
 });
 
 export default function TabNavigator({ navigation }) {
+
+ // const navigation =useNavigation();
   const layout = useWindowDimensions();
   const windowWidth = Dimensions.get("window").width;
   const [index, setIndex] = React.useState(0);
@@ -29,9 +31,8 @@ export default function TabNavigator({ navigation }) {
   ]);
 
   const handleMenuButtonClick = () => {
-    // Handle the menu button click here
-    // For example, you can open a drawer or navigate to a menu screen
-    console.log("Menu button clicked");
+    //console.log("Menu button clicked");
+    navigation.navigate("Profile");
   };
 
   const renderTabBar = (props) => (

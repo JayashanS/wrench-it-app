@@ -26,6 +26,7 @@ import Sound from "../assets/sound_2.mp3";
 import Mennu from "./Menu";
 
 function Titlebar() {
+  const [email, setEmail] = useState();
   const [anchorEl, setAnchorEl] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -36,8 +37,18 @@ function Titlebar() {
   const [audio] = useState(new Audio(Sound));
   const audioRef = useRef(new Audio(Sound));
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  let email = user.email;
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setEmail(user.email);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (email) {
+      fetchData();
+    }
+  }, [email]);
 
   useEffect(() => {
     const socket = io("http://localhost:4000");
@@ -66,7 +77,7 @@ function Titlebar() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/garage/${garageId}`
+        `http://localhost:4000/api/garage/${email}`
       );
       const responseData = response.data;
       setGarageName(responseData.repairCenterName);
@@ -85,7 +96,7 @@ function Titlebar() {
     }
     try {
       const photoResponse = await fetch(
-        `http://localhost:4000/api/photo/${user.email}.jpg`
+        `http://localhost:4000/api/photo/user/${email}.jpg`
       );
       if (photoResponse.ok) {
         const photoUrl = await photoResponse.blob();

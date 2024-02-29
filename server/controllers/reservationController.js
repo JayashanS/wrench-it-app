@@ -84,13 +84,15 @@ const getReservationsByFilter = async (req, res) => {
 
 const getPendingReservations = async (req, res) => {
   try {
-    const pendingReservations = await Reservation.find({ reservationStatus: 'Pending' });
+    const pendingReservations = await Reservation.find({ reservationStatus: 'pending' }); 
     res.status(200).json(pendingReservations);
   } catch (error) {
     console.error('Error fetching pending reservations:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
 
 
 const deletePendingReservation = async (req, res) => {
@@ -109,7 +111,7 @@ const deletePendingReservation = async (req, res) => {
   }
 };
 
-const changeStatus =async (req,res)=>{
+const updateReservation =async (req,res)=>{
 
   const reservationtId = req.params.id;
   const  {reservationStatus} =req.body;
@@ -119,7 +121,7 @@ const changeStatus =async (req,res)=>{
       { reservationtId: reservationtId },
       {
         $set: {
-          reservationStatus,
+          reservationStatus:"completed"
         },
       },
       { new: true }
@@ -138,6 +140,33 @@ const changeStatus =async (req,res)=>{
   }
 }
 
+const acceptReservation= async(req,res)=>{
+  const reservationtId = req.params.id;
+  const  {reservationStatus} =req.body;
+
+  try {
+    const updatedReservation = await Reservation.findOneAndUpdate(
+      { reservationtId: reservationtId },
+      {
+        $set: {
+          reservationStatus:"confirm"
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedReservation) {
+      return res
+        .status(404)
+        .json({ message: "Not Update", reservationtId: reservationtId });
+    }
+
+    res.status(200).json(updatedReservation);
+  } catch (error) {
+    console.error("Error updating reservation", error);
+    res.status(500).json({ error: "Could not update reservation",error });
+  }
+}
 
 module.exports = {
   createReservation,
@@ -147,5 +176,6 @@ module.exports = {
   getReservationsByFilter,
   getPendingReservations,
   deletePendingReservation,
-  changeStatus,
+  updateReservation,
+  acceptReservation,
 };

@@ -5,7 +5,7 @@ import Starting from "../screens/Auth/Starting";
 import Login from "../screens/Auth/Login";
 import SignUp from "../screens/Auth/SignUp";
 import Profile from "../screens/Request/Profile";
-import Assistance from "../screens/Request/Assistance";
+
 import RequestSuccess from "../screens/Request/RequestSuccess";
 import NearByCenters from "../screens/Request/NearByCenters";
 
@@ -64,21 +64,6 @@ export default function AuthStack() {
           },
         }}
         component={Profile}
-      />
-
-      <Stack.Screen
-        name="Assistance"
-        component={Assistance}
-        options={{
-          title: "Assistance",
-          headerStyle: {
-            backgroundColor: "#125C75",
-          },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }}
       />
 
       <Stack.Screen

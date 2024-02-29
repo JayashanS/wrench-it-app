@@ -35,6 +35,10 @@ function Reservations() {
   const [data, setData] = useState([]);
   const [data_2, setData_2] = useState([]);
 
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString().slice(0, 10);
+  const [value, setValue] = React.useState(dayjs(formattedDate));
+
   const theme = createTheme({
     typography: {
       fontFamily: "Roboto, sans-serif",
@@ -48,7 +52,8 @@ function Reservations() {
     },
   });
 
-  const [value, setValue] = React.useState(dayjs("2023-01-31"));
+  
+  
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
@@ -81,8 +86,33 @@ function Reservations() {
       );
 
       console.log("Update successful:", response.data);
+      getPendingReservations();
     } catch (error) {
       console.error("Error updating reservation:", error);
+    }
+  };
+
+  const acceptReservation = async (reservationId) => {
+    try {
+      const updatedData = {
+        reservationStatus: "confirm",
+      };
+  
+      // Send PUT request to update the reservation status
+      const response = await axios.put(
+        `http://localhost:4000/api/reservation/${reservationId}`
+      );
+  
+      console.log("Accept successful:", response.data);
+      
+      acceptReservation();
+      getPendingReservations();
+
+      alert("Aceept successfully !");
+
+      
+    } catch (error) {
+      console.error("Error accept reservation:", error);
     }
   };
 
@@ -91,33 +121,31 @@ function Reservations() {
       const response = await axios.get(
         `http://localhost:4000/api/reservation/pending`
       );
-      console.log("Response Data:", response.data);
+     console.log("Response Data:", response.data);
       const responseData = response.data;
 
       // If responseData is an array of objects
       const reservationsJSX = responseData.map((item, index) => (
         <div class="column-3" key={index}>
-          <div class="innerColumn-1">
-            <p class="circle-kawishka"></p>
-            <p>
-              <center>
-                <span class="container-title">{item.customerName}</span>
-              </center>
-            </p>
-          </div>
+          
           <div class="innerColumn-1">
             <p>
-              <span class="container-title">Date</span>
+              <span class="container-title">Customer Name</span>
               <br />
-              {/* {item.reservationtDate}*/}
-              {new Intl.DateTimeFormat("en-GB").format(
-                new Date(item.reservationtDate)
-              )}
+              
+
+              {item.customerName}
+
             </p>
             <p>
               <span class="container-title">Vehicle</span>
               <br />
               {item.vehicleType}
+            </p>
+            <p>
+              <span class="container-title">Service</span>
+              <br />
+              {item.description}
             </p>
           </div>
           <div class="innerColumn-1">
@@ -127,14 +155,26 @@ function Reservations() {
               {item.reservationtTime}
             </p>
             <p>
+              <span class="container-title">Date</span>
+              <br />
+
+              {/* {item.reservationtDate}*/}
+              {new Intl.DateTimeFormat("en-GB").format(
+                new Date(item.reservationtDate)
+              )}
+             
+            </p>
+            <p>
               <span class="container-title">Contact</span>
               <br />
               {item.contactNo}
             </p>
           </div>
           <div class="innerColumn-1">
+            <br/>
             <Stack spacing={2} direction="row">
               <Button
+                onClick={() => acceptReservation(item.reservationtId)}
                 variant="contained"
                 style={{
                   textTransform: "none",
@@ -142,10 +182,12 @@ function Reservations() {
                   width: "100px",
                 }}
               >
+                
                 Accept
               </Button>
             </Stack>
             <br />
+            <br/>
             <Stack spacing={2} direction="row">
               <Button
                 onClick={() => declineHandle(item.reservationtId)}
@@ -196,10 +238,7 @@ function Reservations() {
 
             */}
 
-            <select className="service" name="description" value={description}>
-              <option value="null">Service</option>
-              <option value="description">{item.description}</option>
-            </select>
+           
           </div>
         </div>
       ));
@@ -227,6 +266,8 @@ function Reservations() {
         <div className="reservationList" key={index}>
           <p>Model: {item.vehicleType}</p>
           <p>Description: {item.description}</p>
+          <p>Time: {item.reservationtTime}</p>
+
         </div>
       ));
 
@@ -240,7 +281,9 @@ function Reservations() {
   //load data from database to Accepted reservation
 
   useEffect(() => {
-    const apiUrl = "http://localhost:4000/api/reservation/filter/2023-01-31"; // Replace with your actual endpoint
+
+    
+    const apiUrl = `http://localhost:4000/api/reservation/filter/${formattedDate}`; // Replace with your actual endpoint
 
     // Make a GET request using Axios
     axios
@@ -256,23 +299,69 @@ function Reservations() {
 
   useEffect(() => {
     getPendingReservations();
-  }, [declineHandle]);
+  }, []);
 
   //Update the completed reservation
 
-  const updateReservation = async (reservationId) => {
-    try {
-      await fetch(`http://localhost:4000/api/reservation/${reservationId}`, {
-        method: "DELETE",
-      });
+{/*}
+ const updateReservation = async (reservationId) => {
+  try {
+    await fetch(`http://localhost:4000/api/reservation/${reservationId}`, {
+      method: "PUT",
+    });
 
-      setData((prevData) =>
-        prevData.filter((item) => item._id !== reservationId)
-      );
+    setData((prevData) =>
+      prevData.filter((item) => item._id !== reservationId)
+    );
+  } catch (error) {
+    console.error("Error deleting data: ", error);
+  }
+};
+
+
+*/}
+const updateReservation = async (reservationId) => {
+  try {
+    const updatedData = {
+      reservationStatus: "completed",
+    };
+
+    // Send PUT request to update the reservation status
+    const response = await axios.put(
+      `http://localhost:4000/api/reservation/${reservationId}`
+    );
+
+    console.log("Update successful:", response.data);
+    
+
+    // Update the local state to reflect the change immediately
+  
+
+    // Display a message box indicating that the reservation has been successfully updated
+    alert("Reservation successfully updated!");
+  } catch (error) {
+    console.error("Error updating reservation:", error);
+  }
+};
+
+
+
+
+  //delete reservation
+  const deleteReservation = async (reservationId) => {
+    try {
+      // Send DELETE request to backend API to delete the reservation
+      await axios.delete(`http://localhost:4000/api/reservation/${reservationId}`);
+  
+      // Update the state to remove the deleted reservation
+      setData((prevData) => prevData.filter((item) => item._id !== reservationId));
+
+      
     } catch (error) {
-      console.error("Error deleting data: ", error);
+      console.error("Error deleting reservation:", error);
     }
   };
+  
 
   return (
     <div class="container-reservation">
@@ -282,139 +371,7 @@ function Reservations() {
         </p>
 
         {output2}
-
-        {/*
-        <div class="column-3">
-          <div class="innerColumn-1">
-            <p class="circle-kawishka"></p>
-            <p>
-              <center>
-                <span class="container-title">john Smith</span>
-              </center>
-            </p>
-          </div>
-          <div class="innerColumn-1">
-            <p>
-              <span class="container-title">Date</span>
-              <br />
-              10/11/2023
-            </p>
-            <p>
-              <span class="container-title">Vehicle</span>
-              <br />
-              Prius
-            </p>
-          </div>
-          <div class="innerColumn-1">
-            <p>
-              <span class="container-title">Time</span>
-              <br />
-              10.00 AM
-            </p>
-            <p>
-              <span class="container-title">Contact</span>
-              <br />
-              0778149714
-            </p>
-          </div>
-          <div class="innerColumn-1">
-            <Stack spacing={2} direction="row">
-              <Button
-                variant="contained"
-                style={{
-                  textTransform: "none",
-                  color: "white",
-                  width: "100px",
-                }}
-              >
-                Accept
-              </Button>
-            </Stack>
-            <br />
-            <Stack spacing={2} direction="row">
-              <Button
-                variant="contained"
-                color="error"
-                style={{
-                  textTransform: "none",
-                  color: "white",
-                  width: "100px",
-                }}
-              >
-                Decline
-              </Button>
-            </Stack>
-            <br />
-
-            <Button>Service</Button>
-          </div>
-        </div>
-        <div class="column-3">
-          <div class="innerColumn-1">
-            <p class="circle-kawishka"></p>
-            <p>
-              <center>
-                <span class="container-title">john Smith</span>
-              </center>
-            </p>
-          </div>
-          <div class="innerColumn-1">
-            <p>
-              <span class="container-title">Date</span>
-              <br />
-              10/11/2023
-            </p>
-            <p>
-              <span class="container-title">Vehicle</span>
-              <br />
-              Prius
-            </p>
-          </div>
-          <div class="innerColumn-1">
-            <p>
-              <span class="container-title">Time</span>
-              <br />
-              10.00 AM
-            </p>
-            <p>
-              <span class="container-title">Contact</span>
-              <br />
-              0778149714
-            </p>
-          </div>
-          <div class="innerColumn-1">
-            <Stack spacing={2} direction="row">
-              <Button
-                variant="contained"
-                style={{
-                  textTransform: "none",
-                  color: "white",
-                  width: "100px",
-                }}
-              >
-                Accept
-              </Button>
-            </Stack>
-            <br />
-            <Stack spacing={2} direction="row">
-              <Button
-                variant="contained"
-                color="error"
-                style={{
-                  textTransform: "none",
-                  color: "white",
-                  width: "100px",
-                }}
-              >
-                Decline
-              </Button>
-            </Stack>
-            <br />
-
-            <Button>Service</Button>
-          </div>
-        </div>
-              */}
+ 
       </div>
 
       <div class="column-2">
@@ -453,12 +410,15 @@ function Reservations() {
                 <div style={{ marginRight: "20px" }}>
                   <CheckCircleOutlineIcon
                     style={{ color: "#09BEB1" }}
-                    onClick={() => updateReservation(item._id)}
+                    onClick={() => updateReservation(item.reservationtId)}
                   />
                 </div>
 
                 <div>
-                  <DeleteIcon style={{ color: "red" }}></DeleteIcon>
+                  <DeleteIcon style={{ color: "red" }}
+                    onClick={() => deleteReservation(item._id)}
+                    
+                  />
                 </div>
               </div>
               <div class="innerRow-2">{item.description}</div>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import { useSignup } from "../../hooks/useSignup";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Font from "../../constants/Fonts";
 import FontSize from "../../constants/FontSize";
 import Colors from "../../constants/Colors";
@@ -19,11 +20,21 @@ export default function Signup() {
   const [pw, setPw] = useState("");
   const [cpw, setCpw] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const { signup, errors, isLoading } = useSignup();
+  const [user, setUser] = useState(null);
 
   const handleSubmit = async () => {
-    navigation.navigate("Main", { screen: "Community" });
+    try {
+      await signup(fname, lname, bday, email, pw, cpw);
+      const userData = await AsyncStorage.getItem("user");
+      setUser(userData);
+      if (userData) {
+        navigation.navigate("Main");
+      }
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (

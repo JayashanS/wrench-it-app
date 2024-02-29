@@ -1,8 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const { uploadPhoto, getPhoto } = require("../controllers/photoController");
+const {
+  uploadUserPhoto,
+  getUserPhoto,
+  uploadGaragePhoto,
+  getGaragePhoto,
+} = require("../controllers/photoController");
 
-router.post("/upload", uploadPhoto);
-router.get("/:fileName", getPhoto);
+router.post("/user/upload", uploadUserPhoto);
+router.get("/user/:fileName", getUserPhoto);
+router.post("/garage/upload", uploadGaragePhoto);
+router.get("/garage/:fileName", getGaragePhoto);
 
 module.exports = router;

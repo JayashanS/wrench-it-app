@@ -9,6 +9,7 @@ mapboxgl.accessToken = `${process.env.REACT_APP_API_TOKEN}`;
 
 const Map = () => {
   const mapContainerRef = useRef(null);
+  const [email, setEmail] = useState();
   const [loading, setLoading] = React.useState(false);
   const [clickedLongitude, setClickedLongitude] = useState(null);
   const [clickedLatitude, setClickedLatitude] = useState(null);
@@ -18,7 +19,7 @@ const Map = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/garage/${garageId}`
+        `http://localhost:4000/api/garage/${email}`
       );
       const responseData = response.data;
 
@@ -41,7 +42,7 @@ const Map = () => {
       };
 
       const response = await axios.put(
-        `http://localhost:4000/api/garage/location/${garageId}`,
+        `http://localhost:4000/api/garage/location/${email}`,
         updatedData
       );
 
@@ -50,7 +51,12 @@ const Map = () => {
       console.error("Error updating location:", error);
     }
   };
-  // Initialize map when component mounts
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setEmail(user.email);
+    }
+  }, []);
   useEffect(() => {
     fetchData();
     const map = new mapboxgl.Map({
@@ -88,7 +94,7 @@ const Map = () => {
 
     // Clean up on unmount
     return () => map.remove();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [email]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSave = () => {
     setLoading(true);
