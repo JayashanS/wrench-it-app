@@ -7,10 +7,10 @@ const requestSchema = new Schema({
     require: true,
     unique: true,
   },
-  userName:{
+  ownerName:{
     type: String,
   },
-  vehicleName:{
+  vehicleType:{
     type: String,
   },
   mobileNo:{
