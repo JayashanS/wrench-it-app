@@ -1,7 +1,16 @@
 const Request = require("../models/requestModel");
 
 const createRequest = async (req, res) => {
-  const { requestId, requestType, requestStatus, requestDate } = req.body;
+  const { requestId,
+      requestStatus,
+      requestDate,
+      ownerName,
+      vehicleType,
+      mobileNo,
+      longitude,
+      lattitude,
+      issue,
+     } = req.body;
 
   try {
     const request = await Request.create({
@@ -13,10 +22,44 @@ const createRequest = async (req, res) => {
       mobileNo,
       longitude,
       lattitude,
+      issue,
     });
     res.status(201).json(request);
   } catch (error) {
     res.status(500).json({ error: "Could not create request" });
+  }
+};
+
+const updateRequestStatus = async (req, res) => {
+  const requestId = req.params.id;
+
+  try {
+    const updatedRequest = await Request.findByIdAndUpdate(
+      requestId,
+      { requestStatus: "Declined" },
+      { new: true }
+    );
+
+    if (!updatedRequest) {
+      return res
+        .status(404)
+        .json({ message: "Request not found", updatedRequestId: requestId });
+    }
+
+    res.status(200).json(updatedRequest);
+  } catch (error) {
+    console.error("Error updating request status:", error);
+    res.status(500).json({ error: "Could not update request status" });
+  }
+};
+
+const getIncomingRequests = async (req, res) => {
+  try {
+    const incomingRequests = await Request.find({ requestStatus: "Incoming" });
+    res.status(200).json(incomingRequests);
+  } catch (error) {
+    console.error("Error fetching incoming requests:", error);
+    res.status(500).json({ error: "Could not fetch incoming requests" });
   }
 };
 
@@ -75,4 +118,6 @@ module.exports = {
   deleteRequest,
   insertManyRequests,
   getAllRequests,
+  updateRequestStatus,
+  getIncomingRequests,
 };

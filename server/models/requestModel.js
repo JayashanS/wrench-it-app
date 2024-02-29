@@ -25,12 +25,15 @@ const requestSchema = new Schema({
   },
   requestStatus: {
     type: String,
-    require: true,
+    default: "incoming",
   },
   requestDate: {
     type: Date,
     require: true,
   },
+  issue:{
+    type: String,
+  }
 });
 
 module.exports = mongoose.model("Request", requestSchema);
