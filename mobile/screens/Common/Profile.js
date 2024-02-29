@@ -38,6 +38,14 @@ const ProfileScreen = () => {
           </TouchableOpacity>
         </View>
 
+        <View>
+            <Text style={styles.customerNameCon}>K.K.S.Silva</Text>
+            <Text style={styles.customerNameCon}>0778149714</Text>
+
+        </View>
+
+        
+
 
       </View>
 
@@ -163,6 +171,13 @@ const styles = StyleSheet.create({
     marginTop:10,
     marginBottom:20,
 
+  },
+
+  customerNameCon:{
+    textAlign:"center",
+    marginLeft:30,
+    color:Colors.onPrimary,
+    fontSize:18,
   },
 
   label: {
