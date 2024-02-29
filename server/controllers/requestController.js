@@ -10,7 +10,7 @@ const createRequest = async (req, res) => {
       requestDate,
       ownerName,
       vehicleType,
-      phoneNo,
+      mobileNo,
       longitude,
       lattitude,
     });
