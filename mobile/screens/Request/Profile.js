@@ -146,7 +146,7 @@ const ProfileScreen = () => {
           <Text style={styles.PricechargeHeader}>          Roadside assistant charges </Text>
           <Text style={styles.Pricecharge}>          1 km -  10 km   <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3000 </Text>
           <Text style={styles.Pricecharge}>          10 km - 15 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3500</Text>
-          <Text style={styles.Pricecharge}>          15 km - 20 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.4000</Text>
+          <Text style={styles.Pricecharge}>          15 km - 20 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.4000</Text>  
         </View>
 
         <View style={styles.serviceContainer}>

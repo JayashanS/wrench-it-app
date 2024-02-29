@@ -5,6 +5,10 @@ import { useNavigation } from "@react-navigation/native";
 import Colors from "../../constants/Colors";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { FontAwesome } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+
+
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -15,8 +19,8 @@ const ProfileScreen = () => {
     logout();
     navigation.navigate("Login");
   };
-  const handlePress=()=>{
-      navigation.navigate("Main")
+  const handlePress = () => {
+      navigation.navigate("Main");
   }
   return (
     <View style={styles.container}>
@@ -27,19 +31,56 @@ const ProfileScreen = () => {
       
       <View style={styles.headerContainer}>
         <Text style={styles.headFont}>Wrench it</Text>
-
-        <TouchableOpacity onPress={handlePress}>
-          <FontAwesome style={styles.iconContainer} name="remove" size={24}  />
-        </TouchableOpacity>
+        
         <View >
-         
+          <TouchableOpacity onPress={handlePress}>
+            <FontAwesome style={styles.iconContainer} name="remove" size={20}  />
+          </TouchableOpacity>
         </View>
+
+
       </View>
-      <View>
-        <Text style={styles.bodyContainer}>ssss</Text>
+
+
+
+      <View style={styles.bodyContainer}>
+        
+          <View style={styles.row}>
+            <Feather name="edit" size={30} color="black" />
+            <Text style={styles.bodyFont}>Edit</Text>
+          </View>
+
+          <View style={styles.row}>
+            <MaterialIcons name="playlist-add" size={30} color="black" />
+            <Text style={styles.bodyFont}>Add Car</Text>
+          </View>
+
+          <View style={styles.row}>
+            <MaterialIcons name="history" size={30} color="black" />
+            <Text style={styles.bodyFont}>History</Text>
+          </View>
+
+          <View style={styles.row}>
+            <MaterialIcons name="support-agent" size={30} color="black" />
+            <Text style={styles.bodyFont}>Support</Text>
+          </View>
+
+          <View style={styles.row}>
+            <SimpleLineIcons name="logout" size={30} color="black" />
+            <Text style={styles.bodyFont}>Logout</Text>
+          </View>
+  
+      
+          
       </View>
+
+      
+
+
+      
 
     </View>
+
 
     
 
@@ -48,7 +89,8 @@ const ProfileScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+
+  container:{
       flex:1,
       flexDirection:"column",
       width:"100%",
@@ -67,13 +109,15 @@ const styles = StyleSheet.create({
       width: "100%",
       paddingBottom:5,
       height:"100%",
-      paddingLeft:10,
-      alignItems: "flex-start", 
-      flexDirection: "row",
+      paddingTop:40,
+      paddingLeft:30,
+      alignItems: "flex-start",
+       
+      
     },
     headFont: {
       
-      fontSize: 20,
+      fontSize: 24,
       padding:20,
       color: Colors.onPrimary,
 
@@ -83,7 +127,15 @@ const styles = StyleSheet.create({
       marginLeft:windowWidth*0.9,
       position:"absolute",
       marginTop:-40,
+      
     },
+    removeIconContainer:{
+      height:30,
+      width:30,
+      borderRadius:15,
+      backgroundColor:"red",
+    },
+
     imageContainer: {
       alignItems: "center",
       paddingTop:40,
@@ -95,6 +147,23 @@ const styles = StyleSheet.create({
       height: 100, 
          
     },
+
+
+    bodyFont:{
+
+      fontSize:18,
+      marginLeft:10,
+      marginTop:3,
+      
+    },
+
+    row: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop:10,
+    marginBottom:20,
+
+  },
 
   label: {
     fontWeight: "bold",
