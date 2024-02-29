@@ -7,9 +7,21 @@ const requestSchema = new Schema({
     require: true,
     unique: true,
   },
-  requestType: {
+  userName:{
+    type: String,
+  },
+  vehicleName:{
+    type: String,
+  },
+  mobileNo:{
     type: String,
     require: true,
+  },
+  longitude:{
+    type: String,
+  },
+  lattitude:{
+    type: String,
   },
   requestStatus: {
     type: String,

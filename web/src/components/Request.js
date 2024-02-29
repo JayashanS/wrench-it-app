@@ -1,5 +1,6 @@
 import React from "react";
-import "../styles/Request.css";
+import "../styles/Request.css"
+import axios from "axios";
 
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
@@ -13,6 +14,48 @@ import { lightBlue } from "@mui/material/colors";
 
 
 export default function Request() {
+
+const incoming = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/requests`
+      );
+     console.log("Response Data:", response.data);
+      const responseData = response.data;
+
+      // If responseData is an array of objects
+      const reservationsJSX = responseData.map((item, index) => (
+      <div className="user-details"  key={index}>
+            <div className="profile-circle"></div>
+            <div className="name-box">
+              <b>Alice Smith</b>
+            </div>
+            <div className="icon-box">
+              <DirectionsCarIcon />
+              <CallIcon />
+              <LocationOnIcon />
+            </div>
+            <div className="details-box">
+              Toyota Camry <br />
+              +94710000000 <br />
+              Matara <br />
+            </div>
+            <div className="button-box">
+              <button className="custom-button" style={{textAlign:"center"}}>View</button>
+              <button
+                className="custom-button"
+                style={{ backgroundColor: "red" }}
+              >
+                Decline
+              </button>
+            </div>
+          </div>
+  ) );
+} catch (error) {
+  console.error("Error fetching data:", error);
+}
+}
+
 
 
   return (
