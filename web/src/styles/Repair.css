@@ -211,37 +211,3 @@ label {
   border-radius: 5px;
 }
 
-@media print {
-.RepairPage {
-  margin-left: 0;
-  padding: 0;
-  display: block;
-  font-size: 12px;
-  margin-top: 0;
-}
-.RepairContainer1 {
-  display: none;
-}
-.btn,
-.btnParts,
-.Add-new-Form,
-.Add-new-parts-Form,
-.Add-new-parts-Table,
-.RepairContainer2 h2,
-.button-container,
-.button-container2,
-.close-button,
-.error-message-box {
-  display: none;
-}
-.RepairContainer2 {
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 0;
-  padding: 0;
-}
-.RepairDetails td {
-  padding: 5px;
-}
-}

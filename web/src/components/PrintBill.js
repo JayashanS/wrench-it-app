@@ -12,6 +12,9 @@ function PrintBill({ partsData, invoiceDate, selectedServices, serviceCost,selec
   const handleclose=()=>{
     setIsOpen(false);
   }
+  const handleprintBill=()=>{
+    window.print();
+  }
   // Render the invoice only if it's open
   if (!isOpen) {
     return null;
@@ -89,7 +92,7 @@ function PrintBill({ partsData, invoiceDate, selectedServices, serviceCost,selec
            </div>
           </div>
           <div className="button-container">
-                        <button type="submit">Submit</button>
+                        <button onClick={handleprintBill}>Submit</button>
                         <button onClick={handleclose}>Close</button>
                       </div>
         </Card.Body>
