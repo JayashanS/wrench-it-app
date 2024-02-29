@@ -7,6 +7,7 @@ import "../styles/PrintBill.css";
 function PrintBill({ partsData, invoiceDate, selectedServices, serviceCost,selectedRepairId ,selectedLicensePlateNo,selectedModel }) {
   const totalPartCost = partsData.reduce((acc, part) => acc + part.totalPrice, 0);
   const totalCost = totalPartCost + serviceCost;
+  
   const [isOpen, setIsOpen] = useState(true);
 
   const handleclose=()=>{

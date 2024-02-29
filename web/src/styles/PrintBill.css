@@ -62,22 +62,4 @@
     justify-content: space-between;
     margin-top: 10px; /* Adjust the margin as needed */
   }
-  @media print {
-    body > *:not(.Add-new-bill-Table) {
-      display: none;
-    }
-  
-    .Add-new-bill-Table {
-      margin: 500px -900px;
-      z-index: 1;
-    }
-  
-    .Add-New-bill-card-Table {
-      width: 700px;
-      height: auto;
-      margin: auto;
-      background-color: white;
-      box-shadow: 0 0 10px rgba(231, 231, 231, 0.1);
-      border-radius: 4px;
-    }
-  }
+ 

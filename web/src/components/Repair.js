@@ -1,8 +1,10 @@
 import React, { useState,useEffect } from "react";
 import { Accordion, Card,Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import PrintBill from "./PrintBill"; 
+import SampleBill from "./SampleBill"; 
 import "../styles/Repair.css";
 
 
@@ -586,7 +588,7 @@ const handleRefreshBilling = () => {
 
  {/*Bill printing--------------*/}
 
-        {isBillFormOpen && <PrintBill  partsData={partsData}
+      <SampleBill  partsData={partsData}
     invoiceDate={date} 
     selectedServices={selectedServices} 
     serviceCost={cost} 
@@ -597,7 +599,7 @@ const handleRefreshBilling = () => {
     
      />
      
-     } 
+     
    
   
     {/*parts table--------------- */}
@@ -681,13 +683,15 @@ const handleRefreshBilling = () => {
             >
               Refresh Billing
             </Button>
+            <Link to="/dashboard/bill" >
             <Button
               variant="contained"
-              onClick={toggleBill}
+              
               style={{ color: "white", textTransform: "none", marginTop: "20px" }}
             >
             Print Bill
-            </Button>
+            </Button> 
+            </Link>
           </Stack>
       </div>
       

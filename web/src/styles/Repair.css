@@ -211,3 +211,23 @@ label {
   border-radius: 5px;
 }
 
+@media print {
+  body* :not(.Add-new-bill-Table){
+    
+    display: none;
+  }
+
+  .Add-new-bill-Table {
+  
+    z-index: 1;
+  }
+
+  .Add-New-bill-card-Table {
+    width: 700px;
+    height: auto;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(231, 231, 231, 0.1);
+    border-radius: 4px;
+  }
+}

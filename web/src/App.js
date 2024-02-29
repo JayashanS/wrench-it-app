@@ -27,6 +27,8 @@ import Feedback from "./components/Feedback";
 import Help from "./components/Help";
 import Community from "./components/Community";
 import Settings from "./components/Settings";
+import PrintBill from "./components/SampleBill";
+import SampleBill from "./components/SampleBill";
 
 function HomeLayout() {
   return (
@@ -84,6 +86,7 @@ function App() {
           <Route path="com" element={<Community />} />
           <Route path="set" element={<Settings />} />
           <Route path="feed" element={<Feedback />} />
+          <Route path="bill" element={<SampleBill />} />
         </Route>
       </Routes>
     </Router>
