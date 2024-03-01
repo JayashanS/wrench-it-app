@@ -4,6 +4,8 @@ const {
   deleteRequest,
   getAllRequests,
   insertManyRequests,
+  getIncomingRequests,
+  updateRequestStatus,
 } = require("../controllers/requestController");
 const router = express.Router();
 
@@ -11,4 +13,6 @@ router.post("/", createRequest);
 router.post("/n", insertManyRequests);
 router.get("/", getAllRequests);
 router.delete("/:id", deleteRequest);
+router.get("/incoming",getIncomingRequests);
+router.put("/dec/:id",updateRequestStatus);
 module.exports = router;
