@@ -49,6 +49,13 @@
     background-color: #ffffff;
  }
 
+ .show-data{
+   display: flex;
+   width: 96%;
+   margin-top: 2%;
+   border-radius: 2px;
+ }
+
 .map{
    display: flex;
    /*flex-direction: column;*/

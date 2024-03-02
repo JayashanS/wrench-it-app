@@ -113,6 +113,39 @@ const checkStatus = async (req,res)=>{
   }
 }
 
+const acceptRequest = async (req, res) => {
+  const requestId = req.params.id;
+
+  try {
+    const updatedRequest = await Request.findByIdAndUpdate(
+      requestId,
+      { requestStatus: "Accepted" },
+      { new: true }
+    );
+
+    if (!updatedRequest) {
+      return res
+        .status(404)
+        .json({ message: "Request not found", updatedRequestId: requestId });
+    }
+
+    res.status(200).json(updatedRequest);
+  } catch (error) {
+    console.error("Error updating request status:", error);
+    res.status(500).json({ error: "Could not update request status" });
+  }
+};
+
+const getAcceptedRequest = async (req, res) => {
+  try {
+    const incomingRequests = await Request.find({ requestStatus: "Accepted" });
+    res.status(200).json(incomingRequests);
+  } catch (error) {
+    console.error("Error fetching incoming requests:", error);
+    res.status(500).json({ error: "Could not fetch incoming requests" });
+  }
+};
+
 module.exports = {
   createRequest,
   deleteRequest,
@@ -120,4 +153,6 @@ module.exports = {
   getAllRequests,
   updateRequestStatus,
   getIncomingRequests,
+  acceptRequest,
+  getAcceptedRequest,
 };

@@ -6,7 +6,6 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-//import SendIcon from '@mui/icons-material/Send';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import Directions from "./Directions"
 import MessageBox from "./MessageBox";
@@ -17,9 +16,11 @@ export default function Request() {
 
 const [incomingOutput, setIncoming] = useState("");
 const [desicionJSX, setDesicion] = useState("");
+const [acceptJSX, setAccepted] = useState("");
 
 useEffect(() => {
   incoming();
+  getAccepted();
 }, []);
 
 const incoming = async () => {
@@ -48,14 +49,8 @@ const incoming = async () => {
       
             </div>
             <div className="button-box">
-              <button className="custom-button" style={{textAlign:"center"}} onClick={() => desicion(item.vehicleType,item.longitude,item.issue,item.mobileNo)}>View</button>
-              <button
-                className="custom-button"
-                style={{ backgroundColor: "red" }}
-                onClick={() => decline(item._id)}
-              >
-                Decline
-              </button>
+              <button className="custom-button" style={{textAlign:"center"}} onClick={() => desicion(item._id,item.vehicleType,item.longitude,item.issue,item.mobileNo)}>View</button>
+              <button className="custom-button" style={{ backgroundColor: "red" }} onClick={() => decline(item._id)}>Decline</button>
             </div>
           </div>
   ) );
@@ -74,12 +69,60 @@ const decline = async (id) => {
     );
    console.log("Response Data:", response.data);
    incoming();
+   desicion();
 } catch (error) {
 console.error("Error declining request:", error);
 }
 }
 
-const desicion = async (vehicle, location, issue, contact) =>{
+const accepted = async (id) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:4000/api/request/accept/${id}`
+    );
+   console.log("Response Data:", response.data);
+   incoming();
+   getAccepted();
+} catch (error) {
+console.error("Error accepting request:", error);
+}
+}
+
+const getAccepted = async () => {
+  try {
+    const response = await axios.get(
+      `http://localhost:4000/api/request/accpeted`
+    );
+   console.log("Response Data:", response.data);
+    const responseData = response.data;
+
+    // If responseData is an array of objects
+    const aJSX = responseData.map((item, index) => (
+    <div className="user-details"  key={index}>
+          <div className="profile-circle"></div>
+          <div className="name-box">
+            <b>{item.ownerName}</b>
+          </div>
+          <div className="icon-box">
+            <DirectionsCarIcon />
+            <CallIcon />
+            <LocationOnIcon />
+          </div>
+          <div className="details-box">
+            {item.vehicleType} <br />
+            {item.mobileNo} <br />
+    
+          </div>
+        </div>
+) );
+
+setAccepted(aJSX);
+} catch (error) {
+console.error("Error fetching data:", error);
+}
+}
+
+const desicion = async (id,vehicle, location, issue, contact) =>{
 
     const requestJSX = (
       <div className="desicion-box">
@@ -100,9 +143,9 @@ const desicion = async (vehicle, location, issue, contact) =>{
             </div>
 
            <div className="buttons">
-              <button className="accept" style={{marginLeft:15}}>Accept</button>
+              <button className="accept" style={{marginLeft:15}} onClick={()=>accepted(id)}>Accept</button>
               <button className="hold" style={{marginLeft:120}}>Hold</button>
-              <button className="decline" style={{marginLeft:120}}>Decline</button>
+              <button className="decline" style={{marginLeft:120}} onClick={()=>decline(id)}>Decline</button>
             </div>
           </div>
     )
@@ -129,10 +172,9 @@ const desicion = async (vehicle, location, issue, contact) =>{
 
             <br />
           </div>
-
-          <table>
-            <tr></tr>
-          </table>
+          <div>
+            {acceptJSX}
+          </div>
         </div>
       </div>
 
