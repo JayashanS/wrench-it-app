@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-native";
 import { useLogout } from "../../hooks/useLogout";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../../constants/Colors";
@@ -7,8 +7,14 @@ import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { FontAwesome } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import { ScrollView } from "react-native-gesture-handler";
+//import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const [selectedImage,setSelectedImage] =[require("../../assets/user_profile.png")];
+const handleImageSelect=()=>{
 
 
+}
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -38,9 +44,22 @@ const ProfileScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View>
-            <Text style={styles.customerNameCon}>K.K.S.Silva</Text>
-            <Text style={styles.customerNameCon}>0778149714</Text>
+        
+        <View style={styles.imageContainer}>
+            <TouchableOpacity onPress={handleImageSelect}>
+              <Image source={selectedImage} style={styles.imageContainer2}/>
+
+
+
+            </TouchableOpacity>
+
+        </View>
+
+        
+
+        <View style={styles.customerNameCon1}>
+            <Text style={styles.customerNameCon2}>K.K.S.Silva</Text>
+            <Text style={styles.customerNameCon2}>0778149714</Text>
 
         </View>
 
@@ -145,16 +164,23 @@ const styles = StyleSheet.create({
     },
 
     imageContainer: {
-      alignItems: "center",
-      paddingTop:40,
-      paddingRight: 0,
+      alignItems: "flex-start",
+      //marginVertical:-20,
+      position:"absolute",
+      marginTop:70,
       
     },
-    image: {
-      width: 100, 
-      height: 100, 
-         
+    imageContainer2: {
+      marginLeft:30,
+      marginTop:20,
+      height:130,
+      width:130,
+      borderRadius:65,
+      borderWidth:2,
+      //borderColor:"black",
+      
     },
+    
 
 
     bodyFont:{
@@ -173,11 +199,19 @@ const styles = StyleSheet.create({
 
   },
 
-  customerNameCon:{
-    textAlign:"center",
-    marginLeft:30,
+  customerNameCon1:{ 
+    marginTop:30,
+    
+  },
+
+  customerNameCon2:{
+    //flex:1,
+    //flexDirection:"row",
+    marginBottom:15,
+    left:windowWidth*0.55,
     color:Colors.onPrimary,
     fontSize:18,
+    
   },
 
   label: {
