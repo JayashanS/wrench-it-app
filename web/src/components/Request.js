@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import "../styles/Request.css"
 import axios from "axios";
-
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CallIcon from '@mui/icons-material/Call';
@@ -16,7 +16,7 @@ export default function Request() {
 
 const [incomingOutput, setIncoming] = useState("");
 const [desicionJSX, setDesicion] = useState("");
-const [acceptJSX, setAccepted] = useState("");
+const [acceptJSX, setAccepted] = useState([]);
 
 useEffect(() => {
   incoming();
@@ -173,24 +173,26 @@ const desicion = async (id,vehicle, location, issue, contact) =>{
             <br />
           </div>
           <div className="show-data">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Vehicle</th>
-                  <th>Issue</th>
-                </tr>
-              </thead>
-              <tbody>
-                  {acceptJSX.map((item,index)=>(
-                    <tr key={acceptJSX}>
-                      <td>{item.ownerName}</td>
-                      <td>{item.vehicleType}</td>
-                      <td>{item.issue}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Vehicle</TableCell>
+                            <TableCell>Issue</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {acceptJSX.map((item, index) => (
+                            <TableRow key={item._id}>
+                                <TableCell>{item.ownerName}</TableCell>
+                                <TableCell>{item.vehicleType}</TableCell>
+                                <TableCell>{item.issue}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
           </div>
         </div>
       </div>
