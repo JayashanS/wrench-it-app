@@ -172,8 +172,25 @@ const desicion = async (id,vehicle, location, issue, contact) =>{
 
             <br />
           </div>
-          <div>
-            {acceptJSX}
+          <div className="show-data">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Vehicle</th>
+                  <th>Issue</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {acceptJSX.map((item,index)=>(
+                    <tr key={acceptJSX}>
+                      <td>{item.ownerName}</td>
+                      <td>{item.vehicleType}</td>
+                      <td>{item.issue}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
