@@ -122,6 +122,18 @@ console.error("Error fetching data:", error);
 }
 }
 
+const holded = async (id) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:4000/api/request/hold/${id}`
+    );
+   console.log("Response Data:", response.data);
+   incoming();
+} catch (error) {
+console.error("Error holding request:", error);
+}
+}
+
 const desicion = async (id,vehicle, location, issue, contact) =>{
 
     const requestJSX = (
@@ -144,7 +156,7 @@ const desicion = async (id,vehicle, location, issue, contact) =>{
 
            <div className="buttons">
               <button className="accept" style={{marginLeft:15}} onClick={()=>accepted(id)}>Accept</button>
-              <button className="hold" style={{marginLeft:120}}>Hold</button>
+              <button className="hold" style={{marginLeft:120}} onClick={()=>holded(id)}>Hold</button>
               <button className="decline" style={{marginLeft:120}} onClick={()=>decline(id)}>Decline</button>
             </div>
           </div>
@@ -208,9 +220,6 @@ const desicion = async (id,vehicle, location, issue, contact) =>{
         </div>
 
         <div className="chat-box">
-          <div className="message-box">
-            <MessageBox/>
-          </div>
           {desicionJSX}
         </div>
 
