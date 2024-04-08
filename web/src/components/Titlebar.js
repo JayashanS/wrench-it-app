@@ -22,7 +22,7 @@ import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 import "../styles/Titlebar.css";
-import Sound from "../assets/sound_2.mp3";
+import Sound from "../assets/sound_4.mp3";
 import Mennu from "./Menu";
 
 function Titlebar() {

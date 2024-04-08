@@ -18,7 +18,7 @@ const HomeScreen = () => {
     navigation.navigate("NearByCenters");
   };
   const goToCell_4 = () => {
-    navigation.navigate("Reservation");
+    navigation.navigate("Reservations");
   };
   const goToCell_5 = () => {
     navigation.navigate("Chat");
