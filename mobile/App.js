@@ -62,12 +62,12 @@ export default function App() {
           backgroundColor="transparent"
           barStyle="light-content"
         />
-        <Stack.Navigator initialRouteName={initialRoute}>
+        {/*<Stack.Navigator initialRouteName={initialRoute}>
           <Stack.Screen
             name="Auth"
             options={{ headerShown: false }}
             component={AuthNavigator}
-          />
+  /> */}
           <Stack.Screen
             name="Main"
             options={{ headerShown: false }}
