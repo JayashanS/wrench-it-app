@@ -62,8 +62,8 @@ export default function App() {
           backgroundColor="transparent"
           barStyle="light-content"
         />
-        {/*<Stack.Navigator initialRouteName={initialRoute}>
-          <Stack.Screen
+        <Stack.Navigator initialRouteName={initialRoute}>
+          {/* <Stack.Screen
             name="Auth"
             options={{ headerShown: false }}
             component={AuthNavigator}
@@ -101,10 +101,8 @@ export default function App() {
 
           <Stack.Screen
             name="Profile"
-          
             component={ProfileScreen}
             options={{ headerShown: false }}
-            
           />
         </Stack.Navigator>
       </NavigationContainer>
