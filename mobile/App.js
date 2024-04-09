@@ -63,6 +63,7 @@ export default function App() {
           barStyle="light-content"
         />
         <Stack.Navigator initialRouteName={initialRoute}>
+
           {/* <Stack.Screen
             name="Auth"
             options={{ headerShown: false }}
