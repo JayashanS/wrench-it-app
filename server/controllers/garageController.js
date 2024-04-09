@@ -4,72 +4,6 @@ const Garage = require("../models/garageModel");
 const crypto = require("crypto");
 const hash = crypto.createHash("sha256");
 
-const createGarage = async (req, res) => {
-  const {
-    email,
-    oname,
-    nic,
-    phoneNumber,
-    street,
-    city,
-    state,
-    postalCode,
-    repairCenterName,
-    numOfWorkers,
-    openingHours,
-    closingHours,
-    allDayService,
-    statuS,
-  } = req.body;
-
-  try {
-    const garageId = crypto.createHash("sha256").update(email).digest("hex");
-    const update = {
-      garageId: garageId,
-      oname,
-      nic,
-      phoneNumber,
-      street,
-      city,
-      state,
-      postalCode,
-      repairCenterName,
-      numOfWorkers,
-      openingHours,
-      closingHours,
-      allDayService,
-      statuS,
-    };
-
-    // Find garage document by garageId
-    const filter = { garageId: garageId };
-    const options = { upsert: true, new: true, setDefaultsOnInsert: true };
-
-    // Perform findOneAndUpdate
-    const garage = await Garage.findOneAndUpdate(filter, update, options);
-
-    res.status(200).json(garage);
-  } catch (error) {
-    console.error("Error creating/updating Garage document", error);
-    res.status(500).json({ error: "Could not create/update Garage document" });
-  }
-};
-
-const createGarageEmpty = async (req, res) => {
-  const email = req.params.email;
-
-  try {
-    const garageId = crypto.createHash("sha256").update(email).digest("hex");
-    const garage = await Garage.create({
-      garageId: garageId,
-    });
-
-    res.status(201).json(garage);
-  } catch (error) {
-    console.error("Error creating Garage document", error);
-    res.status(500).json({ error: "Could not create Garage document" });
-  }
-};
 const updateGarageDetails = async (req, res) => {
   const email = req.params.email;
   const garageId = crypto.createHash("sha256").update(email).digest("hex");
@@ -91,7 +25,7 @@ const updateGarageDetails = async (req, res) => {
   } = req.body;
 
   try {
-    const updatedGarage = await Garage.findOneAndUpdate(
+    let updatedGarage = await Garage.findOneAndUpdate(
       { garageId: garageId },
       {
         $set: {
@@ -113,10 +47,24 @@ const updateGarageDetails = async (req, res) => {
       { new: true }
     );
 
+    // If no garage found, create a new one
     if (!updatedGarage) {
-      return res
-        .status(404)
-        .json({ message: "Garage not found", garageId: garageId });
+      updatedGarage = await Garage.create({
+        garageId,
+        oname,
+        nic,
+        phoneNumber,
+        street,
+        city,
+        state,
+        postalCode,
+        repairCenterName,
+        numOfWorkers,
+        openingHours,
+        closingHours,
+        allDayService,
+        statuS,
+      });
     }
 
     res.status(200).json(updatedGarage);
@@ -351,7 +299,6 @@ const updateGarageDescription = async (req, res) => {
 };
 
 module.exports = {
-  createGarage,
   updateGarageDetails,
   updateGarageServicesAndCharges,
   updateGarageLocation,
@@ -359,7 +306,6 @@ module.exports = {
   getGarageNameById,
   findNearbyRepairCenters,
   checkAccountExists,
-  createGarageEmpty,
   getGarageId,
   updateGarageDescription,
 };

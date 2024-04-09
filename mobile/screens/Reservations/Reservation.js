@@ -1,151 +1,105 @@
 import React from "react";
-import { View, Text,Button,StyleSheet,Image ,TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
+import Reservation from "../../components/ReservationCard";
+import Font from "../../constants/Fonts";
+import FontSize from "../../constants/FontSize";
+import Colors from "../../constants/Colors";
 
-const Reservation = () => {
+const ReservationScreen = () => {
   const navigation = useNavigation();
 
-  const imagePaths = [require("../../assets/booking.png")]
+  const reservationData = [
+    {
+      id: 1,
+      vehicleType: "Toyota Camry",
+      description: "Routine checkup and oil change",
+      address: "123 Main St, City, State",
+      repairCenter: "ABC Auto Repairs",
+      reservationStatus: "Pending",
+      reservationDate: "2024-04-09",
+      reservationTime: "10:00 AM",
+    },
+    {
+      id: 2,
+      vehicleType: "Honda Accord",
+      description: "Brake replacement",
+      address: "456 Elm St, City, State",
+      repairCenter: "XYZ Mechanics",
+      reservationStatus: "Approved",
+      reservationDate: "2024-04-09",
+      reservationTime: "11:30 AM",
+    },
+  ];
 
-  const viewProfile = () => {
-    navigation.navigate("Profile"); 
+  const handleAddNewReservation = () => {
+    navigation.navigate("NewReservation", {
+      repairCenterName: "Your Repair Center Name",
+      repairCenterAddress: "Your Repair Center Address",
+    });
   };
 
-  const viewReservationForm = () => {
-    navigation.navigate("ReservationForm"); 
-  };
-  
   return (
-    
-    <View style={styles.ongoingContainer}>
-
-       <View style={styles.imageContainer}>
-          {imagePaths.map((path, index) => (
-            <Image key={index} source={path} style={styles.image} />
-          ))}
-        </View>
-            
-            
-        <View style={styles.contentContainer}>
-        <Text style={styles.headFont}> AMK Repair Center</Text>
-
-        
-
-        
-          
-          <View style={styles.view}>
-            <TouchableOpacity onPress={() => viewProfile()} style={styles.viewButton}>
-              <Text style={styles.viewButtonText}>View Profile</Text>
-            </TouchableOpacity>
-         
-        </View>
-        
-
-
-
-        <View style={styles.details}>
-        <Text> Good service can be obtained by booking </Text>
-          <Text></Text>
-          <Text> Give reservation and booking your time slot </Text>
-          
-        </View>
-
-        <View style={styles.view}>
-            <TouchableOpacity onPress={() => viewReservationForm()} style={styles.viewButton}>
-              <Text style={styles.viewButtonText}>Booking</Text>
-            </TouchableOpacity>
-         
-        </View>
-
-
-
+    <View style={styles.container}>
+      <View style={styles.upperSection}>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={handleAddNewReservation}
+        >
+          <Text style={styles.addButtonText}>Add New Reservation</Text>
+        </TouchableOpacity>
       </View>
-      
-      
+      <View style={styles.lowerSection}>
+        <Text style={styles.lowerSectionTitle}>Your Reservations</Text>
+        {reservationData.map((reservation) => (
+          <Reservation key={reservation.id} reservationData={reservation} />
+        ))}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  ongoingContainer: {
-    backgroundColor: "#F1EEFF",
-    borderRadius: 10,
-    width: "100%",
-    paddingBottom: 5,
-    height: 250,
-    paddingLeft: 5,
-    flexDirection: "row",
-  },
-  contentContainer: {
+  container: {
     flex: 1,
-    marginLeft: 10,
+    backgroundColor: "#f0f0f0",
+    paddingVertical: 20,
   },
-  headFont: {
+  upperSection: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    paddingBottom: 10,
+  },
+  lowerSection: {
+    flex: 1,
+    marginTop: 10,
+  },
+  lowerSectionTitle: {
+    fontSize: FontSize.large,
     fontWeight: "bold",
-    fontSize: 18,
-    padding: 10,
-    color: "#125C75",
-
+    marginBottom: 10,
+    marginLeft: 20,
   },
-  imageContainer: {
+  addButton: {
+    backgroundColor: Colors.primary,
+    borderRadius: 8,
+    padding: 20,
+    marginHorizontal: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
     alignItems: "center",
-    paddingTop: 40,
-    paddingRight:50,
   },
-  image: {
-    width: 100,
-    height: 100,
-  },
- 
-  request: {
-    padding: 1,
-    flexDirection: "column",
-    
-  },
-  view: {
-    marginRight: 200,
-    flexDirection: "column",
-    alignItems: "flex-start",
-    
-  },
-  requestButton: {
-    backgroundColor: "#125C75",
-    borderRadius: 5,
-    width: 220,
-    alignSelf: "flex-start",
-    marginVertical: 10,
-  },
-  viewButton: {
-    backgroundColor: "#125C75",
-    borderRadius: 5,
-    width: 220,
-    alignSelf: "flex-start",
-    marginVertical: 10,
-    marginRight:20,
-  },
-  requestButtonText: {
-    color: "#fff",
-    fontSize: 18,
+  addButtonText: {
+    color: "white",
     fontWeight: "bold",
-    textAlign: "center",
-    padding: -10,
-    marginBottom: 5,
-  },
-  viewButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-    padding: -10,
-    marginBottom: 5,
-  },
-  details: {
-    padding: 8,
-    marginLeft: 5,
-    marginRight:10,
-    flexDirection:"column",
-    alignItems:"flex-start",
+    fontSize: 16,
   },
 });
-export default Reservation;
+
+export default ReservationScreen;

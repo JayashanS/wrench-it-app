@@ -75,7 +75,6 @@ const Info = () => {
   const handleSaveButtonClick = async () => {
     console.log("handleSaveButtonClick function is called");
     const updatedData = {
-      email,
       oname,
       nic,
       phoneNumber,
@@ -99,9 +98,13 @@ const Info = () => {
 
     console.log("Creating New Document...");
     try {
-      await axios.post("http://localhost:4000/api/garage", updatedData, {
-        headers,
-      });
+      await axios.put(
+        `http://localhost:4000/api/garage/${email}`,
+        updatedData,
+        {
+          headers,
+        }
+      );
       console.log("New document created successfully!");
 
       handleClick();
