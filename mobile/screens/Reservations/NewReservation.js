@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,11 +8,13 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Colors from "../../constants/Colors";
 
 const NewReservationScreen = ({ route }) => {
-  const [description, setDescription] = useState(""); // State variable for description
+  const [description, setDescription] = useState("");
   const [userName, setUserName] = useState("");
   const [vehicle, setVehicle] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -20,8 +22,26 @@ const NewReservationScreen = ({ route }) => {
   const [time, setTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [email, setEmail] = useState("js@gmail.com");
+  const navigation = useNavigation();
 
-  const { repairCenterName, repairCenterAddress } = route.params;
+  useEffect(() => {
+    const fetchEmailFromAsyncStorage = async () => {
+      try {
+        const userData = await AsyncStorage.getItem("user");
+        if (userData) {
+          const { email } = JSON.parse(userData);
+          setEmail(email);
+        }
+      } catch (error) {
+        console.error("Error fetching email from AsyncStorage:", error);
+      }
+    };
+
+    fetchEmailFromAsyncStorage();
+  }, []);
+
+  const { id, name, location } = route.params; // Destructuring id, name, and location from route.params
 
   const handleDateChange = (event, selectedDate) => {
     setShowDatePicker(false);
@@ -37,17 +57,49 @@ const NewReservationScreen = ({ route }) => {
     }
   };
 
-  const handleSaveReservation = () => {
-    // Perform save operation here
-    // For demonstration purposes, show an alert message
-    Alert.alert("Success", "Reservation saved successfully!");
+  const handleSaveReservation = async () => {
+    const reservationData = {
+      email,
+      garageId: id,
+      vehicleType: vehicle,
+      reservationStatus: "Pending",
+      reservationtDate: date,
+      reservationtTime: time,
+      customerName: userName,
+      contactNo: phoneNumber,
+      description,
+    };
+
+    try {
+      const response = await fetch(
+        `http://${process.env.EXPO_PUBLIC_IP}:4000/api/reservation`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reservationData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to save reservation");
+      }
+
+      Alert.alert("Success", "Reservation has been sent successfully.", [
+        { text: "OK", onPress: () => navigation.navigate("Reservation") },
+      ]);
+    } catch (error) {
+      console.error("Error saving reservation:", error);
+      Alert.alert("Error", "Failed to save reservation. Please try again.");
+    }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.repairCenterDetails}>
-        <Text style={styles.centerName}>{repairCenterName}</Text>
-        <Text style={styles.centerAddress}>{repairCenterAddress}</Text>
+        <Text style={styles.centerName}>{name}</Text>
+        <Text style={styles.centerAddress}>{location}</Text>
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Name</Text>

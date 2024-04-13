@@ -4,20 +4,36 @@ import { Ionicons } from "@expo/vector-icons";
 import FontSize from "../constants/FontSize";
 import Colors from "../constants/Colors";
 
-const ReservationCard = ({ reservationData }) => {
+const ReservationCard = ({ reservationData, onDelete }) => {
   const handleDelete = () => {
-    // Implement delete functionality here
+    onDelete(reservationData._id);
   };
+
+  const repairCenterName =
+    reservationData.garageDetails.length > 0
+      ? reservationData.garageDetails[0].repairCenterName
+      : "Unknown";
+  const combinedAddress = reservationData.combinedAddress || "Unknown";
+
+  const formattedDate = new Date(
+    reservationData.reservationtDate
+  ).toLocaleDateString();
+  const formattedTime = new Date(
+    reservationData.reservationtTime
+  ).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   return (
     <View style={styles.container}>
       <View style={styles.infoContainer}>
         <View style={styles.info}>
-          <Text style={styles.center}>{reservationData.repairCenter}</Text>
-          <Text style={styles.address}>{reservationData.address}</Text>
+          <Text style={styles.center}>{repairCenterName}</Text>
+          <Text style={styles.address}>{combinedAddress}</Text>
           <Text style={styles.details}>{reservationData.vehicleType}</Text>
           <Text style={styles.date}>
-            {reservationData.reservationDate} {reservationData.reservationTime}
+            {formattedDate} {formattedTime}
           </Text>
           <Text
             style={[

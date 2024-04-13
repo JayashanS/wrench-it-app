@@ -4,7 +4,7 @@ import Colors from "../constants/Colors";
 
 import Reservation from "../screens/Reservations/Reservation";
 import NewReservation from "../screens/Reservations/NewReservation";
-import NearByCenters from "../screens/Common/NearByCenters";
+import List from "../screens/Reservations/ListOfCenters";
 
 const Stack = createStackNavigator();
 
@@ -26,8 +26,8 @@ export default function ReservationStack() {
         }}
       />
       <Stack.Screen
-        name="NearByCenters"
-        component={NearByCenters}
+        name="List"
+        component={List}
         options={{
           title: "Repair Centers Near You",
           headerStyle: {

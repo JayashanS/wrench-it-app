@@ -5,7 +5,6 @@ const reservationSchema = new Schema({
   reservationtId: {
     type: String,
     require: true,
-    unique: true,
   },
   vehicleType: {
     type: String,
@@ -35,8 +34,6 @@ const reservationSchema = new Schema({
     type: String,
     require: true,
   },
-
-
 });
 
 module.exports = mongoose.model("Reservation", reservationSchema);
