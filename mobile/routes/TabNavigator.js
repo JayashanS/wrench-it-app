@@ -5,10 +5,9 @@ import { TouchableOpacity } from "react-native";
 import { StatusBar } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-
 import Colors from "../constants/Colors";
 
-import HomeScreen from "../screens/Common/Home";
+import HomeScreen from "../screens/Common/Home2";
 import OngoingScreen from "../screens/Common/Ongoing";
 import CommunityScreen from "../screens/Common/Community";
 
@@ -19,8 +18,7 @@ const renderScene = SceneMap({
 });
 
 export default function TabNavigator({ navigation }) {
-
- // const navigation =useNavigation();
+  // const navigation =useNavigation();
   const layout = useWindowDimensions();
   const windowWidth = Dimensions.get("window").width;
   const [index, setIndex] = React.useState(0);

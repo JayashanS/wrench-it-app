@@ -13,6 +13,8 @@ import EventsNavigator from "./routes/EventsNavigator";
 import ReservationNavigator from "./routes/ReservationNavigator";
 import ChatNavigator from "./routes/ChatNavigator";
 import ProfileScreen from "./screens/Common/Profile";
+import MapScreen from "./screens/Common/MapView";
+
 import Colors from "./constants/Colors";
 
 import { AuthContextProvider } from "./context/AuthContext";
@@ -63,12 +65,11 @@ export default function App() {
           barStyle="light-content"
         />
         <Stack.Navigator initialRouteName={initialRoute}>
-
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Auth"
             options={{ headerShown: false }}
             component={AuthNavigator}
-  /> */}
+          />
           <Stack.Screen
             name="Main"
             options={{ headerShown: false }}
@@ -103,6 +104,11 @@ export default function App() {
           <Stack.Screen
             name="Profile"
             component={ProfileScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Map"
+            component={MapScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
