@@ -23,6 +23,8 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import axios from "axios";
 
 function Reservations() {
+  const [email, setEmail] = useState("");
+
   const [output, setOutput] = useState("");
   const [output2, setOutput_2] = useState("");
 
@@ -39,6 +41,23 @@ function Reservations() {
   const formattedDate = currentDate.toISOString().slice(0, 10);
   const [value, setValue] = React.useState(dayjs(formattedDate));
 
+  useEffect(() => {
+    const fetchEmailFromLocalStorage = () => {
+      try {
+        const userData = localStorage.getItem("user");
+        if (userData) {
+          const { email } = JSON.parse(userData);
+          setEmail(email);
+          fetchReservations(email);
+        }
+      } catch (error) {
+        console.error("Error fetching email from LocalStorage:", error);
+      }
+    };
+
+    fetchEmailFromLocalStorage();
+  }, []);
+
   const theme = createTheme({
     typography: {
       fontFamily: "Roboto, sans-serif",
@@ -51,9 +70,6 @@ function Reservations() {
       },
     },
   });
-
-  
-  
 
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
@@ -97,20 +113,18 @@ function Reservations() {
       const updatedData = {
         reservationStatus: "confirm",
       };
-  
+
       // Send PUT request to update the reservation status
       const response = await axios.put(
         `http://localhost:4000/api/reservation/${reservationId}`
       );
-  
+
       console.log("Accept successful:", response.data);
-      
+
       acceptReservation();
       getPendingReservations();
 
       alert("Aceept successfully !");
-
-      
     } catch (error) {
       console.error("Error accept reservation:", error);
     }
@@ -119,23 +133,20 @@ function Reservations() {
   const getPendingReservations = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/reservation/pending`
+        `http://localhost:4000/api/reservation/pending/${email}`
       );
-     console.log("Response Data:", response.data);
+      console.log("Response Data:", response.data);
       const responseData = response.data;
 
       // If responseData is an array of objects
       const reservationsJSX = responseData.map((item, index) => (
         <div class="column-3" key={index}>
-          
           <div class="innerColumn-1">
             <p>
               <span class="container-title">Customer Name</span>
               <br />
-              
 
               {item.customerName}
-
             </p>
             <p>
               <span class="container-title">Vehicle</span>
@@ -162,7 +173,6 @@ function Reservations() {
               {new Intl.DateTimeFormat("en-GB").format(
                 new Date(item.reservationtDate)
               )}
-             
             </p>
             <p>
               <span class="container-title">Contact</span>
@@ -171,7 +181,7 @@ function Reservations() {
             </p>
           </div>
           <div class="innerColumn-1">
-            <br/>
+            <br />
             <Stack spacing={2} direction="row">
               <Button
                 onClick={() => acceptReservation(item.reservationtId)}
@@ -182,12 +192,11 @@ function Reservations() {
                   width: "100px",
                 }}
               >
-                
                 Accept
               </Button>
             </Stack>
             <br />
-            <br/>
+            <br />
             <Stack spacing={2} direction="row">
               <Button
                 onClick={() => declineHandle(item.reservationtId)}
@@ -237,8 +246,6 @@ function Reservations() {
             )}
 
             */}
-
-           
           </div>
         </div>
       ));
@@ -256,7 +263,7 @@ function Reservations() {
 
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/reservation/filter/${formattedDate}`
+        `http://localhost:4000/api/reservation/filter/${formattedDate}/${email}`
       );
       console.log("Response Data:", response.data);
       const responseData = response.data;
@@ -267,7 +274,6 @@ function Reservations() {
           <p>Model: {item.vehicleType}</p>
           <p>Description: {item.description}</p>
           <p>Time: {item.reservationtTime}</p>
-
         </div>
       ));
 
@@ -281,9 +287,7 @@ function Reservations() {
   //load data from database to Accepted reservation
 
   useEffect(() => {
-
-    
-    const apiUrl = `http://localhost:4000/api/reservation/filter/${formattedDate}`; // Replace with your actual endpoint
+    const apiUrl = `http://localhost:4000/api/reservation/filter/${formattedDate}/${email}`; // Replace with your actual endpoint
 
     // Make a GET request using Axios
     axios
@@ -303,7 +307,8 @@ function Reservations() {
 
   //Update the completed reservation
 
-{/*}
+  {
+    /*}
  const updateReservation = async (reservationId) => {
   try {
     await fetch(`http://localhost:4000/api/reservation/${reservationId}`, {
@@ -319,49 +324,46 @@ function Reservations() {
 };
 
 
-*/}
-const updateReservation = async (reservationId) => {
-  try {
-    const updatedData = {
-      reservationStatus: "completed",
-    };
-
-    // Send PUT request to update the reservation status
-    const response = await axios.put(
-      `http://localhost:4000/api/reservation/${reservationId}`
-    );
-
-    console.log("Update successful:", response.data);
-    
-
-    // Update the local state to reflect the change immediately
-  
-
-    // Display a message box indicating that the reservation has been successfully updated
-    alert("Reservation successfully updated!");
-  } catch (error) {
-    console.error("Error updating reservation:", error);
+*/
   }
-};
+  const updateReservation = async (reservationId) => {
+    try {
+      const updatedData = {
+        reservationStatus: "completed",
+      };
 
+      // Send PUT request to update the reservation status
+      const response = await axios.put(
+        `http://localhost:4000/api/reservation/${reservationId}`
+      );
 
+      console.log("Update successful:", response.data);
 
+      // Update the local state to reflect the change immediately
+
+      // Display a message box indicating that the reservation has been successfully updated
+      alert("Reservation successfully updated!");
+    } catch (error) {
+      console.error("Error updating reservation:", error);
+    }
+  };
 
   //delete reservation
   const deleteReservation = async (reservationId) => {
     try {
       // Send DELETE request to backend API to delete the reservation
-      await axios.delete(`http://localhost:4000/api/reservation/${reservationId}`);
-  
-      // Update the state to remove the deleted reservation
-      setData((prevData) => prevData.filter((item) => item._id !== reservationId));
+      await axios.delete(
+        `http://localhost:4000/api/reservation/${reservationId}`
+      );
 
-      
+      // Update the state to remove the deleted reservation
+      setData((prevData) =>
+        prevData.filter((item) => item._id !== reservationId)
+      );
     } catch (error) {
       console.error("Error deleting reservation:", error);
     }
   };
-  
 
   return (
     <div class="container-reservation">
@@ -371,7 +373,6 @@ const updateReservation = async (reservationId) => {
         </p>
 
         {output2}
- 
       </div>
 
       <div class="column-2">
@@ -415,9 +416,9 @@ const updateReservation = async (reservationId) => {
                 </div>
 
                 <div>
-                  <DeleteIcon style={{ color: "red" }}
+                  <DeleteIcon
+                    style={{ color: "red" }}
                     onClick={() => deleteReservation(item._id)}
-                    
                   />
                 </div>
               </div>

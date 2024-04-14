@@ -84,15 +84,17 @@ const getAllReservations = async (req, res) => {
 
 const getReservationsByFilter = async (req, res) => {
   try {
-    const { reservationDate } = req.params;
+    const { reservationDate, email } = req.params;
+    const startDate = new Date(reservationDate);
+    const endDate = new Date(reservationDate);
+    endDate.setDate(endDate.getDate() + 1);
 
-    const filter = {};
-    if (reservationDate) {
-      const startDate = new Date(reservationDate);
-      const endDate = new Date(reservationDate);
-      endDate.setDate(endDate.getDate() + 1);
-      filter.reservationtDate = { $gte: startDate, $lt: endDate };
-    }
+    const hashedEmail = crypto.createHash("sha256").update(email).digest("hex");
+
+    const filter = {
+      reservationtDate: { $gte: startDate, $lt: endDate },
+      reservationtId: { $regex: new RegExp(`\\.${hashedEmail}$`) },
+    };
 
     const filteredReservations = await Reservation.find(filter);
 
@@ -105,10 +107,19 @@ const getReservationsByFilter = async (req, res) => {
 
 const getPendingReservations = async (req, res) => {
   try {
+    const { email } = req.params;
+    const userHash = crypto.createHash("sha256").update(email).digest("hex");
+
     const pendingReservations = await Reservation.find({
-      reservationStatus: "pending",
+      reservationStatus: "Pending",
     });
-    res.status(200).json(pendingReservations);
+
+    const userReservations = pendingReservations.filter((reservation) => {
+      const reservationIdParts = reservation.reservationtId.split(".");
+      return reservationIdParts[1] === userHash;
+    });
+
+    res.status(200).json(userReservations);
   } catch (error) {
     console.error("Error fetching pending reservations:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -175,7 +186,7 @@ const acceptReservation = async (req, res) => {
       { reservationtId: reservationtId },
       {
         $set: {
-          reservationStatus: "confirm",
+          reservationStatus: "Confirmed",
         },
       },
       { new: true }
