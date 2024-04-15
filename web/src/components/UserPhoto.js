@@ -33,10 +33,13 @@ const PhotoUploadComponent = ({ onCloseModal }) => {
       formData.append("photo", selectedFile);
       formData.append("fileName", `${user.email}.jpg`);
 
-      const response = await fetch("http://localhost:4000/api/photo/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "http://localhost:4000/api/photo/user/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to upload photo.");
@@ -47,7 +50,7 @@ const PhotoUploadComponent = ({ onCloseModal }) => {
       setPreviewUrl(null);
 
       const photoResponse = await fetch(
-        `http://localhost:4000/api/photo/${user.email}.jpg`
+        `http://localhost:4000/api/photo/user/${user.email}.jpg`
       );
       if (photoResponse.ok) {
         const photoUrl = await photoResponse.blob();

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import Tooltip from "@mui/material/Tooltip";
-import PhotoUploadComponent from "./Photo";
+import PhotoUploadComponent from "./UserPhoto";
 import "../styles/Menu.css";
 
 const Menu = () => {
@@ -34,7 +34,7 @@ const Menu = () => {
     }
     try {
       const photoResponse = await fetch(
-        `http://localhost:4000/api/photo/${user.email}.jpg`
+        `http://localhost:4000/api/photo/user/${user.email}.jpg`
       );
       if (photoResponse.ok) {
         const photoUrl = await photoResponse.blob();

@@ -14,6 +14,7 @@ const MediumLabel = styled("div")({
   fontSize: "14px",
 });
 const Services = () => {
+  const [email, setEmail] = useState();
   const [suspensionRepairs, setSuspensionRepairs] = useState(false);
   const [transmissionIssues, setTransmissionIssues] = useState(false);
   const [electrical, setElectrical] = useState(false);
@@ -32,12 +33,11 @@ const Services = () => {
   const [lightWeight, setLightWeight] = useState(false);
   const [maxAmount, setMaxAmount] = useState("");
   const [minAmount, setMinAmount] = useState("");
-  const [garageId, setGarageId] = useState(localStorage.getItem("garageId"));
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/garage/${garageId}`
+        `http://localhost:4000/api/garage/${email}`
       );
       const responseData = response.data;
       setSuspensionRepairs(responseData.services.SuspensionRepairs);
@@ -91,7 +91,7 @@ const Services = () => {
       };
 
       const response = await axios.put(
-        `http://localhost:4000/api/garage/services/${garageId}`,
+        `http://localhost:4000/api/garage/services/${email}`,
         updatedData
       );
 
@@ -100,9 +100,19 @@ const Services = () => {
       console.error("Error updating services:", error);
     }
   };
+
   useEffect(() => {
-    fetchData();
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setEmail(user.email);
+    }
   }, []);
+
+  useEffect(() => {
+    if (email) {
+      fetchData();
+    }
+  }, [email]);
   return (
     <div className="services-container">
       <div className="services-row-1">
@@ -261,14 +271,6 @@ const Services = () => {
             onClick={updateServices}
           >
             Save
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            style={{ width: "80px", color: "white" }}
-            onClick={() => console.log("Delete button clicked")}
-          >
-            clear
           </Button>
         </Stack>
       </div>

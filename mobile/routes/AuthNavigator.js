@@ -7,7 +7,7 @@ import SignUp from "../screens/Auth/SignUp";
 import Profile from "../screens/Request/Profile";
 
 import RequestSuccess from "../screens/Request/RequestSuccess";
-import NearByCenters from "../screens/Request/NearByCenters";
+import NearByCenters from "../screens/Common/NearByCenters";
 
 const Stack = createStackNavigator();
 

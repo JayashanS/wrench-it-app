@@ -2,11 +2,15 @@ import React, { useState,useEffect } from "react";
 import { Accordion, Card,Form } from "react-bootstrap";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import PrintBill from "./PrintBill"; 
 import "../styles/Repair.css";
+
 
 function Repair() {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isPartsFormOpen, setIsPartsFormOpen] = useState(false);
+  const [isBillFormOpen, setIsBillFormOpen] = useState(false);
+ 
   //const [isPartsTableOpen, setIsPartsTableOpen] = useState(false);
 
   const [repairId, setRepairId] = useState("");
@@ -52,6 +56,9 @@ function Repair() {
     setIsPartsFormOpen(!isPartsFormOpen);
   };
 
+  const toggleBill = () => {
+    setIsBillFormOpen(!isBillFormOpen);
+  };
 
   
   //handlesubmit of repair details
@@ -229,8 +236,7 @@ const handleRowClick = (item) => {
   return partsTotal + parseFloat(cost);
 };
 
-const printBilling = () => {
-};
+
 //refresh the billing section
 const handleRefreshBilling = () => {
  
@@ -578,6 +584,22 @@ const handleRefreshBilling = () => {
         </div>
         <br />
 
+ {/*Bill printing--------------*/}
+
+        {isBillFormOpen && <PrintBill  partsData={partsData}
+    invoiceDate={date} 
+    selectedServices={selectedServices} 
+    serviceCost={cost} 
+    selectedRepairId={selectedRepairId}
+    selectedLicensePlateNo={selectedLicensePlateNo}
+    selectedModel={selectedModel}
+    
+    
+     />
+     
+     } 
+   
+  
     {/*parts table--------------- */}
     {isPartsFormOpen &&(
       <div className="Add-new-parts-Table">
@@ -661,15 +683,18 @@ const handleRefreshBilling = () => {
             </Button>
             <Button
               variant="contained"
-              onClick={printBilling}
-              style={{ color: "white", textTransform: "none" }}
+              onClick={toggleBill}
+              style={{ color: "white", textTransform: "none", marginTop: "20px" }}
             >
-              Print Bill
+            Print Bill
             </Button>
           </Stack>
       </div>
+      
     </div>
   );
+  //invoice
+ 
 }
 
 export default Repair;

@@ -210,3 +210,9 @@ label {
   margin-bottom: 10px;
   border-radius: 5px;
 }
+
+@media print {
+    .RepairContainer1{display:none;}
+    .RepairContainer2{display:none;}
+
+}

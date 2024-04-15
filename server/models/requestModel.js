@@ -7,18 +7,33 @@ const requestSchema = new Schema({
     require: true,
     unique: true,
   },
-  requestType: {
+  ownerName:{
+    type: String,
+  },
+  vehicleType:{
+    type: String,
+  },
+  mobileNo:{
     type: String,
     require: true,
   },
+  longitude:{
+    type: String,
+  },
+  lattitude:{
+    type: String,
+  },
   requestStatus: {
     type: String,
-    require: true,
+    default: "incoming",
   },
   requestDate: {
     type: Date,
     require: true,
   },
+  issue:{
+    type: String,
+  }
 });
 
 module.exports = mongoose.model("Request", requestSchema);

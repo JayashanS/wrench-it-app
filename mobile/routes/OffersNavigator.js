@@ -9,7 +9,7 @@ export default function OffersStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Offers"
+        name="Offer"
         component={Offer}
         options={{
           title: "Offers",

@@ -1,5 +1,6 @@
-import React from "react";
-import "../styles/Request.css";
+import React, {useState, useEffect} from "react";
+import "../styles/Request.css"
+import axios from "axios";
 
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
@@ -14,6 +15,101 @@ import { lightBlue } from "@mui/material/colors";
 
 export default function Request() {
 
+const [incomingOutput, setIncoming] = useState("");
+const [desicionJSX, setDesicion] = useState("");
+
+useEffect(() => {
+  incoming();
+}, []);
+
+const incoming = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/request/incoming`
+      );
+     console.log("Response Data:", response.data);
+      const responseData = response.data;
+
+      // If responseData is an array of objects
+      const requestJSX = responseData.map((item, index) => (
+      <div className="user-details"  key={index}>
+            <div className="profile-circle"></div>
+            <div className="name-box">
+              <b>{item.ownerName}</b>
+            </div>
+            <div className="icon-box">
+              <DirectionsCarIcon />
+              <CallIcon />
+              <LocationOnIcon />
+            </div>
+            <div className="details-box">
+              {item.vehicleType} <br />
+              {item.mobileNo} <br />
+      
+            </div>
+            <div className="button-box">
+              <button className="custom-button" style={{textAlign:"center"}} onClick={() => desicion(item.vehicleType,item.longitude,item.issue,item.mobileNo)}>View</button>
+              <button
+                className="custom-button"
+                style={{ backgroundColor: "red" }}
+                onClick={() => decline(item._id)}
+              >
+                Decline
+              </button>
+            </div>
+          </div>
+  ) );
+
+  setIncoming(requestJSX);
+} catch (error) {
+  console.error("Error fetching data:", error);
+}
+}
+
+
+const decline = async (id) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:4000/api/request/dec/${id}`
+    );
+   console.log("Response Data:", response.data);
+   incoming();
+} catch (error) {
+console.error("Error declining request:", error);
+}
+}
+
+const desicion = async (vehicle, location, issue, contact) =>{
+
+    const requestJSX = (
+      <div className="desicion-box">
+            <div className="profile-circle" style={{marginLeft:150,width:"30%",height:"42%"}}></div>
+            <div className="vehicle-detail">
+            <div className="detail-boxes">
+              <div className="info" style={{marginLeft:"12px"}}><p><strong>Vehicle:</strong><br/> {vehicle}</p></div>  
+            </div>
+            <div className="detail-boxes">
+              <div className="info" style={{marginLeft:"12px"}}><p><strong>Location:</strong><br/>{location}</p></div>  
+            </div>
+            <div className="detail-boxes">
+              <div className="info" style={{marginLeft:"12px"}}><p><strong>Issue:</strong><br/> {issue}</p></div>  
+            </div>
+            <div className="detail-boxes">
+              <div className="info" style={{marginLeft:"12px",borderRight:"none"}}><p><strong>Contact:</strong><br/> {contact}</p></div>  
+            </div>
+            </div>
+
+           <div className="buttons">
+              <button className="accept" style={{marginLeft:15}}>Accept</button>
+              <button className="hold" style={{marginLeft:120}}>Hold</button>
+              <button className="decline" style={{marginLeft:120}}>Decline</button>
+            </div>
+          </div>
+    )
+
+    setDesicion(requestJSX);
+}
+
 
   return (
     <div className="container-request">
@@ -25,54 +121,7 @@ export default function Request() {
             <VolumeUpIcon style={{ marginLeft: "350px", marginBottom: "15px" }}/>
             <br />
           </div>
-          <div className="user-details">
-            <div className="profile-circle"></div>
-            <div className="name-box">
-              <b>Alice Smith</b>
-            </div>
-            <div className="icon-box">
-              <DirectionsCarIcon />
-              <CallIcon />
-              <LocationOnIcon />
-            </div>
-            <div className="details-box">
-              Toyota Camry <br />
-              +94710000000 <br />
-              Matara <br />
-            </div>
-            <div className="button-box">
-              <button className="custom-button" style={{textAlign:"center"}}>View</button>
-              <button
-                className="custom-button"
-                style={{ backgroundColor: "red" }}
-              >
-                Decline
-              </button>
-            </div>
-          </div>
-
-          <div className="user-details">
-            <div className="profile-circle"></div>
-            <div className="name-box">
-              <b>Alice Smith</b>
-            </div>
-            <div className="icon-box">
-              <DirectionsCarIcon />
-              <CallIcon />
-              <LocationOnIcon />
-            </div>
-            <div className="details-box">
-              Toyota Camry <br />
-              +94710000000 <br />
-              Matara <br />
-            </div>
-            <div className="button-box">
-              <button className="custom-button" style={{textAlign:"center"}}>View</button>
-              <button className="custom-button"style={{ backgroundColor: "red" }}>
-                Decline
-              </button>
-            </div>
-          </div>
+          {incomingOutput}
         </div>
         <div className="accepted-request">
           <div className="header-bar">
@@ -101,29 +150,7 @@ export default function Request() {
           <div className="message-box">
             <MessageBox/>
           </div>
-          <div className="desicion-box">
-            <div className="profile-circle" style={{marginLeft:150,width:"30%",height:"42%"}}></div>
-            <div className="vehicle-detail">
-            <div className="detail-boxes">
-              <div className="info" style={{marginLeft:"12px"}}><p><strong>Vehicle:</strong><br/> Toyota Camry - Sedan</p></div>  
-            </div>
-            <div className="detail-boxes">
-              <div className="info" style={{marginLeft:"12px"}}><p><strong>Location:</strong><br/>Matara</p></div>  
-            </div>
-            <div className="detail-boxes">
-              <div className="info" style={{marginLeft:"12px"}}><p><strong>Issue:</strong><br/> Won't Start</p></div>  
-            </div>
-            <div className="detail-boxes">
-              <div className="info" style={{marginLeft:"12px",borderRight:"none"}}><p><strong>Contact:</strong><br/> +9471000000</p></div>  
-            </div>
-            </div>
-
-           <div className="buttons">
-              <button className="accept" style={{marginLeft:15}}>Accept</button>
-              <button className="hold" style={{marginLeft:120}}>Hold</button>
-              <button className="decline" style={{marginLeft:120}}>Decline</button>
-            </div>
-          </div>
+          {desicionJSX}
         </div>
 
       </div>

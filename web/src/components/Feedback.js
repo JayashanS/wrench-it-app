@@ -4,9 +4,9 @@ import "../styles/Feedback.css";
 export default function Feedback() {
   return (
     <div className="feedback-container">
-      {/* <div className="giphy-container">
+      <div className="giphy-container">
         <iframe
-          src="https://giphy.com/embed/etOX3h7ApZuDe7Fc5w"
+          src="https://giphy.com/embed/oNr6IBi0Hnnnq"
           width="399"
           height="480"
           frameBorder="0"
@@ -16,7 +16,11 @@ export default function Feedback() {
         <p>
           <a href="https://giphy.com/gifs/dancing-kermit-etOX3h7ApZuDe7Fc5w"></a>
         </p>
-  </div> */}
+  </div> 
     </div>
   );
 }
+
+
+
+
