@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from "react";
+import axios from "axios";
 import "../styles/Community.css";
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useDrawingArea } from '@mui/x-charts/hooks';
@@ -92,7 +93,7 @@ const handleLogoClick = () => {
     fileInput.click();
   }
 };
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (!companyName || !startDate || !endDate || !selectedImage || !logoImage || !startTime || !endTime ) {
       alert("Please fill all the fields");
       return;
@@ -113,6 +114,36 @@ const handleLogoClick = () => {
       enDate : endDate,
     })
     console.log(postX.name) */
+    
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      const updatedData={
+        garageId:"garagr123",
+        startingDate: startDate,
+        startingTime : startTime,
+        endDate : endDate,
+        endTime : endTime,
+        companyName : companyName,
+        logoUrl : "examoplel",
+        photoUrl : "example",
+
+      }
+     
+
+       try{
+        console.log("Creating New Document...");
+       
+       
+        await axios.post("http://localhost:4000/api/offer", updatedData, {
+          headers,
+        });
+        console.log("New document created successfully!");
+      }
+    catch (error) {
+      console.error("Error saving data:", error);
+    }
+ 
     setAd([...ad,{
       name: companyName,
       image: selectedImage,
