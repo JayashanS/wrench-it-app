@@ -3,25 +3,24 @@ import mapboxgl from "mapbox-gl";
 import "../styles/Directions.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-const MapWithDirections = () => {
+const MapWithDirections = ({ startLocation, endLocation }) => {
   const mapContainerRef = useRef(null);
   const instructionsContainerRef = useRef(null);
 
   useEffect(() => {
     mapboxgl.accessToken = `${process.env.REACT_APP_API_TOKEN}`;
 
-    const start = [80.540379, 5.949636];
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/streets-v12",
-      center: start,
+      center: startLocation.coordinates,
       zoom: 12,
     });
 
     map.on("load", () => {
       // Add starting point to the map
       map.addLayer({
-        id: "point",
+        id: "start",
         type: "circle",
         source: {
           type: "geojson",
@@ -33,7 +32,7 @@ const MapWithDirections = () => {
                 properties: {},
                 geometry: {
                   type: "Point",
-                  coordinates: start,
+                  coordinates: startLocation.coordinates,
                 },
               },
             ],
@@ -44,57 +43,43 @@ const MapWithDirections = () => {
           "circle-color": "#3887be",
         },
       });
+
+      // Add end point to the map
+      map.addLayer({
+        id: "end",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  type: "Point",
+                  coordinates: endLocation.coordinates,
+                },
+              },
+            ],
+          },
+        },
+        paint: {
+          "circle-radius": 10,
+          "circle-color": "#f30",
+        },
+      });
+
+      getRoute(startLocation.coordinates, endLocation.coordinates);
     });
 
     map.on("click", (event) => {
       const coords = Object.keys(event.lngLat).map((key) => event.lngLat[key]);
-      const end = {
-        type: "FeatureCollection",
-        features: [
-          {
-            type: "Feature",
-            properties: {},
-            geometry: {
-              type: "Point",
-              coordinates: coords,
-            },
-          },
-        ],
-      };
-
-      if (map.getLayer("end")) {
-        map.getSource("end").setData(end);
-      } else {
-        map.addLayer({
-          id: "end",
-          type: "circle",
-          source: {
-            type: "geojson",
-            data: {
-              type: "FeatureCollection",
-              features: [
-                {
-                  type: "Feature",
-                  properties: {},
-                  geometry: {
-                    type: "Point",
-                    coordinates: coords,
-                  },
-                },
-              ],
-            },
-          },
-          paint: {
-            "circle-radius": 10,
-            "circle-color": "#f30",
-          },
-        });
-      }
-
-      getRoute(start, coords);
+      getRoute(startLocation.coordinates, coords);
     });
 
     async function getRoute(start, end) {
+      // Fetch route information
       const query = await fetch(
         `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
         { method: "GET" }
@@ -152,7 +137,7 @@ const MapWithDirections = () => {
     }
 
     return () => map.remove(); // Cleanup map on component unmount
-  }, []);
+  }, [startLocation, endLocation]);
 
   return (
     <div style={{ display: "flex" }} className="directions-container">

@@ -94,6 +94,7 @@ const getReservationsByFilter = async (req, res) => {
     const filter = {
       reservationtDate: { $gte: startDate, $lt: endDate },
       reservationtId: { $regex: new RegExp(`\\.${hashedEmail}$`) },
+      reservationStatus: "Accepted",
     };
 
     const filteredReservations = await Reservation.find(filter);
@@ -150,15 +151,15 @@ const deletePendingReservation = async (req, res) => {
 };
 
 const updateReservation = async (req, res) => {
-  const reservationtId = req.params.id;
+  const id = req.params.id;
   const { reservationStatus } = req.body;
 
   try {
     const updatedReservation = await Reservation.findOneAndUpdate(
-      { reservationtId: reservationtId },
+      { _id: id },
       {
         $set: {
-          reservationStatus: "completed",
+          reservationStatus: reservationStatus,
         },
       },
       { new: true }
@@ -167,7 +168,7 @@ const updateReservation = async (req, res) => {
     if (!updatedReservation) {
       return res
         .status(404)
-        .json({ message: "Garage not found", reservationtId: reservationtId });
+        .json({ message: "Reservation not found", _id: id });
     }
 
     res.status(200).json(updatedReservation);
@@ -178,24 +179,22 @@ const updateReservation = async (req, res) => {
 };
 
 const acceptReservation = async (req, res) => {
-  const reservationtId = req.params.id;
+  const id = req.params.id;
   const { reservationStatus } = req.body;
 
   try {
     const updatedReservation = await Reservation.findOneAndUpdate(
-      { reservationtId: reservationtId },
+      { _id: id },
       {
         $set: {
-          reservationStatus: "Confirmed",
+          reservationStatus: reservationStatus,
         },
       },
       { new: true }
     );
 
     if (!updatedReservation) {
-      return res
-        .status(404)
-        .json({ message: "Not Update", reservationtId: reservationtId });
+      return res.status(404).json({ message: "Not Update", _id: id });
     }
 
     res.status(200).json(updatedReservation);
