@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ScrollView, View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
-import CenterCard from "../Request/CenterCard";
+import CenterCard from "./CenterCard";
 
 const NearByCenters = () => {
   const navigation = useNavigation();
