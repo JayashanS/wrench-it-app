@@ -74,9 +74,6 @@ const createOffer = async (req, res) => {
   }
 };
 
-// Update the route to handle file upload
-router.post("/offers", createOffer);
-
 // Controller function to delete an offer document by ID
 const deleteOfferById = async (req, res) => {
   try {

@@ -273,6 +273,13 @@ function Repair() {
           >
             Add new Repair Record{" "}
           </Button>
+          <Button
+            variant="contained"
+            onClick={toggleAccordion}
+            style={{ color: "white", textTransform: "none" }}
+          >
+            Add From{" "}
+          </Button>
         </Stack>
 
         <br />
