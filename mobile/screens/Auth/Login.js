@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useLogin } from "../../hooks/useLogin";
@@ -9,7 +9,7 @@ import Colors from "../../constants/Colors";
 import CustomButton from "../../components/CustomButton";
 import CustomTextInput from "../../components/CustomTextInput";
 
-export default function Signup() {
+export default function Login() {
   const navigation = useNavigation();
 
   const [email, setEmail] = useState("");
@@ -18,122 +18,84 @@ export default function Signup() {
   const { login, error, isLoading } = useLogin();
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    const checkUserAndNavigate = async () => {
+      if (user) {
+        navigation.navigate("Main");
+      }
+    };
+    checkUserAndNavigate();
+  }, [user, navigation]);
+
   const handleSubmit = async () => {
     try {
       await login(email, pw);
       const userData = await AsyncStorage.getItem("user");
       setUser(userData);
-      if (userData) {
-        navigation.navigate("Main");
-      }
     } catch (error) {
       setErrors(error.message);
     }
   };
 
   const handleSignup = async () => {
-    try {
-      await login(email, pw);
-      const userData = await AsyncStorage.getItem("user");
-      setUser(userData);
-      if (userData) {
-        navigation.navigate("SignUp");
-      }
-    } catch (error) {
-      setErrors(error.message);
-    }
+    navigation.navigate("SignUp");
   };
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#fff",
-      }}
-    >
-      <View style={{ flexDirection: "row" }}>
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <View style={{ textAlign: "left" }}>
-            <Text
-              style={{
-                fontFamily: Font["poppins-semiBold"],
-                fontSize: FontSize.xxLarge,
-                color: Colors.darkText,
-                marginBottom: 10,
-                maxWidth: "80%",
-                textAlign: "center",
-              }}
-            >
-              Login
-            </Text>
-          </View>
-
-          <View style={{ paddingHorizontal: 10 }}>
-            <CustomTextInput
-              placeholder="Email"
-              onChangeText={(newText) => setEmail(newText)}
-              value={email}
-            />
-            <CustomTextInput
-              placeholder="Password"
-              onChangeText={(newText) => setPw(newText)}
-              value={pw}
-            />
-
-            {error && (
-              <Text style={{ fontSize: 14, color: "rgb(255, 0, 115)" }}>
-                {error}
-              </Text>
-            )}
-            {errors && (
-              <Text style={{ fontSize: 14, color: "rgb(255, 0, 115)" }}>
-                {errors}
-              </Text>
-            )}
-            <CustomButton
-              title="Login"
-              onPress={handleSubmit}
-              backgroundColor={Colors.primary}
-            />
-          </View>
-          <TouchableOpacity onPress={handleSignup}>
-            <Text style={styles.bodyText}>
-              Do not have an account?
-              <Text style={styles.linkText}> Sign Up</Text>
-            </Text>
-          </TouchableOpacity>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.contentContainer}>
+        <Text style={styles.title}>Login</Text>
       </View>
+
+      <View style={styles.contentContainer}>
+        <CustomTextInput
+          placeholder="Email"
+          onChangeText={(newText) => setEmail(newText)}
+          value={email}
+        />
+        <CustomTextInput
+          placeholder="Password"
+          onChangeText={(newText) => setPw(newText)}
+          value={pw}
+        />
+
+        {error && <Text style={styles.errorText}>{error}</Text>}
+        {errors && <Text style={styles.errorText}>{errors}</Text>}
+
+        <CustomButton
+          title="Login"
+          onPress={handleSubmit}
+          backgroundColor={Colors.primary}
+        />
+      </View>
+
+      <TouchableOpacity onPress={handleSignup}>
+        <Text style={styles.bodyText}>
+          Don't have an account? <Text style={styles.linkText}>Sign Up</Text>
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    padding: 20,
-  },
-  imageContainer: {},
-  image: {
-    width: 500,
-    height: 500,
-    resizeMode: "contain",
-    marginTop: 10,
-    marginBottom: 20,
+    backgroundColor: "#fff",
+    paddingHorizontal: 20,
   },
   contentContainer: {
-    alignItems: "center",
     marginBottom: 20,
+    width: "100%",
   },
   title: {
     fontSize: FontSize.xxLarge,
     color: Colors.darkText,
     fontFamily: Font["poppins-bold"],
     textAlign: "center",
+    marginBottom: 10,
   },
   bodyText: {
     fontSize: FontSize.medium,
@@ -142,9 +104,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   linkText: {
-    fontSize: FontSize.medium,
     color: Colors.green,
-    fontFamily: Font["poppins-regular"],
+  },
+  errorText: {
+    fontSize: 14,
+    color: "rgb(255, 0, 115)",
     textAlign: "center",
+    marginTop: 5,
   },
 });

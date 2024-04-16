@@ -13,6 +13,9 @@ import EventsNavigator from "./routes/EventsNavigator";
 import ReservationNavigator from "./routes/ReservationNavigator";
 import ChatNavigator from "./routes/ChatNavigator";
 import ProfileScreen from "./screens/Common/Profile";
+import Login from "./screens/Auth/Login";
+import SignUp from "./screens/Auth/SignUp";
+
 import MapScreen from "./screens/Common/MapView";
 
 import Colors from "./constants/Colors";
@@ -104,6 +107,16 @@ export default function App() {
           <Stack.Screen
             name="Profile"
             component={ProfileScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
             options={{ headerShown: false }}
           />
           <Stack.Screen

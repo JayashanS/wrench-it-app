@@ -22,7 +22,7 @@ export const useSignup = () => {
     console.log("Response from server:", response);
 
     const json = await response.json();
-    //console.log("Parsed JSON:", json);
+    console.log("Parsed JSON:", json);
 
     if (!response.ok) {
       setIsLoading(false);
