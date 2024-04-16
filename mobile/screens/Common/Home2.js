@@ -182,13 +182,14 @@ const Home_2 = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.card, styles.bottomCard]}
-            onPress={() => navigation.navigate("CallsScreen")}
+            onPress={() => navigation.navigate("RepairHistory")}
           >
             <View style={styles.cardContent}>
               <MaterialIcons name="history" size={40} color="#125C75" />
               <View style={styles.textContent}>
-                <Text style={styles.cardTitle}>Calls</Text>
-                <Text style={styles.cardDescription}>View recent calls</Text>
+                <Text style={styles.cardTitle}>Repair History</Text>
+                <Text style={styles.cardDescription}>View Repair Records</Text>
+                <Text style={styles.cardDescription}>and Billing</Text>
               </View>
             </View>
           </TouchableOpacity>

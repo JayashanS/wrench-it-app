@@ -15,6 +15,7 @@ import ChatNavigator from "./routes/ChatNavigator";
 import ProfileScreen from "./screens/Common/Profile";
 import Login from "./screens/Auth/Login";
 import SignUp from "./screens/Auth/SignUp";
+import RepairHistory from "./screens/Repair/RepairHistory";
 
 import MapScreen from "./screens/Common/MapView";
 
@@ -123,6 +124,20 @@ export default function App() {
             name="Map"
             component={MapScreen}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="RepairHistory"
+            component={RepairHistory}
+            options={{
+              title: "Repair History",
+              headerStyle: {
+                backgroundColor: "#125C75",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -21,11 +21,14 @@ const repairSchema = new Schema({
     required: true,
   },
 
-  NIC: {
+  userEmail: {
     type: String,
     required: true,
   },
-
+  garageId: {
+    type: String,
+    required: true,
+  },
   phoneNo: {
     type: String,
     required: true,

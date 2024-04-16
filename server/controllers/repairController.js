@@ -1,10 +1,20 @@
 const Repair = require("../models/repairModel");
 
 //create Repair
-
 const createRepair = async (req, res) => {
-  const { repairId, licensePlateNo, model, fault, NIC, phoneNo, date, status } =
-    req.body;
+  const {
+    repairId,
+    licensePlateNo,
+    model,
+    fault,
+    userEmail,
+    phoneNo,
+    date,
+    status,
+  } = req.body;
+
+  // Extract owner email from request parameters
+  const { email } = req.params;
 
   try {
     const repair = await Repair.create({
@@ -12,25 +22,36 @@ const createRepair = async (req, res) => {
       licensePlateNo,
       model,
       fault,
-      NIC,
+      userEmail,
+      garageId: email, // Use email as garageId
       phoneNo,
       date,
       status,
     });
     res.status(201).json(repair);
   } catch (error) {
-    res.status(500).json({ error: "could not create repair" });
+    console.error("Error creating repair:", error);
+    res.status(500).json({ error: "Could not create repair" });
   }
 };
 
-//Get Repair
 const getAllRepair = async (req, res) => {
   try {
-    // Fetch all repair records from the database
-    const repair = await Repair.find();
-    res.status(200).json(repair);
+    const { email } = req.params;
+
+    // Find repairs with the owner's email in garageId
+    const filteredRepairs = await Repair.find({ garageId: email });
+
+    // Remove email part from repairId in each document
+    const modifiedRepairs = filteredRepairs.map((repair) => {
+      const originalRepairId = repair.repairId.split(".")[0];
+      return { ...repair.toObject(), repairId: originalRepairId };
+    });
+
+    res.status(200).json(modifiedRepairs);
   } catch (error) {
-    res.status(500).json({ error: "could not retrieve repair" });
+    console.error("Error fetching repair records:", error);
+    res.status(500).json({ error: "Could not retrieve repair records" });
   }
 };
 
