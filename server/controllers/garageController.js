@@ -6,7 +6,7 @@ const hash = crypto.createHash("sha256");
 
 const updateGarageDetails = async (req, res) => {
   const email = req.params.email;
-  const garageId = crypto.createHash("sha256").update(email).digest("hex");
+  const garageId = email;
 
   const {
     oname,
@@ -76,7 +76,7 @@ const updateGarageDetails = async (req, res) => {
 
 const updateGarageServicesAndCharges = async (req, res) => {
   const email = req.params.email;
-  const garageId = crypto.createHash("sha256").update(email).digest("hex");
+  const garageId = email;
 
   const { services, categories, minCharge, maxCharge } = req.body;
 
@@ -111,7 +111,7 @@ const updateGarageServicesAndCharges = async (req, res) => {
 
 const updateGarageLocation = async (req, res) => {
   const email = req.params.email;
-  const garageId = crypto.createHash("sha256").update(email).digest("hex");
+  const garageId = email;
   const { location } = req.body;
 
   try {
@@ -140,7 +140,7 @@ const updateGarageLocation = async (req, res) => {
 
 const getGarageById = async (req, res) => {
   const email = req.params.email;
-  const garageId = crypto.createHash("sha256").update(email).digest("hex");
+  const garageId = email;
 
   try {
     const garage = await Garage.findOne({ garageId: garageId });
@@ -160,7 +160,7 @@ const getGarageById = async (req, res) => {
 
 const getGarageNameById = async (req, res) => {
   const email = req.params.email;
-  const garageId = crypto.createHash("sha256").update(email).digest("hex");
+  const garageId = email;
 
   try {
     const garage = await Garage.findOne({ garageId: garageId });
@@ -253,7 +253,7 @@ const findNearbyRepairCenters = async (req, res) => {
 
 const checkAccountExists = async (req, res) => {
   const email = req.params.email;
-  const garageId = crypto.createHash("sha256").update(email).digest("hex");
+  const garageId = email;
   try {
     const existingGarage = await Garage.findOne({ garageId: garageId });
     return res.status(200).json({ exists: !!existingGarage });
@@ -264,13 +264,13 @@ const checkAccountExists = async (req, res) => {
 };
 
 const getGarageId = (email) => {
-  const garageId = crypto.createHash("sha256").update(email).digest("hex");
+  const garageId = email;
   return garageId;
 };
 
 const updateGarageDescription = async (req, res) => {
   const email = req.params.email;
-  const garageId = crypto.createHash("sha256").update(email).digest("hex");
+  const garageId = email;
 
   const { description } = req.body;
 
