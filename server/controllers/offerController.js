@@ -2,7 +2,6 @@ const Offer = require("../models/offerModel");
 const fs = require("fs");
 const path = require("path");
 
-// Controller function to create a new offer document
 const createOffer = async (req, res) => {
   try {
     // Check if a file is provided in the request

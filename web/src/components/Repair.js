@@ -2,7 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Accordion, Card, Form } from "react-bootstrap";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
+
 import PrintBill from "./PrintBill";
+import AddForm from "./AddFrom";
 import "../styles/Repair.css";
 
 function Repair() {
@@ -46,10 +54,20 @@ function Repair() {
   const [selectedServices, setSelectedServices] = useState([]);
   const [cost, setCost] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const toggleAccordion = () => {
     setIsAccordionOpen(!isAccordionOpen);
   };
+
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
   const togglePartsForm = () => {
     setIsPartsFormOpen(!isPartsFormOpen);
   };
@@ -275,13 +293,21 @@ function Repair() {
           </Button>
           <Button
             variant="contained"
-            onClick={toggleAccordion}
+            onClick={handleOpenDialog}
             style={{ color: "white", textTransform: "none" }}
           >
             Add From{" "}
           </Button>
         </Stack>
-
+        <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+          <DialogTitle>Add New Repair Record From</DialogTitle>
+          <DialogContent>
+            <AddForm garageId="yourGarageId" />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog}>Close</Button>
+          </DialogActions>
+        </Dialog>
         <br />
         <br />
         {isAccordionOpen && (
