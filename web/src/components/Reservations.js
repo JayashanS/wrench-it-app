@@ -58,7 +58,7 @@ function Reservations() {
   const accept_reservation = async (id) => {
     try {
       const updatedData = {
-        reservationStatus: "Accepted",
+        status: "Accepted",
       };
 
       const response = await axios.put(
@@ -88,38 +88,39 @@ function Reservations() {
         <div class="column-3" key={index}>
           <div class="innerColumn-1">
             <p>
-              <span class="container-title">Customer Name</span>
+              <span class="container-title">License Plate Number: </span>
               <br />
-              {item.customerName}
+              {item.licensePlateNo}
             </p>
             <p>
               <span class="container-title">Vehicle</span>
               <br />
-              {item.vehicleType}
+              {item.model}
             </p>
             <p>
               <span class="container-title">Service</span>
               <br />
-              {item.description}
+              {item.fault}
             </p>
           </div>
           <div class="innerColumn-1">
             <p>
               <span class="container-title">Time</span>
               <br />
-              {item.reservationtTime}
+              {new Date(item.date).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </p>
             <p>
               <span class="container-title">Date</span>
               <br />
-              {new Intl.DateTimeFormat("en-GB").format(
-                new Date(item.reservationtDate)
-              )}
+              {new Intl.DateTimeFormat("en-GB").format(new Date(item.date))}
             </p>
             <p>
               <span class="container-title">Contact</span>
               <br />
-              {item.contactNo}
+              {item.phoneNo}
             </p>
           </div>
           <div class="innerColumn-1">
@@ -178,9 +179,19 @@ function Reservations() {
       // If responseData is an array of objects
       const reservationsJSX = responseData.map((item, index) => (
         <div className="reservationList" key={index}>
-          <p>Model: {item.vehicleType}</p>
-          <p>Description: {item.description}</p>
-          <p>Time: {item.reservationtTime}</p>
+          <span class="container-title">Model :</span>
+          {item.model}
+          <br />
+          <span class="container-title">Fault :</span> {item.fault}
+          <br />
+          <span class="container-title">Time :</span>
+          <span>
+            Time:{" "}
+            {new Date(item.date).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </span>
         </div>
       ));
 
@@ -276,14 +287,17 @@ function Reservations() {
           {data.map((item) => (
             <div class="column-4" key={item._id}>
               <div class="innerRow-1">
-                <div class="item-1">{item.customerName}</div>
-                <div class="item-1"> {item.vehicleType}</div>
+                <div class="item-1">{item.licensePlateNo}</div>
+                <div class="item-1"> {item.model}</div>
                 <div class="item-1">
-                  {new Intl.DateTimeFormat("en-GB").format(
-                    new Date(item.reservationtDate)
-                  )}
+                  {new Intl.DateTimeFormat("en-GB").format(new Date(item.date))}
                 </div>
-                <div class="item-1">{item.reservationtTime}</div>
+                <div class="item-1">
+                  {new Date(item.date).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </div>
                 <div style={{ marginRight: "20px" }}>
                   <CheckCircleOutlineIcon
                     style={{ color: "#09BEB1" }}
@@ -298,7 +312,7 @@ function Reservations() {
                   />
                 </div>
               </div>
-              <div class="innerRow-2">{item.description}</div>
+              <div class="innerRow-2">{item.fault}</div>
             </div>
           ))}
         </div>

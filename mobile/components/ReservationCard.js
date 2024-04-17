@@ -15,12 +15,8 @@ const ReservationCard = ({ reservationData, onDelete }) => {
       : "Unknown";
   const combinedAddress = reservationData.combinedAddress || "Unknown";
 
-  const formattedDate = new Date(
-    reservationData.reservationtDate
-  ).toLocaleDateString();
-  const formattedTime = new Date(
-    reservationData.reservationtTime
-  ).toLocaleTimeString([], {
+  const formattedDate = new Date(reservationData.date).toLocaleDateString();
+  const formattedTime = new Date(reservationData.date).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });

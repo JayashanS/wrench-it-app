@@ -146,6 +146,10 @@ const getAllReservations = async (req, res) => {
 const getReservationsByFilter = async (req, res) => {
   try {
     const { date, garageId } = req.params;
+    if (!date || isNaN(Date.parse(date))) {
+      return res.status(400).json({ error: "Invalid date parameter" });
+    }
+
     const startDate = new Date(date);
     const endDate = new Date(date);
     endDate.setDate(endDate.getDate() + 1);

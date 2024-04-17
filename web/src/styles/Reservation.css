@@ -50,7 +50,7 @@
 .calenderContainer{
    display: flex;
    flex-direction: row;
-    background-color: #EEF2F5;
+   background-color: #ffffff;
    height: 40%;
    margin-left: 10px;
    margin-right: 10px;
@@ -91,7 +91,7 @@
 
  .innerRow-1{
     display:flex;
-    height:30%;
+    height:15%;
     margin: 10px;
     
     
@@ -195,14 +195,11 @@
    padding: 10px;
    overflow: auto;
    width:50%;
-
-
-
 }
 .reservationList{
-   color:#09BEB1;
+   color:#151515;
    padding: 10px;
-   background-color: #ffffff;
+   background-color:#EEF2F5;
    margin-bottom: 5px;
    
 }
