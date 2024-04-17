@@ -14,12 +14,11 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import Colors from "../../constants/Colors";
 
 const NewReservationScreen = ({ route }) => {
-  const [description, setDescription] = useState("");
-  const [userName, setUserName] = useState("");
-  const [vehicle, setVehicle] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [fault, setFault] = useState("");
+  const [licensePlateNo, setLicensePlateNo] = useState("");
+  const [model, setModel] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
   const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [email, setEmail] = useState("js@gmail.com");
@@ -41,7 +40,7 @@ const NewReservationScreen = ({ route }) => {
     fetchEmailFromAsyncStorage();
   }, []);
 
-  const { id, name, location } = route.params; // Destructuring id, name, and location from route.params
+  const { id, name, location } = route.params;
 
   const handleDateChange = (event, selectedDate) => {
     setShowDatePicker(false);
@@ -53,23 +52,30 @@ const NewReservationScreen = ({ route }) => {
   const handleTimeChange = (event, selectedTime) => {
     setShowTimePicker(false);
     if (selectedTime) {
-      setTime(selectedTime);
+      setDate(
+        new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          selectedTime.getHours(),
+          selectedTime.getMinutes()
+        )
+      );
     }
   };
 
   const handleSaveReservation = async () => {
     const reservationData = {
-      email,
+      licensePlateNo,
+      model,
+      fault,
+      userEmail: email,
       garageId: id,
-      vehicleType: vehicle,
-      reservationStatus: "Pending",
-      reservationtDate: date,
-      reservationtTime: time,
-      customerName: userName,
-      contactNo: phoneNumber,
-      description,
+      phoneNo,
+      date: date.toISOString(),
+      status: "Pending",
     };
-
+    console.log(reservationData);
     try {
       const response = await fetch(
         `http://${process.env.EXPO_PUBLIC_IP}:4000/api/reservation`,
@@ -102,34 +108,34 @@ const NewReservationScreen = ({ route }) => {
         <Text style={styles.centerAddress}>{location}</Text>
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Name</Text>
+        <Text style={styles.label}>License Plate Number</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter your name"
-          value={userName}
-          onChangeText={setUserName}
+          placeholder="Enter license plate number"
+          value={licensePlateNo}
+          onChangeText={setLicensePlateNo}
         />
-        <Text style={styles.label}>Vehicle</Text>
+        <Text style={styles.label}>Model</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter vehicle"
-          value={vehicle}
-          onChangeText={setVehicle}
+          placeholder="Enter model"
+          value={model}
+          onChangeText={setModel}
         />
         <Text style={styles.label}>Phone Number</Text>
         <TextInput
           style={styles.input}
           placeholder="Enter phone number"
           keyboardType="phone-pad"
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
+          value={phoneNo}
+          onChangeText={setPhoneNo}
         />
-        <Text style={styles.label}>Description</Text>
+        <Text style={styles.label}>Fault</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter description"
-          value={description}
-          onChangeText={setDescription}
+          placeholder="Enter fault"
+          value={fault}
+          onChangeText={setFault}
           multiline
           numberOfLines={4}
         />
@@ -155,7 +161,7 @@ const NewReservationScreen = ({ route }) => {
           <Text style={styles.label}>Select Time</Text>
           <Button
             onPress={() => setShowTimePicker(true)}
-            title={time.toLocaleTimeString([], {
+            title={date.toLocaleTimeString([], {
               hour: "2-digit",
               minute: "2-digit",
             })}
@@ -164,7 +170,7 @@ const NewReservationScreen = ({ route }) => {
           {showTimePicker && (
             <DateTimePicker
               testID="timePicker"
-              value={time}
+              value={date}
               mode="time"
               is24Hour={true}
               display="default"
@@ -218,10 +224,6 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 5,
     padding: 10,
-    marginBottom: 10,
-  },
-  saveButton: {
-    padding: 20,
     marginBottom: 10,
   },
   submitButton: {

@@ -1,8 +1,41 @@
-import React, { useState } from "react";
-import { Tabs, Tab, Typography, Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Tabs, Tab, Button } from "@mui/material";
+import axios from "axios";
 
 const AddForm = ({ garageId }) => {
   const [value, setValue] = useState(0);
+  const [reservations, setReservations] = useState([]);
+  const [requests, setRequests] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/api/reservation/get/${garageId}`)
+      .then((response) => setReservations(response.data))
+      .catch((error) => console.error("Error fetching reservations:", error));
+    axios
+      .get(`http://localhost:4000/api/request`)
+      .then((response) => setRequests(response.data))
+      .catch((error) => console.error("Error fetching requests:", error));
+  }, [garageId]);
+
+  const handleSendToRepair = (record) => {
+    axios
+      .post("http://localhost:4000/api/repair", record)
+      .then((response) => {
+        console.log("Data sent to repair:", response.data);
+        axios
+          .get(`http://localhost:4000/api/reservation/get/${garageId}`)
+          .then((response) => setReservations(response.data))
+          .catch((error) =>
+            console.error("Error fetching reservations:", error)
+          );
+        axios
+          .get("http://localhost:4000/api/request")
+          .then((response) => setRequests(response.data))
+          .catch((error) => console.error("Error fetching requests:", error));
+      })
+      .catch((error) => console.error("Error sending data to repair:", error));
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -11,16 +44,74 @@ const AddForm = ({ garageId }) => {
   return (
     <div>
       <Tabs value={value} onChange={handleChange} aria-label="AddForm Tabs">
-        <Tab label="Repair" />
-        <Tab label="Request" />
+        <Tab label="Reservations" />
+        <Tab label="Requests" />
       </Tabs>
       <TabPanel value={value} index={0}>
-        {/* Repair Tab Content */}
-        <Typography>Repair for garage ID: {garageId}</Typography>
+        <table className="Repair">
+          <thead>
+            <tr>
+              <th>License Plate Number</th>
+              <th>Model</th>
+              <th>Fault</th>
+              <th>Phone Number</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reservations.map((reservation) => (
+              <tr key={reservation._id}>
+                <td>{reservation.licensePlateNo}</td>
+                <td>{reservation.model}</td>
+                <td>{reservation.fault}</td>
+                <td>{reservation.phoneNo}</td>
+                <td>{reservation.date}</td>
+                <td>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleSendToRepair(reservation)}
+                  >
+                    Send to Repair
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {/* Request Tab Content */}
-        <Typography>Request for garage ID: {garageId}</Typography>
+        <table className="Repair">
+          <thead>
+            <tr>
+              <th>License Plate Number</th>
+              <th>Model</th>
+              <th>Fault</th>
+              <th>Phone Number</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {requests.map((request) => (
+              <tr key={request.requestId}>
+                <td>{request.licensePlateNo}</td>
+                <td>{request.model}</td>
+                <td>{request.fault}</td>
+                <td>{request.phoneNo}</td>
+                <td>{request.date}</td>
+                <td>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleSendToRepair(request)}
+                  >
+                    Send to Repair
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </TabPanel>
     </div>
   );
@@ -37,11 +128,7 @@ function TabPanel(props) {
       aria-labelledby={`tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && children}
     </div>
   );
 }

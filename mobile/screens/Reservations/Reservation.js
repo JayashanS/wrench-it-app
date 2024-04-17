@@ -32,7 +32,7 @@ const ReservationScreen = () => {
   const fetchReservations = async (userEmail) => {
     try {
       const response = await fetch(
-        `http://${process.env.EXPO_PUBLIC_IP}:4000/api/reservation/user/${userEmail}`
+        `http://${process.env.EXPO_PUBLIC_IP}:4000/api/reservation/user/user3@example.com`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch reservations");

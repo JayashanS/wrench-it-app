@@ -31,7 +31,7 @@ const ReservationCard = ({ reservationData, onDelete }) => {
         <View style={styles.info}>
           <Text style={styles.center}>{repairCenterName}</Text>
           <Text style={styles.address}>{combinedAddress}</Text>
-          <Text style={styles.details}>{reservationData.vehicleType}</Text>
+          <Text style={styles.details}>{reservationData.model}</Text>
           <Text style={styles.date}>
             {formattedDate} {formattedTime}
           </Text>
@@ -40,14 +40,14 @@ const ReservationCard = ({ reservationData, onDelete }) => {
               styles.details,
               {
                 color:
-                  reservationData.reservationStatus === "Pending" ||
-                  reservationData.reservationStatus === "Declined"
+                  reservationData.status === "Pending" ||
+                  reservationData.status === "Declined"
                     ? "red"
                     : "green",
               },
             ]}
           >
-            {reservationData.reservationStatus}
+            {reservationData.status}
           </Text>
         </View>
         <TouchableOpacity onPress={handleDelete}>

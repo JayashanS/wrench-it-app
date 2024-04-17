@@ -299,7 +299,12 @@ function Repair() {
             Add From{" "}
           </Button>
         </Stack>
-        <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+        <Dialog
+          open={dialogOpen}
+          onClose={handleCloseDialog}
+          maxWidth="md"
+          fullWidth
+        >
           <DialogTitle>Add New Repair Record From</DialogTitle>
           <DialogContent>
             <AddForm garageId="yourGarageId" />
@@ -308,6 +313,7 @@ function Repair() {
             <Button onClick={handleCloseDialog}>Close</Button>
           </DialogActions>
         </Dialog>
+
         <br />
         <br />
         {isAccordionOpen && (

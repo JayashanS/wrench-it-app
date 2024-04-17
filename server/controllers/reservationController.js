@@ -1,37 +1,98 @@
-const Reservation = require("../models/reservationModel");
 const crypto = require("crypto");
+
+const Counter = require("../models/counterModel");
+const Reservation = require("../models/reservationModel");
 
 const createReservation = async (req, res) => {
   const {
-    email,
+    licensePlateNo,
+    model,
+    fault,
+    userEmail,
     garageId,
-    vehicleType,
-    reservationStatus,
-    reservationtDate,
-    reservationtTime,
-    customerName,
-    contactNo,
-    description,
+    phoneNo,
+    date,
+    status,
   } = req.body;
 
   try {
-    const hashedEmail = crypto.createHash("sha256").update(email).digest("hex");
-    const reservationtId = `${hashedEmail}.${garageId}`;
+    let counter = await Counter.findOneAndUpdate(
+      { _id: "reservationId" },
+      { $inc: { sequence_value: 1 } },
+      { new: true, upsert: true }
+    );
+
+    const reservationId = counter.sequence_value;
 
     const reservation = await Reservation.create({
-      reservationtId,
-      vehicleType,
-      reservationStatus,
-      reservationtDate,
-      reservationtTime,
-      customerName,
-      contactNo,
-      description,
+      reservationId,
+      licensePlateNo,
+      model,
+      fault,
+      userEmail,
+      garageId,
+      phoneNo,
+      date,
+      status,
+      repair: false,
     });
 
     res.status(201).json(reservation);
   } catch (error) {
+    console.error("Error creating reservation:", error);
     res.status(500).json({ error: "Could not create reservation" });
+  }
+};
+
+module.exports = createReservation;
+
+const getReservationsByEmail = async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const reservations = await Reservation.aggregate([
+      {
+        $match: { userEmail: email },
+      },
+      {
+        $lookup: {
+          from: "garages",
+          localField: "garageId",
+          foreignField: "garageId",
+          as: "garageDetails",
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          licensePlateNo: 1,
+          model: 1,
+          fault: 1,
+          userEmail: 1,
+          garageId: 1,
+          phoneNo: 1,
+          date: 1,
+          status: 1,
+          "garageDetails.repairCenterName": 1,
+          combinedAddress: {
+            $concat: [
+              { $arrayElemAt: ["$garageDetails.city", 0] },
+              ", ",
+              { $arrayElemAt: ["$garageDetails.street", 0] },
+              ", ",
+              { $arrayElemAt: ["$garageDetails.state", 0] },
+              ", ",
+              { $arrayElemAt: ["$garageDetails.postalCode", 0] },
+            ],
+          },
+        },
+      },
+    ]);
+
+    res.status(200).json(reservations);
+  } catch (error) {
+    console.error("Error fetching reservations by email:", error);
+    res.status(500).json({ error: "Could not fetch reservations by email" });
   }
 };
 
@@ -84,17 +145,15 @@ const getAllReservations = async (req, res) => {
 
 const getReservationsByFilter = async (req, res) => {
   try {
-    const { reservationDate, email } = req.params;
-    const startDate = new Date(reservationDate);
-    const endDate = new Date(reservationDate);
+    const { date, garageId } = req.params;
+    const startDate = new Date(date);
+    const endDate = new Date(date);
     endDate.setDate(endDate.getDate() + 1);
 
-    const hashedEmail = crypto.createHash("sha256").update(email).digest("hex");
-
     const filter = {
-      reservationtDate: { $gte: startDate, $lt: endDate },
-      reservationtId: { $regex: new RegExp(`\\.${hashedEmail}$`) },
-      reservationStatus: "Accepted",
+      date: { $gte: startDate, $lt: endDate },
+      garageId: garageId,
+      status: "Accepted",
     };
 
     const filteredReservations = await Reservation.find(filter);
@@ -108,19 +167,14 @@ const getReservationsByFilter = async (req, res) => {
 
 const getPendingReservations = async (req, res) => {
   try {
-    const { email } = req.params;
-    const userHash = crypto.createHash("sha256").update(email).digest("hex");
+    const { garageId } = req.params;
 
     const pendingReservations = await Reservation.find({
-      reservationStatus: "Pending",
+      garageId: garageId,
+      status: "Pending",
     });
 
-    const userReservations = pendingReservations.filter((reservation) => {
-      const reservationIdParts = reservation.reservationtId.split(".");
-      return reservationIdParts[1] === userHash;
-    });
-
-    res.status(200).json(userReservations);
+    res.status(200).json(pendingReservations);
   } catch (error) {
     console.error("Error fetching pending reservations:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -152,14 +206,14 @@ const deletePendingReservation = async (req, res) => {
 
 const updateReservation = async (req, res) => {
   const id = req.params.id;
-  const { reservationStatus } = req.body;
+  const { status } = req.body;
 
   try {
     const updatedReservation = await Reservation.findOneAndUpdate(
       { _id: id },
       {
         $set: {
-          reservationStatus: reservationStatus,
+          status: status,
         },
       },
       { new: true }
@@ -180,7 +234,7 @@ const updateReservation = async (req, res) => {
 
 const acceptReservation = async (req, res) => {
   const id = req.params.id;
-  const { reservationStatus } = req.body;
+  const { status } = req.body;
 
   try {
     const updatedReservation = await Reservation.findOneAndUpdate(
@@ -201,65 +255,6 @@ const acceptReservation = async (req, res) => {
   } catch (error) {
     console.error("Error updating reservation", error);
     res.status(500).json({ error: "Could not update reservation", error });
-  }
-};
-
-const getReservationsByEmail = async (req, res) => {
-  const { email } = req.params;
-
-  try {
-    const hashedEmail = crypto.createHash("sha256").update(email).digest("hex");
-
-    const reservations = await Reservation.aggregate([
-      {
-        $match: { reservationtId: { $regex: `${hashedEmail}.*` } },
-      },
-      {
-        $addFields: {
-          emailHash: {
-            $arrayElemAt: [{ $split: ["$reservationtId", "."] }, 0],
-          },
-          garageId: { $arrayElemAt: [{ $split: ["$reservationtId", "."] }, 1] },
-        },
-      },
-      {
-        $lookup: {
-          from: "garages",
-          localField: "garageId",
-          foreignField: "garageId",
-          as: "garageDetails",
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          vehicleType: 1,
-          reservationStatus: 1,
-          reservationtDate: 1,
-          reservationtTime: 1,
-          customerName: 1,
-          contactNo: 1,
-          description: 1,
-          "garageDetails.repairCenterName": 1,
-          combinedAddress: {
-            $concat: [
-              { $arrayElemAt: ["$garageDetails.city", 0] },
-              ", ",
-              { $arrayElemAt: ["$garageDetails.street", 0] },
-              ", ",
-              { $arrayElemAt: ["$garageDetails.state", 0] },
-              ", ",
-              { $arrayElemAt: ["$garageDetails.postalCode", 0] },
-            ],
-          },
-        },
-      },
-    ]);
-
-    res.status(200).json(reservations);
-  } catch (error) {
-    console.error("Error fetching reservations by email:", error);
-    res.status(500).json({ error: "Could not fetch reservations by email" });
   }
 };
 

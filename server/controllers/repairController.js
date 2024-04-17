@@ -1,33 +1,44 @@
 const Repair = require("../models/repairModel");
+const Counter = require("../models/counterModel");
 
-//create Repair
 const createRepair = async (req, res) => {
-  const {
-    repairId,
-    licensePlateNo,
-    model,
-    fault,
-    userEmail,
-    phoneNo,
-    date,
-    status,
-  } = req.body;
-
-  // Extract owner email from request parameters
+  const { licensePlateNo, model, fault, userEmail, phoneNo, date, status } =
+    req.body;
   const { email } = req.params;
 
   try {
+    let counter = await Counter.findById(`repairId_${email}`);
+    // If counter doesn't exist, create it with initial value R001
+    if (!counter) {
+      counter = await Counter.create({
+        _id: `repairId_${email}`,
+        sequence_value: 1,
+      });
+    }
+    // Convert sequence_value to the desired format
+    const formattedRepairId = `R${counter.sequence_value
+      .toString()
+      .padStart(3, "0")}`;
+    // Increment the counter specific to the garageId
+    counter = await Counter.findByIdAndUpdate(
+      { _id: `repairId_${email}` },
+      { $inc: { sequence_value: 1 } },
+      { new: true }
+    );
+
+    // Create the repair with the formatted repairId
     const repair = await Repair.create({
-      repairId,
+      repairId: formattedRepairId,
       licensePlateNo,
       model,
       fault,
       userEmail,
-      garageId: email, // Use email as garageId
+      garageId: email,
       phoneNo,
       date,
       status,
     });
+
     res.status(201).json(repair);
   } catch (error) {
     console.error("Error creating repair:", error);

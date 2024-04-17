@@ -41,6 +41,7 @@ const repairSchema = new Schema({
 
   status: {
     type: String,
+    default: "In Progress",
   },
 });
 module.exports = mongoose.model("Repair", repairSchema);
