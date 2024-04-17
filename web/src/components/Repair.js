@@ -56,12 +56,9 @@ function Repair() {
   const [totalCost, setTotalCost] = useState(0);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-<<<<<<< Updated upstream
-  const toggleAccordion = () => {
-=======
+
   
  const toggleAccordion = () => {
->>>>>>> Stashed changes
     setIsAccordionOpen(!isAccordionOpen);
   };
 
