@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, StyleSheet } from "react-native";
+import { ScrollView, View, StyleSheet,TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
 import CenterCard from "./CenterCard";
@@ -49,9 +49,17 @@ const NearByCenters = () => {
     getLocationAndFetchData();
   }, []);
 
+  const navigateToProfileScreen = (garageData) => {
+    navigation.navigate("Profile", { garageData });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {garages.map((garage) => (
+         <TouchableOpacity
+         key={garage._id}
+         onPress={() => navigateToProfileScreen(garage)}
+       >
         <CenterCard
           key={garage._id}
           center={{
@@ -66,6 +74,7 @@ const NearByCenters = () => {
             allday: garage.allDayService,
           }}
         />
+         </TouchableOpacity>
       ))}
     </ScrollView>
   );

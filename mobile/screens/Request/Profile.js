@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Feather } from "expo-vector-icons";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { View, Text, StyleSheet, SafeAreaView, Image } from "react-native";
 import {
   ScrollView,
@@ -12,9 +12,12 @@ import { Linking } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import Geolocation from "react-native-geolocation-service";
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ route }) => {
   const navigation = useNavigation();
+  const { garageData } = route.params;
+  
 
+ 
   const imagePaths = [require("../../assets/profileImage3.jpg")];
   const [count, setCount] = useState(1);
 
@@ -31,7 +34,7 @@ const ProfileScreen = () => {
   };
 
   const openPhoneDialer = () => {
-    Linking.openURL("tel:0768030344");
+    Linking.openURL(`tel:${garageData.phoneNumber}`);
   };
   const requestAssistance= () => {
     navigation.navigate("Assistance");
@@ -78,7 +81,7 @@ const ProfileScreen = () => {
 
         <View style={styles.details}>
           <View style={styles.titleRow}>
-            <Text style={styles.headFont}>AMK Repair Center</Text>
+            <Text style={styles.headFont}>{garageData.name}</Text>
           </View>
         </View>
 
