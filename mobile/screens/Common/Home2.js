@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -94,7 +95,9 @@ const Home_2 = () => {
   }
 
   return (
-    <View style={styles.container}>
+    
+    
+       <View style={styles.container}>
       <View style={styles.mapContainer}>
         <MapView
           ref={mapViewRef}
@@ -196,6 +199,7 @@ const Home_2 = () => {
         </View>
       </View>
     </View>
+  
   );
 };
 

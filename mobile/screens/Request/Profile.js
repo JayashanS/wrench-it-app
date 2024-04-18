@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 import { Feather } from "expo-vector-icons";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { View, Text, StyleSheet, SafeAreaView, Image } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Image, Settings } from "react-native";
 import {
   ScrollView,
   TextInput,
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { Linking } from "react-native";
-import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
-import Geolocation from "react-native-geolocation-service";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+
 
 const ProfileScreen = ({ route }) => {
   const navigation = useNavigation();
-  const { garageData } = route.params;
-  
+  const { garages } = route.params;
 
- 
+  console.log("Garages object:", garages);
+
   const imagePaths = [require("../../assets/profileImage3.jpg")];
   const [count, setCount] = useState(1);
 
@@ -34,7 +34,7 @@ const ProfileScreen = ({ route }) => {
   };
 
   const openPhoneDialer = () => {
-    Linking.openURL(`tel:${garageData.phoneNumber}`);
+    Linking.openURL(`tel:${garages.phoneNumber}`);
   };
   const requestAssistance= () => {
     navigation.navigate("Assistance");
@@ -81,7 +81,7 @@ const ProfileScreen = ({ route }) => {
 
         <View style={styles.details}>
           <View style={styles.titleRow}>
-            <Text style={styles.headFont}>{garageData.name}</Text>
+          <Text>{garages.repairCenterName}</Text>
           </View>
         </View>
 
@@ -116,10 +116,17 @@ const ProfileScreen = ({ route }) => {
         <View style={styles.TimeContainer}>
           <View style={styles.Time}>
             <Ionicons name="time" size={20} color="gray" />
-            <Text style={styles.headFont}> Opening Hours</Text>
+            <View>
+            <Text style={styles.headFont}> Opening Hours </Text>
+            <Text>    {garages.openingHours} - {garages.closingHours}</Text>
+            </View>
           </View>
-
-          <Text style={styles.hours}>           24/7 Service</Text>
+          <View style={styles.Settings}>
+          <Ionicons name="settings" size={20} color="gray" />
+          <Text style={styles.headFont}> Breakdown Service </Text>
+          </View>
+          <Text style={styles.hours}>        24/7 Service - {garages.allDayService ? 'Yes' : 'No'}</Text>
+          
         </View>
 
         <View style={styles.locationContainer}>
@@ -128,7 +135,7 @@ const ProfileScreen = ({ route }) => {
             <Text style={styles.headFont}> location</Text>
           </View>
 
-          <Text>         No.02, Dharmapala place, Rajagiriya</Text>
+          <Text>           {garages.street},{garages.city},{garages.state}</Text>
           <View style={styles.mapContainer}>
             <MapView
               style={{ flex: 1 }}
@@ -147,9 +154,8 @@ const ProfileScreen = ({ route }) => {
           </View>
 
           <Text style={styles.PricechargeHeader}>          Roadside assistant charges </Text>
-          <Text style={styles.Pricecharge}>          1 km -  10 km   <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3000 </Text>
-          <Text style={styles.Pricecharge}>          10 km - 15 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3500</Text>
-          <Text style={styles.Pricecharge}>          15 km - 20 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.4000</Text>  
+          <Text style={styles.Pricecharge}>       Min Charge (1 km -  10 km ) <Ionicons name="arrow-forward-circle" size={17} color="gray" /> {garages. minCharge} </Text>
+          <Text style={styles.Pricecharge}>       Max Charge (15 km - 20 km ) <Ionicons name="arrow-forward-circle" size={17} color="gray" /> {garages. maxCharge}</Text>  
         </View>
 
         <View style={styles.serviceContainer}>
@@ -158,10 +164,18 @@ const ProfileScreen = ({ route }) => {
             <Text style={styles.headFont}> Our Services</Text>
           </View>
 
-          {services.map((service, index) => (
-            <Text key={index} style={styles.serviceList}>
-              {service}
-            </Text>
+          {services && services.map((service, index) => (
+          <View key={index} >
+              <View style={styles.Mark}>
+             {(garages.services && garages.services[service]) ? (
+              
+              <Ionicons name="checkmark-circle" size={20} color="green" />) : (
+              <Ionicons name="close-circle" size={20} color="red" />
+               
+               )}
+              <Text style={styles.serviceList}> {service}</Text>
+            </View>
+            </View>
           ))}
         </View>
 
@@ -258,7 +272,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     top: 10,
   },
-
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: "#2c3e50",
+  },
   
   
   ratingRow: {
@@ -317,6 +336,24 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignContent: "center",
     color: "#125C75",
+  },
+  Settings: {
+    padding: 5,
+    marginLeft: 5,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  Mark: {
+    flexDirection: "row",
+    alignItems: "center",
+  paddingLeft:10,
+  },
+  serviceList: {
+  
+    fontWeight: "bold",
+    fontSize: 17,
+    color: "#3F3432",
+    marginLeft:40,
   },
   ForYouFont: {
     fontWeight: "bold",
