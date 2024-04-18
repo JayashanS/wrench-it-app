@@ -49,8 +49,8 @@ const NearByCenters = () => {
     getLocationAndFetchData();
   }, []);
 
-  const navigateToProfileScreen = (garageData) => {
-    navigation.navigate("Profile", { garageData });
+  const navigateToProfileScreen = (garage) => {
+    navigation.navigate("Profile", { garages: garage  });
   };
 
   return (
