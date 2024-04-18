@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Feather } from "expo-vector-icons";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { View, Text, StyleSheet, SafeAreaView, Image, Settings } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  Settings,
+} from "react-native";
 import {
   ScrollView,
   TextInput,
@@ -11,11 +18,12 @@ import {
 import { Linking } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
-
 const ProfileScreen = ({ route }) => {
   const navigation = useNavigation();
   const { garages } = route.params;
-
+  let garageId = garages.garageId;
+  let centerName = garages.repairCenterName;
+  let location = `${garages.address.street}, ${garages.address.city}`;
   console.log("Garages object:", garages);
 
   const imagePaths = [require("../../assets/profileImage3.jpg")];
@@ -36,8 +44,8 @@ const ProfileScreen = ({ route }) => {
   const openPhoneDialer = () => {
     Linking.openURL(`tel:${garages.phoneNumber}`);
   };
-  const requestAssistance= () => {
-    navigation.navigate("Assistance");
+  const requestAssistance = () => {
+    navigation.navigate("NewRequest", { garageId, centerName });
   };
 
   const [mapRegion, setMapRegion] = useState({
@@ -47,10 +55,20 @@ const ProfileScreen = ({ route }) => {
     longitudeDelta: 0.0421,
   });
 
-  const services = ["Suspension Repairs", "Transmission Issues", "Electrical", "Electronic",
-   "Body Repairs & Painting", "Breakdown Repair and Services", "Engine", "Scanning", "HV System","Brake Services and Maintenance"];
-  
-   return (
+  const services = [
+    "Suspension Repairs",
+    "Transmission Issues",
+    "Electrical",
+    "Electronic",
+    "Body Repairs & Painting",
+    "Breakdown Repair and Services",
+    "Engine",
+    "Scanning",
+    "HV System",
+    "Brake Services and Maintenance",
+  ];
+
+  return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.appBarWrapper}>
@@ -81,7 +99,7 @@ const ProfileScreen = ({ route }) => {
 
         <View style={styles.details}>
           <View style={styles.titleRow}>
-          <Text>{garages.repairCenterName}</Text>
+            <Text>{garages.repairCenterName}</Text>
           </View>
         </View>
 
@@ -108,7 +126,7 @@ const ProfileScreen = ({ route }) => {
           <TouchableOpacity onPress={openPhoneDialer}>
             <View style={styles.contact}>
               <Ionicons name="call" size={20} color="gray" />
-              <Text  style={styles.contacttext}>  Call</Text>
+              <Text style={styles.contacttext}> Call</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -117,16 +135,21 @@ const ProfileScreen = ({ route }) => {
           <View style={styles.Time}>
             <Ionicons name="time" size={20} color="gray" />
             <View>
-            <Text style={styles.headFont}> Opening Hours </Text>
-            <Text>    {garages.openingHours} - {garages.closingHours}</Text>
+              <Text style={styles.headFont}> Opening Hours </Text>
+              <Text>
+                {" "}
+                {garages.openingHours} - {garages.closingHours}
+              </Text>
             </View>
           </View>
           <View style={styles.Settings}>
-          <Ionicons name="settings" size={20} color="gray" />
-          <Text style={styles.headFont}> Breakdown Service </Text>
+            <Ionicons name="settings" size={20} color="gray" />
+            <Text style={styles.headFont}> Breakdown Service </Text>
           </View>
-          <Text style={styles.hours}>        24/7 Service - {garages.allDayService ? 'Yes' : 'No'}</Text>
-          
+          <Text style={styles.hours}>
+            {" "}
+            24/7 Service - {garages.allDayService ? "Yes" : "No"}
+          </Text>
         </View>
 
         <View style={styles.locationContainer}>
@@ -135,7 +158,10 @@ const ProfileScreen = ({ route }) => {
             <Text style={styles.headFont}> location</Text>
           </View>
 
-          <Text>           {garages.street},{garages.city},{garages.state}</Text>
+          <Text>
+            {" "}
+            {garages.street},{garages.city},{garages.state}
+          </Text>
           <View style={styles.mapContainer}>
             <MapView
               style={{ flex: 1 }}
@@ -153,9 +179,22 @@ const ProfileScreen = ({ route }) => {
             <Text style={styles.headFont}> Price Range</Text>
           </View>
 
-          <Text style={styles.PricechargeHeader}>          Roadside assistant charges </Text>
-          <Text style={styles.Pricecharge}>       Min Charge (1 km -  10 km ) <Ionicons name="arrow-forward-circle" size={17} color="gray" /> {garages. minCharge} </Text>
-          <Text style={styles.Pricecharge}>       Max Charge (15 km - 20 km ) <Ionicons name="arrow-forward-circle" size={17} color="gray" /> {garages. maxCharge}</Text>  
+          <Text style={styles.PricechargeHeader}>
+            {" "}
+            Roadside assistant charges{" "}
+          </Text>
+          <Text style={styles.Pricecharge}>
+            {" "}
+            Min Charge (1 km - 10 km ){" "}
+            <Ionicons name="arrow-forward-circle" size={17} color="gray" />{" "}
+            {garages.minCharge}{" "}
+          </Text>
+          <Text style={styles.Pricecharge}>
+            {" "}
+            Max Charge (15 km - 20 km ){" "}
+            <Ionicons name="arrow-forward-circle" size={17} color="gray" />{" "}
+            {garages.maxCharge}
+          </Text>
         </View>
 
         <View style={styles.serviceContainer}>
@@ -164,32 +203,32 @@ const ProfileScreen = ({ route }) => {
             <Text style={styles.headFont}> Our Services</Text>
           </View>
 
-          {services && services.map((service, index) => (
-          <View key={index} >
-              <View style={styles.Mark}>
-             {(garages.services && garages.services[service]) ? (
-              
-              <Ionicons name="checkmark-circle" size={20} color="green" />) : (
-              <Ionicons name="close-circle" size={20} color="red" />
-               
-               )}
-              <Text style={styles.serviceList}> {service}</Text>
-            </View>
-            </View>
-          ))}
+          {services &&
+            services.map((service, index) => (
+              <View key={index}>
+                <View style={styles.Mark}>
+                  {garages.services && garages.services[service] ? (
+                    <Ionicons name="checkmark-circle" size={20} color="green" />
+                  ) : (
+                    <Ionicons name="close-circle" size={20} color="red" />
+                  )}
+                  <Text style={styles.serviceList}> {service}</Text>
+                </View>
+              </View>
+            ))}
         </View>
 
         <View style={styles.requestButtonContainer}>
-          
-            <View style={styles.request}>
-              <Ionicons name="car" size={22} color="gray" />
-              <Text style={styles.ForYouFont}> We Are Here For You</Text>
-             
-            </View>
-            <TouchableOpacity onPress={() => requestAssistance()} style={styles.requestButton}>
-                <Text style={styles.requestButtonText}>Request Assistance</Text>
-              </TouchableOpacity>
-          
+          <View style={styles.request}>
+            <Ionicons name="car" size={22} color="gray" />
+            <Text style={styles.ForYouFont}> We Are Here For You</Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => requestAssistance()}
+            style={styles.requestButton}
+          >
+            <Text style={styles.requestButtonText}>Request Assistance</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -278,8 +317,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: "#2c3e50",
   },
-  
-  
+
   ratingRow: {
     paddingBottom: 12,
     flexDirection: "row",
@@ -303,11 +341,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "center",
     bottom: -10,
-   
-   
   },
-  contacttext:{
-    color:"#FFFFFF"
+  contacttext: {
+    color: "#FFFFFF",
   },
 
   contact: {
@@ -315,13 +351,12 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     flexDirection: "row",
     alignItems: "center",
-   
   },
   TimeContainer: {
     backgroundColor: "#F1EEFF",
     borderRadius: 10,
     marginVertical: 20,
-    paddingBottom:5,
+    paddingBottom: 5,
     width: "100%",
     alignSelf: "center",
   },
@@ -346,14 +381,13 @@ const styles = StyleSheet.create({
   Mark: {
     flexDirection: "row",
     alignItems: "center",
-  paddingLeft:10,
+    paddingLeft: 10,
   },
   serviceList: {
-  
     fontWeight: "bold",
     fontSize: 17,
     color: "#3F3432",
-    marginLeft:40,
+    marginLeft: 40,
   },
   ForYouFont: {
     fontWeight: "bold",
@@ -361,7 +395,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     color: "#F79191",
   },
-  hours:{
+  hours: {
     fontWeight: "bold",
     fontSize: 18,
     alignContent: "center",
@@ -371,7 +405,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F1EEFF",
     borderRadius: 6,
     marginVertical: -10,
-    padding:0,
+    padding: 0,
     width: "100%",
     alignSelf: "center",
   },
@@ -381,22 +415,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
- mapContainer: {
+  mapContainer: {
     marginVertical: 0,
     width: 400,
     height: 200,
-    padding:8,
-    borderRadius:0,
+    padding: 8,
+    borderRadius: 0,
     borderColor: "gray",
     justifyContent: "center",
-    paddingLeft:30
+    paddingLeft: 30,
   },
 
   priceContainer: {
     backgroundColor: "#F1EEFF",
     borderRadius: 6,
     marginVertical: 20,
-    paddingBottom:5,
+    paddingBottom: 5,
     width: "100%",
     alignSelf: "center",
   },
@@ -412,74 +446,72 @@ const styles = StyleSheet.create({
     backgroundColor: "#F1EEFF",
     borderRadius: 6,
     marginVertical: -10,
-    paddingBottom:20,
+    paddingBottom: 20,
     width: "100%",
     alignSelf: "center",
   },
-  
+
   Service: {
     padding: 8,
     marginLeft: 5,
     flexDirection: "row",
     alignItems: "center",
   },
-serviceList:{
-    
-    paddingTop:5,
+  serviceList: {
+    paddingTop: 5,
     fontWeight: "bold",
     fontSize: 17,
     alignContent: "center",
     color: "#3F3432",
-    paddingLeft:60,
-},
-PricechargeHeader:{
-  fontWeight: "bold",
-  fontSize: 18,
-  alignContent: "center",
-  color: "#000000",
-},
-Pricecharge:{
-  paddingTop:8,
-  fontWeight: "bold",
-  fontSize: 17,
-  alignContent: "center",
-  color: "#3F3432",
-  paddingLeft:20,
-},
+    paddingLeft: 60,
+  },
+  PricechargeHeader: {
+    fontWeight: "bold",
+    fontSize: 18,
+    alignContent: "center",
+    color: "#000000",
+  },
+  Pricecharge: {
+    paddingTop: 8,
+    fontWeight: "bold",
+    fontSize: 17,
+    alignContent: "center",
+    color: "#3F3432",
+    paddingLeft: 20,
+  },
 
-requestButtonContainer: {
-  backgroundColor: "#F1EEFF",
-  borderRadius: 6,
-  marginVertical: -10,
-  paddingBottom: 20,
-  width: "100%",
-  alignSelf: "center",
-},
-request: {
-  padding: 20,
-  marginLeft: -5,
-  flexDirection: "row",
-  alignItems: "center",
-},
-requestButton: {
-  backgroundColor: "#125C75",
-  borderRadius: 8,
-  paddingVertical: 5,
-  paddingHorizontal: 20,
-  width:300,
-  alignSelf: "center",
-  marginVertical: 10,
-  paddingTop:10
-},
-requestButtonText: {
-  color: "#fff",
-  fontSize: 18,
-  fontWeight: "bold",
-  textAlign: "center",
-  padding:-10,
-  marginBottom:5,
-},
-
+  requestButtonContainer: {
+    backgroundColor: "#F1EEFF",
+    borderRadius: 6,
+    marginVertical: -10,
+    paddingBottom: 20,
+    width: "100%",
+    alignSelf: "center",
+  },
+  request: {
+    padding: 20,
+    marginLeft: -5,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  requestButton: {
+    backgroundColor: "#125C75",
+    borderRadius: 8,
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    width: 300,
+    alignSelf: "center",
+    marginVertical: 10,
+    paddingTop: 10,
+  },
+  requestButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    padding: -10,
+    marginBottom: 5,
+  },
 });
 
 export default ProfileScreen;

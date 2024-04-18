@@ -13,6 +13,7 @@ const createRequest = async (req, res) => {
     longitude,
     latitude,
     status,
+    response,
   } = req.body;
 
   try {
@@ -29,6 +30,7 @@ const createRequest = async (req, res) => {
       latitude,
       status,
       repair: false,
+      response,
     });
     res.status(201).json(request);
   } catch (error) {

@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Profile from "../screens/Request/Profile";
-
+import NewRequest from "../screens/Request/NewRequest";
 import RequestSuccess from "../screens/Request/RequestSuccess";
 import NearByCenters from "../screens/Request/NearByCenters";
 
@@ -39,6 +39,20 @@ export default function RequestStack() {
           },
         }}
         component={Profile}
+      />
+      <Stack.Screen
+        name="NewRequest"
+        options={{
+          title: "NewRequest",
+          headerStyle: {
+            backgroundColor: "#125C75",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+        component={NewRequest}
       />
 
       <Stack.Screen
