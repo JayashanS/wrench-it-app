@@ -5,7 +5,7 @@ import Profile from "../screens/Request/Profile";
 
 import RequestSuccess from "../screens/Request/RequestSuccess";
 import NearByCenters from "../screens/Request/NearByCenters";
-
+import NewReservation from "../screens/Reservations/NewReservation";
 const Stack = createStackNavigator();
 
 export default function RequestStack() {
@@ -40,7 +40,20 @@ export default function RequestStack() {
         }}
         component={Profile}
       />
-
+ <Stack.Screen
+        name="NewReservation"
+        component={NewReservation}
+        options={{
+          title: "Repair Centers Near You",
+          headerStyle: {
+            backgroundColor: "#125C75",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
       <Stack.Screen
         name="RequestSuccess"
         component={RequestSuccess}

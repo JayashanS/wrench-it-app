@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Feather } from "expo-vector-icons";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { View, Text, StyleSheet, SafeAreaView, Image, Settings } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Image, Alert } from "react-native";
 import {
   ScrollView,
   TextInput,
@@ -12,9 +12,11 @@ import { Linking } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 
-const ProfileScreen = ({ route }) => {
+const ProfileScreen = () => {
   const navigation = useNavigation();
-  const { garages } = route.params;
+  const route = useRoute();
+  const { garages } = route.params || {};
+  const [mapRegion, setMapRegion] = useState(null);
 
   console.log("Garages object:", garages);
 
@@ -36,16 +38,36 @@ const ProfileScreen = ({ route }) => {
   const openPhoneDialer = () => {
     Linking.openURL(`tel:${garages.phoneNumber}`);
   };
-  const requestAssistance= () => {
-    navigation.navigate("Assistance");
+  const requestAssistance = () => {
+    if (garages && garages.id) {
+      navigation.navigate("NewReservation", { id: garages.id });
+    } else {
+      Alert.alert("Error", "Garage ID is missing.");
+    }
   };
+  useEffect(() => {
+    // Extract the location details from the garage object
+    const { street, city, state } = garages;
 
-  const [mapRegion, setMapRegion] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
+    // Formulate the address string
+    const address = `${street}, ${city}, ${state}`;
+
+    // Use geocoding to get the coordinates of the address
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=eyJ1IjoiaGltYW50aGExMTY4MSIsImEiOiJjbHF2Ync3YWg0d2hwMmtvNGViN3dhZW1oIn0.YItSBzk4Ndt4e8gOTzHKyw`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.results.length > 0) {
+          const { lat, lng } = data.results[0].geometry.location;
+          setMapRegion({
+            latitude: lat,
+            longitude: lng,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
+          });
+        }
+      })
+      .catch((error) => console.error("Error fetching location:", error));
+  }, [garages]);
 
   const services = ["Suspension Repairs", "Transmission Issues", "Electrical", "Electronic",
    "Body Repairs & Painting", "Breakdown Repair and Services", "Engine", "Scanning", "HV System","Brake Services and Maintenance"];
@@ -134,17 +156,24 @@ const ProfileScreen = ({ route }) => {
             <Ionicons name="location" size={20} color="gray" />
             <Text style={styles.headFont}> location</Text>
           </View>
-
           <Text>           {garages.street},{garages.city},{garages.state}</Text>
-          <View style={styles.mapContainer}>
-            <MapView
-              style={{ flex: 1 }}
-              provider={PROVIDER_GOOGLE}
-              showsUserLocation={true}
-              region={mapRegion}
-            />
+         
+         
+          <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.mapContainer}>
+        {/* Display MapView only if mapRegion is available */}
+        {mapRegion && (
+          <MapView
+            style={styles.map}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation={true}
+            region={mapRegion}
+          >
             <Marker coordinate={mapRegion} />
-          </View>
+          </MapView>
+        )}
+      </View>
+      </SafeAreaView>
         </View>
 
         <View style={styles.priceContainer}>
@@ -345,15 +374,15 @@ const styles = StyleSheet.create({
   },
   Mark: {
     flexDirection: "row",
-    alignItems: "center",
+  alignItems: "center",
   paddingLeft:10,
   },
   serviceList: {
-  
+    alignItems:"left",
     fontWeight: "bold",
     fontSize: 17,
     color: "#3F3432",
-    marginLeft:40,
+    marginLeft:20,
   },
   ForYouFont: {
     fontWeight: "bold",
