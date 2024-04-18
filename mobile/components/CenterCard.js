@@ -8,6 +8,7 @@ import {
   Linking,
   Dimensions,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
 import Rating from "./Rating";
 import Badge from "./Badge";
 import Font from "../constants/Fonts";
@@ -17,7 +18,10 @@ import Colors from "../constants/Colors";
 const windowWidth = Dimensions.get("window").width;
 
 const CenterCard = ({ center }) => {
+  const navigation = useNavigation(); // Access the navigation object
+
   const {
+    id,
     name,
     location,
     photo,
@@ -29,12 +33,16 @@ const CenterCard = ({ center }) => {
     allday,
   } = center;
 
+  const handleCardPress = () => {
+    navigation.navigate("NewReservation", { id, name, location }); // Navigate to NewReservation screen with data
+  };
+
   const handleCallPress = () => {
     Linking.openURL(`tel:${phoneNumber}`);
   };
 
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={handleCardPress}>
       <View style={styles.leftContent}>
         <Image source={{ uri: photo }} style={styles.photo} />
       </View>

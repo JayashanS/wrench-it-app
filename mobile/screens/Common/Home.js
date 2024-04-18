@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Cell from "../../components/Cell";
@@ -18,8 +18,9 @@ const HomeScreen = () => {
     navigation.navigate("NearByCenters");
   };
   const goToCell_4 = () => {
-    navigation.navigate("Reservation");
+    navigation.navigate("Reservations");
   };
+
   const goToCell_5 = () => {
     navigation.navigate("Chat");
   };

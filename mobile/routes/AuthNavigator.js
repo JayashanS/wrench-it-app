@@ -4,7 +4,7 @@ import Splash from "../screens/Auth/Splash";
 import Starting from "../screens/Auth/Starting";
 import Login from "../screens/Auth/Login";
 import SignUp from "../screens/Auth/SignUp";
-import Profile from "../screens/Request/Profile";
+import Profile from "../screens/Common/Profile";
 
 import RequestSuccess from "../screens/Request/RequestSuccess";
 import NearByCenters from "../screens/Request/NearByCenters";

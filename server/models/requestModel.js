@@ -4,36 +4,50 @@ const Schema = mongoose.Schema;
 const requestSchema = new Schema({
   requestId: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
-  ownerName:{
+  licensePlateNo: {
     type: String,
+    required: true,
   },
-  vehicleType:{
+  model: {
     type: String,
+    required: true,
   },
-  mobileNo:{
+  fault: {
     type: String,
-    require: true,
+    required: true,
   },
-  longitude:{
+  userEmail: {
     type: String,
+    required: true,
   },
-  lattitude:{
+  garageId: {
     type: String,
+    required: true,
   },
-  requestStatus: {
+  phoneNo: {
     type: String,
-    default: "incoming",
+    required: true,
   },
-  requestDate: {
+  date: {
     type: Date,
-    require: true,
+    required: true,
   },
-  issue:{
+  longitude: {
     type: String,
-  }
+  },
+  latitude: {
+    type: String,
+  },
+  status: {
+    type: String,
+  },
+  repair: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 module.exports = mongoose.model("Request", requestSchema);

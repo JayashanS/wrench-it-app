@@ -1,36 +1,68 @@
 const Repair = require("../models/repairModel");
-
-//create Repair
+const Counter = require("../models/counterModel");
 
 const createRepair = async (req, res) => {
-  const { repairId, licensePlateNo, model, fault, NIC, phoneNo, date, status } =
+  const { licensePlateNo, model, fault, userEmail, phoneNo, date, status } =
     req.body;
+  const { email } = req.params;
 
   try {
+    let counter = await Counter.findById(`repairId_${email}`);
+    // If counter doesn't exist, create it with initial value R001
+    if (!counter) {
+      counter = await Counter.create({
+        _id: `repairId_${email}`,
+        sequence_value: 1,
+      });
+    }
+    // Convert sequence_value to the desired format
+    const formattedRepairId = `R${counter.sequence_value
+      .toString()
+      .padStart(3, "0")}`;
+    // Increment the counter specific to the garageId
+    counter = await Counter.findByIdAndUpdate(
+      { _id: `repairId_${email}` },
+      { $inc: { sequence_value: 1 } },
+      { new: true }
+    );
+
+    // Create the repair with the formatted repairId
     const repair = await Repair.create({
-      repairId,
+      repairId: formattedRepairId,
       licensePlateNo,
       model,
       fault,
-      NIC,
+      userEmail,
+      garageId: email,
       phoneNo,
       date,
       status,
     });
+
     res.status(201).json(repair);
   } catch (error) {
-    res.status(500).json({ error: "could not create repair" });
+    console.error("Error creating repair:", error);
+    res.status(500).json({ error: "Could not create repair" });
   }
 };
 
-//Get Repair
 const getAllRepair = async (req, res) => {
   try {
-    // Fetch all repair records from the database
-    const repair = await Repair.find();
-    res.status(200).json(repair);
+    const { email } = req.params;
+
+    // Find repairs with the owner's email in garageId
+    const filteredRepairs = await Repair.find({ garageId: email });
+
+    // Remove email part from repairId in each document
+    const modifiedRepairs = filteredRepairs.map((repair) => {
+      const originalRepairId = repair.repairId.split(".")[0];
+      return { ...repair.toObject(), repairId: originalRepairId };
+    });
+
+    res.status(200).json(modifiedRepairs);
   } catch (error) {
-    res.status(500).json({ error: "could not retrieve repair" });
+    console.error("Error fetching repair records:", error);
+    res.status(500).json({ error: "Could not retrieve repair records" });
   }
 };
 

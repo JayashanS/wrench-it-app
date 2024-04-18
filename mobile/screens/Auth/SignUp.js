@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSignup } from "../../hooks/useSignup";
@@ -24,14 +24,20 @@ export default function Signup() {
   const { signup, errors, isLoading } = useSignup();
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    const navigateToMain = async () => {
+      if (user) {
+        navigation.navigate("Main");
+      }
+    };
+    navigateToMain();
+  }, [user, navigation]);
+
   const handleSubmit = async () => {
     try {
       await signup(fname, lname, bday, email, pw, cpw);
       const userData = await AsyncStorage.getItem("user");
       setUser(userData);
-      if (userData) {
-        navigation.navigate("Main");
-      }
     } catch (error) {
       setError(error.message);
     }

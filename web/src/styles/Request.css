@@ -23,7 +23,7 @@
     display: flex;
     flex-direction: column;
     width: 60%;
-    height:110vh;
+    height:80vh;
     margin-left:20px;
     left: 5%;
     border-radius: 2px;
@@ -34,7 +34,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 70vh;
+    height: 30vh;
     background-color: #ffffff;
     border-radius: 2px;
  }
@@ -92,8 +92,8 @@
    flex-direction: row;
    margin-top: 1.5%;
    margin-left: 1%;
-   width: 98%;
-   height: 310px;
+   width: 100%;
+   height: 40%;
    background-color: EEF2F5;
 }
 
@@ -120,7 +120,7 @@
 .user-details{
    display: flex;
    width: 98%;
-   height: 25%;
+   height: 50%;
    margin-top: 0.5%;
    margin-left: 1%;
    background-color: #EEF2F5;
@@ -186,32 +186,52 @@
    padding: 5px;
 }
 
-.desicion-box{
+.desicion-box {
+   display: flex;
+   justify-content: space-between;
+   margin-top: 10px;
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+ }
+ 
+ .desicion-box-left {
+   display: flex;
+ }
+ 
+ .profile-circle {
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   background-color: #d9d9d9;
+ }
+ 
+ .vehicle-detail {
+   margin-left: 20px;
+ }
+ 
+ .detail-boxes {
+   margin-right: 20px;
+ }
+ 
+ .info {
+   margin-bottom: 10px;
+ }
+ 
+ .buttons {
    display: flex;
    flex-direction: column;
-   width: 57%;
-   height: 96%;
-   margin-top: 0.5%;
-   margin-left: 1%;
-   background-color: #ffffff;
-}
-
-.custom-button:hover{
-   cursor: pointer;
-   background-color: #2ae8f3;
-   color:#796666;
-   
-}
-
-.buttons {
-   display: flex;
-   /*width: 100px;*/
-   margin-top: 20px;
-   font-size: 18px;
-   width: 156px;
-   flex-shrink: 0;
+   justify-content: space-between;
  }
-
+ 
+ .custom-button {
+   margin-top: 10px;
+   padding: 5px 10px;
+   border-radius: 5px;
+   border: none;
+   cursor: pointer;
+ }
+ 
  .accept {
    background-color: #0be7ff;
    color: white;
@@ -226,6 +246,12 @@
    background-color: #ef0951;
    color: white;
  }
+ 
+ .custom-button:hover {
+   background-color: #2ae8f3;
+ }
+ 
+ 
 
 .detail-boxes{
    display: flex;

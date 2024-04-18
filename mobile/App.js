@@ -13,6 +13,12 @@ import EventsNavigator from "./routes/EventsNavigator";
 import ReservationNavigator from "./routes/ReservationNavigator";
 import ChatNavigator from "./routes/ChatNavigator";
 import ProfileScreen from "./screens/Common/Profile";
+import Login from "./screens/Auth/Login";
+import SignUp from "./screens/Auth/SignUp";
+import RepairHistory from "./screens/Repair/RepairHistory";
+
+import MapScreen from "./screens/Common/MapView";
+
 import Colors from "./constants/Colors";
 
 import { AuthContextProvider } from "./context/AuthContext";
@@ -101,10 +107,37 @@ export default function App() {
 
           <Stack.Screen
             name="Profile"
-          
             component={ProfileScreen}
             options={{ headerShown: false }}
-            
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Map"
+            component={MapScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="RepairHistory"
+            component={RepairHistory}
+            options={{
+              title: "Repair History",
+              headerStyle: {
+                backgroundColor: "#125C75",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

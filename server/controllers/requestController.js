@@ -1,28 +1,34 @@
 const Request = require("../models/requestModel");
 
 const createRequest = async (req, res) => {
-  const { requestId,
-      requestStatus,
-      requestDate,
-      ownerName,
-      vehicleType,
-      mobileNo,
-      longitude,
-      lattitude,
-      issue,
-     } = req.body;
+  const {
+    requestId,
+    licensePlateNo,
+    model,
+    fault,
+    userEmail,
+    garageId,
+    phoneNo,
+    date,
+    longitude,
+    latitude,
+    status,
+  } = req.body;
 
   try {
     const request = await Request.create({
       requestId,
-      requestStatus,
-      requestDate,
-      ownerName,
-      vehicleType,
-      mobileNo,
+      licensePlateNo,
+      model,
+      fault,
+      userEmail,
+      garageId,
+      phoneNo,
+      date,
       longitude,
-      lattitude,
-      issue,
+      latitude,
+      status,
+      repair: false,
     });
     res.status(201).json(request);
   } catch (error) {
@@ -36,7 +42,7 @@ const updateRequestStatus = async (req, res) => {
   try {
     const updatedRequest = await Request.findByIdAndUpdate(
       requestId,
-      { requestStatus: "Declined" },
+      { status: "Declined" },
       { new: true }
     );
 
@@ -55,7 +61,7 @@ const updateRequestStatus = async (req, res) => {
 
 const getIncomingRequests = async (req, res) => {
   try {
-    const incomingRequests = await Request.find({ requestStatus: "Incoming" });
+    const incomingRequests = await Request.find({ status: "Incoming" });
     res.status(200).json(incomingRequests);
   } catch (error) {
     console.error("Error fetching incoming requests:", error);
@@ -103,15 +109,15 @@ const getAllRequests = async (req, res) => {
   }
 };
 
-const checkStatus = async (req,res)=>{
-  try{
+const checkStatus = async (req, res) => {
+  try {
     const statusRequest = await Request.find();
     res.status(200).json(statusRequest);
-  }catch(error){
-    console.error("Error changing status :",error);
-    res.status(500).json({error : "Could not change status of the request"});
+  } catch (error) {
+    console.error("Error changing status :", error);
+    res.status(500).json({ error: "Could not change status of the request" });
   }
-}
+};
 
 const acceptRequest = async (req, res) => {
   const requestId = req.params.id;
@@ -153,6 +159,7 @@ module.exports = {
   getAllRequests,
   updateRequestStatus,
   getIncomingRequests,
+  checkStatus,
   acceptRequest,
   getAcceptedRequest,
 };

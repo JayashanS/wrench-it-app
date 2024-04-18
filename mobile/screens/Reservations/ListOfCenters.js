@@ -51,6 +51,7 @@ const GetGarages = () => {
           <CenterCard
             key={garage._id}
             center={{
+              id: garage.garageId,
               name: garage.repairCenterName,
               location: `${garage.address.street}, ${garage.address.city}`,
               photo: garage.photoUrl,

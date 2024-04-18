@@ -64,17 +64,27 @@ const garageSchema = new Schema({
     HeavyWeight: { type: Boolean, default: false },
   },
   location: {
-    type: { type: String, enum: ["Point"] },
-    coordinates: { type: [Number] },
+    type: {
+      type: String,
+      enum: ["Point"],
+      default: "Point", // default value for type
+    },
+    coordinates: {
+      type: [Number],
+      default: [0, 0], // default value for coordinates (longitude and latitude)
+    },
   },
   minCharge: {
     type: Number,
+    default: 0, // default value for minCharge
   },
   maxCharge: {
     type: Number,
+    default: 0, // default value for maxCharge
   },
   description: {
     type: String,
+    default: "", // default value for description
   },
 });
 

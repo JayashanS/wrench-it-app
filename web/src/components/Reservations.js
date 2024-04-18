@@ -2,19 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../styles/Reservation.css";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import {
-  createTheme,
-  ThemeProvider,
-  getContrastRatio,
-} from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import { Accordion, Card } from "react-bootstrap";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-
 import dayjs from "dayjs";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -23,61 +12,35 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import axios from "axios";
 
 function Reservations() {
+  const [email, setEmail] = useState("");
   const [output, setOutput] = useState("");
   const [output2, setOutput_2] = useState("");
-
-  //add accepted default reservation
-  const [customerName, setCustomerName] = useState("");
-  const [reservationtTime, setReservationTime] = useState("");
-  const [description, setDescription] = useState("");
-  const [vehicleType, setVehicleType] = useState("");
-  const [reservationDate, setReservationDate] = useState("");
   const [data, setData] = useState([]);
-  const [data_2, setData_2] = useState([]);
-
   const currentDate = new Date();
-  const formattedDate = currentDate.toISOString().slice(0, 10);
+  const formattedDate = dayjs(currentDate).format("YYYY-MM-DD");
   const [value, setValue] = React.useState(dayjs(formattedDate));
 
-  const theme = createTheme({
-    typography: {
-      fontFamily: "Roboto, sans-serif",
-    },
-    palette: {
-      primary: {
-        main: "#09BEB1",
-        contrastText:
-          getContrastRatio("#09BEB1", "#fff") > 4.5 ? "#fff" : "#111",
-      },
-    },
-  });
+  useEffect(() => {
+    const fetchEmailFromLocalStorage = () => {
+      try {
+        const userData = localStorage.getItem("user");
+        if (userData) {
+          const { email } = JSON.parse(userData);
+          setEmail(email);
+          fetchReservations(email);
+        }
+      } catch (error) {
+        console.error("Error fetching email from LocalStorage:", error);
+      }
+    };
 
-  
-  
+    fetchEmailFromLocalStorage();
+  }, []);
 
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
-
-  const handleDayClick = (date) => {
-    localStorage.setItem("resDate", date);
-    console.log("Clicked date:", date);
-  };
-
-  function reservationList(date) {
-    return (
-      <div className="reservationList">
-        <p>Selected Date: {date}</p>
-      </div>
-    );
-  }
-
-  const toggleAccordion = () => {
-    setIsAccordionOpen(!isAccordionOpen);
-  };
-
-  const declineHandle = async (id) => {
+  const decline_reservation = async (id) => {
     try {
       const updatedData = {
-        reservationStatus: "decline",
+        reservationStatus: "Declined",
       };
 
       const response = await axios.put(
@@ -92,25 +55,22 @@ function Reservations() {
     }
   };
 
-  const acceptReservation = async (reservationId) => {
+  const accept_reservation = async (id) => {
     try {
       const updatedData = {
-        reservationStatus: "confirm",
+        status: "Accepted",
       };
-  
-      // Send PUT request to update the reservation status
+
       const response = await axios.put(
-        `http://localhost:4000/api/reservation/${reservationId}`
+        `http://localhost:4000/api/reservation/${id}`,
+        updatedData
       );
-  
+
       console.log("Accept successful:", response.data);
-      
-      acceptReservation();
+
+      accept_reservation();
       getPendingReservations();
-
-      alert("Aceept successfully !");
-
-      
+      fetchAcceptedReservationsData();
     } catch (error) {
       console.error("Error accept reservation:", error);
     }
@@ -119,62 +79,55 @@ function Reservations() {
   const getPendingReservations = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/reservation/pending`
+        `http://localhost:4000/api/reservation/pending/${email}`
       );
-     console.log("Response Data:", response.data);
+      console.log("Response Data:", response.data);
       const responseData = response.data;
 
-      // If responseData is an array of objects
       const reservationsJSX = responseData.map((item, index) => (
         <div class="column-3" key={index}>
-          
           <div class="innerColumn-1">
             <p>
-              <span class="container-title">Customer Name</span>
+              <span class="container-title">License Plate Number: </span>
               <br />
-              
-
-              {item.customerName}
-
+              {item.licensePlateNo}
             </p>
             <p>
               <span class="container-title">Vehicle</span>
               <br />
-              {item.vehicleType}
+              {item.model}
             </p>
             <p>
               <span class="container-title">Service</span>
               <br />
-              {item.description}
+              {item.fault}
             </p>
           </div>
           <div class="innerColumn-1">
             <p>
               <span class="container-title">Time</span>
               <br />
-              {item.reservationtTime}
+              {new Date(item.date).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </p>
             <p>
               <span class="container-title">Date</span>
               <br />
-
-              {/* {item.reservationtDate}*/}
-              {new Intl.DateTimeFormat("en-GB").format(
-                new Date(item.reservationtDate)
-              )}
-             
+              {new Intl.DateTimeFormat("en-GB").format(new Date(item.date))}
             </p>
             <p>
               <span class="container-title">Contact</span>
               <br />
-              {item.contactNo}
+              {item.phoneNo}
             </p>
           </div>
           <div class="innerColumn-1">
-            <br/>
+            <br />
             <Stack spacing={2} direction="row">
               <Button
-                onClick={() => acceptReservation(item.reservationtId)}
+                onClick={() => accept_reservation(item._id)}
                 variant="contained"
                 style={{
                   textTransform: "none",
@@ -182,15 +135,14 @@ function Reservations() {
                   width: "100px",
                 }}
               >
-                
                 Accept
               </Button>
             </Stack>
             <br />
-            <br/>
+            <br />
             <Stack spacing={2} direction="row">
               <Button
-                onClick={() => declineHandle(item.reservationtId)}
+                onClick={() => decline_reservation(item._id)}
                 variant="contained"
                 color="error"
                 style={{
@@ -203,47 +155,10 @@ function Reservations() {
               </Button>
             </Stack>
             <br />
-
-            {/*
-            <Stack spacing={2} direction="row">
-              <Button
-                className="service-button"
-                style={{ textTransform: "none" }}
-                endIcon={<KeyboardArrowDownIcon />}
-                onClick={toggleAccordion}
-              >
-                Service
-              </Button>
-            </Stack>
-
-            {isAccordionOpen && (
-              <div className="service-accordion">
-                <Card className="service-accordion-card">
-                  <Card.Body>
-                    <Accordion defaultActiveKey="0">
-                      {item.description}
-                      <br />
-                      <br />
-                      <button
-                        className="service-button"
-                        onClick={toggleAccordion}
-                      >
-                        Close
-                      </button>
-                    </Accordion>
-                  </Card.Body>
-                </Card>
-              </div>
-            )}
-
-            */}
-
-           
           </div>
         </div>
       ));
 
-      // Set the state variable to display fetched reservations
       setOutput_2(reservationsJSX);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -256,7 +171,7 @@ function Reservations() {
 
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/reservation/filter/${formattedDate}`
+        `http://localhost:4000/api/reservation/filter/${formattedDate}/${email}`
       );
       console.log("Response Data:", response.data);
       const responseData = response.data;
@@ -264,10 +179,19 @@ function Reservations() {
       // If responseData is an array of objects
       const reservationsJSX = responseData.map((item, index) => (
         <div className="reservationList" key={index}>
-          <p>Model: {item.vehicleType}</p>
-          <p>Description: {item.description}</p>
-          <p>Time: {item.reservationtTime}</p>
-
+          <span class="container-title">Model :</span>
+          {item.model}
+          <br />
+          <span class="container-title">Fault :</span> {item.fault}
+          <br />
+          <span class="container-title">Time :</span>
+          <span>
+            Time:{" "}
+            {new Date(item.date).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </span>
         </div>
       ));
 
@@ -278,107 +202,71 @@ function Reservations() {
     }
   };
 
-  //load data from database to Accepted reservation
+  const fetchAcceptedReservationsData = async () => {
+    const currentDate = new Date();
+    const fDate = dayjs(currentDate).format("YYYY-MM-DD");
+
+    const apiUrl = `http://localhost:4000/api/reservation/filter/${fDate}/${email}`;
+
+    try {
+      const response = await axios.get(apiUrl);
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching accepted reservations data:", error);
+    }
+  };
 
   useEffect(() => {
-
-    
-    const apiUrl = `http://localhost:4000/api/reservation/filter/${formattedDate}`; // Replace with your actual endpoint
-
-    // Make a GET request using Axios
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        // Handle the data received from the backend
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+    fetchAcceptedReservationsData();
+  }, [email]);
 
   useEffect(() => {
     getPendingReservations();
-  }, []);
+  }, [email]);
 
-  //Update the completed reservation
-
-{/*}
- const updateReservation = async (reservationId) => {
-  try {
-    await fetch(`http://localhost:4000/api/reservation/${reservationId}`, {
-      method: "PUT",
-    });
-
-    setData((prevData) =>
-      prevData.filter((item) => item._id !== reservationId)
-    );
-  } catch (error) {
-    console.error("Error deleting data: ", error);
-  }
-};
-
-
-*/}
-const updateReservation = async (reservationId) => {
-  try {
-    const updatedData = {
-      reservationStatus: "completed",
-    };
-
-    // Send PUT request to update the reservation status
-    const response = await axios.put(
-      `http://localhost:4000/api/reservation/${reservationId}`
-    );
-
-    console.log("Update successful:", response.data);
-    
-
-    // Update the local state to reflect the change immediately
-  
-
-    // Display a message box indicating that the reservation has been successfully updated
-    alert("Reservation successfully updated!");
-  } catch (error) {
-    console.error("Error updating reservation:", error);
-  }
-};
-
-
-
-
-  //delete reservation
-  const deleteReservation = async (reservationId) => {
+  const complete_reservation = async (id) => {
     try {
-      // Send DELETE request to backend API to delete the reservation
-      await axios.delete(`http://localhost:4000/api/reservation/${reservationId}`);
-  
-      // Update the state to remove the deleted reservation
-      setData((prevData) => prevData.filter((item) => item._id !== reservationId));
+      const updatedData = {
+        reservationStatus: "Completed",
+      };
+      const response = await axios.put(
+        `http://localhost:4000/api/reservation/${id}`,
+        updatedData
+      );
+      setData((prevData) => prevData.filter((item) => item._id !== id));
+      console.log("Update successful:", response.data);
+    } catch (error) {
+      console.error("Error updating reservation:", error);
+    }
+  };
 
-      
+  const deleteReservation = async (id) => {
+    try {
+      await axios.delete(`http://localhost:4000/api/reservation/${id}`);
+      setData((prevData) => prevData.filter((item) => item._id !== id));
     } catch (error) {
       console.error("Error deleting reservation:", error);
     }
   };
-  
 
   return (
     <div class="container-reservation">
       <div class="column-1">
-        <p class="res-titleBar">
-          <span class="container-title">Request</span>
-        </p>
+        <div class="res-title">
+          <span class="container-title">Pending Reservations</span>
+        </div>
 
         {output2}
- 
       </div>
 
       <div class="column-2">
+        <div class="res-title">
+          <span class="container-title">Accepted Reservations by Date</span>
+        </div>
         <div class="calenderContainer">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DateCalendar", "DateCalendar"]}>
-              <DemoItem label="Calendar">
+              <DemoItem>
                 <DateCalendar
                   value={value}
                   onChange={fetchReservations}
@@ -392,71 +280,41 @@ const updateReservation = async (reservationId) => {
         </div>
 
         <div class="reservationContainer">
-          <p class="res-titleBar">
-            <span class="container-title">Accepted</span>
-          </p>
+          <div class="res-title">
+            <span class="container-title">Accepted Reservations on Today</span>
+          </div>
 
           {data.map((item) => (
             <div class="column-4" key={item._id}>
               <div class="innerRow-1">
-                <div class="item-1">{item.customerName}</div>
-                <div class="item-1"> {item.vehicleType}</div>
+                <div class="item-1">{item.licensePlateNo}</div>
+                <div class="item-1"> {item.model}</div>
                 <div class="item-1">
-                  {new Intl.DateTimeFormat("en-GB").format(
-                    new Date(item.reservationtDate)
-                  )}
+                  {new Intl.DateTimeFormat("en-GB").format(new Date(item.date))}
                 </div>
-                <div class="item-1">{item.reservationtTime}</div>
+                <div class="item-1">
+                  {new Date(item.date).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </div>
                 <div style={{ marginRight: "20px" }}>
                   <CheckCircleOutlineIcon
                     style={{ color: "#09BEB1" }}
-                    onClick={() => updateReservation(item.reservationtId)}
+                    onClick={() => complete_reservation(item._id)}
                   />
                 </div>
 
                 <div>
-                  <DeleteIcon style={{ color: "red" }}
+                  <DeleteIcon
+                    style={{ color: "red" }}
                     onClick={() => deleteReservation(item._id)}
-                    
                   />
                 </div>
               </div>
-              <div class="innerRow-2">{item.description}</div>
+              <div class="innerRow-2">{item.fault}</div>
             </div>
           ))}
-          {/*
-          <div class="column-4">
-            <div class="innerRow-1">
-              <div class="item-1"> Alice Smith</div>
-              <div class="item-1"> Toyota Chammy</div>
-              <div class="item-1">10/11/2023</div>
-              <div class="item-1"> 16.00 pm</div>
-              <div style={{ marginRight: "20px" }}>
-                <CheckCircleOutlineIcon style={{ color: "#09BEB1" }} />
-              </div>
-              <div>
-                <DeleteIcon style={{ color: "red" }} />
-              </div>
-            </div>
-            <div class="innerRow-2">have a Electrical problem</div>
-          </div>
-
-          <div class="column-4">
-            <div class="innerRow-1">
-              <div class="item-1"> Alice Smith</div>
-              <div class="item-1"> Toyota Chammy</div>
-              <div class="item-1">10/11/2023</div>
-              <div class="item-1"> 16.00 pm</div>
-              <div style={{ marginRight: "20px" }}>
-                <CheckCircleOutlineIcon style={{ color: "#09BEB1" }} />
-              </div>
-              <div>
-                <DeleteIcon style={{ color: "red" }} />
-              </div>
-            </div>
-            <div class="innerRow-2">have a Electrical problem</div>
-          </div>
-          */}
         </div>
       </div>
     </div>

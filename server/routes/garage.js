@@ -1,6 +1,5 @@
 const express = require("express");
 const {
-  createGarage,
   updateGarageDetails,
   updateGarageServicesAndCharges,
   updateGarageLocation,
@@ -8,14 +7,11 @@ const {
   getGarageNameById,
   findNearbyRepairCenters,
   checkAccountExists,
-  createGarageEmpty,
   getGarageId,
   updateGarageDescription,
 } = require("../controllers/garageController");
 const router = express.Router();
 
-router.post("/", createGarage);
-router.post("/empty/:email", createGarageEmpty);
 router.post("/des/:email", updateGarageDescription);
 router.put("/:email", updateGarageDetails);
 router.get("/:email", getGarageById);

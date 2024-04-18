@@ -2,41 +2,45 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const reservationSchema = new Schema({
-  reservationtId: {
-    type: String,
-    require: true,
-    unique: true,
-  },
-  vehicleType: {
+  reservationId: {
     type: String,
     require: true,
   },
-  reservationStatus: {
+  licensePlateNo: {
     type: String,
-    require: true,
+    required: true,
   },
-  reservationtDate: {
+  model: {
+    type: String,
+    required: true,
+  },
+  fault: {
+    type: String,
+    required: true,
+  },
+  userEmail: {
+    type: String,
+    required: true,
+  },
+  garageId: {
+    type: String,
+    required: true,
+  },
+  phoneNo: {
+    type: String,
+    required: true,
+  },
+  date: {
     type: Date,
-    require: true,
+    required: true,
   },
-  reservationtTime: {
+  status: {
     type: String,
-    require: true,
   },
-  customerName: {
-    type: String,
-    require: true,
+  repair: {
+    type: Boolean,
+    default: false,
   },
-  contactNo: {
-    type: String,
-    require: true,
-  },
-  description: {
-    type: String,
-    require: true,
-  },
-
-
 });
 
 module.exports = mongoose.model("Reservation", reservationSchema);
