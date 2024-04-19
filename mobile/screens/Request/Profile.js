@@ -16,8 +16,10 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { garages } = route.params || {};
-  const [mapRegion, setMapRegion] = useState(null);
+  
 
+  const [mapRegion, setMapRegion] = useState(null);
+  
   console.log("Garages object:", garages);
 
   const imagePaths = [require("../../assets/profileImage3.jpg")];
