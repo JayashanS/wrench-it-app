@@ -5,7 +5,7 @@ import Profile from "../screens/Request/Profile";
 import NewRequest from "../screens/Request/NewRequest";
 import RequestSuccess from "../screens/Request/RequestSuccess";
 import NearByCenters from "../screens/Request/NearByCenters";
-
+import NewReservation from "../screens/Reservations/NewReservation";
 const Stack = createStackNavigator();
 
 export default function RequestStack() {

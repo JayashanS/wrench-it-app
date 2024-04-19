@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   Image,
   Settings,
+  Alert,
 } from "react-native";
 import {
   ScrollView,
@@ -20,7 +21,8 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 const ProfileScreen = ({ route }) => {
   const navigation = useNavigation();
-  const { garages } = route.params;
+  const { garages } = route.params || {};
+  const [mapRegion, setMapRegion] = useState(null);
   let garageId = garages.garageId;
   let centerName = garages.repairCenterName;
   let location = `${garages.address.street}, ${garages.address.city}`;
@@ -47,13 +49,33 @@ const ProfileScreen = ({ route }) => {
   const requestAssistance = () => {
     navigation.navigate("NewRequest", { garageId, centerName });
   };
+  useEffect(() => {
+    // Extract the location details from the garage object
+    const { street, city, state } = garages;
 
-  const [mapRegion, setMapRegion] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
+    // Formulate the address string
+    const address = `${street}, ${city}, ${state}`;
+
+    // Use geocoding to get the coordinates of the address
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+        address
+      )}&key=eyJ1IjoiaGltYW50aGExMTY4MSIsImEiOiJjbHF2Ync3YWg0d2hwMmtvNGViN3dhZW1oIn0.YItSBzk4Ndt4e8gOTzHKyw`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.results.length > 0) {
+          const { lat, lng } = data.results[0].geometry.location;
+          setMapRegion({
+            latitude: lat,
+            longitude: lng,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
+          });
+        }
+      })
+      .catch((error) => console.error("Error fetching location:", error));
+  }, [garages]);
 
   const services = [
     "Suspension Repairs",
@@ -157,20 +179,26 @@ const ProfileScreen = ({ route }) => {
             <Ionicons name="location" size={20} color="gray" />
             <Text style={styles.headFont}> location</Text>
           </View>
-
           <Text>
             {" "}
             {garages.street},{garages.city},{garages.state}
           </Text>
-          <View style={styles.mapContainer}>
-            <MapView
-              style={{ flex: 1 }}
-              provider={PROVIDER_GOOGLE}
-              showsUserLocation={true}
-              region={mapRegion}
-            />
-            <Marker coordinate={mapRegion} />
-          </View>
+
+          <SafeAreaView style={{ flex: 1 }}>
+            <View style={styles.mapContainer}>
+              {/* Display MapView only if mapRegion is available */}
+              {mapRegion && (
+                <MapView
+                  style={styles.map}
+                  provider={PROVIDER_GOOGLE}
+                  showsUserLocation={true}
+                  region={mapRegion}
+                >
+                  <Marker coordinate={mapRegion} />
+                </MapView>
+              )}
+            </View>
+          </SafeAreaView>
         </View>
 
         <View style={styles.priceContainer}>
@@ -384,10 +412,11 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   serviceList: {
+    alignItems: "left",
     fontWeight: "bold",
     fontSize: 17,
     color: "#3F3432",
-    marginLeft: 40,
+    marginLeft: 20,
   },
   ForYouFont: {
     fontWeight: "bold",
