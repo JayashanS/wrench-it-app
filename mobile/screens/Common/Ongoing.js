@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text,Button,StyleSheet,Image  } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation ,useRoute} from "@react-navigation/native";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 
 const OngoingScreen = () => {
@@ -9,7 +9,9 @@ const OngoingScreen = () => {
   const goBackHome = () => {
     navigation.navigate("Home"); // Navigate to the "Home" screen
   };
-
+  const route = useRoute();
+  const { garages } = route.params || {};
+  console.log("Garages object:", garages);
   return (
     
     <View style={styles.ongoingContainer}>
@@ -25,7 +27,7 @@ const OngoingScreen = () => {
     
     </View>
     <View style={styles.rowContainer}>
-          <Text style={styles.label}>Status: </Text>
+          <Text style={styles.label}>Status:{garages.status} </Text>
           <Text style={styles.value}>Pending</Text>
         
 
