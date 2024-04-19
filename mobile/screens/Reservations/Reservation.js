@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -74,7 +80,7 @@ const ReservationScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.upperSection}>
         <TouchableOpacity
           style={styles.addButton}
@@ -98,7 +104,7 @@ const ReservationScreen = () => {
           />
         ))}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
