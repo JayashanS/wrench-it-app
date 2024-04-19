@@ -27,6 +27,7 @@ import Feedback from "./components/Feedback";
 import Help from "./components/Help";
 import Community from "./components/Community";
 import Settings from "./components/Settings";
+import Footer from "./components/Footer";
 
 function HomeLayout() {
   return (
@@ -86,6 +87,7 @@ function App() {
           <Route path="feed" element={<Feedback />} />
         </Route>
       </Routes>
+      <Footer/>
     </Router>
   );
 }
