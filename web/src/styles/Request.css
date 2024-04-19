@@ -178,16 +178,27 @@
 
 .desicion-box {
    display: flex;
+   flex-direction: column;
    width:96%;
    justify-content: space-between;
-   margin-top: 10px;
+   margin: 10px;
    padding: 10px;
    border: 1px solid #ccc;
    border-radius: 5px;
  }
  
- .desicion-box-left {
+
+ .desicion-box-upper {
    display: flex;
+   flex: 2;
+   flex-direction: row;
+ }
+ .desicion-box-lower{
+   display: flex;
+   flex:1;
+   margin-top: 20px;
+   flex-direction: row;
+   justify-content: flex-end;
  }
  
  .profile-circle {
@@ -201,9 +212,7 @@
    margin-left: 20px;
  }
  
- .detail-boxes {
-   margin-right: 20px;
- }
+
  
  .info {
    margin-bottom: 10px;
@@ -247,9 +256,10 @@
 .detail-boxes{
    display: flex;
    flex-direction: row;
-   width: 20%;
+   width: 100px;
+   margin-right: 20px;
    border-right:1px solid #141111;
-   margin-left: 2%;
+   justify-content: center;
 }
 
 .vehicle-detail{

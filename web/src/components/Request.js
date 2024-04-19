@@ -19,6 +19,13 @@ export default function Request() {
   const [incomingOutput, setIncoming] = useState("");
   const [desicionJSX, setDesicion] = useState("");
   const [email, setEmail] = useState("");
+  const [decisionBoxData, setDecisionBoxData] = useState({
+    _id: "",
+    vehicle: "",
+    location: "",
+    issue: "",
+    contact: "",
+  });
 
   useEffect(() => {
     const fetchUserEmail = async () => {
@@ -66,7 +73,7 @@ export default function Request() {
               <Button
                 variant="contained"
                 onClick={() =>
-                  desicion(
+                  decision(
                     item._id,
                     item.licensePlateNo,
                     item.longitude,
@@ -109,57 +116,15 @@ export default function Request() {
     }
   };
 
-  const desicion = async (_id, vehicle, location, issue, contact) => {
-    const decisionJSX = (
-      <div className="desicion-box">
-        <div className="desicion-box-left">
-          <div className="profile-circle"></div>
-          <div className="vehicle-detail">
-            <div className="detail-boxes">
-              <div className="info">
-                <strong>Vehicle:</strong> <br />
-                {vehicle}
-              </div>
-            </div>
-            <div className="detail-boxes">
-              <div className="info">
-                <strong>Location:</strong> <br />
-                {location}
-              </div>
-            </div>
-            <div className="detail-boxes">
-              <div className="info">
-                <strong>Issue:</strong> <br />
-                {issue}
-              </div>
-            </div>
-            <div className="detail-boxes">
-              <div className="info">
-                <strong>Contact:</strong> <br />
-                {contact}
-              </div>
-            </div>
-            <div className="detail-boxes">
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="desicion-box-right">
-          <div className="buttons">
-            <button className="custom-button accept">Accept</button>
-            <button className="custom-button hold">Hold</button>
-            <button className="custom-button decline">Decline</button>
-          </div>
-        </div>
-      </div>
-    );
-
-    setDesicion(decisionJSX);
+  const decision = async (_id, vehicle, location, issue, contact) => {
+    setDecisionBoxData({
+      // ...prevState,
+      _id: _id,
+      vehicle: vehicle,
+      location: location,
+      issue: issue,
+      contact: contact,
+    });
   };
 
   return (
@@ -201,11 +166,69 @@ export default function Request() {
           />
         </div>
 
-        <div className="chat-box">
+        {/* <div className="chat-box">
           {/* <div className="message-box">
             <MessageBox />
-  </div> */}
-          {desicionJSX}
+  </div> 
+        </div>*/}
+        <div className="desicion-box">
+          <div className="desicion-box-upper">
+            <div className="profile-circle"></div>
+            <div className="vehicle-detail">
+              <div className="detail-boxes">
+                <div className="info">
+                  <strong>Vehicle:</strong> <br />
+                  {decisionBoxData.vehicle}
+                </div>
+              </div>
+              <div className="detail-boxes">
+                <div className="info">
+                  <strong>Location:</strong> <br />
+                  {decisionBoxData.location}
+                </div>
+              </div>
+              <div className="detail-boxes">
+                <div className="info">
+                  <strong>Issue:</strong> <br />
+                  {decisionBoxData.issue}
+                </div>
+              </div>
+              <div className="detail-boxes">
+                <div className="info">
+                  <strong>Contact:</strong> <br />
+                  {decisionBoxData.contact}
+                </div>
+              </div>
+            </div>
+
+            <div className="desicion-box-right">
+              <TextField
+                id="outlined-basic"
+                label="Outlined"
+                variant="outlined"
+                size="small"
+                multiline
+              />
+            </div>
+          </div>
+          <div className="desicion-box-lower">
+            <Stack spacing={1} direction="row">
+              <Button
+                variant="contained"
+                style={{ color: "white", textTransform: "none" }}
+              >
+                Accept{" "}
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => decline(decisionBoxData._id)}
+                style={{ color: "white", textTransform: "none" }}
+              >
+                Decline
+              </Button>
+            </Stack>
+          </div>
         </div>
       </div>
     </div>
