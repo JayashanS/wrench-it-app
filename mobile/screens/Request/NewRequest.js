@@ -93,14 +93,12 @@ const NewRequest = ({ route }) => {
       if (!response.ok) {
         throw new Error("Failed to save reservation");
       }
+      const socket = socketIOClient(ENDPOINT);
+      socket.emit("location", { longitude, latitude, garageId });
 
       Alert.alert("Success", "Request has been sent successfully.", [
         { text: "OK", onPress: () => navigation.navigate("Reservation") },
       ]);
-
-      // Emit location event to the server
-      const socket = socketIOClient(ENDPOINT);
-      socket.emit("location", { longitude, latitude });
     } catch (error) {
       console.error("Error saving request:", error);
       Alert.alert("Error", "Failed to save request. Please try again.");
