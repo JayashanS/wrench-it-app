@@ -1,10 +1,36 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const RepairHistory = () => {
+  const historyData = [
+    {
+      id: 1,
+      name: 'Review Auto Care',
+      address: 'No.65, Galle Road, Colombo',
+      vehicle: 'AB12365',
+      date: '20/04/2024',
+      fault: 'Intermittent engine misfire during acceleration'
+    },
+    // Add more data as needed
+  ];
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Repair History</Text>
+      <Text style={styles.header}>Repair History</Text>
+      
+      {historyData.map((item) => (
+        <View key={item.id} style={styles.card}>
+          <Text style={styles.title}>{item.name}</Text>
+          <Text style={styles.address}>{item.address}</Text>
+          <Text style={styles.vehicle}>Vehicle: {item.vehicle}</Text>
+          <Text style={styles.date}>Started On {item.date}</Text>
+          <Text style={styles.fault}>Fault: {item.fault}</Text>
+
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>View Billing</Text>
+          </TouchableOpacity>
+        </View>
+      ))}
     </View>
   );
 };
@@ -12,14 +38,56 @@ const RepairHistory = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
+    padding: 20,
+    backgroundColor: '#f0f0f0'
   },
+  
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+
+  card: {
+    backgroundColor: '#fff',
+    marginBottom: 10,
+    padding: 15,
+    borderRadius: 5
+  },
+
   title: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: 'bold'
   },
+
+  address: {
+    color: 'grey'
+  },
+
+  vehicle: {
+    marginTop: 5
+  },
+
+  date: {
+    marginTop: 5
+  },
+
+  fault: {
+    marginTop: 5
+  },
+
+  button: {
+    marginTop: 10,
+    backgroundColor: '#00f',
+    paddingVertical: 10,
+    borderRadius: 5
+  },
+
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  }
 });
 
 export default RepairHistory;
