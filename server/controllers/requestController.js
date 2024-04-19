@@ -69,8 +69,13 @@ const updateRequestStatus = async (req, res) => {
 };
 
 const getIncomingRequests = async (req, res) => {
+  const { garageId } = req.params;
+
   try {
-    const incomingRequests = await Request.find({ status: "Incoming" });
+    const incomingRequests = await Request.find({
+      status: "Incoming",
+      garageId: garageId,
+    });
     res.status(200).json(incomingRequests);
   } catch (error) {
     console.error("Error fetching incoming requests:", error);

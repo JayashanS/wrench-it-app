@@ -18,7 +18,7 @@ const partRoutes = require("./routes/part");
 const reservationRoutes = require("./routes/reservation");
 const operatorRoutes = require("./routes/operator");
 const photoRoutes = require("./routes/photo");
-const offerRoutes= require("./routes/offer");
+const offerRoutes = require("./routes/offer");
 const billRoutes = require("./routes/bill");
 
 const app = express();
@@ -55,7 +55,7 @@ app.use("/api/part", partRoutes);
 app.use("/api/reservation", reservationRoutes);
 app.use("/api/operator", operatorRoutes);
 app.use("/api/photo", photoRoutes);
-app.use("/api/offer",offerRoutes);
+app.use("/api/offer", offerRoutes);
 app.use("/api/bill", billRoutes);
 
 // WebSocket logic
@@ -75,7 +75,7 @@ io.on("connection", (socket) => {
 
   // Log data received on the "location" event
   socket.on("location", (data) => {
-    console.log("Received location data:", data);
+    console.log("Received Garage Id:", data);
 
     // Broadcast the location data to all connected clients
     io.emit("location", data);
