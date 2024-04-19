@@ -56,23 +56,26 @@ function Titlebar() {
     console.log("Socket connected:", socket.connected);
 
     socket.on("location", (data) => {
-      console.log("Received Location Data:", data);
-      const audio = audioRef.current;
-      if (audio.paused) {
-        audio.loop = true;
-        audio.play();
-        setIsPlaying(true);
-      } else {
-        audio.pause();
-        audio.currentTime = 0;
-        setIsPlaying(false);
+      console.log("Received Data:", data);
+      // Check if garageId from received data matches the email state variable
+      if (data.garageId === email) {
+        const audio = audioRef.current;
+        if (audio.paused) {
+          audio.loop = true;
+          audio.play();
+          setIsPlaying(true);
+        } else {
+          audio.pause();
+          audio.currentTime = 0;
+          setIsPlaying(false);
+        }
       }
     });
 
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [email]);
 
   const fetchData = async () => {
     try {

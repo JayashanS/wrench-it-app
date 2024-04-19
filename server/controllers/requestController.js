@@ -2,7 +2,6 @@ const Request = require("../models/requestModel");
 
 const createRequest = async (req, res) => {
   const {
-    requestId,
     licensePlateNo,
     model,
     fault,
@@ -13,9 +12,18 @@ const createRequest = async (req, res) => {
     longitude,
     latitude,
     status,
+    response,
   } = req.body;
 
   try {
+    const lastRequest = await Request.findOne(
+      {},
+      {},
+      { sort: { requestId: -1 } }
+    );
+    const lastRequestId = lastRequest ? lastRequest.requestId : 0;
+    const requestId = lastRequestId + 1;
+
     const request = await Request.create({
       requestId,
       licensePlateNo,
@@ -29,6 +37,7 @@ const createRequest = async (req, res) => {
       latitude,
       status,
       repair: false,
+      response,
     });
     res.status(201).json(request);
   } catch (error) {

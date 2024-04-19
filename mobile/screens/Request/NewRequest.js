@@ -11,18 +11,21 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import * as Location from "expo-location";
+import socketIOClient from "socket.io-client";
 import Colors from "../../constants/Colors";
 
-const NewReservationScreen = ({ route }) => {
+const ENDPOINT = `http://${process.env.EXPO_PUBLIC_IP}:4000`;
+
+const NewRequest = ({ route }) => {
   const [fault, setFault] = useState("");
   const [licensePlateNo, setLicensePlateNo] = useState("");
   const [model, setModel] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showTimePicker, setShowTimePicker] = useState(false);
   const [email, setEmail] = useState("js@gmail.com");
+  const [longitude, setLongitude] = useState(null);
+  const [latitude, setLatitude] = useState(null);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -39,74 +42,74 @@ const NewReservationScreen = ({ route }) => {
     };
 
     fetchEmailFromAsyncStorage();
+
+    const currentDate = new Date();
+    setDate(currentDate);
+
+    getLocation();
   }, []);
 
-  const { id, name, location } = route.params;
-
-  const handleDateChange = (event, selectedDate) => {
-    setShowDatePicker(false);
-    if (selectedDate) {
-      setDate(selectedDate);
+  const getLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.error("Permission to access location was denied");
+      return;
     }
+
+    let location = await Location.getCurrentPositionAsync({});
+    setLongitude(location.coords.longitude);
+    setLatitude(location.coords.latitude);
   };
 
-  const handleTimeChange = (event, selectedTime) => {
-    setShowTimePicker(false);
-    if (selectedTime) {
-      setDate(
-        new Date(
-          date.getFullYear(),
-          date.getMonth(),
-          date.getDate(),
-          selectedTime.getHours(),
-          selectedTime.getMinutes()
-        )
-      );
-    }
-  };
+  const { garageId, address, centerName } = route.params;
 
-  const handleSaveReservation = async () => {
-    const reservationData = {
+  const handleRequest = async () => {
+    const requestData = {
       licensePlateNo,
       model,
       fault,
       userEmail: email,
-      garageId: id,
+      garageId,
       phoneNo,
       date: date.toISOString(),
+      longitude,
+      latitude,
       status: "Pending",
+      response: "",
     };
-    console.log(reservationData);
+    console.log(requestData);
     try {
       const response = await fetch(
-        `http://${process.env.EXPO_PUBLIC_IP}:4000/api/reservation`,
+        `http://${process.env.EXPO_PUBLIC_IP}:4000/api/request`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(reservationData),
+          body: JSON.stringify(requestData),
         }
       );
 
       if (!response.ok) {
         throw new Error("Failed to save reservation");
       }
+      const socket = socketIOClient(ENDPOINT);
+      socket.emit("location", { longitude, latitude, garageId });
 
-      Alert.alert("Success", "Reservation has been sent successfully.", [
+      Alert.alert("Success", "Request has been sent successfully.", [
         { text: "OK", onPress: () => navigation.navigate("Reservation") },
       ]);
     } catch (error) {
-      console.error("Error saving reservation:", error);
-      Alert.alert("Error", "Failed to save reservation. Please try again.");
+      console.error("Error saving request:", error);
+      Alert.alert("Error", "Failed to save request. Please try again.");
     }
   };
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.repairCenterDetails}>
-        <Text style={styles.centerName}>{name}</Text>
-        <Text style={styles.centerAddress}>{location}</Text>
+        <Text style={styles.centerName}>{centerName}</Text>
+        <Text style={styles.centerAddress}>{address}</Text>
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>License Plate Number</Text>
@@ -140,51 +143,9 @@ const NewReservationScreen = ({ route }) => {
           multiline
           numberOfLines={4}
         />
-        <View>
-          <Text style={styles.label}>Select Date</Text>
-          <Button
-            onPress={() => setShowDatePicker(true)}
-            title={date.toLocaleDateString()}
-            color="#427D9D"
-          />
-          {showDatePicker && (
-            <DateTimePicker
-              testID="datePicker"
-              value={date}
-              mode="date"
-              is24Hour={true}
-              display="default"
-              onChange={handleDateChange}
-            />
-          )}
-        </View>
-        <View style={{ marginBottom: 20 }}>
-          <Text style={styles.label}>Select Time</Text>
-          <Button
-            onPress={() => setShowTimePicker(true)}
-            title={date.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-            color="#427D9D"
-          />
-          {showTimePicker && (
-            <DateTimePicker
-              testID="timePicker"
-              value={date}
-              mode="time"
-              is24Hour={true}
-              display="default"
-              onChange={handleTimeChange}
-            />
-          )}
-        </View>
       </View>
-      <TouchableOpacity
-        style={styles.submitButton}
-        onPress={handleSaveReservation}
-      >
-        <Text style={styles.submitButtonText}>Submit Reservation</Text>
+      <TouchableOpacity style={styles.submitButton} onPress={handleRequest}>
+        <Text style={styles.submitButtonText}>Request</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -249,4 +210,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewReservationScreen;
+export default NewRequest;

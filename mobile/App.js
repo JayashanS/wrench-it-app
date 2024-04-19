@@ -16,11 +16,8 @@ import ProfileScreen from "./screens/Common/Profile";
 import Login from "./screens/Auth/Login";
 import SignUp from "./screens/Auth/SignUp";
 import RepairHistory from "./screens/Repair/RepairHistory";
-
 import MapScreen from "./screens/Common/MapView";
-
 import Colors from "./constants/Colors";
-
 import { AuthContextProvider } from "./context/AuthContext";
 
 const Stack = createStackNavigator();
@@ -32,7 +29,7 @@ export default function App() {
     "poppins-bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "poppins-semiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
   });
-
+  const [authChecked, setAuthChecked] = useState(false);
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -44,6 +41,8 @@ export default function App() {
         }
       } catch (error) {
         console.error("Error checking authentication:", error);
+      } finally {
+        setAuthChecked(true);
       }
     };
 
@@ -56,7 +55,7 @@ export default function App() {
     }
   }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded && !fontError) {
+  if (!authChecked || (!fontsLoaded && !fontError)) {
     return null;
   }
 

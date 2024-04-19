@@ -1,19 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Feather } from "expo-vector-icons";
 import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { View, Text, StyleSheet, SafeAreaView, Image } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  Alert,
+} from "react-native";
 import {
   ScrollView,
   TextInput,
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { Linking } from "react-native";
-import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
-import Geolocation from "react-native-geolocation-service";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { garages } = route.params || {};
+  const [mapRegion, setMapRegion] = useState(null);
+  const garageId = garages.garageId;
+  const address = `${garages.street}, ${garages.city}, ${garages.state}`;
+  const centerName = garages.repairCenterName;
+  console.log("Garages object:", garages);
 
   const imagePaths = [require("../../assets/profileImage3.jpg")];
   const [count, setCount] = useState(1);
@@ -31,23 +44,53 @@ const ProfileScreen = () => {
   };
 
   const openPhoneDialer = () => {
-    Linking.openURL("tel:0768030344");
+    Linking.openURL(`tel:${garages.phoneNumber}`);
   };
-  const requestAssistance= () => {
-    navigation.navigate("Assistance");
+  const requestAssistance = () => {
+    navigation.navigate("NewRequest", { garageId, centerName, address });
   };
+  useEffect(() => {
+    // Extract the location details from the garage object
+    const { street, city, state } = garages;
 
-  const [mapRegion, setMapRegion] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
+    // Formulate the address string
+    const address = `${street}, ${city}, ${state}`;
 
-  const services = ["Suspension Repairs", "Transmission Issues", "Electrical", "Electronic",
-   "Body Repairs & Painting", "Breakdown Repair and Services", "Engine", "Scanning", "HV System","Brake Services and Maintenance"];
-  
-   return (
+    // Use geocoding to get the coordinates of the address
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+        address
+      )}&key=eyJ1IjoiaGltYW50aGExMTY4MSIsImEiOiJjbHF2Ync3YWg0d2hwMmtvNGViN3dhZW1oIn0.YItSBzk4Ndt4e8gOTzHKyw`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.results.length > 0) {
+          const { lat, lng } = data.results[0].geometry.location;
+          setMapRegion({
+            latitude: lat,
+            longitude: lng,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
+          });
+        }
+      })
+      .catch((error) => console.error("Error fetching location:", error));
+  }, [garages]);
+
+  const services = [
+    "Suspension Repairs",
+    "Transmission Issues",
+    "Electrical",
+    "Electronic",
+    "Body Repairs & Painting",
+    "Breakdown Repair and Services",
+    "Engine",
+    "Scanning",
+    "HV System",
+    "Brake Services and Maintenance",
+  ];
+
+  return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.appBarWrapper}>
@@ -78,7 +121,7 @@ const ProfileScreen = () => {
 
         <View style={styles.details}>
           <View style={styles.titleRow}>
-            <Text style={styles.headFont}>AMK Repair Center</Text>
+            <Text>{garages.repairCenterName}</Text>
           </View>
         </View>
 
@@ -105,7 +148,7 @@ const ProfileScreen = () => {
           <TouchableOpacity onPress={openPhoneDialer}>
             <View style={styles.contact}>
               <Ionicons name="call" size={20} color="gray" />
-              <Text  style={styles.contacttext}>  Call</Text>
+              <Text style={styles.contacttext}> Call</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -113,10 +156,22 @@ const ProfileScreen = () => {
         <View style={styles.TimeContainer}>
           <View style={styles.Time}>
             <Ionicons name="time" size={20} color="gray" />
-            <Text style={styles.headFont}> Opening Hours</Text>
+            <View>
+              <Text style={styles.headFont}> Opening Hours </Text>
+              <Text>
+                {" "}
+                {garages.openingHours} - {garages.closingHours}
+              </Text>
+            </View>
           </View>
-
-          <Text style={styles.hours}>           24/7 Service</Text>
+          <View style={styles.Settings}>
+            <Ionicons name="settings" size={20} color="gray" />
+            <Text style={styles.headFont}> Breakdown Service </Text>
+          </View>
+          <Text style={styles.hours}>
+            {" "}
+            24/7 Service - {garages.allDayService ? "Yes" : "No"}
+          </Text>
         </View>
 
         <View style={styles.locationContainer}>
@@ -124,17 +179,26 @@ const ProfileScreen = () => {
             <Ionicons name="location" size={20} color="gray" />
             <Text style={styles.headFont}> location</Text>
           </View>
+          <Text>
+            {" "}
+            {garages.street},{garages.city},{garages.state}
+          </Text>
 
-          <Text>         No.02, Dharmapala place, Rajagiriya</Text>
-          <View style={styles.mapContainer}>
-            <MapView
-              style={{ flex: 1 }}
-              provider={PROVIDER_GOOGLE}
-              showsUserLocation={true}
-              region={mapRegion}
-            />
-            <Marker coordinate={mapRegion} />
-          </View>
+          <SafeAreaView style={{ flex: 1 }}>
+            <View style={styles.mapContainer}>
+              {/* Display MapView only if mapRegion is available */}
+              {mapRegion && (
+                <MapView
+                  style={styles.map}
+                  provider={PROVIDER_GOOGLE}
+                  showsUserLocation={true}
+                  region={mapRegion}
+                >
+                  <Marker coordinate={mapRegion} />
+                </MapView>
+              )}
+            </View>
+          </SafeAreaView>
         </View>
 
         <View style={styles.priceContainer}>
@@ -143,10 +207,22 @@ const ProfileScreen = () => {
             <Text style={styles.headFont}> Price Range</Text>
           </View>
 
-          <Text style={styles.PricechargeHeader}>          Roadside assistant charges </Text>
-          <Text style={styles.Pricecharge}>          1 km -  10 km   <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3000 </Text>
-          <Text style={styles.Pricecharge}>          10 km - 15 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.3500</Text>
-          <Text style={styles.Pricecharge}>          15 km - 20 km  <Ionicons name="arrow-forward-circle" size={17} color="gray" /> Rs.4000</Text>  
+          <Text style={styles.PricechargeHeader}>
+            {" "}
+            Roadside assistant charges{" "}
+          </Text>
+          <Text style={styles.Pricecharge}>
+            {" "}
+            Min Charge (1 km - 10 km ){" "}
+            <Ionicons name="arrow-forward-circle" size={17} color="gray" />{" "}
+            {garages.minCharge}{" "}
+          </Text>
+          <Text style={styles.Pricecharge}>
+            {" "}
+            Max Charge (15 km - 20 km ){" "}
+            <Ionicons name="arrow-forward-circle" size={17} color="gray" />{" "}
+            {garages.maxCharge}
+          </Text>
         </View>
 
         <View style={styles.serviceContainer}>
@@ -155,24 +231,32 @@ const ProfileScreen = () => {
             <Text style={styles.headFont}> Our Services</Text>
           </View>
 
-          {services.map((service, index) => (
-            <Text key={index} style={styles.serviceList}>
-              {service}
-            </Text>
-          ))}
+          {services &&
+            services.map((service, index) => (
+              <View key={index}>
+                <View style={styles.Mark}>
+                  {garages.services && garages.services[service] ? (
+                    <Ionicons name="checkmark-circle" size={20} color="green" />
+                  ) : (
+                    <Ionicons name="close-circle" size={20} color="red" />
+                  )}
+                  <Text style={styles.serviceList}> {service}</Text>
+                </View>
+              </View>
+            ))}
         </View>
 
         <View style={styles.requestButtonContainer}>
-          
-            <View style={styles.request}>
-              <Ionicons name="car" size={22} color="gray" />
-              <Text style={styles.ForYouFont}> We Are Here For You</Text>
-             
-            </View>
-            <TouchableOpacity onPress={() => requestAssistance()} style={styles.requestButton}>
-                <Text style={styles.requestButtonText}>Request Assistance</Text>
-              </TouchableOpacity>
-          
+          <View style={styles.request}>
+            <Ionicons name="car" size={22} color="gray" />
+            <Text style={styles.ForYouFont}> We Are Here For You</Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => requestAssistance()}
+            style={styles.requestButton}
+          >
+            <Text style={styles.requestButtonText}>Request Assistance</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -255,9 +339,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     top: 10,
   },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: "#2c3e50",
+  },
 
-  
-  
   ratingRow: {
     paddingBottom: 12,
     flexDirection: "row",
@@ -281,11 +369,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "center",
     bottom: -10,
-   
-   
   },
-  contacttext:{
-    color:"#FFFFFF"
+  contacttext: {
+    color: "#FFFFFF",
   },
 
   contact: {
@@ -293,13 +379,12 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     flexDirection: "row",
     alignItems: "center",
-   
   },
   TimeContainer: {
     backgroundColor: "#F1EEFF",
     borderRadius: 10,
     marginVertical: 20,
-    paddingBottom:5,
+    paddingBottom: 5,
     width: "100%",
     alignSelf: "center",
   },
@@ -315,13 +400,31 @@ const styles = StyleSheet.create({
     alignContent: "center",
     color: "#125C75",
   },
+  Settings: {
+    padding: 5,
+    marginLeft: 5,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  Mark: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 10,
+  },
+  serviceList: {
+    alignItems: "left",
+    fontWeight: "bold",
+    fontSize: 17,
+    color: "#3F3432",
+    marginLeft: 20,
+  },
   ForYouFont: {
     fontWeight: "bold",
     fontSize: 20,
     alignContent: "center",
     color: "#F79191",
   },
-  hours:{
+  hours: {
     fontWeight: "bold",
     fontSize: 18,
     alignContent: "center",
@@ -331,7 +434,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F1EEFF",
     borderRadius: 6,
     marginVertical: -10,
-    padding:0,
+    padding: 0,
     width: "100%",
     alignSelf: "center",
   },
@@ -341,22 +444,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
- mapContainer: {
+  mapContainer: {
     marginVertical: 0,
     width: 400,
     height: 200,
-    padding:8,
-    borderRadius:0,
+    padding: 8,
+    borderRadius: 0,
     borderColor: "gray",
     justifyContent: "center",
-    paddingLeft:30
+    paddingLeft: 30,
   },
 
   priceContainer: {
     backgroundColor: "#F1EEFF",
     borderRadius: 6,
     marginVertical: 20,
-    paddingBottom:5,
+    paddingBottom: 5,
     width: "100%",
     alignSelf: "center",
   },
@@ -372,74 +475,72 @@ const styles = StyleSheet.create({
     backgroundColor: "#F1EEFF",
     borderRadius: 6,
     marginVertical: -10,
-    paddingBottom:20,
+    paddingBottom: 20,
     width: "100%",
     alignSelf: "center",
   },
-  
+
   Service: {
     padding: 8,
     marginLeft: 5,
     flexDirection: "row",
     alignItems: "center",
   },
-serviceList:{
-    
-    paddingTop:5,
+  serviceList: {
+    paddingTop: 5,
     fontWeight: "bold",
     fontSize: 17,
     alignContent: "center",
     color: "#3F3432",
-    paddingLeft:60,
-},
-PricechargeHeader:{
-  fontWeight: "bold",
-  fontSize: 18,
-  alignContent: "center",
-  color: "#000000",
-},
-Pricecharge:{
-  paddingTop:8,
-  fontWeight: "bold",
-  fontSize: 17,
-  alignContent: "center",
-  color: "#3F3432",
-  paddingLeft:20,
-},
+    paddingLeft: 60,
+  },
+  PricechargeHeader: {
+    fontWeight: "bold",
+    fontSize: 18,
+    alignContent: "center",
+    color: "#000000",
+  },
+  Pricecharge: {
+    paddingTop: 8,
+    fontWeight: "bold",
+    fontSize: 17,
+    alignContent: "center",
+    color: "#3F3432",
+    paddingLeft: 20,
+  },
 
-requestButtonContainer: {
-  backgroundColor: "#F1EEFF",
-  borderRadius: 6,
-  marginVertical: -10,
-  paddingBottom: 20,
-  width: "100%",
-  alignSelf: "center",
-},
-request: {
-  padding: 20,
-  marginLeft: -5,
-  flexDirection: "row",
-  alignItems: "center",
-},
-requestButton: {
-  backgroundColor: "#125C75",
-  borderRadius: 8,
-  paddingVertical: 5,
-  paddingHorizontal: 20,
-  width:300,
-  alignSelf: "center",
-  marginVertical: 10,
-  paddingTop:10
-},
-requestButtonText: {
-  color: "#fff",
-  fontSize: 18,
-  fontWeight: "bold",
-  textAlign: "center",
-  padding:-10,
-  marginBottom:5,
-},
-
+  requestButtonContainer: {
+    backgroundColor: "#F1EEFF",
+    borderRadius: 6,
+    marginVertical: -10,
+    paddingBottom: 20,
+    width: "100%",
+    alignSelf: "center",
+  },
+  request: {
+    padding: 20,
+    marginLeft: -5,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  requestButton: {
+    backgroundColor: "#125C75",
+    borderRadius: 8,
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    width: 300,
+    alignSelf: "center",
+    marginVertical: 10,
+    paddingTop: 10,
+  },
+  requestButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    padding: -10,
+    marginBottom: 5,
+  },
 });
 
 export default ProfileScreen;
