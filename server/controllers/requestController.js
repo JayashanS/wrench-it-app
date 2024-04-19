@@ -2,7 +2,6 @@ const Request = require("../models/requestModel");
 
 const createRequest = async (req, res) => {
   const {
-    requestId,
     licensePlateNo,
     model,
     fault,
@@ -17,6 +16,14 @@ const createRequest = async (req, res) => {
   } = req.body;
 
   try {
+    const lastRequest = await Request.findOne(
+      {},
+      {},
+      { sort: { requestId: -1 } }
+    );
+    const lastRequestId = lastRequest ? lastRequest.requestId : 0;
+    const requestId = lastRequestId + 1;
+
     const request = await Request.create({
       requestId,
       licensePlateNo,

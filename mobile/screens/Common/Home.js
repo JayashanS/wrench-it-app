@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Cell from "../../components/Cell";
 
@@ -38,7 +38,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.homeApp}>
+    <ScrollView style={styles.homeApp}>
       <View style={styles.row}>
         <Cell iconName="search" label="Find Garages" onPress={goToCell_1} />
         <Cell iconName="person" label="Profile" onPress={goToCell_2} />
@@ -56,7 +56,7 @@ const HomeScreen = () => {
         <Cell iconName="list" label="Events" onPress={goToCell_8} />
         <Cell iconName="car" label="History" onPress={goToCell_9} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

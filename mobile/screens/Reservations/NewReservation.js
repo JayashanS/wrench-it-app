@@ -7,6 +7,7 @@ import {
   Button,
   Alert,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -102,7 +103,7 @@ const NewReservationScreen = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.repairCenterDetails}>
         <Text style={styles.centerName}>{name}</Text>
         <Text style={styles.centerAddress}>{location}</Text>
@@ -185,7 +186,7 @@ const NewReservationScreen = ({ route }) => {
       >
         <Text style={styles.submitButtonText}>Submit Reservation</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 

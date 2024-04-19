@@ -61,7 +61,7 @@ const NewRequest = ({ route }) => {
     setLatitude(location.coords.latitude);
   };
 
-  const { garageId, centerName, location } = route.params;
+  const { garageId, centerName } = route.params;
 
   const handleRequest = async () => {
     const requestData = {
@@ -111,7 +111,6 @@ const NewRequest = ({ route }) => {
     <ScrollView style={styles.container}>
       <View style={styles.repairCenterDetails}>
         <Text style={styles.centerName}>{centerName}</Text>
-        <Text style={styles.centerAddress}>{location}</Text>
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>License Plate Number</Text>
