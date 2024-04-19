@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 
 const RepairHistory = () => {
   const historyData = [
@@ -11,27 +11,30 @@ const RepairHistory = () => {
       date: '20/04/2024',
       fault: 'Intermittent engine misfire during acceleration'
     },
-    // Add more data as needed
   ];
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Repair History</Text>
-      
-      {historyData.map((item) => (
-        <View key={item.id} style={styles.card}>
-          <Text style={styles.title}>{item.name}</Text>
-          <Text style={styles.address}>{item.address}</Text>
-          <Text style={styles.vehicle}>Vehicle: {item.vehicle}</Text>
-          <Text style={styles.date}>Started On {item.date}</Text>
-          <Text style={styles.fault}>Fault: {item.fault}</Text>
+    <ScrollView>  
+      <View style={styles.container}>
+        <Text style={styles.header}>
+          <Text style={styles.text}>Repair History</Text>
+        </Text>
 
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>View Billing</Text>
-          </TouchableOpacity>
-        </View>
-      ))}
-    </View>
+        {historyData.map((item) => (
+          <View key={item.id} style={styles.card}>
+            <Text style={styles.title}>{item.name}</Text>
+            <Text style={styles.address}>{item.address}</Text>
+            <Text style={styles.vehicle}>Vehicle: {item.vehicle}</Text>
+            <Text style={styles.date}>Started On {item.date}</Text>
+            <Text style={styles.fault}>Fault: {item.fault}</Text>
+
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>View Billing</Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -43,9 +46,18 @@ const styles = StyleSheet.create({
   },
   
   header: {
+    marginBottom: 10,
+    width: 380,
+    height: 40,
+    marginVertical: 0,
+    color: '#FFFFFF',
+    backgroundColor: '#125C75'
+  },
+
+  text:{
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10
+    justifyContent:'center'
   },
 
   card: {
