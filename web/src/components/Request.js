@@ -3,21 +3,22 @@ import "../styles/Request.css";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import CallIcon from "@mui/icons-material/Call";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-//import SendIcon from '@mui/icons-material/Send';
-import ReorderIcon from "@mui/icons-material/Reorder";
+import ConstructionIcon from "@mui/icons-material/Construction";
+import MinorCrashIcon from "@mui/icons-material/MinorCrash";
 import Directions from "./Directions";
 import MessageBox from "./MessageBox";
 import { lightBlue } from "@mui/material/colors";
 
 export default function Request() {
   const [incomingOutput, setIncoming] = useState("");
-  const [desicionJSX, setDesicion] = useState("");
+  const [startLocation, setStartLocation] = useState(null);
+  const [endLocation, setEndLocation] = useState(null);
   const [email, setEmail] = useState("");
   const [decisionBoxData, setDecisionBoxData] = useState({
     _id: "",
@@ -43,6 +44,27 @@ export default function Request() {
     incoming();
   }, []);
   useEffect(() => {
+    const fetchGarageData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/api/garage/${email}`
+        );
+
+        if (response.status === 200) {
+          const { location } = response.data;
+          const { coordinates } = location;
+          const [longitude, latitude] = coordinates;
+          setStartLocation({ longitude, latitude });
+          setEndLocation({ longitude, latitude });
+        } else {
+          throw new Error("Failed to fetch garage details");
+        }
+      } catch (error) {
+        console.error("Error fetching garage details:", error);
+      }
+    };
+
+    fetchGarageData();
     incoming();
   }, [email]);
 
@@ -55,21 +77,42 @@ export default function Request() {
       const responseData = response.data;
       const requestJSX = responseData.map((item, index) => (
         <div className="user-details" key={index}>
-          <div className="profile-circle"></div>
-          <div className="name-box">
-            <b>{item.licensePlateNo}</b>
-          </div>
-          <div className="icon-box">
-            <DirectionsCarIcon />
-            <CallIcon />
-            <LocationOnIcon />
+          <div className="incom-avatar">
+            <Avatar
+              alt="Profile"
+              sx={{
+                marginTop: 1,
+                width: 60,
+                height: 60,
+                bgcolor: "#09BEB1",
+                color: "white",
+              }}
+            >
+              <MinorCrashIcon />
+            </Avatar>
+            <div className="name-box">
+              <b>{item.licensePlateNo}</b>
+            </div>
           </div>
           <div className="details-box">
-            {item.model} <br />
-            {item.phoneNo} <br />
+            <div className="icon-box">
+              <DirectionsCarIcon
+                style={{ color: "grey", marginRight: "8px" }}
+              />{" "}
+              {item.model}
+            </div>
+            <div className="icon-box">
+              <CallIcon style={{ color: "grey", marginRight: "8px" }} />{" "}
+              {item.phoneNo} <br />
+            </div>
+            <div className="icon-box">
+              <ConstructionIcon style={{ color: "grey", marginRight: "8px" }} />{" "}
+              {item.fault} <br />
+            </div>
           </div>
+
           <div className="button-box">
-            <Stack spacing={2} direction="column">
+            <Stack spacing={1} direction="column">
               <Button
                 variant="contained"
                 onClick={() =>
@@ -77,6 +120,7 @@ export default function Request() {
                     item._id,
                     item.licensePlateNo,
                     item.longitude,
+                    item.latitude,
                     item.fault,
                     item.phoneNo
                   )
@@ -116,15 +160,22 @@ export default function Request() {
     }
   };
 
-  const decision = async (_id, vehicle, location, issue, contact) => {
+  const decision = async (
+    _id,
+    vehicle,
+    longitude,
+    latitude,
+    issue,
+    contact
+  ) => {
     setDecisionBoxData({
       // ...prevState,
       _id: _id,
       vehicle: vehicle,
-      location: location,
       issue: issue,
       contact: contact,
     });
+    setEndLocation({ longitude, latitude });
   };
 
   return (
@@ -160,10 +211,16 @@ export default function Request() {
           <p style={{ marginLeft: "20px" }}>Details</p>
         </div>
         <div className="map">
-          <Directions
-            startLocation={{ coordinates: [80.540379, 5.949636] }}
-            endLocation={{ coordinates: [80.55, 5.959] }}
-          />
+          {startLocation && endLocation && (
+            <Directions
+              startLocation={{
+                coordinates: [startLocation.longitude, startLocation.latitude],
+              }}
+              endLocation={{
+                coordinates: [endLocation.longitude, endLocation.latitude],
+              }}
+            />
+          )}
         </div>
 
         {/* <div className="chat-box">
@@ -173,7 +230,11 @@ export default function Request() {
         </div>*/}
         <div className="desicion-box">
           <div className="desicion-box-upper">
-            <div className="profile-circle"></div>
+            <Avatar
+              alt="Profile"
+              sx={{ marginTop: 3, width: 60, height: 60 }}
+              className="menu-profile-photo"
+            />
             <div className="vehicle-detail">
               <div className="detail-boxes">
                 <div className="info">
@@ -200,24 +261,22 @@ export default function Request() {
                 </div>
               </div>
             </div>
-
-            <div className="desicion-box-right">
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-                size="small"
-                multiline
-              />
-            </div>
           </div>
           <div className="desicion-box-lower">
+            <TextField
+              id="outlined-basic"
+              label="Add a Response to the User"
+              variant="outlined"
+              size="small"
+              multiline
+              style={{ width: "50%", marginRight: "16px" }}
+            />
             <Stack spacing={1} direction="row">
               <Button
                 variant="contained"
                 style={{ color: "white", textTransform: "none" }}
               >
-                Accept{" "}
+                Accept and Send
               </Button>
               <Button
                 variant="contained"
