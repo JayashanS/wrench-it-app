@@ -60,6 +60,9 @@ const [startDate, setStartDate] = useState('');
 const [endDate, setEndDate] = useState('');
 const [startTime, setStartTime] = useState('');
 const [endTime, setEndTime] = useState('');
+const [garageId, setGarageId] = useState('Gar1');
+const [pUrl, setPUrl] = useState('');
+const [lUrl, setLUrl] = useState('');
 
   
 /* const handleLogoChange = (event) => {
@@ -81,9 +84,12 @@ const [endTime, setEndTime] = useState('');
 
 const handleLogoChange = (event) => {
   const file = event.target.files[0];
+  setLogoImage(file); 
   if (file) {
     const logoUrl = URL.createObjectURL(file);
-    setLogoImage(logoUrl);    
+     
+    setLUrl(logoUrl);
+      
   }
 };
 
@@ -115,18 +121,18 @@ const handleLogoClick = () => {
     })
     console.log(postX.name) */
     
-      const headers = {
+      /* const headers = {
         "Content-Type": "application/json",
-      };
+      }; */
       const updatedData={
-        garageId:"garagr123",
+        garageId: garageId,
         startingDate: startDate,
         startingTime : startTime,
         endDate : endDate,
         endTime : endTime,
         companyName : companyName,
-        logoUrl : "examoplel",
-        photoUrl : "example",
+        logoUrl : logoImage,
+        photoUrl : selectedImage,
 
       }
      
@@ -136,7 +142,9 @@ const handleLogoClick = () => {
        
        
         await axios.post("http://localhost:4000/api/offer", updatedData, {
-          headers,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         });
         console.log("New document created successfully!");
       }
@@ -146,10 +154,10 @@ const handleLogoClick = () => {
  
     setAd([...ad,{
       name: companyName,
-      image: selectedImage,
+      image: pUrl,
       stDate: startDate,
       enDate: endDate,
-      logo : logoImage,
+      logo : lUrl,
       stTime: startTime,
       enTime : endTime
     }])
@@ -183,9 +191,11 @@ const handleLogoClick = () => {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    setSelectedImage(file);
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImage(imageUrl);
+      const photoUrl = URL.createObjectURL(file);
+      
+      setPUrl(photoUrl);
       
     }
   };
@@ -287,7 +297,7 @@ const handleLogoClick = () => {
               <div className="selected-image-box" >
                 
                 <img
-                  src={selectedImage}
+                  src={pUrl}
                   alt="Upload an image by clicking post"
                   className="selected-image"
                 />
@@ -315,10 +325,10 @@ const handleLogoClick = () => {
               <div className="RoundShape">
               <label className="logo-label" >
              {logoImage?<img
-                          src={logoImage}
+                          src={lUrl}
                           alt="Logo"
                           className="selected-image"
-                          onClick={handleLogoClick}
+                          onClick={handleLogoChange}
                         />:<span>Upload-Logo</span>} 
               <input
                 type="file"
