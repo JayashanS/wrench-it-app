@@ -176,6 +176,30 @@ export default function Request() {
       contact: contact,
     });
     setEndLocation({ longitude, latitude });
+
+    try {
+      const accessToken = `${process.env.REACT_APP_API_TOKEN}`;
+
+      const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`;
+
+      const response = await axios.get(apiUrl);
+
+      if (response.status === 200) {
+        const locationName = response.data.features[0].place_name;
+        setDecisionBoxData({
+          location: locationName,
+          _id: _id,
+          vehicle: vehicle,
+          issue: issue,
+          contact: contact,
+        });
+      } else {
+        throw new Error("Failed to fetch location name");
+      }
+    } catch (error) {
+      console.error("Error fetching location name:", error);
+      throw error;
+    }
   };
 
   return (
@@ -205,8 +229,6 @@ export default function Request() {
       </div>
 
       <div className="request-details">
-        {/*<ReorderIcon style={{ marginLeft: "350px", marginBottom: "15px" }}/>*/}
-
         <div className="header-bar">
           <p style={{ marginLeft: "20px" }}>Details</p>
         </div>
@@ -222,12 +244,6 @@ export default function Request() {
             />
           )}
         </div>
-
-        {/* <div className="chat-box">
-          {/* <div className="message-box">
-            <MessageBox />
-  </div> 
-        </div>*/}
         <div className="desicion-box">
           <div className="desicion-box-upper">
             <Avatar

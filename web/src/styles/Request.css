@@ -263,7 +263,9 @@
 .detail-boxes{
    display: flex;
    flex-direction: row;
-   width: 100px;
+   width: auto;
+   padding-left:10px;
+   padding-right:10px;
    margin-right: 20px;
    border-right:1px solid #141111;
    justify-content: center;
