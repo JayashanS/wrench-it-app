@@ -4,12 +4,13 @@ const path = require("path");
 
 const createOffer = async (req, res) => {
   try {
-    // Check if a file is provided in the request
-    if (!req.files || !req.files.photo) {
-      return res.status(400).json({ message: "Photo is required" });
+    // Check if both photo and logo are provided in the request
+    if (!req.files || !req.files.photo || !req.files.logo) {
+      return res
+        .status(400)
+        .json({ message: "Both photo and logo are required" });
     }
 
-    // Retrieve other offer details from the request body
     const {
       garageId,
       startingDate,
@@ -18,58 +19,40 @@ const createOffer = async (req, res) => {
       endTime,
       companyName,
     } = req.body;
-
-    // Get the uploaded photo
     const photo = req.files.photo;
+    const logo = req.files.logo;
 
-    // Define the destination folder
     const uploadDir = path.join(__dirname, "../assets/offer");
-
-    // Ensure the directory exists, create if not
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-
-    // Generate a unique file name to avoid conflicts
     const photoFileName = Date.now() + "_" + photo.name;
+    const logoFileName = Date.now() + "_" + logo.name;
 
-    // Move the uploaded photo to the destination folder
-    photo.mv(path.join(uploadDir, photoFileName), async (err) => {
-      if (err) {
-        console.error("Error uploading photo:", err);
-        return res.status(500).json({ message: "Error uploading photo" });
-      }
+    // Move the uploaded photo and logo to the destination folder
+    await photo.mv(path.join(uploadDir, photoFileName));
+    await logo.mv(path.join(uploadDir, logoFileName));
 
-      // Check if a logo is provided in the request
-      let logoUrl = "";
-      if (req.files && req.files.logo) {
-        const logo = req.files.logo;
-        const logoFileName = Date.now() + "_" + logo.name;
-        logo.mv(path.join(uploadDir, logoFileName), (err) => {
-          if (err) {
-            console.error("Error uploading logo:", err);
-            return res.status(500).json({ message: "Error uploading logo" });
-          }
-          logoUrl = path.join("/assets/offer/", logoFileName);
-        });
-      }
+    // Construct photoUrl and logoUrl
+    const photoUrl = path.join("/assets/offer", photoFileName);
+    const logoUrl = path.join("/assets/offer", logoFileName);
 
-      // Create a new offer object
-      const newOffer = await Offer.create({
-        garageId,
-        startingDate,
-        startingTime,
-        endDate,
-        endTime,
-        companyName,
-        logoUrl,
-        photoUrl: path.join("/assets/offer/", photoFileName), // Store the file path to the photo
-      });
-
-      res.status(201).json(newOffer);
+    // Save the offer details to the database
+    const newOffer = new Offer({
+      garageId,
+      startingDate,
+      startingTime,
+      endDate,
+      endTime,
+      companyName,
+      photoUrl,
+      logoUrl,
     });
+
+    const savedOffer = await newOffer.save();
+    res
+      .status(201)
+      .json({ message: "Offer created successfully", offer: savedOffer });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error creating offer:", error);
+    res.status(500).json({ message: "Error creating offer" });
   }
 };
 
