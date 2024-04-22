@@ -121,7 +121,7 @@ const ProfileScreen = () => {
 
         <View style={styles.details}>
           <View style={styles.titleRow}>
-            <Text>{garages.repairCenterName}</Text>
+            <Text style={styles.namestyle}>{garages.repairCenterName}</Text>
           </View>
         </View>
 
@@ -141,7 +141,16 @@ const ProfileScreen = () => {
             <TouchableOpacity onPress={() => decrement()}>
               <SimpleLineIcons name="minus" size={24} />
             </TouchableOpacity>
+        
           </View>
+          <View style={styles.contactContainer}>
+          <TouchableOpacity onPress={openPhoneDialer}>
+            <View style={styles.contact}>
+              <Ionicons name="call" size={20} color="gray" />
+              <Text style={styles.contacttext}> Call</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         </View>
 
         <View style={styles.contactContainer}>
@@ -323,6 +332,13 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     borderRadius: 15,
     marginVertical: 15,
+  },
+  namestyle:{
+    fontWeight: "bold",
+    fontSize: 25,
+    alignContent: "center",
+    color: "#2c3e50",
+   
   },
   details: {
     marginTop: 0,
