@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "90%",
     paddingBottom: 5,
-    height: 350,
+    height: 400,
     paddingLeft: 10,
     alignItems: "flex-start",
     flexDirection: "row",
