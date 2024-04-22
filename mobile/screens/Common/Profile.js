@@ -15,7 +15,9 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
-//import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import ReservationScreen from "../Reservations/Reservation";
+
 
 const [selectedImage, setSelectedImage] = [
   require("../../assets/user_profile.png"),
@@ -26,6 +28,8 @@ const windowWidth = Dimensions.get("window").width;
 
 const ProfileScreen = () => {
   const navigation = useNavigation(); //invoke
+  
+  
   const { logout } = useLogout();
   const handleLogout = async (e) => {
     logout();
@@ -37,6 +41,18 @@ const ProfileScreen = () => {
   const handleEdit = () => {
     navigation.navigate("Edit");
   };
+  const handleHistory = () => {
+    navigation.navigate("RepairHistory");
+  };
+  const handleReservation = () => {
+    navigation.navigate("Reservations");
+  };
+  const handleContactUs = () => {
+    navigation.navigate("Contact");
+  };
+  
+  
+  
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handleLogout}></TouchableOpacity>
@@ -70,21 +86,26 @@ const ProfileScreen = () => {
          
           </View>
         </TouchableOpacity>
+        <TouchableOpacity onPress={handleReservation}>
+          <View style={styles.row}>
+            <MaterialIcons name="playlist-add" size={30} color="black" />
+            <Text style={styles.bodyFont}>New Reservation</Text>
+          </View>
+          </TouchableOpacity>
       
-        <View style={styles.row}>
-          <MaterialIcons name="playlist-add" size={30} color="black" />
-          <Text style={styles.bodyFont}>Add Vehicle</Text>
-        </View>
+        <TouchableOpacity onPress={handleHistory}>
+          <View style={styles.row}>
+            <MaterialIcons name="history" size={30} color="black" />
+            <Text style={styles.bodyFont}>History</Text>
+          </View>
+        </TouchableOpacity>
 
-        <View style={styles.row}>
-          <MaterialIcons name="history" size={30} color="black" />
-          <Text style={styles.bodyFont}>History</Text>
-        </View>
-
-        <View style={styles.row}>
-          <MaterialIcons name="support-agent" size={30} color="black" />
-          <Text style={styles.bodyFont}>Support</Text>
-        </View>
+        <TouchableOpacity onPress={handleContactUs}>
+          <View style={styles.row}>
+            <MaterialIcons name="support-agent" size={30} color="black" />
+            <Text style={styles.bodyFont}>Contact Us</Text>
+          </View>
+        </TouchableOpacity>
 
         <TouchableOpacity onPress={handleLogout} style={styles.row}>
           <SimpleLineIcons name="logout" size={30} color="black" />

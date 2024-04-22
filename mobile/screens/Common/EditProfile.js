@@ -24,7 +24,7 @@ const windowWidth = Dimensions.get('window').width;
 
 const EditProfile=()=>{
     const [name,setName]=useState("kavishka");
-    const [teleNumber,setTeleNumber]=useState("0778149714");
+    const [password,setPassword]=useState("random");
 
     const navigation = useNavigation(); 
     const [selectedImage, setSelectedImage] = [
@@ -69,20 +69,31 @@ const EditProfile=()=>{
                     </View> 
                     <View style={styles.details}>
 
-                        <Text style={{fontSize:22}}>Name</Text>
+                        <Text style={{fontSize:12}}>Name</Text>
                         <View style={styles.editDetails}>
                                 <TextInput value={name} onChangeText={value=>setName(value)} editable={true}/>
 
                         </View>
 
-                        <Text style={{fontSize:22}}>Mobile Number</Text>
+                        <Text style={{fontSize:12}}>Current Password</Text>
                         <View style={styles.editDetails}>
-                                <TextInput value={name} onChangeText={value=>setName(value)} editable={true}/>
+                                <TextInput value={name} onChangeText={value=>setName(value)} editable={true} secureTextEntry/>
+
+                        </View>
+
+                        <Text style={{fontSize:12}}>New Password</Text>
+                        <View style={styles.editDetails}>
+                                <TextInput value={name} onChangeText={value=>setName(value)} editable={true} secureTextEntry/>
+
+                        </View>
+                        <Text style={{fontSize:12}}>New Password</Text>
+                        <View style={styles.editDetails}>
+                                <TextInput value={name} onChangeText={value=>setName(value)} editable={true} secureTextEntry/>
 
                         </View>
                     </View> 
                 <TouchableOpacity style={styles.saveContainer}>
-                    <Text style={{color:Colors.onPrimary, fontSize:22}}>Save Changes</Text>
+                    <Text style={{color:Colors.onPrimary, fontSize:20}}>Save Changes</Text>
 
                 </TouchableOpacity>
 
@@ -105,7 +116,7 @@ const styles = StyleSheet.create({
     
         flexDirection:"row",
         margin:10,
-        paddingTop: 30,
+        paddingTop: 40,
         fontSize:22, 
         //justifyContent:"center"
        
@@ -174,7 +185,7 @@ const styles = StyleSheet.create({
 
       saveContainer:{
         backgroundColor:Colors.primary,
-        marginTop:"50%",
+        marginTop:5,
         height:44,
         width:"100%",
         borderRadius:6,
