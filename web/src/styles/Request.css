@@ -107,15 +107,55 @@
    background-color: #EEF2F5
 }
 
-.user-details{
+.user-details {
    display: flex;
-   width: 98%;
-   height: 50%;
-   margin-top: 0.5%;
+   align-items: center;
+   width: 88%;
+   height: auto; 
    margin-left: 1%;
-   background-color: #EEF2F5;
-}
-
+   padding: 10px;
+   background-color: #eef2f5; 
+   border-radius: 5px;
+   margin-bottom: 10px; 
+ }
+ .incom-avatar{
+   display:flex;
+   flex-direction: column;
+   margin-right: 20px;
+ }
+ .name-box {
+   display: flex;
+   align-items: center; 
+   width: 15%;
+   height: 5vh;
+   margin-top: 1.2;
+   margin-left: 2%;
+   flex-shrink: 0;
+   color: #565b5a;
+ }
+ 
+ .icon-box {
+   display: flex;
+   flex-direction: row;
+   margin-left: 1%;
+   color: #494b4c;
+ }
+ 
+ .details-box {
+   display: flex;
+   flex-direction: column;
+   width: 60%;
+   line-height: 1.6;
+   color: #8e8e97;
+   margin-left: 1%; 
+ }
+ 
+ .button-box {
+   display: flex;
+   flex-direction: column;
+   margin-top: 2%;
+ }
+ 
 .header-bar{
    display: flex;
    font-size: 15;
@@ -128,46 +168,6 @@
    border-bottom: 1px solid #cbc7c7
 }
 
-.profile-circle{
-   display: inline-block;
-   margin-top: 2%;
-   margin-left: 1.5%;
-   width: 15%;
-   height:60%;
-   border-radius: 50%;
-   background-color: #D9D9D9;
-}
-
-.name-box{
-   display: flex;
-   width: 25%;
-   height: 5vh;
-   margin-top: 5.5%;
-   margin-left: 2%;
-   flex-shrink: 0;
-   color: #09BEB1;
-}
-
-.icon-box{
-   display: flex;
-   flex-direction: column;
-   margin-left: 1%;
-   color: #A1D3E5;
-}
-
-.details-box{
-   display: flex;
-   flex-direction: column ;
-   width: 28%;
-   line-height: 1.6;
-   color: #8E8E97;
-}
-
-.button-box{
-   display: flex;
-   flex-direction: column;
-   margin-top: 2%;
-}
 
 .custom-button{
    border-radius: 5px;
@@ -197,6 +197,13 @@
    display: flex;
    flex:1;
    margin-top: 20px;
+   flex-direction: row;
+   justify-content: flex-end;
+ }
+ .desicion-box-right{
+   display: flex;
+   width: 600px;
+   margin-top: 30px;
    flex-direction: row;
    justify-content: flex-end;
  }
@@ -256,7 +263,9 @@
 .detail-boxes{
    display: flex;
    flex-direction: row;
-   width: 100px;
+   width: auto;
+   padding-left:10px;
+   padding-right:10px;
    margin-right: 20px;
    border-right:1px solid #141111;
    justify-content: center;
