@@ -5,6 +5,7 @@ const {
   getAllRequests,
   insertManyRequests,
   getIncomingRequests,
+  getAcceptedRequests,
   updateRequestStatus,
   getUserRequests,
   updateRequestStatusAndResponse,
@@ -17,6 +18,7 @@ router.get("/", getAllRequests);
 router.get("/user/:userEmail", getUserRequests);
 router.delete("/:id", deleteRequest);
 router.get("/incoming/:garageId", getIncomingRequests);
+router.get("/accepted/:garageId", getAcceptedRequests);
 router.put("/dec/:id", updateRequestStatus);
 router.put("/acc/:id", updateRequestStatusAndResponse);
 module.exports = router;

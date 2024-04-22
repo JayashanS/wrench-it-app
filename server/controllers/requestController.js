@@ -83,6 +83,20 @@ const getIncomingRequests = async (req, res) => {
     res.status(500).json({ error: "Could not fetch incoming requests" });
   }
 };
+const getAcceptedRequests = async (req, res) => {
+  const { garageId } = req.params;
+
+  try {
+    const acceptedRequests = await Request.find({
+      status: "Accepted",
+      garageId: garageId,
+    });
+    res.status(200).json(acceptedRequests);
+  } catch (error) {
+    console.error("Error fetching accepted requests:", error);
+    res.status(500).json({ error: "Could not fetch accepted requests" });
+  }
+};
 
 const deleteRequest = async (req, res) => {
   try {
@@ -218,6 +232,7 @@ module.exports = {
   getAllRequests,
   updateRequestStatus,
   getIncomingRequests,
+  getAcceptedRequests,
   checkStatus,
   getUserRequests,
   updateRequestStatusAndResponse,

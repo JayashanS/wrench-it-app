@@ -190,7 +190,7 @@ export default function Request() {
   const accepted = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/request/incoming/${email}`
+        `http://localhost:4000/api/request/accepted/${email}`
       );
       console.log("Response Data:", response.data);
       const responseData = response.data;
@@ -267,6 +267,7 @@ export default function Request() {
       );
       console.log("Response Data:", response.data);
       incoming();
+      accepted();
     } catch (error) {
       console.error("Error declining request:", error);
     }
