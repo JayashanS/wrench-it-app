@@ -101,7 +101,9 @@ const MapWithDirections = ({ startLocation, endLocation }) => {
         },
       };
 
-      if (!map.getSource("route")) {
+      if (map.getSource("route")) {
+        map.getSource("route").setData(geojson);
+      } else {
         map.addLayer({
           id: "route",
           type: "line",
@@ -119,8 +121,6 @@ const MapWithDirections = ({ startLocation, endLocation }) => {
             "line-opacity": 0.75,
           },
         });
-      } else {
-        map.getSource("route").setData(geojson);
       }
 
       // Update instructions in React component

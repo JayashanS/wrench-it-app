@@ -17,10 +17,11 @@ const socket = io("http://localhost:4000");
 
 export default function Request() {
   const [incomingOutput, setIncoming] = useState("");
+  const [accept, setAccept] = useState("");
   const [startLocation, setStartLocation] = useState(null);
   const [endLocation, setEndLocation] = useState(null);
   const [email, setEmail] = useState("");
-  const [responseText, setResponseText] = useState(""); // Renamed from `response`
+  const [responseText, setResponseText] = useState("");
   const [decisionBoxData, setDecisionBoxData] = useState({
     _id: "",
     vehicle: "",
@@ -68,6 +69,7 @@ export default function Request() {
 
     fetchGarageData();
     incoming();
+    accepted();
   }, [email]);
 
   useEffect(() => {
@@ -99,6 +101,7 @@ export default function Request() {
       console.log("Response Data:", res.data);
       socket.emit("responding");
       incoming();
+      accepted();
     } catch (error) {
       console.error("Error accepting and sending response:", error);
     }
@@ -184,6 +187,79 @@ export default function Request() {
     }
   };
 
+  const accepted = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/request/incoming/${email}`
+      );
+      console.log("Response Data:", response.data);
+      const responseData = response.data;
+      const tableRows = responseData.map((item, index) => (
+        <tr key={index}>
+          <td>{item.licensePlateNo}</td>
+          <td>{item.model}</td>
+          <td>{item.phoneNo}</td>
+          <td>{item.fault}</td>
+          <td>
+            <Button
+              variant="contained"
+              onClick={() =>
+                decision(
+                  item._id,
+                  item.licensePlateNo,
+                  item.longitude,
+                  item.latitude,
+                  item.fault,
+                  item.phoneNo
+                )
+              }
+              style={{ color: "white", textTransform: "none" }}
+            >
+              View
+            </Button>
+          </td>
+        </tr>
+      ));
+
+      const table = (
+        <table
+          style={{
+            marginLeft: "10px",
+            marginRight: "10px",
+            fontSize: "12px",
+            borderCollapse: "collapse",
+            border: "1px solid black",
+          }}
+        >
+          <thead>
+            <tr>
+              <th style={{ border: "1px solid black", padding: "8px" }}>
+                License Plate No
+              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>
+                Model
+              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>
+                Phone No
+              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>
+                Fault
+              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>{tableRows}</tbody>
+        </table>
+      );
+
+      setAccept(table);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   const decline = async (id) => {
     try {
       const response = await axios.put(
@@ -257,10 +333,7 @@ export default function Request() {
 
             <br />
           </div>
-
-          <table>
-            <tr></tr>
-          </table>
+          {accept}
         </div>
       </div>
 

@@ -160,6 +160,7 @@ const getUserRequests = async (req, res) => {
           garageId: 1,
           phoneNo: 1,
           date: 1,
+          response: 1,
           status: 1,
           "garageDetails.repairCenterName": 1,
           combinedAddress: {
