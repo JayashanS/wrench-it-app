@@ -74,7 +74,7 @@ const NewRequest = ({ route }) => {
       date: date.toISOString(),
       longitude,
       latitude,
-      status: "Pending",
+      status: "Incoming",
       response: "",
     };
     console.log(requestData);

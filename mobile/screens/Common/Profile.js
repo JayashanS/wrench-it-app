@@ -34,6 +34,9 @@ const ProfileScreen = () => {
   const handlePress = () => {
     navigation.navigate("Main");
   };
+  const handleEdit = () => {
+    navigation.navigate("Edit");
+  };
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handleLogout}></TouchableOpacity>
@@ -60,14 +63,17 @@ const ProfileScreen = () => {
       </View>
 
       <View style={styles.bodyContainer}>
-        <View style={styles.row}>
+        <TouchableOpacity onPress={handleEdit}>
+         <View style={styles.row}>
           <Feather name="edit" size={30} color="black" />
           <Text style={styles.bodyFont}>Edit</Text>
-        </View>
-
+         
+          </View>
+        </TouchableOpacity>
+      
         <View style={styles.row}>
           <MaterialIcons name="playlist-add" size={30} color="black" />
-          <Text style={styles.bodyFont}>Add Car</Text>
+          <Text style={styles.bodyFont}>Add Vehicle</Text>
         </View>
 
         <View style={styles.row}>

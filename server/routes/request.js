@@ -13,6 +13,6 @@ router.post("/", createRequest);
 router.post("/n", insertManyRequests);
 router.get("/", getAllRequests);
 router.delete("/:id", deleteRequest);
-router.get("/incoming",getIncomingRequests);
-router.put("/dec/:id",updateRequestStatus);
+router.get("/incoming/:garageId", getIncomingRequests);
+router.put("/dec/:id", updateRequestStatus);
 module.exports = router;

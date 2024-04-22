@@ -17,16 +17,15 @@ const CenterCard = ({ center }) => {
 
   return (
     <View style={styles.cardContainer}>
-      <Image source={require("../../assets/repairIcon.jpg")}  style={styles.photo} />
+      <Image source={{ uri: photo }} style={styles.photo} />
       <View style={styles.detailsContainer}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.location}>{location}</Text>
         <View style={styles.ratingContainer}>
           <Text style={styles.rating}>{rating}</Text>
           <Text style={styles.ratingText}>Rating</Text>
-          <Text style={styles.distance}>  {distance} km</Text>
+          <Text style={styles.distance}> {distance} km</Text>
         </View>
-     
       </View>
     </View>
   );
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#333",
-    justifyContent: "space-between", 
+    justifyContent: "space-between",
   },
   location: {
     fontSize: 16,
@@ -84,9 +83,8 @@ const styles = StyleSheet.create({
   },
   distance: {
     fontSize: 16,
-    color: "#D37272", 
+    color: "#D37272",
   },
- 
 });
 
 export default CenterCard;
