@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const RepairHistory = () => {
   const historyData = [
@@ -17,6 +18,7 @@ const RepairHistory = () => {
     <ScrollView>  
       <View style={styles.container}>
         <Text style={styles.header}>
+          <Icon name = "chevron-left" size = {24} color = {"white"}></Icon>
           <Text style={styles.text}>Repair History</Text>
         </Text>
 
