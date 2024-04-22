@@ -6,7 +6,8 @@ import {
     Dimensions,
     Image,
     SafeAreaView,
-    TextInput
+    TextInput,
+    Alert
   } from "react-native";
 import React, { useState }  from 'react'
 import Colors from "../../constants/Colors";
@@ -47,6 +48,17 @@ const EditProfile=()=>{
     const handlePress = () => {
         navigation.navigate("Profile");
       };
+
+   
+    const handleName=(n)=>{
+        setName(n);
+    }
+    const handleSaveButton=()=>{
+        
+        Alert.alert("Successfully Updated");
+        handlePress();
+    }; 
+    
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.headerContainer}>
@@ -69,30 +81,44 @@ const EditProfile=()=>{
                     </View> 
                     <View style={styles.details}>
 
-                        <Text style={{fontSize:12}}>Name</Text>
-                        <View style={styles.editDetails}>
-                                <TextInput value={name} onChangeText={value=>setName(value)} editable={true}/>
+                        <Text style={{fontSize:16}}>Name</Text>
+                        <View >
+                                <TextInput style={styles.editDetails}
+                                placeholder={name}
+                                placeholderTextColor={"#444"}
+                                onChangeText={handleName}
+                                />
 
                         </View>
 
-                        <Text style={{fontSize:12}}>Current Password</Text>
-                        <View style={styles.editDetails}>
-                                <TextInput value={name} onChangeText={value=>setName(value)} editable={true} secureTextEntry/>
+                        <Text style={{fontSize:16}}>Current Password</Text>
+                        <View >
+                                <TextInput style={styles.editDetails} 
+                                placeholder="Current Password"
+                                placeholderTextColor={"#444"}
+                                secureTextEntry/>
 
                         </View>
 
-                        <Text style={{fontSize:12}}>New Password</Text>
-                        <View style={styles.editDetails}>
-                                <TextInput value={name} onChangeText={value=>setName(value)} editable={true} secureTextEntry/>
+                        <Text style={{fontSize:16}}>New Password</Text>
+                        <View >
+                                <TextInput style={styles.editDetails} 
+                                placeholder="New Password"
+                                placeholderTextColor={"#444"}
+                                secureTextEntry/>
 
                         </View>
-                        <Text style={{fontSize:12}}>New Password</Text>
-                        <View style={styles.editDetails}>
-                                <TextInput value={name} onChangeText={value=>setName(value)} editable={true} secureTextEntry/>
+
+                        <Text style={{fontSize:16}}>New Password</Text>
+                        <View >
+                                <TextInput style={styles.editDetails} 
+                                placeholder="New Password"
+                                placeholderTextColor={"#444"}
+                                secureTextEntry/>
 
                         </View>
                     </View> 
-                <TouchableOpacity style={styles.saveContainer}>
+                <TouchableOpacity style={styles.saveContainer} onPress={handleSaveButton}>
                     <Text style={{color:Colors.onPrimary, fontSize:20}}>Save Changes</Text>
 
                 </TouchableOpacity>
@@ -147,7 +173,7 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         //marginVertical:-20,
         position: "absolute",
-        marginTop: 10,
+        marginTop: 0,
       },
       imageContainer2: {
         marginLeft: 30,
@@ -167,20 +193,19 @@ const styles = StyleSheet.create({
       details:{
         flexDirection:"column",
         marginBottom:20,
-        paddingTop:150,
+        paddingTop:130,
+        marginLeft:-15
         
       },
       editDetails:{
-        marginTop:10,
+        backgroundColor:"#aaa",
+        color:"#000",
+        width:270,
+        height:35,
+        marginTop:15,
         marginBottom:20,
-        height:30,
-        width:"100%",
-        borderColor:Colors.dark,
-        borderWidth:1,
-        borderRadius:4,
-        marginVertical:6,
-        justifyContent:"center",
-        padding:20
+        borderRadius:10,
+        paddingLeft:20
       },
 
       saveContainer:{

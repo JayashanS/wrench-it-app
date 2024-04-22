@@ -63,7 +63,7 @@ const ContactUs=()=>{
                 <View style={styles.contactContainer}>
                     <View style={styles.detailContainer}>
                         <Text style={{fontSize:18}}>M.N.M SAJADH  </Text>
-                        <Text style={{fontSize:16}}>sajad@gmail.com </Text>
+                        <Text style={{fontSize:16}}>sajathahamedab33@gmail.com </Text>
                         <Text style={{fontSize:16}}>+94(76) 6943163 </Text>
                     </View>
                 </View>
