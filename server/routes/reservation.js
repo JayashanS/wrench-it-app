@@ -25,8 +25,6 @@ router.get("/garage/:garageId", getReservationsByGarageId);
 
 router.delete("/:id", deleteReservation);
 router.delete("/:id", deletePendingReservation);
-
 router.put("/:id", updateReservation);
-router.put("/accept/:id", acceptReservation);
 
 module.exports = router;

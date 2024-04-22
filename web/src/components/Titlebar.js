@@ -135,7 +135,7 @@ function Titlebar() {
   const handleSoundToggle = () => {
     const audio = audioRef.current;
     if (audio.paused) {
-      audio.loop = true;
+      audio.loop = false;
       audio.play();
       setIsPlaying(true);
     } else {

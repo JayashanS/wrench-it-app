@@ -245,7 +245,7 @@ const acceptReservation = async (req, res) => {
       { _id: id },
       {
         $set: {
-          reservationStatus: reservationStatus,
+          reservationStatus: status,
         },
       },
       { new: true }
