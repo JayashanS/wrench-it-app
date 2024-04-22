@@ -97,7 +97,7 @@ const NewRequest = ({ route }) => {
       socket.emit("location", { longitude, latitude, garageId });
 
       Alert.alert("Success", "Request has been sent successfully.", [
-        { text: "OK", onPress: () => navigation.navigate("Reservation") },
+        { text: "OK", onPress: () => navigation.navigate("Ongoing") },
       ]);
     } catch (error) {
       console.error("Error saving request:", error);

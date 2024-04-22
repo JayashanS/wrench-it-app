@@ -6,16 +6,19 @@ import "mapbox-gl/dist/mapbox-gl.css";
 const MapWithDirections = ({ startLocation, endLocation }) => {
   const mapContainerRef = useRef(null);
   const instructionsContainerRef = useRef(null);
+  const mapRef = useRef(null);
 
   useEffect(() => {
     mapboxgl.accessToken = `${process.env.REACT_APP_API_TOKEN}`;
 
-    const map = new mapboxgl.Map({
+    mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/streets-v12",
       center: startLocation.coordinates,
       zoom: 12,
     });
+
+    const map = mapRef.current;
 
     map.on("load", () => {
       // Add starting point to the map
@@ -98,9 +101,7 @@ const MapWithDirections = ({ startLocation, endLocation }) => {
         },
       };
 
-      if (map.getSource("route")) {
-        map.getSource("route").setData(geojson);
-      } else {
+      if (!map.getSource("route")) {
         map.addLayer({
           id: "route",
           type: "line",
@@ -118,6 +119,8 @@ const MapWithDirections = ({ startLocation, endLocation }) => {
             "line-opacity": 0.75,
           },
         });
+      } else {
+        map.getSource("route").setData(geojson);
       }
 
       // Update instructions in React component

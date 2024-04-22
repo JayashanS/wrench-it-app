@@ -8,18 +8,19 @@ import TextField from "@mui/material/TextField";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import CallIcon from "@mui/icons-material/Call";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import MinorCrashIcon from "@mui/icons-material/MinorCrash";
 import Directions from "./Directions";
-import MessageBox from "./MessageBox";
-import { lightBlue } from "@mui/material/colors";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:4000");
 
 export default function Request() {
   const [incomingOutput, setIncoming] = useState("");
   const [startLocation, setStartLocation] = useState(null);
   const [endLocation, setEndLocation] = useState(null);
   const [email, setEmail] = useState("");
+  const [responseText, setResponseText] = useState(""); // Renamed from `response`
   const [decisionBoxData, setDecisionBoxData] = useState({
     _id: "",
     vehicle: "",
@@ -43,6 +44,7 @@ export default function Request() {
     fetchUserEmail();
     incoming();
   }, []);
+
   useEffect(() => {
     const fetchGarageData = async () => {
       try {
@@ -67,6 +69,40 @@ export default function Request() {
     fetchGarageData();
     incoming();
   }, [email]);
+
+  useEffect(() => {
+    socket.on("location", () => {
+      incoming();
+    });
+
+    return () => {
+      socket.off("location");
+    };
+  }, [email]);
+
+  const handleResponseChange = (event) => {
+    setResponseText(event.target.value);
+  };
+
+  const acceptAndSendResponse = async (id, response) => {
+    try {
+      const data = {
+        status: "Accepted",
+        response: response,
+      };
+
+      const res = await axios.put(
+        `http://localhost:4000/api/request/acc/${id}`,
+        data
+      );
+
+      console.log("Response Data:", res.data);
+      socket.emit("responding");
+      incoming();
+    } catch (error) {
+      console.error("Error accepting and sending response:", error);
+    }
+  };
 
   const incoming = async () => {
     try {
@@ -286,11 +322,16 @@ export default function Request() {
               size="small"
               multiline
               style={{ width: "50%", marginRight: "16px" }}
+              value={responseText}
+              onChange={handleResponseChange}
             />
             <Stack spacing={1} direction="row">
               <Button
                 variant="contained"
                 style={{ color: "white", textTransform: "none" }}
+                onClick={() =>
+                  acceptAndSendResponse(decisionBoxData._id, responseText)
+                }
               >
                 Accept and Send
               </Button>

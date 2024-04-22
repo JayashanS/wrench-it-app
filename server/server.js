@@ -80,6 +80,11 @@ io.on("connection", (socket) => {
     // Broadcast the location data to all connected clients
     io.emit("location", data);
   });
+
+  socket.on("responding", () => {
+    console.log("Received response ");
+    io.emit("responding");
+  });
 });
 
 // Connect to the database and start listening
