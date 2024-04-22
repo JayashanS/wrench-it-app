@@ -22,7 +22,7 @@ import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 import "../styles/Titlebar.css";
-import Sound from "../assets/sound_4.mp3";
+import Sound from "../assets/sound.mp3";
 import Mennu from "./Menu";
 
 function Titlebar() {
@@ -61,7 +61,7 @@ function Titlebar() {
       if (data.garageId === email) {
         const audio = audioRef.current;
         if (audio.paused) {
-          audio.loop = true;
+          audio.loop = false;
           audio.play();
           setIsPlaying(true);
         } else {
@@ -135,7 +135,7 @@ function Titlebar() {
   const handleSoundToggle = () => {
     const audio = audioRef.current;
     if (audio.paused) {
-      audio.loop = true;
+      audio.loop = false;
       audio.play();
       setIsPlaying(true);
     } else {

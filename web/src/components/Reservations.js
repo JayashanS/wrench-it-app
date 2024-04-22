@@ -10,6 +10,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import axios from "axios";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:4000");
 
 function Reservations() {
   const [email, setEmail] = useState("");
@@ -37,16 +40,26 @@ function Reservations() {
     fetchEmailFromLocalStorage();
   }, []);
 
+  useEffect(() => {
+    socket.on("reserve", () => {
+      getPendingReservations();
+    });
+
+    return () => {
+      socket.off("reserve");
+    };
+  }, [email]);
   const decline_reservation = async (id) => {
     try {
       const updatedData = {
-        reservationStatus: "Declined",
+        status: "Declined",
       };
 
       const response = await axios.put(
         `http://localhost:4000/api/reservation/${id}`,
         updatedData
       );
+      socket.emit("reserve");
 
       console.log("Update successful:", response.data);
       getPendingReservations();
@@ -65,10 +78,10 @@ function Reservations() {
         `http://localhost:4000/api/reservation/${id}`,
         updatedData
       );
+      socket.emit("reserve");
 
       console.log("Accept successful:", response.data);
 
-      accept_reservation();
       getPendingReservations();
       fetchAcceptedReservationsData();
     } catch (error) {
@@ -132,6 +145,7 @@ function Reservations() {
                 style={{
                   textTransform: "none",
                   color: "white",
+
                   width: "100px",
                 }}
               >
@@ -227,7 +241,7 @@ function Reservations() {
   const complete_reservation = async (id) => {
     try {
       const updatedData = {
-        reservationStatus: "Completed",
+        status: "Completed",
       };
       const response = await axios.put(
         `http://localhost:4000/api/reservation/${id}`,
@@ -235,6 +249,7 @@ function Reservations() {
       );
       setData((prevData) => prevData.filter((item) => item._id !== id));
       console.log("Update successful:", response.data);
+      socket.emit("reserve");
     } catch (error) {
       console.error("Error updating reservation:", error);
     }

@@ -13,6 +13,8 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Colors from "../../constants/Colors";
+import socketIOClient from "socket.io-client";
+const ENDPOINT = `http://${process.env.EXPO_PUBLIC_IP}:4000`;
 
 const NewReservationScreen = ({ route }) => {
   const [fault, setFault] = useState("");
@@ -92,6 +94,8 @@ const NewReservationScreen = ({ route }) => {
       if (!response.ok) {
         throw new Error("Failed to save reservation");
       }
+      const socket = socketIOClient(ENDPOINT);
+      socket.emit("reserve");
 
       Alert.alert("Success", "Reservation has been sent successfully.", [
         { text: "OK", onPress: () => navigation.navigate("Reservation") },

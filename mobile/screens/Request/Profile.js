@@ -26,7 +26,7 @@ const ProfileScreen = () => {
   const garageId = garages.garageId;
   const address = `${garages.street}, ${garages.city}, ${garages.state}`;
   const centerName = garages.repairCenterName;
-  console.log("Garages object:", garages);
+  //console.log("Garages object:", garages);
 
   const imagePaths = [require("../../assets/profileImage3.jpg")];
   const [count, setCount] = useState(1);

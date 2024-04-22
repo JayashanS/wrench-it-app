@@ -14,10 +14,12 @@ import ReservationNavigator from "./routes/ReservationNavigator";
 import ChatNavigator from "./routes/ChatNavigator";
 import ProfileScreen from "./screens/Common/Profile";
 import EditProfile from "./screens/Common/EditProfile";
+import ContactUs from "./screens/Common/ContactUs";
 import Login from "./screens/Auth/Login";
 import SignUp from "./screens/Auth/SignUp";
 import RepairHistory from "./screens/Repair/RepairHistory";
 import MapScreen from "./screens/Common/MapView";
+import Ongoing from "./screens/Common/Ongoing";
 import Colors from "./constants/Colors";
 import { AuthContextProvider } from "./context/AuthContext";
 
@@ -115,6 +117,11 @@ export default function App() {
             component={EditProfile}
             options={{ headerShown: false }}
           />
+           <Stack.Screen
+            name="Contact"
+            component={ContactUs}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen
             name="Login"
             component={Login}
@@ -135,6 +142,20 @@ export default function App() {
             component={RepairHistory}
             options={{
               title: "Repair History",
+              headerStyle: {
+                backgroundColor: "#125C75",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Ongoing"
+            component={Ongoing}
+            options={{
+              title: "Ongoing",
               headerStyle: {
                 backgroundColor: "#125C75",
               },

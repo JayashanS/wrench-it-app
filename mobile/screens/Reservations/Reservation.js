@@ -12,6 +12,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Reservation from "../../components/ReservationCard";
 import FontSize from "../../constants/FontSize";
 import Colors from "../../constants/Colors";
+import socketIOClient from "socket.io-client";
+
+const ENDPOINT = `http://${process.env.EXPO_PUBLIC_IP}:4000`;
 
 const ReservationScreen = () => {
   const navigation = useNavigation();
@@ -34,6 +37,17 @@ const ReservationScreen = () => {
 
     fetchEmailFromAsyncStorage();
   }, []);
+
+  useEffect(() => {
+    const socket = socketIOClient(ENDPOINT);
+    socket.on("reserve", () => {
+      fetchReservations(email);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [email]);
 
   const fetchReservations = async (userEmail) => {
     try {

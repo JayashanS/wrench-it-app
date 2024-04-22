@@ -34,19 +34,22 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 30vh;
+    height: 42vh;
     background-color: #ffffff;
     border-radius: 2px;
+    overflow: auto;
  }
 
  .accepted-request{
     display: flex;
+    flex-direction: column;
     width: 100%;
     margin-top: 4%;
     margin-bottom: 4%;
-    height: 40vh;
+    height: 42vh;
     border-radius: 2px;
     background-color: #ffffff;
+    overflow: auto;
  }
 
 .map{

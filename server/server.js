@@ -60,25 +60,29 @@ app.use("/api/bill", billRoutes);
 
 // WebSocket logic
 io.on("connection", (socket) => {
-  console.log("Client connected");
+  //console.log("Client connected");
 
   socket.on("message", (data) => {
-    console.log("Received message:", data);
-
-    // Broadcast the message to all connected clients
+    //console.log("Received message:", data);
     io.emit("message", data);
   });
 
   socket.on("disconnect", () => {
-    console.log("Client disconnected");
+    //console.log("Client disconnected");
   });
 
-  // Log data received on the "location" event
   socket.on("location", (data) => {
-    console.log("Received Garage Id:", data);
-
-    // Broadcast the location data to all connected clients
+    //console.log("Received Garage Id:", data);
     io.emit("location", data);
+  });
+
+  socket.on("responding", () => {
+    //console.log("Received response ");
+    io.emit("responding");
+  });
+  socket.on("reserve", () => {
+    //console.log("Received reservation ");
+    io.emit("reserve");
   });
 });
 
