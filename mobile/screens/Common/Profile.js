@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   View,
   Text,
@@ -19,15 +19,56 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ReservationScreen from "../Reservations/Reservation";
 
 
+
+
 const [selectedImage, setSelectedImage] = [
   require("../../assets/user_profile.png"),
 ];
 const handleImageSelect = () => {};
 
+
+
 const windowWidth = Dimensions.get("window").width;
 
 const ProfileScreen = () => {
   const navigation = useNavigation(); //invoke
+
+  const [email, setEmail] = useState("");
+  const [displayUrl,setDisplayUrl]=useState("");
+
+useEffect(() => {
+  const fetchEmailFromAsyncStorage = async () => {
+    try {
+      const userData = await AsyncStorage.getItem("user");
+      if (userData) {
+        const { email } = JSON.parse(userData);
+        setEmail(email);
+      }
+    } catch (error) {
+      console.error("Error fetching email from AsyncStorage:", error);
+    }
+  };
+
+  fetchEmailFromAsyncStorage();
+}, []);
+
+
+useEffect(() => {
+  const getImage = async () => {
+    try {
+      const photoResponse = await fetch(`http://${process.env.EXPO_PUBLIC_IP}:4000/api/photo/user/${email}.jpg`);
+      if (photoResponse.ok) {
+        setDisplayUrl({ uri: photoResponse.url });
+      } else {
+        throw new Error("Failed to retrieve uploaded photo.");
+      }
+    } catch (error) {
+      console.error("Error uploading photo:", error);
+    }
+  }
+
+  getImage();
+}, [email]);
   
   
   const { logout } = useLogout();
@@ -68,13 +109,13 @@ const ProfileScreen = () => {
 
         <View style={styles.imageContainer}>
           <TouchableOpacity onPress={handleImageSelect}>
-            <Image source={selectedImage} style={styles.imageContainer2} />
+            <Image source={displayUrl} style={styles.imageContainer2} />
           </TouchableOpacity>
         </View>
 
         <View style={styles.customerNameCon1}>
           <Text style={styles.customerNameCon2}>K.K.S.Silva</Text>
-          <Text style={styles.customerNameCon2}>0778149714</Text>
+         
         </View>
       </View>
 
