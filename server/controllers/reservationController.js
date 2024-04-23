@@ -262,18 +262,12 @@ const acceptReservation = async (req, res) => {
   }
 };
 
-// Function to retrieve reservations by garageId
 const getReservationsByGarageId = async (req, res) => {
-  const { garageId } = req.params;
+  const garageId = req.params.garageId;
 
   try {
-    const hashedGarageId = crypto
-      .createHash("sha256")
-      .update(garageId)
-      .digest("hex");
-    const reservations = await Reservation.find({
-      reservationtId: { $regex: `.*${hashedGarageId}` },
-    });
+    const reservations = await Reservation.find({ garageId });
+
     res.status(200).json(reservations);
   } catch (error) {
     res.status(500).json({ error: "Could not fetch reservations" });

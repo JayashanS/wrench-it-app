@@ -9,30 +9,20 @@ const AddForm = ({ garageId }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/api/reservation/get/${garageId}`)
+      .get(`http://localhost:4000/api/reservation/garage/${garageId}`)
       .then((response) => setReservations(response.data))
       .catch((error) => console.error("Error fetching reservations:", error));
     axios
-      .get(`http://localhost:4000/api/request`)
+      .get(`http://localhost:4000/api/request/garage/${garageId}`)
       .then((response) => setRequests(response.data))
       .catch((error) => console.error("Error fetching requests:", error));
   }, [garageId]);
 
   const handleSendToRepair = (record) => {
     axios
-      .post("http://localhost:4000/api/repair", record)
+      .post(`http://localhost:4000/api/repair/create/${garageId}`, record)
       .then((response) => {
         console.log("Data sent to repair:", response.data);
-        axios
-          .get(`http://localhost:4000/api/reservation/get/${garageId}`)
-          .then((response) => setReservations(response.data))
-          .catch((error) =>
-            console.error("Error fetching reservations:", error)
-          );
-        axios
-          .get("http://localhost:4000/api/request")
-          .then((response) => setRequests(response.data))
-          .catch((error) => console.error("Error fetching requests:", error));
       })
       .catch((error) => console.error("Error sending data to repair:", error));
   };

@@ -56,9 +56,7 @@ function Repair() {
   const [totalCost, setTotalCost] = useState(0);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-
-  
- const toggleAccordion = () => {
+  const toggleAccordion = () => {
     setIsAccordionOpen(!isAccordionOpen);
   };
 
@@ -309,7 +307,7 @@ function Repair() {
         >
           <DialogTitle>Add New Repair Record From</DialogTitle>
           <DialogContent>
-            <AddForm garageId="yourGarageId" />
+            <AddForm garageId={email} />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseDialog}>Close</Button>

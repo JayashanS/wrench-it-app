@@ -225,6 +225,19 @@ const updateRequestStatusAndResponse = async (req, res) => {
   }
 };
 
+const getRequestsByGarageId = async (req, res) => {
+  const garageId = req.params.garageId;
+  try {
+    const requests = await Request.find({ garageId });
+    res.status(200).json(requests);
+  } catch (error) {
+    console.error("Error fetching requests by garageId:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching requests by garageId" });
+  }
+};
+
 module.exports = {
   createRequest,
   deleteRequest,
@@ -236,4 +249,5 @@ module.exports = {
   checkStatus,
   getUserRequests,
   updateRequestStatusAndResponse,
+  getRequestsByGarageId,
 };
