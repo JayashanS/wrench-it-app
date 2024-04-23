@@ -5,23 +5,22 @@ const {
   getAllRequests,
   insertManyRequests,
   getIncomingRequests,
+  getAcceptedRequests,
   updateRequestStatus,
-  acceptRequest,
-  getAcceptedRequest,
-  holdRequest,
-  getholdRequest,
+  getUserRequests,
+  updateRequestStatusAndResponse,
+  getRequestsByGarageId,
 } = require("../controllers/requestController");
 const router = express.Router();
 
 router.post("/", createRequest);
 router.post("/n", insertManyRequests);
 router.get("/", getAllRequests);
+router.get("/user/:userEmail", getUserRequests);
+router.get("/garage/:garageId", getRequestsByGarageId);
 router.delete("/:id", deleteRequest);
-router.get("/incoming",getIncomingRequests);
-router.put("/dec/:id",updateRequestStatus);
-router.put("/accept/:id",acceptRequest);
-router.get("/accpeted",getAcceptedRequest);
-router.put("/hold/:id",holdRequest);
-router.get("/holding",getholdRequest);
-
+router.get("/incoming/:garageId", getIncomingRequests);
+router.get("/accepted/:garageId", getAcceptedRequests);
+router.put("/dec/:id", updateRequestStatus);
+router.put("/acc/:id", updateRequestStatusAndResponse);
 module.exports = router;

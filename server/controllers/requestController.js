@@ -1,4 +1,5 @@
 const Request = require("../models/requestModel");
+const Garage = require("../models/garageModel");
 
 const createRequest = async (req, res) => {
   const {
@@ -69,12 +70,31 @@ const updateRequestStatus = async (req, res) => {
 };
 
 const getIncomingRequests = async (req, res) => {
+  const { garageId } = req.params;
+
   try {
-    const incomingRequests = await Request.find({ status: "Incoming" });
+    const incomingRequests = await Request.find({
+      status: "Incoming",
+      garageId: garageId,
+    });
     res.status(200).json(incomingRequests);
   } catch (error) {
     console.error("Error fetching incoming requests:", error);
     res.status(500).json({ error: "Could not fetch incoming requests" });
+  }
+};
+const getAcceptedRequests = async (req, res) => {
+  const { garageId } = req.params;
+
+  try {
+    const acceptedRequests = await Request.find({
+      status: "Accepted",
+      garageId: garageId,
+    });
+    res.status(200).json(acceptedRequests);
+  } catch (error) {
+    console.error("Error fetching accepted requests:", error);
+    res.status(500).json({ error: "Could not fetch accepted requests" });
   }
 };
 
@@ -128,13 +148,65 @@ const checkStatus = async (req, res) => {
   }
 };
 
-const acceptRequest = async (req, res) => {
+const getUserRequests = async (req, res) => {
+  const { userEmail } = req.params;
+
+  try {
+    const userRequests = await Request.aggregate([
+      {
+        $match: { userEmail },
+      },
+      {
+        $lookup: {
+          from: "garages",
+          localField: "garageId",
+          foreignField: "garageId",
+          as: "garageDetails",
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          licensePlateNo: 1,
+          model: 1,
+          fault: 1,
+          userEmail: 1,
+          garageId: 1,
+          phoneNo: 1,
+          date: 1,
+          response: 1,
+          status: 1,
+          "garageDetails.repairCenterName": 1,
+          combinedAddress: {
+            $concat: [
+              { $arrayElemAt: ["$garageDetails.city", 0] },
+              ", ",
+              { $arrayElemAt: ["$garageDetails.street", 0] },
+              ", ",
+              { $arrayElemAt: ["$garageDetails.state", 0] },
+              ", ",
+              { $arrayElemAt: ["$garageDetails.postalCode", 0] },
+            ],
+          },
+        },
+      },
+    ]);
+
+    res.status(200).json(userRequests);
+  } catch (error) {
+    console.error("Error fetching user requests:", error);
+    res.status(500).json({ error: "Could not fetch user requests" });
+  }
+};
+
+const updateRequestStatusAndResponse = async (req, res) => {
   const requestId = req.params.id;
+  const { status, response } = req.body;
 
   try {
     const updatedRequest = await Request.findByIdAndUpdate(
       requestId,
-      { requestStatus: "Accepted" },
+      { status, response },
       { new: true }
     );
 
@@ -146,18 +218,23 @@ const acceptRequest = async (req, res) => {
 
     res.status(200).json(updatedRequest);
   } catch (error) {
-    console.error("Error updating request status:", error);
-    res.status(500).json({ error: "Could not update request status" });
+    console.error("Error updating request status and response:", error);
+    res
+      .status(500)
+      .json({ error: "Could not update request status and response" });
   }
 };
 
-const getAcceptedRequest = async (req, res) => {
+const getRequestsByGarageId = async (req, res) => {
+  const garageId = req.params.garageId;
   try {
-    const incomingRequests = await Request.find({ requestStatus: "Accepted" });
-    res.status(200).json(incomingRequests);
+    const requests = await Request.find({ garageId });
+    res.status(200).json(requests);
   } catch (error) {
-    console.error("Error fetching incoming requests:", error);
-    res.status(500).json({ error: "Could not fetch incoming requests" });
+    console.error("Error fetching requests by garageId:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching requests by garageId" });
   }
 };
 
@@ -168,7 +245,9 @@ module.exports = {
   getAllRequests,
   updateRequestStatus,
   getIncomingRequests,
+  getAcceptedRequests,
   checkStatus,
-  acceptRequest,
-  getAcceptedRequest,
+  getUserRequests,
+  updateRequestStatusAndResponse,
+  getRequestsByGarageId,
 };
