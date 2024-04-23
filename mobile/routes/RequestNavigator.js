@@ -6,6 +6,7 @@ import NewRequest from "../screens/Request/NewRequest";
 import RequestSuccess from "../screens/Request/RequestSuccess";
 import NearByCenters from "../screens/Request/NearByCenters";
 import NewReservation from "../screens/Reservations/NewReservation";
+import AddReview from "../screens/Request/AddReview";
 const Stack = createStackNavigator();
 
 export default function RequestStack() {
@@ -69,6 +70,22 @@ export default function RequestStack() {
           },
         }}
       />
+
+<Stack.Screen
+        name="AddReview"
+        options={{
+          title: "NewRequest",
+          headerStyle: {
+            backgroundColor: "#125C75",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+        component={AddReview}
+      />
+
     </Stack.Navigator>
   );
 }

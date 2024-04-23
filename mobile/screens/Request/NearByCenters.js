@@ -50,7 +50,7 @@ const NearByCenters = () => {
   }, []);
 
   const navigateToProfileScreen = (garage) => {
-    console.log("Navigating to Profile screen with garage data:", garage);
+  
     navigation.navigate("Profile", { garages: garage });
   };
 

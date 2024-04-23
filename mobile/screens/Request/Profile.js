@@ -8,7 +8,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Image,
-  Alert,
+
 } from "react-native";
 import {
   ScrollView,
@@ -48,6 +48,10 @@ const ProfileScreen = () => {
   };
   const requestAssistance = () => {
     navigation.navigate("NewRequest", { garageId, centerName, address });
+  };
+
+  const openAddReviewComponent=()=>{
+    navigation.navigate("AddReview");
   };
   useEffect(() => {
     // Extract the location details from the garage object
@@ -121,7 +125,7 @@ const ProfileScreen = () => {
 
         <View style={styles.details}>
           <View style={styles.titleRow}>
-            <Text>{garages.repairCenterName}</Text>
+            <Text style={styles.namestyle}>{garages.repairCenterName}</Text>
           </View>
         </View>
 
@@ -141,7 +145,16 @@ const ProfileScreen = () => {
             <TouchableOpacity onPress={() => decrement()}>
               <SimpleLineIcons name="minus" size={24} />
             </TouchableOpacity>
+        
           </View>
+          <View style={styles.reviewContainer}>
+          <TouchableOpacity onPress={openAddReviewComponent}>
+            <View style={styles.review}>
+              <Ionicons name="book-sharp" size={20} color="gray" />
+              <Text style={styles.contacttext}> Add Review</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         </View>
 
         <View style={styles.contactContainer}>
@@ -281,6 +294,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     color: "#2c3e50",
     marginTop: 10,
+    textAlign: "center",
   },
 
   searchContainer: {
@@ -305,6 +319,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#D1D0CF",
     marginRight: 5,
     borderRadius: 5,
+    fontSize: 16,
   },
 
   searchInput: {
@@ -315,6 +330,9 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     alignItems: "center",
+    borderRadius: 6,
+   
+  
   },
   image: {
     width: "100%",
@@ -323,6 +341,13 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     borderRadius: 15,
     marginVertical: 15,
+  },
+  namestyle:{
+    fontWeight: "bold",
+    fontSize: 25,
+    alignContent: "center",
+    color: "#2c3e50",
+   
   },
   details: {
     marginTop: 0,
@@ -352,11 +377,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     top: 5,
+    marginVertical: 10,
   },
   rating: {
     top: 10,
     flexDirection: "row",
-    justifyContent: "flex-start",
     alignItems: "center",
     marginHorizontal: 10,
   },
@@ -368,7 +393,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     alignSelf: "center",
-    bottom: -10,
+    marginTop: 10,
+ 
   },
   contacttext: {
     color: "#FFFFFF",
@@ -380,13 +406,34 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  reviewContainer: {
+    marginTop:10,
+    backgroundColor: "#9CBEC8",
+    borderRadius: 5,
+    width: 110,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    alignSelf: "center",
+    bottom: -7,
+  },
+  review: {
+    padding: 5,
+    marginLeft: 5,
+    flexDirection: "row",
+    alignItems: "center",
+  },
   TimeContainer: {
     backgroundColor: "#F1EEFF",
     borderRadius: 10,
-    marginVertical: 20,
-    paddingBottom: 5,
-    width: "100%",
+    marginVertical: 1,
+    padding: 20,
+    width: "95%",
     alignSelf: "center",
+    paddingBottom: 5,
+    margin: 10,
+    marginTop: 10,
+    elevation: 3,
   },
   Time: {
     padding: 5,
@@ -432,11 +479,15 @@ const styles = StyleSheet.create({
   },
   locationContainer: {
     backgroundColor: "#F1EEFF",
-    borderRadius: 6,
-    marginVertical: -10,
-    padding: 0,
-    width: "100%",
+    borderRadius: 10,
+    marginVertical: 1,
+    padding: 20,
+    width: "95%",
     alignSelf: "center",
+    paddingBottom: 5,
+    margin: 10,
+    marginTop: 10,
+    elevation: 3,
   },
   location: {
     padding: 8,
@@ -445,23 +496,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   mapContainer: {
-    marginVertical: 0,
-    width: 400,
-    height: 200,
-    padding: 8,
-    borderRadius: 0,
-    borderColor: "gray",
-    justifyContent: "center",
-    paddingLeft: 30,
+    backgroundColor: "#F1EEFF",
+    borderRadius: 6,
+    marginVertical: 1,
+    padding: 20,
+    width: "95%",
+    alignSelf: "center",
   },
 
   priceContainer: {
     backgroundColor: "#F1EEFF",
-    borderRadius: 6,
-    marginVertical: 20,
-    paddingBottom: 5,
-    width: "100%",
+    borderRadius: 10,
+    marginVertical: 1,
+    padding: 20,
+    width: "95%",
     alignSelf: "center",
+    paddingBottom: 5,
+    margin: 10,
+    marginTop: 10,
+    elevation: 3,
   },
 
   Price: {
@@ -473,11 +526,15 @@ const styles = StyleSheet.create({
 
   serviceContainer: {
     backgroundColor: "#F1EEFF",
-    borderRadius: 6,
-    marginVertical: -10,
-    paddingBottom: 20,
-    width: "100%",
+    borderRadius: 10,
+    marginVertical: 1,
+    padding: 20,
+    width: "95%",
     alignSelf: "center",
+    paddingBottom: 5,
+    margin: 10,
+    marginTop: 10,
+    elevation: 3,
   },
 
   Service: {
@@ -511,11 +568,15 @@ const styles = StyleSheet.create({
 
   requestButtonContainer: {
     backgroundColor: "#F1EEFF",
-    borderRadius: 6,
-    marginVertical: -10,
-    paddingBottom: 20,
-    width: "100%",
+    borderRadius: 10,
+    marginVertical: 1,
+    padding: 20,
+    width: "95%",
     alignSelf: "center",
+    paddingBottom: 5,
+    margin: 10,
+    marginTop: 10,
+    elevation: 3,
   },
   request: {
     padding: 20,
