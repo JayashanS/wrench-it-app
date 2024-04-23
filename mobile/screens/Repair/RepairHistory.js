@@ -56,6 +56,8 @@ const RepairHistory = () => {
   };
 
 
+
+
   return (
     <ScrollView>  
       <View style={styles.container}>
@@ -66,10 +68,10 @@ const RepairHistory = () => {
 
         {repairData.map((item) => (
           <View key={item._id} style={styles.card}>
-            <Text style={styles.title}>{item.name}</Text>
-            <Text style={styles.address}>{item.address}</Text>
+            <Text style={styles.title}>{item.garageDetails[0].repairCenterName}</Text>
+            <Text style={styles.address}>{item.combinedAddress}</Text>
             <Text style={styles.vehicle}>Vehicle: {item.model}</Text>
-            <Text style={styles.date}>Started On {item.date}</Text>
+            <Text style={styles.date}>Started On {new Date(item.date).toLocaleDateString()}</Text>
             <Text style={styles.fault}>Fault: {item.fault}</Text>
 
             <TouchableOpacity style={styles.button}>
