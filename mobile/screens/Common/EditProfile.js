@@ -24,8 +24,10 @@ import * as ImagePicker from "expo-image-picker";
 const windowWidth = Dimensions.get('window').width;
 
 const EditProfile=()=>{
-    const [name,setName]=useState("kavishka");
-    const [password,setPassword]=useState("random");
+    const [name,setName]=useState("");
+    const [cPassword,setCPassword]=useState("");
+    const [nPassword,setNPassword]=useState("");
+    const [n2Password,setN2Password]=useState("");
 
     const navigation = useNavigation(); 
     const [selectedImage, setSelectedImage] = [
@@ -53,10 +55,29 @@ const EditProfile=()=>{
     const handleName=(n)=>{
         setName(n);
     }
+    const handleCpassword=(n)=>{
+        setCPassword(n);
+    }
+    const handlenPassword=(n)=>{
+        setNPassword(n);
+    }
+    const handlen2Password=(n)=>{
+        setN2Password(n);
+    }
     const handleSaveButton=()=>{
+       
+        if (!name || !cPassword || !nPassword || !n2Password) {
+            Alert.alert("Field can not be empty");
+        } else if (cPassword === nPassword) {
+            Alert.alert("New password should not be the same as the current password");
+        } else if (nPassword !== n2Password) {
+            Alert.alert("New password and confirm new password do not match");
+        } else {
+           
+            Alert.alert("Successfully Updated");
+            handlePress();
+        }
         
-        Alert.alert("Successfully Updated");
-        handlePress();
     }; 
     
     return(
@@ -84,7 +105,7 @@ const EditProfile=()=>{
                         <Text style={{fontSize:16}}>Name</Text>
                         <View >
                                 <TextInput style={styles.editDetails}
-                                placeholder={name}
+                                //placeholder={name}
                                 placeholderTextColor={"#444"}
                                 onChangeText={handleName}
                                 />
@@ -94,8 +115,9 @@ const EditProfile=()=>{
                         <Text style={{fontSize:16}}>Current Password</Text>
                         <View >
                                 <TextInput style={styles.editDetails} 
-                                placeholder="Current Password"
+                                //placeholder="Current Password"
                                 placeholderTextColor={"#444"}
+                                onChange={handleCpassword}
                                 secureTextEntry/>
 
                         </View>
@@ -103,17 +125,19 @@ const EditProfile=()=>{
                         <Text style={{fontSize:16}}>New Password</Text>
                         <View >
                                 <TextInput style={styles.editDetails} 
-                                placeholder="New Password"
+                                //placeholder="New Password"
                                 placeholderTextColor={"#444"}
+                                onChange={handlenPassword}
                                 secureTextEntry/>
 
                         </View>
 
-                        <Text style={{fontSize:16}}>New Password</Text>
+                        <Text style={{fontSize:16}}>Confirm New Password</Text>
                         <View >
                                 <TextInput style={styles.editDetails} 
-                                placeholder="New Password"
+                                //placeholder="New Password"
                                 placeholderTextColor={"#444"}
+                                onChange={handlen2Password}
                                 secureTextEntry/>
 
                         </View>
@@ -213,6 +237,7 @@ const styles = StyleSheet.create({
         marginTop:5,
         height:44,
         width:"100%",
+        marginLeft:-20,
         borderRadius:6,
         alignItems:"center",
         justifyContent:"center"
