@@ -5,16 +5,12 @@ const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
 };
 
-// login a user
 const loginUser = async (req, res) => {
   const { email, pw } = req.body;
 
   try {
     const user = await User.login(email, pw);
-
-    // create a token
     const token = createToken(user._id);
-
     res.status(200).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -23,7 +19,6 @@ const loginUser = async (req, res) => {
 
 const signupUser = async (req, res) => {
   const { fname, lname, bday, email, pw, cpw } = req.body;
-
   try {
     const user = await User.signup(fname, lname, bday, email, pw, cpw);
     const token = createToken(user._id);
