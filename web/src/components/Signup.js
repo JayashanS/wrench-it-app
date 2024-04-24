@@ -57,8 +57,13 @@ export default function Signup() {
   const { signup, error, isLoading } = useSignup();
 
   const handleSubmit = async (e) => {
-    await signup(fname, lname, bday, email, pw, cpw);
-    navigate("/dashboard");
+    try {
+      await signup(fname, lname, bday, email, pw, cpw);
+    } catch (error) {
+      console.log(error.message);
+    }
+
+    //navigate("/dashboard");
   };
 
   return (
