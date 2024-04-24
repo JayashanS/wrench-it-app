@@ -18,6 +18,7 @@ import ContactUs from "./screens/Common/ContactUs";
 import Login from "./screens/Auth/Login";
 import SignUp from "./screens/Auth/SignUp";
 import RepairHistory from "./screens/Repair/RepairHistory";
+import Billing from "./screens/Repair/Billing";
 import MapScreen from "./screens/Common/MapView";
 import Ongoing from "./screens/Common/Ongoing";
 import Colors from "./constants/Colors";
@@ -140,6 +141,20 @@ export default function App() {
           <Stack.Screen
             name="RepairHistory"
             component={RepairHistory}
+            options={{
+              title: "Repair History",
+              headerStyle: {
+                backgroundColor: "#125C75",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Billing"
+            component={Billing}
             options={{
               title: "Repair History",
               headerStyle: {

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from '@react-navigation/native';
 
 const RepairHistory = () => {
+  const navigation = useNavigation();
+
   const historyData = [
     {
       id: 1,
@@ -14,23 +17,63 @@ const RepairHistory = () => {
     },
   ];
 
+  const [email, setEmail] = useState("");
+  const [repairData, setRepairData] = useState([]);
+
+  useEffect(() => {
+    const fetchEmailFromAsyncStorage = async () => {
+      try {
+        const userData = await AsyncStorage.getItem("user");
+        if (userData) {
+          const { email } = JSON.parse(userData);
+          setEmail(email);
+          fetchRepairs(email);
+        }
+      } catch (error) {
+        console.error("Error fetching email from AsyncStorage:", error);
+      }
+    };
+
+    fetchEmailFromAsyncStorage();
+  }, []);
+
+  useEffect(() => {
+    fetchRepairs(email);
+
+  }, [email]);
+
+  const fetchRepairs = async (userEmail) => {
+    try {
+      const response = await fetch(
+        `http://${process.env.EXPO_PUBLIC_IP}:4000/api/request/user/${userEmail}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch repairs");
+      }
+      const data = await response.json();
+      setRepairData(data);
+    } catch (error) {
+      console.error("Error fetching repairs:", error);
+    }
+  };
+
+  const goToBilling = () => {
+    navigation.navigate('Billing'); 
+  };
+
   return (
     <ScrollView>  
       <View style={styles.container}>
-        <Text style={styles.header}>
-          <Icon name = "chevron-left" size = {24} color = {"white"}></Icon>
-          <Text style={styles.text}>Repair History</Text>
-        </Text>
 
-        {historyData.map((item) => (
-          <View key={item.id} style={styles.card}>
-            <Text style={styles.title}>{item.name}</Text>
-            <Text style={styles.address}>{item.address}</Text>
-            <Text style={styles.vehicle}>Vehicle: {item.vehicle}</Text>
-            <Text style={styles.date}>Started On {item.date}</Text>
+        {repairData.map((item) => (
+          <View key={item._id} style={styles.card}>
+            <Text style={styles.title}>{item.garageDetails[0].repairCenterName}</Text>
+            <Text style={styles.address}>{item.combinedAddress}</Text>
+            <Text style={styles.vehicle}>Vehicle: {item.model}</Text>
+            <Text style={styles.date}>Started On {new Date(item.date).toLocaleDateString()}</Text>
             <Text style={styles.fault}>Fault: {item.fault}</Text>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={goToBilling}>
               <Text style={styles.buttonText}>View Billing</Text>
             </TouchableOpacity>
           </View>
@@ -46,15 +89,6 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#f0f0f0'
   },
-  
-  header: {
-    marginBottom: 10,
-    width: 380,
-    height: 40,
-    marginVertical: 0,
-    color: '#FFFFFF',
-    backgroundColor: '#125C75'
-  },
 
   text:{
     fontSize: 24,
@@ -66,19 +100,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 10,
     padding: 15,
-    borderRadius: 5
-  },
+    borderRadius: 10
+    },
 
   title: {
+    color: '#1782A6',
     fontSize: 18,
     fontWeight: 'bold'
   },
 
   address: {
-    color: 'grey'
+    color: '#1782A6',
   },
 
   vehicle: {
+    color: 'gray',
     marginTop: 5
   },
 
@@ -87,19 +123,20 @@ const styles = StyleSheet.create({
   },
 
   fault: {
-    marginTop: 5
+    marginTop: 5,
+    fontWeight: 'bold'
   },
 
   button: {
     marginTop: 10,
-    backgroundColor: '#00f',
     paddingVertical: 10,
     borderRadius: 5
   },
 
   buttonText: {
-    color: '#fff',
+    color: '#1782A6',
     textAlign: 'center',
+    fontSize: 15,
     fontWeight: 'bold'
   }
 });
