@@ -9,7 +9,7 @@ import {
     TextInput,
     Alert
   } from "react-native";
-import React, { useState }  from 'react'
+import React, { useState,useEffect }  from 'react'
 import Colors from "../../constants/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -17,6 +17,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
@@ -24,15 +25,18 @@ import * as ImagePicker from "expo-image-picker";
 const windowWidth = Dimensions.get('window').width;
 
 const EditProfile=()=>{
-    const [name,setName]=useState("");
+    const [email,setEmail]=useState("");
     const [cPassword,setCPassword]=useState("");
     const [nPassword,setNPassword]=useState("");
     const [n2Password,setN2Password]=useState("");
 
+   
+    const [displayUrl,setDisplayUrl]=useState("");
+
+    
+
     const navigation = useNavigation(); 
-    const [selectedImage, setSelectedImage] = [
-        require("../../assets/user_profile.png"),
-      ];
+    const [selectedImage, setSelectedImage] = useState("");
       
     const handleImageSelect = async() => {
         let result= await ImagePicker.launchImageLibraryAsync({
@@ -53,7 +57,7 @@ const EditProfile=()=>{
 
    
     const handleName=(n)=>{
-        setName(n);
+        setEmail(n);
     }
     const handleCpassword=(n)=>{
         setCPassword(n);
@@ -66,19 +70,81 @@ const EditProfile=()=>{
     }
     const handleSaveButton=()=>{
        
-        if (!name || !cPassword || !nPassword || !n2Password) {
+        if (!email || !cPassword || !nPassword || !n2Password) {
             Alert.alert("Field can not be empty");
-        } else if (cPassword === nPassword) {
+            
+        } else if (cPassword == nPassword) {
+            console.log(cPassword+" "+nPassword);
             Alert.alert("New password should not be the same as the current password");
         } else if (nPassword !== n2Password) {
             Alert.alert("New password and confirm new password do not match");
         } else {
-           
+           handleChangepw();
             Alert.alert("Successfully Updated");
             handlePress();
         }
         
-    }; 
+    }; const handleChangepw = async () => {
+        const editData = {
+        email:email, 
+        currentPassword:cPassword, 
+        newPassword:nPassword, 
+        confirmPassword:n2Password,
+          
+        };
+        console.log(editData);
+        try {
+          const response = await fetch(
+            `http://${process.env.EXPO_PUBLIC_IP}:4000/api/user/changepw`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(editData),
+            }
+          );
+    
+          Alert.alert( "Updated successfully.");
+        } catch (error) {
+          console.error( error);
+          Alert.alert("Error");
+        }
+      };
+      useEffect(() => {
+        const fetchEmailFromAsyncStorage = async () => {
+          try {
+            const userData = await AsyncStorage.getItem("user");
+            if (userData) {
+              const { email } = JSON.parse(userData);
+              setEmail(email);
+            }
+          } catch (error) {
+            console.error("Error fetching email from AsyncStorage:", error);
+          }
+        };
+      
+        fetchEmailFromAsyncStorage();
+      }, []);
+      
+      
+      useEffect(() => {
+        const getImage = async () => {
+          try {
+            const photoResponse = await fetch(`http://${process.env.EXPO_PUBLIC_IP}:4000/api/photo/user/${email}.jpg`);
+            if (photoResponse.ok) {
+              setDisplayUrl({ uri: photoResponse.url });
+            } else {
+              throw new Error("Failed to retrieve uploaded photo.");
+            }
+          } catch (error) {
+            //console.error("Error uploading photo:", error);
+          }
+        }
+      
+        getImage();
+      }, [email]);
+      
     
     return(
         <SafeAreaView style={styles.container}>
@@ -93,7 +159,7 @@ const EditProfile=()=>{
             <View style={styles.bodyContainer}>
                     <View style={styles.imageContainer}>
                         <TouchableOpacity onPress={handleImageSelect}>
-                        <Image source={selectedImage} style={styles.imageContainer2} />
+                        <Image source={displayUrl} style={styles.imageContainer2} />
 
                         <View style={styles.camera}>
                             <MaterialIcons name="photo-camera" size={32} color={Colors.dark}/>
@@ -102,7 +168,7 @@ const EditProfile=()=>{
                     </View> 
                     <View style={styles.details}>
 
-                        <Text style={{fontSize:16}}>Name</Text>
+                        <Text style={{fontSize:16}}>Email</Text>
                         <View >
                                 <TextInput style={styles.editDetails}
                                 //placeholder={name}
@@ -117,7 +183,7 @@ const EditProfile=()=>{
                                 <TextInput style={styles.editDetails} 
                                 //placeholder="Current Password"
                                 placeholderTextColor={"#444"}
-                                onChange={handleCpassword}
+                                onChangeText={handleCpassword}
                                 secureTextEntry/>
 
                         </View>
@@ -127,7 +193,7 @@ const EditProfile=()=>{
                                 <TextInput style={styles.editDetails} 
                                 //placeholder="New Password"
                                 placeholderTextColor={"#444"}
-                                onChange={handlenPassword}
+                                onChangeText={handlenPassword}
                                 secureTextEntry/>
 
                         </View>
@@ -137,7 +203,7 @@ const EditProfile=()=>{
                                 <TextInput style={styles.editDetails} 
                                 //placeholder="New Password"
                                 placeholderTextColor={"#444"}
-                                onChange={handlen2Password}
+                                onChangeText={handlen2Password}
                                 secureTextEntry/>
 
                         </View>

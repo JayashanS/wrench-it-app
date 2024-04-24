@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   View,
   Text,
@@ -17,6 +17,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ReservationScreen from "../Reservations/Reservation";
+import axios from 'axios';
+
+
+
 
 
 const [selectedImage, setSelectedImage] = [
@@ -24,10 +28,51 @@ const [selectedImage, setSelectedImage] = [
 ];
 const handleImageSelect = () => {};
 
+
+
 const windowWidth = Dimensions.get("window").width;
 
 const ProfileScreen = () => {
   const navigation = useNavigation(); //invoke
+
+  const [email, setEmail] = useState("");
+  const [displayUrl,setDisplayUrl]=useState("");
+  const [name, setName] = useState("");
+
+useEffect(() => {
+  const fetchEmailFromAsyncStorage = async () => {
+    try {
+      const userData = await AsyncStorage.getItem("user");
+      if (userData) {
+        const { email } = JSON.parse(userData);
+        setEmail(email);
+      }
+    } catch (error) {
+      console.error("Error fetching email from AsyncStorage:", error);
+    }
+  };
+
+  fetchEmailFromAsyncStorage();
+}, []);
+
+
+useEffect(() => {
+  const getImage = async () => {
+    try {
+      const photoResponse = await fetch(`http://${process.env.EXPO_PUBLIC_IP}:4000/api/photo/user/${email}.jpg`);
+      if (photoResponse.ok) {
+        setDisplayUrl({ uri: photoResponse.url });
+      } else {
+        throw new Error("Failed to retrieve uploaded photo.");
+      }
+    } catch (error) {
+      //console.error("Error uploading photo:", error);
+    }
+  }
+
+  getImage();
+  fetchName(email);
+}, [email]);
   
   
   const { logout } = useLogout();
@@ -50,6 +95,21 @@ const ProfileScreen = () => {
   const handleContactUs = () => {
     navigation.navigate("Contact");
   };
+
+  
+
+  const fetchName = async (email) => {
+    try {
+      const response = await axios.get(`http://${process.env.EXPO_PUBLIC_IP}:4000/api/user/${email}`);
+      const responseData = response.data;
+      setName(`${responseData.fname} `);
+      
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  
+
   
   
   
@@ -68,13 +128,19 @@ const ProfileScreen = () => {
 
         <View style={styles.imageContainer}>
           <TouchableOpacity onPress={handleImageSelect}>
-            <Image source={selectedImage} style={styles.imageContainer2} />
+            <Image source={displayUrl} style={styles.imageContainer2} />
           </TouchableOpacity>
         </View>
 
         <View style={styles.customerNameCon1}>
-          <Text style={styles.customerNameCon2}>K.K.S.Silva</Text>
+          
+            <TouchableOpacity onPress={fetchName}>
+              <Text style={styles.customerNameCon2}>{name}</Text>
+            </TouchableOpacity>
+
+         
           <Text style={styles.customerNameCon2}>0778149714</Text>
+         
         </View>
       </View>
 
