@@ -87,7 +87,7 @@ function App() {
           <Route path="feed" element={<Feedback />} />
         </Route>
       </Routes>
-      <Footer/>
+    
     </Router>
   );
 }

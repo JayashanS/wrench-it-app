@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Billing = () => {
+
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.header}>Billing</Text>
-      
       <View style={styles.section}>
         <Text style={styles.title}>Review Auto Care</Text>
         <Text style={styles.address}>No.65, Galle Road, Colombo</Text>
-        
+
         <View style={styles.info}>
           <Text>Vehicle: AB12365</Text>
           <Text>Model: Toyota</Text>
@@ -17,23 +17,25 @@ const Billing = () => {
         </View>
 
         <View style={styles.diagnosis}>
-          <Text>Diagnosis:</Text>
+          <Text style={{color: '#1782A6', fontWeight: 'bold'}}>Diagnosis:</Text>
           <Text>Intermittent engine misfire during acceleration, accompanied by a slight hesitation in power delivery. Occurs primarily when the vehicle is cold and diminishes as it warms up. No abnormal noises or warning lights present. Suspected ignition coil or spark plug issue.</Text>
         </View>
 
         <View style={styles.parts}>
-          <Text>Parts Replaced:</Text>
+          <Text style={{color:'gray', fontWeight:'bold'}}>Parts Replaced:</Text>
           {['Part 1', 'Part 2', 'Part 3', 'Part 4'].map((part, index) => (
             <Text key={index}>{part}: $5.00</Text>
           ))}
         </View>
 
         <View style={styles.services}>
-          <Text>Services and Charges:</Text>
+          <Text style={{color:'gray' , fontWeight: 'bold'}}>Services and Charges:</Text>
           {['Service 1', 'Service 2', 'Service 3', 'Service 4'].map((service, index) => (
             <Text key={index}>{service}: $5.00</Text>
           ))}
-          <Text>Total Cost: $40.00</Text>
+        </View>
+        <View style={{borderTopColor:'#1782A6',borderTopWidth:2}}>
+          <Text style={{fontWeight: 'bold'}}>Total Cost: $40.00</Text>
         </View>
       </View>
     </ScrollView>
@@ -47,21 +49,17 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     backgroundColor: '#fff',
   },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
   section: {
     marginBottom: 20,
   },
   title: {
+    color: '#1782A6',
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
   },
   address: {
-    color: 'grey',
+    color: '#1782A6',
   },
   info: {
     marginBottom: 10,

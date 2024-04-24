@@ -23,6 +23,7 @@ const AddForm = ({ garageId }) => {
       .post(`http://localhost:4000/api/repair/create/${garageId}`, record)
       .then((response) => {
         console.log("Data sent to repair:", response.data);
+        window.location.reload();
       })
       .catch((error) => console.error("Error sending data to repair:", error));
   };
