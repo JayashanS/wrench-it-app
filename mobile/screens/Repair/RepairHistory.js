@@ -61,10 +61,6 @@ const RepairHistory = () => {
   return (
     <ScrollView>  
       <View style={styles.container}>
-        <Text style={styles.header}>
-          <Icon name = "chevron-left" size = {24} color = {"white"}></Icon>
-          <Text style={styles.text}>Repair History</Text>
-        </Text>
 
         {repairData.map((item) => (
           <View key={item._id} style={styles.card}>
@@ -90,15 +86,6 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#f0f0f0'
   },
-  
-  header: {
-    marginBottom: 10,
-    width: 380,
-    height: 40,
-    marginVertical: 0,
-    color: '#FFFFFF',
-    backgroundColor: '#125C75'
-  },
 
   text:{
     fontSize: 24,
@@ -110,19 +97,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 10,
     padding: 15,
-    borderRadius: 5
-  },
+    borderRadius: 10
+    },
 
   title: {
+    color: '#1782A6',
     fontSize: 18,
     fontWeight: 'bold'
   },
 
   address: {
-    color: 'grey'
+    color: '#1782A6',
   },
 
   vehicle: {
+    color: 'gray',
     marginTop: 5
   },
 
@@ -131,19 +120,19 @@ const styles = StyleSheet.create({
   },
 
   fault: {
-    marginTop: 5
+    marginTop: 5,
+    fontWeight: 'bold'
   },
 
   button: {
     marginTop: 10,
-    backgroundColor: '#00f',
     paddingVertical: 10,
     borderRadius: 5
   },
 
   buttonText: {
-    color: '#fff',
-    textAlign: 'center',
+    color: '#1782A6',
+    textAlign: 'right',
     fontWeight: 'bold'
   }
 });
