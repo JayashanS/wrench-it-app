@@ -97,7 +97,7 @@ const Home_2 = () => {
   return (
     
     
-       <View style={styles.container}>
+       <ScrollView style={styles.container}>
       <View style={styles.mapContainer}>
         <MapView
           ref={mapViewRef}
@@ -198,14 +198,14 @@ const Home_2 = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     margin: 20,
   },
   map: {
@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   mapContainer: {
+    height:300,
     flex: 0.6,
     borderRadius: 10,
     backgroundColor: "#fff",
@@ -292,10 +293,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   cardTitle: {
-    fontSize: FontSize.large,
+    fontSize: FontSize.medium,
     fontFamily: Font.bold,
     color: Colors.black,
-    marginBottom: 5,
+    marginBottom: 4,
+    marginRight:1,
   },
   cardDescription: {
     fontSize: FontSize.small,
