@@ -4,7 +4,6 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 const Billing = () => {
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.header}>Billing</Text>
       
       <View style={styles.section}>
         <Text style={styles.title}>Review Auto Care</Text>
@@ -46,11 +45,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingTop: 20,
     backgroundColor: '#fff',
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
   },
   section: {
     marginBottom: 20,
