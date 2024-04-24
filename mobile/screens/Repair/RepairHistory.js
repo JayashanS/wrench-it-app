@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from '@react-navigation/native';
 
 const RepairHistory = () => {
+  const navigation = useNavigation();
+
   const historyData = [
     {
       id: 1,
@@ -55,8 +57,9 @@ const RepairHistory = () => {
     }
   };
 
-
-
+  const goToBilling = () => {
+    navigation.navigate('Billing'); 
+  };
 
   return (
     <ScrollView>  
@@ -70,7 +73,7 @@ const RepairHistory = () => {
             <Text style={styles.date}>Started On {new Date(item.date).toLocaleDateString()}</Text>
             <Text style={styles.fault}>Fault: {item.fault}</Text>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={goToBilling}>
               <Text style={styles.buttonText}>View Billing</Text>
             </TouchableOpacity>
           </View>
