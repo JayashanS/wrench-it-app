@@ -22,18 +22,20 @@ const Billing = () => {
         </View>
 
         <View style={styles.parts}>
-          <Text style={{fontWeight:'bold'}}>Parts Replaced:</Text>
+          <Text style={{color:'gray', fontWeight:'bold'}}>Parts Replaced:</Text>
           {['Part 1', 'Part 2', 'Part 3', 'Part 4'].map((part, index) => (
             <Text key={index}>{part}: $5.00</Text>
           ))}
         </View>
 
         <View style={styles.services}>
-          <Text style={{fontWeight: 'bold'}}>Services and Charges:</Text>
+          <Text style={{color:'gray' , fontWeight: 'bold'}}>Services and Charges:</Text>
           {['Service 1', 'Service 2', 'Service 3', 'Service 4'].map((service, index) => (
             <Text key={index}>{service}: $5.00</Text>
           ))}
-          <Text>Total Cost: $40.00</Text>
+        </View>
+        <View style={{borderTopColor:'#1782A6',borderTopWidth:2}}>
+          <Text style={{fontWeight: 'bold'}}>Total Cost: $40.00</Text>
         </View>
       </View>
     </ScrollView>
