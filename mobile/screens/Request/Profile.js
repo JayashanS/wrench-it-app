@@ -105,7 +105,7 @@ const ProfileScreen = () => {
 
         <View style={styles.searchContainer}>
           <TouchableOpacity>
-            <Feather name="search" size={20} style={styles.searchIcon} />
+          <Ionicons name="search-sharp" size={20} color="gray" />
           </TouchableOpacity>
           <View style={styles.searchWrapper}>
             <TextInput
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
   searchIcon: {
     marginHorizontal: 10,
     color: "gray",
-    marginTop: 5,
+    marginTop: 0,
   },
 
   searchWrapper: {
@@ -508,7 +508,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F1EEFF",
     borderRadius: 10,
     marginVertical: 1,
-    padding: 20,
+    padding: 10,
     width: "95%",
     alignSelf: "center",
     paddingBottom: 5,
