@@ -138,7 +138,7 @@ const EditProfile=()=>{
               throw new Error("Failed to retrieve uploaded photo.");
             }
           } catch (error) {
-            console.error("Error uploading photo:", error);
+            //console.error("Error uploading photo:", error);
           }
         }
       

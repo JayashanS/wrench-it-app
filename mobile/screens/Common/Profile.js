@@ -17,6 +17,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ReservationScreen from "../Reservations/Reservation";
+import axios from 'axios';
+
 
 
 
@@ -35,6 +37,7 @@ const ProfileScreen = () => {
 
   const [email, setEmail] = useState("");
   const [displayUrl,setDisplayUrl]=useState("");
+  const [name, setName] = useState("");
 
 useEffect(() => {
   const fetchEmailFromAsyncStorage = async () => {
@@ -63,11 +66,12 @@ useEffect(() => {
         throw new Error("Failed to retrieve uploaded photo.");
       }
     } catch (error) {
-      console.error("Error uploading photo:", error);
+      //console.error("Error uploading photo:", error);
     }
   }
 
   getImage();
+  fetchName(email);
 }, [email]);
   
   
@@ -91,6 +95,21 @@ useEffect(() => {
   const handleContactUs = () => {
     navigation.navigate("Contact");
   };
+
+  
+
+  const fetchName = async (email) => {
+    try {
+      const response = await axios.get(`http://${process.env.EXPO_PUBLIC_IP}:4000/api/user/${email}`);
+      const responseData = response.data;
+      setName(`${responseData.fname} `);
+      
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  
+
   
   
   
@@ -114,7 +133,13 @@ useEffect(() => {
         </View>
 
         <View style={styles.customerNameCon1}>
-          <Text style={styles.customerNameCon2}>K.K.S.Silva</Text>
+          
+            <TouchableOpacity onPress={fetchName}>
+              <Text style={styles.customerNameCon2}>{name}</Text>
+            </TouchableOpacity>
+
+         
+          <Text style={styles.customerNameCon2}>0778149714</Text>
          
         </View>
       </View>
